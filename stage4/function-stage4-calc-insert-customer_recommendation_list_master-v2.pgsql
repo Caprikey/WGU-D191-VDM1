@@ -255,7 +255,7 @@ CREATE OR REPLACE FUNCTION staging.f_vdm1_stage4_calc_insert_customer_recommenda
 			, a.film_id
 			, b.film_category_rank
 			, b.total_rentals
-		FROM staging.vdm1_stage4_customer_recommendation_list_master a
+		FROM staging.vdm1_stage4_customer_film_category a
 			LEFT JOIN 
 				staging.vdm1_stage4_film_category_popularity b
 					ON b.film_id = a.film_id 
