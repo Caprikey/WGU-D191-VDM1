@@ -1,0 +1,75 @@
+Stage 1 
+
+    Extract from Public
+        Tables
+            customer
+            address
+            city
+            country
+
+            store
+            
+            film
+            film_category
+            language
+
+            rental
+            inventory
+        Types
+            mpaa_rating
+
+Stage 2
+    location details
+        address
+        city
+        country
+    
+    films
+        film
+        film_category
+
+    rentals
+        inventory
+        films
+
+    customers
+        customer
+        locationdetails
+
+    stores
+        store
+        location details
+
+
+    dictkey
+        category
+        city
+        country
+        language
+
+    create 
+        genre_count_init table 
+        
+        film_rank
+
+    delete 
+        customer
+        store
+        film
+        film_category
+        rental 
+        inventory 
+
+
+
+stage 1
+    extract
+stage 2
+    load \\ combined and delete and create 
+stage 3
+    modify add \ delete columns 
+stage 4
+    transform / calculate 
+stage 5 
+    load 
+
