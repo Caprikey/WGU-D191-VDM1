@@ -10,7 +10,7 @@ CREATE OR REPLACE FUNCTION staging.f_vdm1_stage4_calc_update_customer_category_h
 				  customer_id
 				, category_id
 				, COUNT(category_id) as historical_rental_count
-			FROM staging.vdm1_stage4_customer_watch_history
+			FROM staging.vdm1_stage4_customer_watch_history_details
 			GROUP BY 
 				customer_id, category_id
 			ORDER BY 

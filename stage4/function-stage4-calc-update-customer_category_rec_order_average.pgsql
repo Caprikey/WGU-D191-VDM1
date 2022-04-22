@@ -28,9 +28,10 @@ CREATE OR REPLACE FUNCTION staging.f_vdm1_stage4_calc_update_customer_category_r
 						5		
 				END as cat_rank_number
 				*/
-                , ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY average_rental_count DESC) as recommendation_order_average
+                , ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY average_rental_count DESC, b.total_rentals DESC) as recommendation_order_average
                 
 			FROM staging.vdm1_stage4_customer_category
+				INNER JOIN staging.vdm1_stage4_category_popularity_count AS b
 		)
 
 		UPDATE staging.vdm1_stage4_customer_category a
