@@ -15,7 +15,7 @@ CREATE OR REPLACE FUNCTION staging.f_vdm1_stage2_cleanup()
 
 		DROP TABLE IF EXISTS staging.vdm1_stage1_film_category;
 		
-		DROP TABLE IF EXISTS staging.vdm1_stage1_inventory;
+		-- DROP TABLE IF EXISTS staging.vdm1_stage1_inventory;
 		
 		DROP TABLE IF EXISTS staging.vdm1_stage1_rental;
 		
@@ -41,9 +41,16 @@ CREATE OR REPLACE FUNCTION staging.f_vdm1_stage2_cleanup()
 
         -- #### #### #### #### #### #### #### #### 
 
-		ALTER TABLE IF EXISTS staging.vdm1_stage2_film_inventory
-			RENAME TO vdm1_stage3_film_inventory;
+		-- ALTER TABLE IF EXISTS staging.vdm1_stage2_film_inventory
+			-- RENAME TO vdm1_stage3_film_inventory;
+        
+		-- #### #### #### #### #### #### #### #### 
 
+		ALTER TABLE IF EXISTS staging.vdm1_stage1_inventory
+			RENAME TO vdm1_stage3_film_inventory;
+		
+		-- #### #### #### #### #### #### #### #### 
+		
 		ALTER TABLE IF EXISTS staging.vdm1_stage2_film_category
 			RENAME TO vdm1_stage3_film_category;
 

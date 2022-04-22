@@ -75,6 +75,7 @@ CREATE OR REPLACE FUNCTION staging.f_vdm1_stage3_table_changes()
 		-- #### #### #### #### #### #### #### #### 
 
 		ALTER TABLE IF EXISTS staging.vdm1_stage3_film_inventory
+			DROP COLUMN IF EXISTS last_update,
 			ADD COLUMN life_cycle INTEGER NOT NULL DEFAULT 0,
 			ADD COLUMN new_release BOOLEAN NOT NULL DEFAULT FALSE,
 			ADD COLUMN inspect_flag BOOLEAN NOT NULL DEFAULT FALSE,

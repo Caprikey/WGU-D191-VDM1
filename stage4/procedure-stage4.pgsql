@@ -4,6 +4,8 @@ CREATE OR REPLACE PROCEDURE staging.vdm1_stage4()
 	
 	BEGIN 
 	
+		PERFORM staging.f_vdm1_stage4_calc_update_customer_watch_history_row_number();
+
 		PERFORM staging.f_vdm1_stage4_calc_update_category_popularity_count();
 
 		-- PERFORM staging.f_vdm1_stage4_city_rental_count();
@@ -56,7 +58,7 @@ CREATE OR REPLACE PROCEDURE staging.vdm1_stage4()
 
 		PERFORM staging.f_vdm1_stage4_calc_update_film_category_popularity_row_number();
 
-		PERFORM staging.f_vdm1_stage4_calc_update_customer_watch_history_row_number();
+		-- PERFORM staging.f_vdm1_stage4_calc_update_customer_watch_history_row_number();
 
 		-- #### #### #### #### 
 

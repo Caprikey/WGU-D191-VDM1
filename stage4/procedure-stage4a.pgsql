@@ -4,6 +4,10 @@ CREATE OR REPLACE PROCEDURE staging.vdm1_stage4a()
 
 	
 	BEGIN 
+
+		PERFORM staging.f_vdm1_stage4_calc_update_customer_watch_history_row_number();
+
+		-- #### #### #### #### 
 	
 		PERFORM staging.f_vdm1_stage4_calc_update_category_popularity_count();
 

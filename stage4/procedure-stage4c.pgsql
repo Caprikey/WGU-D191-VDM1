@@ -5,6 +5,8 @@ CREATE OR REPLACE PROCEDURE staging.vdm1_stage4c()
 	
 	BEGIN 
         
+
+		
         -- #### #### #### #### 
 
 
