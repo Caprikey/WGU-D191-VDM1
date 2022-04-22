@@ -1,3 +1,5 @@
+-- MIGRATING TO STAGE 5
+
 CREATE OR REPLACE FUNCTION staging.f_vdm1_stage4_datestamp()
     RETURNS VOID
     LANGUAGE plpgsql
@@ -34,7 +36,7 @@ CREATE OR REPLACE FUNCTION staging.f_vdm1_stage4_datestamp()
 		ALTER TABLE IF EXISTS staging.vdm1_stage4_new_releases
 			ADD COLUMN generated_date DATE DEFAULT CURRENT_DATE;
 
-		ALTER TABLE IF EXISTS staging.vdm1_stage4_category_count_init
+		ALTER TABLE IF EXISTS staging.vdm1_stage4_category_popularity_count
             ADD COLUMN generated_date DATE DEFAULT CURRENT_DATE;
         
         -- #### #### #### #### 

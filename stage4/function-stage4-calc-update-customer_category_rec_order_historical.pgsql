@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION staging.f_vdm1_stage4_calc_update_customer_category_recommendation_order_historical()
+CREATE OR REPLACE FUNCTION staging.f_vdm1_stage4_calc_update_customer_category_recorder_historical()
 	RETURNS VOID
 	LANGUAGE plpgsql
 	AS $vdm1_stage4_calc_update_customer_category_rec_order_historical$

@@ -43,11 +43,12 @@ CREATE OR REPLACE FUNCTION staging.f_vdm1_stage3_cleanup()
 		ALTER TABLE IF EXISTS staging.vdm1_stage3_new_releases
 			RENAME TO vdm1_stage4_new_releases;
 		
-		ALTER TABLE IF EXISTS staging.vdm1_stage3_customer_recommendation_list_master
-			RENAME TO vdm1_stage4_customer_recommendation_list_master;
+		ALTER TABLE IF EXISTS staging.vdm1_stage3_customer_reclist_master_nonspecific
+			RENAME TO vdm1_stage4_customer_reclist_master_nonspecific;
 
-		ALTER TABLE IF EXISTS staging.vdm1_stage3_customer_recommendation_list_summary
-			RENAME TO vdm1_stage4_customer_recommendation_list_summary;
+		ALTER TABLE IF EXISTS staging.vdm1_stage3_customer_reclist_master_specific
+			RENAME TO vdm1_stage4_customer_reclist_master_specific;
+
 
         ALTER TABLE IF EXISTS staging.vdm1_stage3_category_count_init
             RENAME TO vdm1_stage4_category_popularity_count;

@@ -1,26 +1,27 @@
-CREATE OR REPLACE FUNCTION staging.f_vdm1_stage4_calc_insert_customer_recommendation_list_master()
+CREATE OR REPLACE FUNCTION staging.f_vdm1_stage4_calc_insert_customer_reclist_master_v2()
     RETURNS VOID
 	LANGUAGE plpgsql
 	AS $vdm1_stage4_calc_insert_customer_rec_list_master$
 
 	BEGIN 
 
-    TRUNCATE TABLE staging.vdm1_stage4_customer_recommendation_list_master;
+    -- TRUNCATE TABLE staging.vdm1_stage4_customer_recommendation_list_master;
+
+    -- TRUNCATE TABLE staging.vdm1_stage4_customer_recommendation_list_master;
 
     INSERT INTO staging.vdm1_stage4_customer_recommendation_list_master(
 
 			  customer_id
-			-- , category_rank_number
-            --, recommendation_order_historical
 			, film_rank
             , category_id
-			, rec_order
+			, film_rec_order
 			, film_id
 			, film_category_rank
 			, total_rentals
 		)	
 
-	/*
+
+/*
     WITH get_s_list AS (SELECT 
     	  a.customer_id
     	-- , a.category_rank
@@ -223,7 +224,7 @@ CREATE OR REPLACE FUNCTION staging.f_vdm1_stage4_calc_insert_customer_recommenda
     	-- , category_rank_number
     	, recommendation_order_historical
     	, film_id
-    	, category_id
+    	, category_idA
     	, total_rentals
     	-- , film_rank
     	, film_category_rank
@@ -233,7 +234,7 @@ CREATE OR REPLACE FUNCTION staging.f_vdm1_stage4_calc_insert_customer_recommenda
     	--  category_id
     	-- , count(distinct category_id) 
     FROM list_build
-    	-- WHERE customer_id = 1 
+    	-- WHERE customer_id = 1
     -- GROUP BY 
     	-- customer_id
     	-- category_id
@@ -243,6 +244,7 @@ CREATE OR REPLACE FUNCTION staging.f_vdm1_stage4_calc_insert_customer_recommenda
     	customer_id, (recommendation_order_historical, category_id)
     )
     */
+	
     
 
 
@@ -265,8 +267,13 @@ CREATE OR REPLACE FUNCTION staging.f_vdm1_stage4_calc_insert_customer_recommenda
 	)
     
     SELECT
-    	  *
-    	, ROW_NUMBER() OVER (PARTITION BY customer_id, category_id ORDER BY film_rank) as rec_order
+	      customer_id
+	    , film_rank
+	    , category_id
+        , ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY film_rank) as film_rec_order
+        , film_id
+		, film_category_rank
+	    , total_rentals
     FROM get_customer_film_cat_x_film_cat_pop;
 
 

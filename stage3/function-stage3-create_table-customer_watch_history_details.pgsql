@@ -10,8 +10,8 @@ CREATE TABLE staging.vdm1_stage3_customer_watch_history_details AS (
 
 	SELECT 
 		  a.customer_id
-		, b.city_id
-		, b.country_id
+		-- , b.city_id
+		-- , b.country_id
 		, a.rental_id
 		, a.inventory_id
 		, a.film_id

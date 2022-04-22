@@ -26,9 +26,9 @@ CREATE OR REPLACE PROCEDURE staging.vdm1_stage3()
 		
 		-- PERFORM staging.f_vdm1_stage3_create_table_customer_watch_history_array();
 
-        PERFORM staging.f_vdm1_stage3_create_table_cx_rec_list_master();
+        PERFORM staging.f_vdm1_stage3_create_table_cx_reclist_master_nonspecific();
 
-		PERFORM staging.f_vdm1_stage3_create_table_cx_rec_list_summary();
+		PERFORM staging.f_vdm1_stage3_create_table_cx_reclist_master_specific();
 
         PERFORM staging.f_vdm1_stage3_create_table_customer_rec_custom_preferences();
 

@@ -5,7 +5,7 @@ CREATE OR REPLACE FUNCTION staging.f_vdm1_stage4_calc_insert_cobbwebbed_film_inv
 	
 	BEGIN 
 
-		TRUNCATE TABLE staging.vdm1_stage4_cobbwebbed_film_inventory;
+		-- TRUNCATE TABLE staging.vdm1_stage4_cobbwebbed_film_inventory;
 
 
 		INSERT INTO staging.vdm1_stage4_cobbwebbed_film_inventory(

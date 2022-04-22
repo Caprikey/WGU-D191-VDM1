@@ -5,7 +5,7 @@ CREATE OR REPLACE FUNCTION staging.f_vdm1_stage4_calc_insert_failed_returns_v2()
 	
 	BEGIN  
     
-        TRUNCATE TABLE staging.vdm1_stage4_failed_returns;
+        -- TRUNCATE TABLE staging.vdm1_stage4_failed_returns;
             
 		INSERT INTO staging.vdm1_stage4_failed_returns(
 

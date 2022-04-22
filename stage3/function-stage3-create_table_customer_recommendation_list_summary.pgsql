@@ -1,11 +1,11 @@
-CREATE OR REPLACE FUNCTION staging.f_vdm1_stage3_create_table_cx_rec_list_summary()
+CREATE OR REPLACE FUNCTION staging.f_vdm1_stage3_create_table_cx_reclist_master_specific()
 	RETURNS VOID
 	LANGUAGE plpgsql
-	AS $vdm1_stage3_create_table_ccustomer_recommendation_list_summary$
+	AS $vdm1_stage3_create_table_customer_reclist_master_specific$
 	
 	BEGIN 
 	
-	CREATE TABLE staging.vdm1_stage3_customer_recommendation_list_summary (
+	CREATE TABLE staging.vdm1_stage3_customer_reclist_master_specific (
 
 
 			  customer_id INTEGER NOT NULL 
@@ -17,4 +17,4 @@ CREATE OR REPLACE FUNCTION staging.f_vdm1_stage3_create_table_cx_rec_list_summar
             , total_rentals INTEGER NOT NULL
 	);
 	END;
-$vdm1_stage3_create_table_ccustomer_recommendation_list_summary$;
+$vdm1_stage3_create_table_customer_reclist_master_specific$;

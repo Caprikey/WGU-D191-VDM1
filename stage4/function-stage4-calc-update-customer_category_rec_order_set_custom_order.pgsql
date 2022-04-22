@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION staging.f_vdm1_stage4_calc_update_customer_category_set_custom_order()
+CREATE OR REPLACE FUNCTION staging.f_vdm1_stage4_calc_update_cuscat_recorder_set_custom_order()
 	RETURNS VOID
 	LANGUAGE plpgsql
 	AS $vdm1_stage4_calc_update_customer_category_recommendation_order_user_set_custom_pref$

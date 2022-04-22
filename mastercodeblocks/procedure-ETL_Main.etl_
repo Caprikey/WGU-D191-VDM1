@@ -1,0 +1,27 @@
+CREATE OR REPLACE PROCEDURE staging.vdm1_etl_main()
+	LANGUAGE plpgsql
+	AS $etl_main_run$
+	
+	BEGIN 
+
+		CALL staging.vdm1_stage1();
+
+		CALL staging.vdm1_stage2();
+
+		CALL staging.vdm1_stage3();
+
+        -- DISABLING MAIN RUN DUE TO PERFORMANCE/TIME IMPACT
+        -- CALL staging.vdm1_stage4();
+
+            -- STAGE 4 HAS BEEN SPLIT INTO 3 SUBPARTS TO ASSIST WITH PERFORMANCE IMPACT
+            CALL staging.vdm1_stage4a();
+
+            CALL staging.vdm1_stage4b();
+
+            CALL staging.vdm1_stage4c();
+
+        -- CALL staging.vdm1_stage5();
+
+	END;
+$etl_main_run$;
+	
