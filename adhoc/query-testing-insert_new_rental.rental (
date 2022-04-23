@@ -1,0 +1,13 @@
+INSERT INTO public.rental (
+		  rental_date
+		, inventory_id
+		, customer_id
+		, return_date
+		, staff_id
+	) VALUES (
+		  '2006-06-05'
+		, 4582
+		, 600
+		, '2006-07-21'
+		, 2
+	)
