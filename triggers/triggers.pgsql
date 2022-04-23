@@ -78,16 +78,25 @@ CREATE OR REPLACE TRIGGER t_f_insert_new_customer
     EXECUTE FUNCTION marketing.t_f_insert_new_customer();
 
 -- #### #### #### #### #### #### #### #### 
--- ABOVE THIS LINE, TESTED AND WORKING
--- BELOW THIS LINE, NEED TO CREATE AND TEST
-
--- #### #### #### #### #### #### #### #### 
 
 CREATE OR REPLACE TRIGGER insert_new_category
     AFTER INSERT
     ON public.category
     FOR EACH ROW
     EXECUTE FUNCTION marketing.t_f_insert_new_category();
+
+-- #### #### #### #### #### #### #### #### 
+
+-- ABOVE THIS LINE, TESTED AND WORKING
+-- BELOW THIS LINE, NEED TO CREATE AND TEST
+
+-- #### #### #### #### #### #### #### #### 
+
+CREATE OR REPLACE TRIGGER insert_new_inventory
+    AFTER INSERT
+    ON public.inventory
+    FOR EACH ROW
+    EXECUTE FUNCTION marketing.t_f_insert_new_inventory();
 
 -- #### #### #### #### #### #### #### #### 
 
@@ -99,13 +108,6 @@ CREATE OR REPLACE TRIGGER insert_new_film
 
 -- #### #### #### #### #### #### #### #### 
 
-CREATE OR REPLACE TRIGGER insert_new_inventory
-    AFTER INSERT
-    ON public.inventory
-    FOR EACH ROW
-    EXECUTE FUNCTION marketing.t_f_insert_new_inventory();
-
--- #### #### #### #### #### #### #### #### 
 
 CREATE OR REPLACE TRIGGER update_rental_return
     AFTER UPDATE
@@ -123,19 +125,19 @@ CREATE OR REPLACE TRIGGER update_customer_status
 
 -- #### #### #### #### #### #### #### #### 
 
-CREATE OR REPLACE TRIGGER update_customer_rec_custom_preferences
-    AFTER UPDATE
-    ON marking.customer_rec_custom_preferences
-    FOR EACH ROW
-    EXECUTE FUNCTION marketing.t_f_update_customer_rec_custom_preferences();
-
--- #### #### #### #### #### #### #### #### 
-
 CREATE OR REPLACE TRIGGER insert_customer_rec_custom_preferences
     AFTER INSERT
     ON marking.customer_rec_custom_preferences
     FOR EACH ROW
     EXECUTE FUNCTION marketing.t_f_insert_customer_rec_custom_preferences();
+
+-- #### #### #### #### #### #### #### #### 
+
+CREATE OR REPLACE TRIGGER update_customer_rec_custom_preferences
+    AFTER UPDATE
+    ON marking.customer_rec_custom_preferences
+    FOR EACH ROW
+    EXECUTE FUNCTION marketing.t_f_update_customer_rec_custom_preferences();
 
 -- #### #### #### #### #### #### #### #### 
 

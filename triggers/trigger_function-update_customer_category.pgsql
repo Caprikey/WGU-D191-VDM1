@@ -37,7 +37,7 @@ CREATE OR REPLACE FUNCTION marketing.t_f_update_customer_category()
 			SELECT 
 				  a.customer_id
 				, a.category_id
-				, ROW_NUMBER() OVER (ORDER BY a.historical_rental_count DESC, b.total_rentals) as recommendation_order_historical
+				, ROW_NUMBER() OVER (ORDER BY a.historical_rental_count DESC, b.total_rentals DESC) as recommendation_order_historical
 
 			FROM marketing.customer_category AS a
 				INNER JOIN marketing.category_popularity AS b 

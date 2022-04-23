@@ -18,6 +18,8 @@ CREATE OR REPLACE FUNCTION marketing.t_f_update_category_popularity()
 		-- #### #### #### #### #### #### #### #### 
 
 		
+
+		
 		-- #### #### #### #### 
 		
 			RETURN NEW;
