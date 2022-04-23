@@ -39,6 +39,31 @@ CREATE OR REPLACE TRIGGER update_inventory_maintenance
 -- #### #### #### #### #### #### #### #### 
 
 
+CREATE OR REPLACE TRIGGER t_f_update_customer_reclist_master_nonspecific
+    AFTER INSERT
+    ON marketing.customer_watch_history_detailed
+    FOR EACH ROW
+    EXECUTE FUNCTION marketing.t_f_update_customer_reclist_master_nonspecific();
+
+-- #### #### #### #### #### #### #### #### 
+
+CREATE OR REPLACE TRIGGER t_f_update_customer_reclist_master_specific
+    AFTER INSERT
+    ON marketing.customer_watch_history_detailed
+    FOR EACH ROW
+    EXECUTE FUNCTION marketing.t_f_update_customer_reclist_master_specific();
+
+-- #### #### #### #### #### #### #### #### 
+
+-- ABOVE THIS LINE, TESTED AND WORKING
+
+-- #### #### #### #### #### #### #### #### 
+
+CREATE OR REPLACE TRIGGER insert_new_customer
+    AFTER INSERT
+    ON public.customer
+    FOR EACH ROW
+    EXECUTE FUNCTION marketing.t_f_insert_new_customer();
 
 -- #### #### #### #### #### #### #### #### 
 
