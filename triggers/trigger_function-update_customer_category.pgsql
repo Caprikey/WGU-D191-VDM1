@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION t_f_update_customer_category()
+CREATE OR REPLACE FUNCTION marketing.t_f_update_customer_category()
 	RETURNS TRIGGER
 	LANGUAGE plpgsql
 	AS $trigger_function_update_customer_category$

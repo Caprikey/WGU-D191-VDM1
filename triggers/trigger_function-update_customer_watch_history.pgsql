@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION t_f_insert_customer_watch_history()
+CREATE OR REPLACE FUNCTION marketing.t_f_insert_customer_watch_history()
 	RETURNS TRIGGER
 	LANGUAGE plpgsql
 	AS $trigger_function_insert_customer_watch_history$
