@@ -55,11 +55,6 @@ CREATE OR REPLACE TRIGGER t_f_update_customer_reclist_master_specific
 
 -- #### #### #### #### #### #### #### #### 
 
--- ABOVE THIS LINE, TESTED AND WORKING
--- BELOW THIS LINE, NEED TO CREATE AND TEST
-
--- #### #### #### #### #### #### #### #### 
-
 CREATE OR REPLACE update_customer_reclist_master_nonspecific
     AFTER INSERT
     ON marketing.customer_reclist_master_nonspecific
@@ -74,14 +69,17 @@ CREATE OR REPLACE update_customer_reclist_master_specific
     FOR EACH ROW
     EXECUTE FUNCTION marketing.t_f_update_customer_reclist_summary_specific
 
-
 -- #### #### #### #### #### #### #### #### 
 
-CREATE OR REPLACE TRIGGER insert_new_customer
+CREATE OR REPLACE TRIGGER t_f_insert_new_customer
     AFTER INSERT
     ON public.customer
     FOR EACH ROW
     EXECUTE FUNCTION marketing.t_f_insert_new_customer();
+
+-- #### #### #### #### #### #### #### #### 
+-- ABOVE THIS LINE, TESTED AND WORKING
+-- BELOW THIS LINE, NEED TO CREATE AND TEST
 
 -- #### #### #### #### #### #### #### #### 
 
