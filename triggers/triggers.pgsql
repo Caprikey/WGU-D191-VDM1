@@ -22,10 +22,21 @@ CREATE OR REPLACE TRIGGER insert_new_category
 
 -- #### #### #### #### #### #### #### #### 
 
+CREATE OR REPLACE TRIGGER insert_new_inventory
+    AFTER INSERT
+    ON public.inventory
+    FOR EACH ROW
+    EXECUTE FUNCTION marketing.t_f_insert_new_inventory();
+
+-- #### #### #### #### #### #### #### #### 
+
+-- #### #### #### #### #### #### #### #### 
+
 -- PUBLIC TABLE TRIGGERS ABOVE
 -- MARKETING TABLE TRIGGERS BELOW
 
 -- #### #### #### #### #### #### #### #### 
+
 CREATE OR REPLACE TRIGGER update_customer_category
 	AFTER INSERT 
     ON marketing.customer_watch_history_detailed
@@ -76,14 +87,6 @@ CREATE OR REPLACE TRIGGER update_customer_reclist_master_specific
 
 -- ABOVE THIS LINE, TESTED AND WORKING
 -- BELOW THIS LINE, NEED TO CREATE AND TEST
-
--- #### #### #### #### #### #### #### #### 
-
-CREATE OR REPLACE TRIGGER insert_new_inventory
-    AFTER INSERT
-    ON public.inventory
-    FOR EACH ROW
-    EXECUTE FUNCTION marketing.t_f_insert_new_inventory();
 
 -- #### #### #### #### #### #### #### #### 
 
