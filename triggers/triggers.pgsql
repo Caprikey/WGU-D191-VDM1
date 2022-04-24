@@ -92,7 +92,7 @@ CREATE OR REPLACE TRIGGER update_customer_reclist_master_specific
 
 CREATE OR REPLACE TRIGGER insert_new_film
     AFTER INSERT
-    ON public.film
+    ON public.film_category
     FOR EACH ROW
     EXECUTE FUNCTION marketing.t_f_insert_new_film();
 
