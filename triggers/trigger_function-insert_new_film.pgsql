@@ -13,6 +13,7 @@ CREATE OR REPLACE FUNCTION marketing.t_f_insert_new_film()
             , total_rentals 
             , film_rank
             , film_category_rank
+            , new_release
         )
 
 
@@ -33,7 +34,8 @@ CREATE OR REPLACE FUNCTION marketing.t_f_insert_new_film()
             , category_id
             , 0
             , null
-            , null 
+            , null
+            , true
         FROM
             get_film_category;
 
@@ -59,6 +61,7 @@ CREATE OR REPLACE FUNCTION marketing.t_f_insert_new_film()
                 marketing.film_category_popularity AS a 
                     LEFT JOIN marketing.category_popularity AS b 
                         ON b.category_id = a.category_id
+        )
         
         UPDATE marketing.film_category_popularity AS a
 
@@ -113,27 +116,12 @@ CREATE OR REPLACE FUNCTION marketing.t_f_insert_new_film()
 
 		-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
-        UPDATE marketing.customer_reclist_master_nonspecific
-
-        SET
-              film_rec_order = null 
-            -- , film_rank = null
-            -- , film_category_rank = null;
-
-
-        -- #### #### #### #### 
-
-        -- NEED TO CLEAR FILM RANK AND READD
-
-		-- #### #### #### #### #### #### #### ####
 
         INSERT INTO marketing.customer_reclist_master_nonspecific (
             
               customer_id 
-            , film_rank 
             , category_id
             , film_id
-            , film_category_rank
             , total_rentals
         )
 
@@ -141,10 +129,8 @@ CREATE OR REPLACE FUNCTION marketing.t_f_insert_new_film()
         WITH get_film_category_details AS (
 
             SELECT 
-                  film_rank
-                , category_id
+                  category_id
                 , film_id
-                , film_category_rank
                 , total_rentals 
             FROM 
                 marketing.film_category_popularity
@@ -163,10 +149,8 @@ CREATE OR REPLACE FUNCTION marketing.t_f_insert_new_film()
             
             SELECT
                   b.customer_id
-                , a.film_rank
                 , a.category_id
                 , a.film_id
-                , a.film_category_rank
                 , a.total_rentals
 
             FROM
@@ -177,10 +161,8 @@ CREATE OR REPLACE FUNCTION marketing.t_f_insert_new_film()
 
         SELECT 
               customer_id
-            , film_rank
             , category_id
             , film_id
-            , film_category_rank
             , total_rentals
         
         FROM 
@@ -188,17 +170,37 @@ CREATE OR REPLACE FUNCTION marketing.t_f_insert_new_film()
 
    		-- #### #### #### #### #### #### #### ####  
 
-		WITH get_customer_reclist_master_nonspecific_values AS (
+        UPDATE marketing.customer_reclist_master_nonspecific
+
+        SET
+              film_rec_order = null 
+            , film_rank = null
+            , film_category_rank = null;
+
+		-- #### #### #### #### #### #### #### ####
+
+        WITH get_updated_film_ranks AS (
+
+            SELECT
+                  film_id
+                , film_rank
+                , film_category_rank
+            FROM
+                marketing.film_category_popularity
+        ), get_customer_reclist_master_nonspecific_values AS (
 
 			SELECT
-				  customer_id
-				, film_rank
-				, category_id
-				, film_id
-				, film_category_rank
-				, total_rentals
+				  a.customer_id
+				, b.film_rank
+				, a.category_id
+				, a.film_id
+				, b.film_category_rank
+				, a.total_rentals
 			FROM 
-                marketing.customer_reclist_master_nonspecific
+                marketing.customer_reclist_master_nonspecific AS a
+                    LEFT JOIN 
+                        marketing.film_category_popularity AS b
+                            ON b.film_id = a.film_id
         )
         , assign_rental_rec_row_number AS (
 
@@ -215,7 +217,10 @@ CREATE OR REPLACE FUNCTION marketing.t_f_insert_new_film()
 
         UPDATE marketing.customer_reclist_master_nonspecific AS a
 
-		SET film_rec_order = b.rental_rec_order_rn
+		SET 
+              film_rank = b.film_rank
+            , film_rec_order = b.rental_rec_order_rn
+            , film_category_rank = b.film_category_rank
 
 		FROM assign_rental_rec_row_number AS b
 
@@ -329,7 +334,22 @@ CREATE OR REPLACE FUNCTION marketing.t_f_insert_new_film()
 			
 		-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
+        INSERT INTO marketing.new_releases(
+              film_id
+            , status
+        )
 
+        SELECT
+              film_id
+            , true
+        FROM 
+            marketing.film_category_popularity
+
+        WHERE
+            film_id = NEW.film_id;
+
+
+  		-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####           
 		
 		-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 

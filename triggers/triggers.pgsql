@@ -30,6 +30,31 @@ CREATE OR REPLACE TRIGGER insert_new_inventory
 
 -- #### #### #### #### #### #### #### #### 
 
+CREATE OR REPLACE TRIGGER update_rental_return
+    AFTER UPDATE
+    ON public.rental
+    FOR EACH ROW
+    EXECUTE FUNCTION marketing.t_f_update_rental_return();
+
+-- #### #### #### #### #### #### #### #### 
+
+CREATE OR REPLACE TRIGGER insert_failed_return
+    AFTER INSERT
+    ON public.rental
+    FOR EACH ROW
+    EXECUTE FUNCTION marketing.t_f_insert_failed_return();
+
+-- #### #### #### #### #### #### #### #### 
+
+CREATE OR REPLACE TRIGGER insert_new_film
+    AFTER INSERT
+    ON public.film_category
+    FOR EACH ROW
+    EXECUTE FUNCTION marketing.t_f_insert_new_film();
+
+-- #### #### #### #### #### #### #### #### 
+
+
 -- #### #### #### #### #### #### #### #### 
 
 -- PUBLIC TABLE TRIGGERS ABOVE
@@ -85,26 +110,61 @@ CREATE OR REPLACE TRIGGER update_customer_reclist_master_specific
 
 -- #### #### #### #### #### #### #### #### 
 
+CREATE OR REPLACE TRIGGER update_new_release
+    AFTER UPDATE
+    ON marketing.film_category_popularity
+    FOR EACH ROW
+	WHEN ((OLD.new_release) IS DISTINCT FROM (NEW.new_release))
+    EXECUTE FUNCTION marketing.t_f_update_new_release();
+
+-- #### #### #### #### #### #### #### #### 
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+-- #### #### #### #### #### #### #### #### 
+
 -- ABOVE THIS LINE, TESTED AND WORKING
 -- BELOW THIS LINE, NEED TO CREATE AND TEST
 
 -- #### #### #### #### #### #### #### #### 
 
-CREATE OR REPLACE TRIGGER insert_new_film
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+-- ERRORS NEED TO BE CORRECTED. 
+
+
+
+CREATE OR REPLACE TRIGGER insert_update_customer_rec_custom_preferences
+    AFTER INSERT OR UPDATE 
+    ON marketing.customer_rec_custom_preferences
+    FOR EACH ROW
+    EXECUTE FUNCTION marketing.t_f_insert_update_customer_rec_custom_preferences();
+
+-- #### #### #### #### #### #### #### #### 
+
+CREATE OR REPLACE update_customer_reclist_master_nonspecific_summary
     AFTER INSERT
-    ON public.film_category
+    ON marketing.customer_reclist_master_nonspecific
     FOR EACH ROW
-    EXECUTE FUNCTION marketing.t_f_insert_new_film();
+    EXECUTE FUNCTION marketing.t_f_update_customer_reclist_summary_nonspecific
 
 -- #### #### #### #### #### #### #### #### 
 
-CREATE OR REPLACE TRIGGER update_rental_return
-    AFTER UPDATE
-    ON public.rental
+CREATE OR REPLACE update_customer_reclist_master_specific_summary
+    AFTER INSERT
+    ON marketing.customer_reclist_master_specific
     FOR EACH ROW
-    EXECUTE FUNCTION marketing.t_f_update_failed_returns();
+    EXECUTE FUNCTION marketing.t_f_update_customer_reclist_summary_specific
 
 -- #### #### #### #### #### #### #### #### 
+
+-- #### #### #### #### #### #### #### ####  #### #### #### #### #### #### #### #### 
+
+-- NOT NEEDED BELOW
+
+-- #### #### #### #### #### #### #### ####  #### #### #### #### #### #### #### #### 
+
+-- CUSTOMER STATUS IS NO LONGER BEING STORED IN ANY TABLE THAT I WILL BE LOCALLY SAVING CUSTOMER STATUS
 
 CREATE OR REPLACE TRIGGER update_customer_status
     AFTER UPDATE
@@ -114,34 +174,12 @@ CREATE OR REPLACE TRIGGER update_customer_status
 
 -- #### #### #### #### #### #### #### #### 
 
-CREATE OR REPLACE TRIGGER insert_customer_rec_custom_preferences
-    AFTER INSERT
-    ON marketing.customer_rec_custom_preferences
-    FOR EACH ROW
-    EXECUTE FUNCTION marketing.t_f_insert_customer_rec_custom_preferences();
-
--- #### #### #### #### #### #### #### #### 
+-- NOT NEEDED - JOINED TO INSERT TRIGGER
 
 CREATE OR REPLACE TRIGGER update_customer_rec_custom_preferences
     AFTER UPDATE
     ON marketing.customer_rec_custom_preferences
     FOR EACH ROW
     EXECUTE FUNCTION marketing.t_f_update_customer_rec_custom_preferences();
-
--- #### #### #### #### #### #### #### #### 
-
-CREATE OR REPLACE update_customer_reclist_master_nonspecific
-    AFTER INSERT
-    ON marketing.customer_reclist_master_nonspecific
-    FOR EACH ROW
-    EXECUTE FUNCTION marketing.t_f_update_customer_reclist_summary_nonspecific
-
--- #### #### #### #### #### #### #### #### 
-
-CREATE OR REPLACE update_customer_reclist_master_specific
-    AFTER INSERT
-    ON marketing.customer_reclist_master_specific
-    FOR EACH ROW
-    EXECUTE FUNCTION marketing.t_f_update_customer_reclist_summary_specific
 
 -- #### #### #### #### #### #### #### #### 
