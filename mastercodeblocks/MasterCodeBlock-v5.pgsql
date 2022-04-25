@@ -410,7 +410,7 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1__etl_main()
 
             CALL vdm1_etl.vdm1_stage4c();
 
-        -- CALL vdm1_etl.vdm1_stage5();
+        CALL vdm1_etl.vdm1_stage5();
 
 	END;
 $etl_main_run$;
@@ -1372,7 +1372,8 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage3_table_changes()
         ALTER TABLE IF EXISTS staging.vdm1_stage3_film_category
 			ADD COLUMN total_rentals INTEGER NOT NULL DEFAULT 0,
 			ADD COLUMN film_rank INTEGER DEFAULT NULL,
-			ADD COLUMN film_category_rank INTEGER DEFAULT NULL;
+			ADD COLUMN film_category_rank INTEGER DEFAULT NULL
+            ADD COLUMN new_release BOOLEAN DEFAULT FALSE;
 
 		-- #### #### #### #### 
 
@@ -3018,7 +3019,46 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5()
         
         PERFORM vdm1_etl.f_vdm1_stage5_create_mview_film_details(); 
 
-        -- PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup();
+
+        -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_stage5_load_date('customer_category');
+
+        PERFORM vdm1_etl.f_vdm1_stage5_load_date('failed_returns');
+
+        PERFORM vdm1_etl.f_vdm1_stage5_load_date('new_releases');
+
+        PERFORM vdm1_etl.f_vdm1_stage5_load_date('inventory_maintenance');
+
+        PERFORM vdm1_etl.f_vdm1_stage5_load_date('inventory_maintenance_summary');
+
+        -- #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_stage5_load_date('customer_watch_history_detailed');
+
+        PERFORM vdm1_etl.f_vdm1_stage5_load_date('customer_reclist_master_nonspecific');
+
+        PERFORM vdm1_etl.f_vdm1_stage5_load_date('customer_reclist_master_specific');
+
+        -- #### #### #### #### 
+        
+        PERFORM vdm1_etl.f_vdm1_stage5_load_date('customer_reclist_summary_nonspecific');
+
+        PERFORM vdm1_etl.f_vdm1_stage5_load_date('customer_reclist_summary_specific');
+
+        PERFORM vdm1_etl.f_vdm1_stage5_load_date('category_popularity');
+     
+        -- #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_stage5_load_date('film_category_popularity');
+
+        -- #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_stage5_load_date('customer_rec_custom_preferences');
+
+        -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup();
 
         -- #### #### #### #### #### #### #### #### 
 
@@ -3053,6 +3093,7 @@ $vdm1_stage5_run$;
 --      8. vdm1_etl.f_vdm1_stage5_create_mview_location_details(); 
 --      9. vdm1_etl.f_vdm1_stage5_create_mview_film_details(); 
 --     10. vdm1_etl.f_vdm1_stage5_datestamp();
+--     11. vdm1_etl.f_vdm1_stage5_
 --     11. marketing.f_vdm1_stage4_calc_expected_return_date();
 --     12. marketing.f_vdm1_stage4_transform_customer_full_name();
 --     13. marketing.f_vdm1_stage4_transform_filmlength_int2vchar();
@@ -3645,6 +3686,28 @@ $vdm1_stage5_datestamp$;
 -- ####    11     #### 
 -- #### #### #### #### 
 
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_load_date(tablename VARCHAR(30)) 
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_stage5_load$
+		
+	BEGIN
+	 
+		EXECUTE
+			'CREATE UNLOGGED TABLE IF NOT EXISTS marketing.' || tablename || ' AS 
+				SELECT * FROM staging.' || tablename;
+	
+	END;
+$vdm1_stage5_load$;
+
+-- #### #### #### #### #### #### #### #### 
+
+-- #### #### #### ####
+-- ####    12     #### 
+-- #### #### #### #### 
+
+
 CREATE OR REPLACE FUNCTION marketing.f_calc_expected_return_date(
 		p_film_id INT,
 		p_rental_date DATE)
@@ -3680,7 +3743,7 @@ $vdm1_stage4_calc_expectedreturndate$;
 
 
 -- #### #### #### ####
--- ####    12     #### 
+-- ####    13     #### 
 -- #### #### #### #### 
 
 
@@ -3747,7 +3810,7 @@ $vdm1_stage4_transform_customer_full_name$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    13     #### 
+-- ####    14     #### 
 -- #### #### #### #### 
 
 
@@ -3795,7 +3858,7 @@ $vdm1_stage4_filmlength_int2vchar$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    14     #### 
+-- ####    1     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup()
@@ -4028,7 +4091,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup()
                 AFTER UPDATE
                 ON marketing.film_category_popularity
                 FOR EACH ROW
-                WHEN ((OLD.new_release) IS DISTINCT FROM (NEW.new_release))
+                WHEN (OLD.new_release IS DISTINCT FROM NEW.new_release)
                 EXECUTE FUNCTION marketing.t_f_update_new_release()';
 
         -- #### #### #### #### #### #### #### #### 
