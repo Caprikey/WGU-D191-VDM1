@@ -223,7 +223,7 @@
 --                   3. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.CATEGORY :: insert_new_category
 --                   4. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.INVENTORY :: insert_new_inventory
 --                   5. CREATE TRIGGER :: AFTER UPDATE :: PUBLIC.RENTAL :: update_rental_return 
---                   6. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.RENTAL :: insert_failed_return
+--                   6. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.RENTAL :: (f)
 --                   7. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.FILM_CATEGORY :: insert_new_film
 --                   8. CREATE TRIGGER :: AFTER INSERT :: MARKETING.CUSTOMER_WATCH_HISTORY_DETAILED :: update_customer_category
 --                   9. CREATE TRIGGER :: AFTER INSERT :: MARKETING.CUSTOMER_WATCH_HISTORY_DETAILED :: new_rental_update_category_popularity
@@ -1191,16 +1191,6 @@ $vdm1_stage3_create_table_failed_returns$;
 -- ####     3     #### 
 -- #### #### #### #### 
 
-
-
--- #### #### #### #### #### #### #### #### 
-
-
--- #### #### #### ####
--- ####     4     #### 
--- #### #### #### #### 
-
-
 CREATE OR REPLACE FUNCTION staging.f_vdm1_stage3_create_table_category_count_init()
 	RETURNS VOID
 	LANGUAGE plpgsql
@@ -1219,8 +1209,9 @@ $vdm1_stage3_create_table_category_count_init$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####     5     #### 
--- #### #### #### #### 
+-- ####     4     #### 
+-- #### #### #### ####
+
 
 
 CREATE OR REPLACE FUNCTION staging.f_vdm1_stage3_create_table_customer_watch_history_details()
@@ -1265,7 +1256,7 @@ $vdm1_stage3_create_table_cxwatchhistory_details$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####     6     #### 
+-- ####     5     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION staging.f_vdm1_stage3_create_table_cx_reclist_master_nonspecific()
@@ -1291,7 +1282,7 @@ $vdm1_stage3_create_table_customer_reclist_master_nonspecific$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####     7     #### 
+-- ####     6     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION staging.f_vdm1_stage3_create_table_cx_reclist_master_specific()
@@ -1317,8 +1308,10 @@ $vdm1_stage3_create_table_customer_reclist_master_specific$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####     8     #### 
+-- ####     7     #### 
 -- #### #### #### #### 
+
+
 
 CREATE OR REPLACE FUNCTION staging.f_vdm1_stage3_create_table_customer_rec_custom_preferences()
 	RETURNS VOID
@@ -1344,7 +1337,7 @@ $vdm1_stage3_create_table_customer_rec_custom_preferences$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####     9     #### 
+-- ####     8     #### 
 -- #### #### #### #### 
 
 
@@ -1444,8 +1437,9 @@ $vdm1_stage3_table_changes$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    10     #### 
--- #### #### #### ####
+-- ####     9     #### 
+-- #### #### #### #### 
+
 
 CREATE OR REPLACE FUNCTION staging.f_vdm1_stage3_cleanup()
 	RETURNS VOID
