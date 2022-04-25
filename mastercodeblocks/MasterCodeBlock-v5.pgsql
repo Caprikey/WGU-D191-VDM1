@@ -201,23 +201,6 @@
 
 --              TRIGGER FUNCTIONS
 
---                   1. marketing.t_f_insert_failed_return();
---                   2. marketing.t_f_insert_new_category();
---                   3. marketing.t_f_insert_new_customer();
---                   4. marketing.t_f_insert_new_film();
---                   5. marketing.t_f_insert_new_inventory();
---                   6. marketing.t_f_insert_update_customer_rec_custom_preferences();
---                   7. marketing.t_f_update_category_popularity();
---                   8. marketing.t_f_update_customer_category();
---                   9. marketing.t_f_update_customer_reclist_master_nonspecific();
---                  10. marketing.t_f_update_customer_reclist_master_specific();
---                  11. marketing.t_f_update_customer_reclist_summary_nonspecific();
---                  12. marketing.t_f_update_customer_reclist_summary_specific();
---                  13. marketing.t_f_insert_customer_watch_history();
---                  14. marketing.t_f_update_film_category_popularity();
---                  15. marketing.t_f_update_inventory_maintenance();
---                  16. marketing.t_f_update_new_release();
---                  17. marketing.t_f_update_rental_return();
 
 
 --             TRIGGERS
@@ -285,16 +268,13 @@ CREATE SCHEMA IF NOT EXISTS marketing;
 
 -- #### #### #### #### #### #### #### #### 
 
-
-
-
 CREATE SCHEMA IF NOT EXISTS vdm1_etl;
 
 
 -- #### #### #### #### #### #### #### #### 
 
--- DROP SCHEMA IF EXISTS staging
---    CASCADE;
+DROP SCHEMA IF EXISTS staging
+    CASCADE;
 
 -- #### #### #### #### #### #### #### #### 
 
@@ -459,7 +439,7 @@ $etl_main_run$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 
-CREATE OR REPLACE PROCEDURE vdm1_etl.vmd1_stage1()
+CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage1()
 	LANGUAGE plpgsql
 	AS $vdm1_stage1run$
 
@@ -581,7 +561,7 @@ $vdm1_stage1extract$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 
-CREATE OR REPLACE PROCEDURE vdm1_etl.vmd1_stage2()
+CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage2()
 	LANGUAGE plpgsql
 	AS $vdm1_stage2run$
 	
@@ -1095,7 +1075,7 @@ $vdm1_stage2_cleanup$;
 
 -- #### #### #### #### #### #### #### #### 
 
-CREATE OR REPLACE PROCEDURE vdm1_etl.vmd1_stage3()
+CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage3()
 	LANGUAGE plpgsql
 	AS $vdm1_stage3_run$
 	
@@ -1570,7 +1550,7 @@ $vdm1_stage3cleanup$;
 
 -- #### #### #### #### #### #### #### #### 
 
-CREATE OR REPLACE PROCEDURE vdm1_etl.vmd1_stage4()
+CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4()
 	LANGUAGE plpgsql
 	AS $vdm1_stage4run$
 	
@@ -1646,7 +1626,7 @@ $vdm1_stage4run$;
 -- #### #### #### #### #### #### #### #### 
 
 
-CREATE OR REPLACE PROCEDURE vdm1_etl.vmd1_stage4a()
+CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4a()
 	LANGUAGE plpgsql
 	AS $vdm1_stage4a_run$
 
@@ -1692,7 +1672,7 @@ $vdm1_stage4a_run$;
 
 -- #### #### #### #### #### #### #### #### 
 
-CREATE OR REPLACE PROCEDURE vdm1_etl.vmd1_stage4b()
+CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4b()
 	LANGUAGE plpgsql
 	AS $vdm1_stage4b_run$
 
@@ -3038,9 +3018,11 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5()
         
         PERFORM vdm1_etl.f_vdm1_stage5_create_mview_film_details(); 
 
-
+        -- PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup();
 
         -- #### #### #### #### #### #### #### #### 
+
+        -- PERFORM vdm1_etl.f_vdm1_stage5_cleanup();
 
     END;
 $vdm1_stage5_run$;
@@ -3074,7 +3056,7 @@ $vdm1_stage5_run$;
 --     11. marketing.f_vdm1_stage4_calc_expected_return_date();
 --     12. marketing.f_vdm1_stage4_transform_customer_full_name();
 --     13. marketing.f_vdm1_stage4_transform_filmlength_int2vchar();
---     14. 
+--     14. vdm1_etl.f_vdm1_stage5_trigger_setup()
 --     15. vdm1_etl.f_vdm1_stage4_cleanup()
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
@@ -3094,7 +3076,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_createtable_cx_reclist_summary
 	
 	BEGIN 
 
-		CREATE TABLE staging.vdm1_stage5_customer_reclist_summary_nonspecific AS (
+		CREATE TABLE staging.vdm1_stage5_customer_reclist_summary_nonspecific (
 
 		      customer_id INTEGER NOT NULL
             , film_rec_order INTEGER NULL
@@ -3118,7 +3100,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_createtable_cx_reclist_summary
 
     BEGIN
 
-        CREATE TABLE staging.vdm1_stage5_customer_reclist_summary_specific AS (
+        CREATE TABLE staging.vdm1_stage5_customer_reclist_summary_specific (
             
               customer_id INTEGER NOT NULL
             , cat_rec_order INTEGER NULL
@@ -3194,9 +3176,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_insert_cx_reclist_summary_nons
 				staging.vdm1_stage5_customer_reclist_master_nonspecific	
 			
             WHERE
-                (customer_id = NEW.customer_id)
-                    AND 
-                (film_rec_order <= 10)
+                film_rec_order <= 10
 
 			ORDER BY
 				customer_id, film_rec_order
@@ -3425,7 +3405,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_create_mview_customer_details(
                 , a.store_id
                 , a.first_name
                 , a.last_name
-                , vdm1_etl.f_transform_customer_full_name(a.first_name, a.last_name) AS full_name
+                , marketing.f_transform_customer_full_name(a.first_name, a.last_name) AS full_name
                 , a.email
                 , a.create_date
                 , a.activebool
@@ -3472,7 +3452,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_create_mview_store_details()
 
 			SELECT
 				  a.store_id
-                  b.address_id
+                , b.address_id
                 , b.address
                 , b.address2
                 , b.district
@@ -3517,7 +3497,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_create_mview_location_details(
 		
 	BEGIN 
 	
-        CREATE MATERIALIZED VIEW marketing.customer_details AS (
+        CREATE MATERIALIZED VIEW marketing.location_details AS (
         
             SELECT 
 
@@ -3570,7 +3550,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_create_mview_film_details()
 				, b.category_id
 				, a.release_year
 				, c.name
-				, vdm1_etl.f_transform_film_length_int2vhar(a.length) as legnth
+				, marketing.f_transform_filmlength_int2vchar(a.length) as legnth
 				, a.rating
 				, a.description
 				, a.rental_duration
@@ -3665,7 +3645,7 @@ $vdm1_stage5_datestamp$;
 -- ####    11     #### 
 -- #### #### #### #### 
 
-CREATE OR REPLACE FUNCTION marketing.f_vdm1_stage4_calc_expected_return_date(
+CREATE OR REPLACE FUNCTION marketing.f_calc_expected_return_date(
 		p_film_id INT,
 		p_rental_date DATE)
 	RETURNS DATE
@@ -3704,7 +3684,7 @@ $vdm1_stage4_calc_expectedreturndate$;
 -- #### #### #### #### 
 
 
-CREATE OR REPLACE FUNCTION marketing.f_vdm1_stage4_transform_customer_full_name(
+CREATE OR REPLACE FUNCTION marketing.f_transform_customer_full_name(
 		p_first_name VARCHAR,
 		p_last_name VARCHAR)
 	RETURNS VARCHAR
@@ -3771,7 +3751,7 @@ $vdm1_stage4_transform_customer_full_name$;
 -- #### #### #### #### 
 
 
-CREATE OR REPLACE FUNCTION marketing.f_vdm1_stage4_transform_filmlength_int2vchar(
+CREATE OR REPLACE FUNCTION marketing.f_transform_filmlength_int2vchar(
 	p_length INTEGER
 )
 	RETURNS VARCHAR
@@ -3818,7 +3798,275 @@ $vdm1_stage4_filmlength_int2vchar$;
 -- ####    14     #### 
 -- #### #### #### #### 
 
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup()
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_stage5_trigger_setup$
+		
+	BEGIN
 
+        -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
+        --                      #### #### #### #### #### #### #### #### 
+        --                      #### ####      TRIGGERS       #### #### 
+        --                      #### #### #### #### #### #### #### #### 
+        -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
+
+        -- TABLE OF CONTENTS 
+        --    TRIGGERS
+
+        --        1. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.RENTAL :: insert_customer_watch_history
+        --        2. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.CUSTOMER :: insert_new_customer
+        --        3. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.CATEGORY :: insert_new_category
+        --        4. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.INVENTORY :: insert_new_inventory
+        --        5. CREATE TRIGGER :: AFTER UPDATE :: PUBLIC.RENTAL :: update_rental_return 
+        --        6. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.RENTAL :: insert_failed_return
+        --        7. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.FILM_CATEGORY :: insert_new_film
+        --        8. CREATE TRIGGER :: AFTER INSERT :: MARKETING.CUSTOMER_WATCH_HISTORY_DETAILED :: update_customer_category
+        --        9. CREATE TRIGGER :: AFTER INSERT :: MARKETING.CUSTOMER_WATCH_HISTORY_DETAILED :: update_category_popularity
+        --       10. CREATE TRIGGER :: AFTER INSERT :: MARKETING.CUSTOMER_WATCH_HISTORY_DETAILED :: update_film_category_popularity
+        --       11. CREATE TRIGGER :: AFTER INSERT :: MARKETING.CUSTOMER_WATCH_HISTORY_DETAILED :: update_inventory_maintenance
+        --       12. CREATE TRIGGER :: AFTER INSERT :: MARKETING.CUSTOMER_WATCH_HISTORY_DETAILED :: update_customer_reclist_master_nonspecific
+        --       13. CREATE TRIGGER :: AFTER INSERT :: MARKETING.CUSTOMER_WATCH_HISTORY_DETAILED :: update_customer_reclist_master_specific
+        --       14. CREATE TRIGGER :: AFTER UPDATE :: MARKETING.FILM_CATEGORY_POPULARITY :: update_new_release
+        --       15. CREATE TRIGGER :: AFTER INSERT OR UPDATE :: MARKETING.CUSTOMER_REC_CUSTOM_PREFERNCES :: insert_update_customer_rec_custom_preferences
+        --       16. CREATE TRIGGER :: AFTER INSERT OR UPDATE OR DELETE :: MARKETING.CUSTOMER_RECLIST_MASTER_NONSPECIFIC :: update_customer_reclist_master_nonspecific_summary
+        --       17. CREATE TRIGGER :: AFTER INSERT OR UPDATE OR DELETE :: MARKETING.CUSTOMER_RECLIST_MASTER_SPECIFIC :: update_customer_reclist_master_specific_summary
+
+        -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
+
+        -- #### #### #### #### #### #### #### #### 
+
+        -- #### #### #### ####
+        -- ####     1     #### 
+        -- #### #### #### #### 
+
+        EXECUTE
+            'CREATE OR REPLACE TRIGGER insert_customer_watch_history
+                AFTER INSERT
+                ON public.rental
+                FOR EACH ROW
+                EXECUTE FUNCTION marketing.t_f_insert_customer_watch_history()';
+
+        -- #### #### #### #### #### #### #### #### 
+
+        -- #### #### #### ####
+        -- ####     2     #### 
+        -- #### #### #### #### 
+
+        EXECUTE
+            'CREATE OR REPLACE TRIGGER insert_new_customer
+                AFTER INSERT
+                ON public.customer
+                FOR EACH ROW
+                EXECUTE FUNCTION marketing.t_f_insert_new_customer()';
+
+
+        -- #### #### #### #### #### #### #### #### 
+
+        -- #### #### #### ####
+        -- ####     3     #### 
+        -- #### #### #### #### 
+
+        EXECUTE
+            'CREATE OR REPLACE TRIGGER insert_new_category
+                AFTER INSERT
+                ON public.category
+                FOR EACH ROW
+                EXECUTE FUNCTION marketing.t_f_insert_new_category()';
+
+        -- #### #### #### #### #### #### #### #### 
+
+        -- #### #### #### ####
+        -- ####     4     #### 
+        -- #### #### #### #### 
+
+        EXECUTE
+            'CREATE OR REPLACE TRIGGER insert_new_inventory
+                AFTER INSERT
+                ON public.inventory
+                FOR EACH ROW
+                EXECUTE FUNCTION marketing.t_f_insert_new_inventory()';
+            
+        -- #### #### #### #### #### #### #### #### 
+
+        -- #### #### #### ####
+        -- ####     5     #### 
+        -- #### #### #### #### 
+
+        EXECUTE
+            'CREATE OR REPLACE TRIGGER update_rental_return
+                AFTER UPDATE
+                ON public.rental
+                FOR EACH ROW
+                EXECUTE FUNCTION marketing.t_f_update_rental_return()';
+
+        -- #### #### #### #### #### #### #### #### 
+
+        -- #### #### #### ####
+        -- ####     6     #### 
+        -- #### #### #### #### 
+
+        EXECUTE
+            'CREATE OR REPLACE TRIGGER insert_failed_return
+                AFTER INSERT
+                ON public.rental
+                FOR EACH ROW
+                EXECUTE FUNCTION marketing.t_f_insert_failed_return()';
+
+        -- #### #### #### #### #### #### #### #### 
+
+        -- #### #### #### ####
+        -- ####     7     #### 
+        -- #### #### #### #### 
+
+        EXECUTE
+            'CREATE OR REPLACE TRIGGER insert_new_film
+                AFTER INSERT
+                ON public.film_category
+                FOR EACH ROW
+                EXECUTE FUNCTION marketing.t_f_insert_new_film()';
+
+        -- #### #### #### #### #### #### #### #### 
+
+        -- #### #### #### ####
+        -- ####     8     #### 
+        -- #### #### #### #### 
+
+        EXECUTE
+            'CREATE OR REPLACE TRIGGER update_customer_category
+                AFTER INSERT 
+                ON marketing.customer_watch_history_detailed
+                FOR EACH ROW
+                EXECUTE FUNCTION marketing.t_f_update_customer_category()';
+
+        -- #### #### #### #### #### #### #### #### 
+
+        -- #### #### #### ####
+        -- ####     9     #### 
+        -- #### #### #### #### 
+
+        EXECUTE
+            'CREATE OR REPLACE TRIGGER new_rental_update_category_popularity
+                AFTER INSERT 
+                ON marketing.customer_watch_history_detailed
+                FOR EACH ROW
+                EXECUTE FUNCTION marketing.t_f_update_category_popularity()';
+
+        -- #### #### #### #### #### #### #### #### 
+
+        -- #### #### #### ####
+        -- ####    10     #### 
+        -- #### #### #### #### 
+
+        EXECUTE
+            'CREATE OR REPLACE TRIGGER update_film_category_popularity
+                AFTER INSERT 
+                ON marketing.customer_watch_history_detailed
+                FOR EACH ROW
+                EXECUTE FUNCTION marketing.t_f_update_film_category_popularity()';
+
+        -- #### #### #### #### #### #### #### #### 
+
+        -- #### #### #### ####
+        -- ####    11     #### 
+        -- #### #### #### #### 
+
+        EXECUTE
+            'CREATE OR REPLACE TRIGGER update_inventory_maintenance
+                AFTER INSERT 
+                ON marketing.customer_watch_history_detailed
+                FOR EACH ROW
+                EXECUTE FUNCTION marketing.t_f_update_inventory_maintenance()';
+
+        -- #### #### #### #### #### #### #### #### 
+
+        -- #### #### #### ####
+        -- ####    12     #### 
+        -- #### #### #### #### 
+
+        EXECUTE
+            'CREATE OR REPLACE TRIGGER update_customer_reclist_master_nonspecific
+                AFTER INSERT
+                ON marketing.customer_watch_history_detailed
+                FOR EACH ROW
+                EXECUTE FUNCTION marketing.t_f_update_customer_reclist_master_nonspecific()';
+
+        -- #### #### #### #### #### #### #### #### 
+
+        -- #### #### #### ####
+        -- ####    13     #### 
+        -- #### #### #### #### 
+
+        EXECUTE 
+            'CREATE OR REPLACE TRIGGER update_customer_reclist_master_specific
+                AFTER INSERT
+                ON marketing.customer_watch_history_detailed
+                FOR EACH ROW
+                EXECUTE FUNCTION marketing.t_f_update_customer_reclist_master_specific()';
+
+        -- #### #### #### #### #### #### #### #### 
+
+        -- #### #### #### ####
+        -- ####    14     #### 
+        -- #### #### #### #### 
+
+        EXECUTE 
+            'CREATE OR REPLACE TRIGGER insert_update_customer_rec_custom_preferences
+                AFTER INSERT OR UPDATE 
+                ON marketing.customer_rec_custom_preferences
+                FOR EACH ROW
+                EXECUTE FUNCTION marketing.t_f_insert_update_customer_rec_custom_preferences()';
+
+        -- #### #### #### #### #### #### #### #### 
+
+        -- #### #### #### ####
+        -- ####    15     #### 
+        -- #### #### #### #### 
+
+        EXECUTE 
+            'CREATE OR REPLACE TRIGGER update_new_release
+                AFTER UPDATE
+                ON marketing.film_category_popularity
+                FOR EACH ROW
+                WHEN ((OLD.new_release) IS DISTINCT FROM (NEW.new_release))
+                EXECUTE FUNCTION marketing.t_f_update_new_release()';
+
+        -- #### #### #### #### #### #### #### #### 
+
+        -- #### #### #### ####
+        -- ####    16     #### 
+        -- #### #### #### #### 
+
+        EXECUTE 
+            'CREATE OR REPLACE TRIGGER update_customer_reclist_master_nonspecific_summary
+                AFTER INSERT OR UPDATE OR DELETE 
+                ON marketing.customer_reclist_master_nonspecific
+                FOR EACH ROW
+                EXECUTE FUNCTION marketing.t_f_update_customer_reclist_summary_nonspecific()';
+
+        -- #### #### #### #### #### #### #### #### 
+
+        -- #### #### #### ####
+        -- ####    17     #### 
+        -- #### #### #### #### 
+
+        EXECUTE
+            'CREATE OR REPLACE TRIGGER update_customer_reclist_master_specific_summary
+                    AFTER INSERT OR UPDATE OR DELETE 
+                    ON marketing.customer_reclist_master_specific
+                    FOR EACH ROW
+                    EXECUTE FUNCTION marketing.t_f_update_customer_reclist_summary_specific()';
+
+        -- #### #### #### #### #### #### #### #### 
+
+        -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+        -- #### #### #### #### #### #### #### #### #### #### #### #### #### ####    TRIGGERS END     #### #### #### #### #### #### #### #### #### #### #### #### #### ####
+        -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+                
+                
+	
+	END;
+$vdm1_stage5_trigger_setup$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
@@ -5238,7 +5486,7 @@ CREATE OR REPLACE FUNCTION marketing.t_f_update_customer_reclist_master_nonspeci
 
 		
 	END;
-$trigger_function_update_customer_reclist_master_nonspecific$
+$trigger_function_update_customer_reclist_master_nonspecific$;
 
 -- #### #### #### #### #### #### #### #### 
 
@@ -5982,246 +6230,6 @@ $trigger_function_update_rental_return$;
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
---                      #### #### #### #### #### #### #### #### 
---                      #### ####      TRIGGERS       #### #### 
---                      #### #### #### #### #### #### #### #### 
-
--- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
-
--- TABLE OF CONTENTS 
---    TRIGGERS
-
---        1. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.RENTAL :: insert_customer_watch_history
---        2. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.CUSTOMER :: insert_new_customer
---        3. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.CATEGORY :: insert_new_category
---        4. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.INVENTORY :: insert_new_inventory
---        5. CREATE TRIGGER :: AFTER UPDATE :: PUBLIC.RENTAL :: update_rental_return 
---        6. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.RENTAL :: insert_failed_return
---        7. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.FILM_CATEGORY :: insert_new_film
---        8. CREATE TRIGGER :: AFTER INSERT :: MARKETING.CUSTOMER_WATCH_HISTORY_DETAILED :: update_customer_category
---        9. CREATE TRIGGER :: AFTER INSERT :: MARKETING.CUSTOMER_WATCH_HISTORY_DETAILED :: update_category_popularity
---       10. CREATE TRIGGER :: AFTER INSERT :: MARKETING.CUSTOMER_WATCH_HISTORY_DETAILED :: update_film_category_popularity
---       11. CREATE TRIGGER :: AFTER INSERT :: MARKETING.CUSTOMER_WATCH_HISTORY_DETAILED :: update_inventory_maintenance
---       12. CREATE TRIGGER :: AFTER INSERT :: MARKETING.CUSTOMER_WATCH_HISTORY_DETAILED :: update_customer_reclist_master_nonspecific
---       13. CREATE TRIGGER :: AFTER INSERT :: MARKETING.CUSTOMER_WATCH_HISTORY_DETAILED :: update_customer_reclist_master_specific
---       14. CREATE TRIGGER :: AFTER UPDATE :: MARKETING.FILM_CATEGORY_POPULARITY :: update_new_release
---       15. CREATE TRIGGER :: AFTER INSERT OR UPDATE :: MARKETING.CUSTOMER_REC_CUSTOM_PREFERNCES :: insert_update_customer_rec_custom_preferences
---       16. CREATE TRIGGER :: AFTER INSERT OR UPDATE OR DELETE :: MARKETING.CUSTOMER_RECLIST_MASTER_NONSPECIFIC :: update_customer_reclist_master_nonspecific_summary
---       17. CREATE TRIGGER :: AFTER INSERT OR UPDATE OR DELETE :: MARKETING.CUSTOMER_RECLIST_MASTER_SPECIFIC :: update_customer_reclist_master_specific_summary
-
--- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####     1     #### 
--- #### #### #### #### 
-
-CREATE OR REPLACE TRIGGER insert_customer_watch_history
-    AFTER INSERT
-    ON public.rental
-    FOR EACH ROW
-    EXECUTE FUNCTION marketing.t_f_insert_customer_watch_history();
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####     2     #### 
--- #### #### #### #### 
-
-CREATE OR REPLACE TRIGGER insert_new_customer
-    AFTER INSERT
-    ON public.customer
-    FOR EACH ROW
-    EXECUTE FUNCTION marketing.t_f_insert_new_customer();
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####     3     #### 
--- #### #### #### #### 
-
-CREATE OR REPLACE TRIGGER insert_new_category
-    AFTER INSERT
-    ON public.category
-    FOR EACH ROW
-    EXECUTE FUNCTION marketing.t_f_insert_new_category();
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####     4     #### 
--- #### #### #### #### 
-
-CREATE OR REPLACE TRIGGER insert_new_inventory
-    AFTER INSERT
-    ON public.inventory
-    FOR EACH ROW
-    EXECUTE FUNCTION marketing.t_f_insert_new_inventory();
-	
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####     5     #### 
--- #### #### #### #### 
-
-CREATE OR REPLACE TRIGGER update_rental_return
-    AFTER UPDATE
-    ON public.rental
-    FOR EACH ROW
-    EXECUTE FUNCTION marketing.t_f_update_rental_return();
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####     6     #### 
--- #### #### #### #### 
-
-CREATE OR REPLACE TRIGGER insert_failed_return
-    AFTER INSERT
-    ON public.rental
-    FOR EACH ROW
-    EXECUTE FUNCTION marketing.t_f_insert_failed_return();
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####     7     #### 
--- #### #### #### #### 
-
-CREATE OR REPLACE TRIGGER insert_new_film
-    AFTER INSERT
-    ON public.film_category
-    FOR EACH ROW
-    EXECUTE FUNCTION marketing.t_f_insert_new_film();
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####     8     #### 
--- #### #### #### #### 
-
-CREATE OR REPLACE TRIGGER update_customer_category
-	AFTER INSERT 
-    ON marketing.customer_watch_history_detailed
-	FOR EACH ROW
-	EXECUTE FUNCTION marketing.t_f_update_customer_category();
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####     9     #### 
--- #### #### #### #### 
-
-CREATE OR REPLACE TRIGGER new_rental_update_category_popularity
-    AFTER INSERT 
-    ON marketing.customer_watch_history_detailed
-    FOR EACH ROW
-    EXECUTE FUNCTION marketing.t_f_update_category_popularity();
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####    10     #### 
--- #### #### #### #### 
-
-CREATE OR REPLACE TRIGGER update_film_category_popularity
-	AFTER INSERT 
-    ON marketing.customer_watch_history_detailed
-	FOR EACH ROW
-	EXECUTE FUNCTION marketing.t_f_update_film_category_popularity();
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####    11     #### 
--- #### #### #### #### 
-
-CREATE OR REPLACE TRIGGER update_inventory_maintenance
-	AFTER INSERT 
-	ON marketing.customer_watch_history_detailed
-	FOR EACH ROW
-	EXECUTE FUNCTION marketing.t_f_update_inventory_maintenance();
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####    12     #### 
--- #### #### #### #### 
-
-CREATE OR REPLACE TRIGGER update_customer_reclist_master_nonspecific
-    AFTER INSERT
-    ON marketing.customer_watch_history_detailed
-    FOR EACH ROW
-    EXECUTE FUNCTION marketing.t_f_update_customer_reclist_master_nonspecific();
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####    13     #### 
--- #### #### #### #### 
-
-CREATE OR REPLACE TRIGGER update_customer_reclist_master_specific
-    AFTER INSERT
-    ON marketing.customer_watch_history_detailed
-    FOR EACH ROW
-    EXECUTE FUNCTION marketing.t_f_update_customer_reclist_master_specific();
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####    14     #### 
--- #### #### #### #### 
-
-CREATE OR REPLACE TRIGGER insert_update_customer_rec_custom_preferences
-    AFTER INSERT OR UPDATE 
-    ON marketing.customer_rec_custom_preferences
-    FOR EACH ROW
-    EXECUTE FUNCTION marketing.t_f_insert_update_customer_rec_custom_preferences();
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####    15     #### 
--- #### #### #### #### 
-
-CREATE OR REPLACE TRIGGER update_new_release
-    AFTER UPDATE
-    ON marketing.film_category_popularity
-    FOR EACH ROW
-	WHEN ((OLD.new_release) IS DISTINCT FROM (NEW.new_release))
-    EXECUTE FUNCTION marketing.t_f_update_new_release();
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####    16     #### 
--- #### #### #### #### 
-
-CREATE OR REPLACE update_customer_reclist_master_nonspecific_summary
-    AFTER INSERT OR UPDATE OR DELETE 
-    ON marketing.customer_reclist_master_nonspecific
-    FOR EACH ROW
-    EXECUTE FUNCTION marketing.t_f_update_customer_reclist_summary_nonspecific();
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####    17     #### 
--- #### #### #### #### 
-
-CREATE OR REPLACE update_customer_reclist_master_specific_summary
-    AFTER INSERT OR UPDATE OR DELETE 
-    ON marketing.customer_reclist_master_specific
-    FOR EACH ROW
-    EXECUTE FUNCTION marketing.t_f_update_customer_reclist_summary_specific();
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
--- #### #### #### #### #### #### #### #### #### #### #### #### #### ####    TRIGGERS END     #### #### #### #### #### #### #### #### #### #### #### #### #### ####
--- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
-
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
@@ -6232,8 +6240,8 @@ CREATE OR REPLACE update_customer_reclist_master_specific_summary
 
 
 
-DROP SCHEMA IF EXISTS staging
-    CASCADE;
+-- DROP SCHEMA IF EXISTS staging
+--   CASCADE;
 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
