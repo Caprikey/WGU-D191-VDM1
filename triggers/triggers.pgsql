@@ -130,9 +130,6 @@ CREATE OR REPLACE TRIGGER update_new_release
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
--- ERRORS NEED TO BE CORRECTED. 
-
-
 
 CREATE OR REPLACE TRIGGER insert_update_customer_rec_custom_preferences
     AFTER INSERT OR UPDATE 
@@ -143,7 +140,7 @@ CREATE OR REPLACE TRIGGER insert_update_customer_rec_custom_preferences
 -- #### #### #### #### #### #### #### #### 
 
 CREATE OR REPLACE update_customer_reclist_master_nonspecific_summary
-    AFTER INSERT
+    AFTER INSERT OR UPDATE OR DELETE 
     ON marketing.customer_reclist_master_nonspecific
     FOR EACH ROW
     EXECUTE FUNCTION marketing.t_f_update_customer_reclist_summary_nonspecific
@@ -151,7 +148,7 @@ CREATE OR REPLACE update_customer_reclist_master_nonspecific_summary
 -- #### #### #### #### #### #### #### #### 
 
 CREATE OR REPLACE update_customer_reclist_master_specific_summary
-    AFTER INSERT
+    AFTER INSERT OR UPDATE OR DELETE 
     ON marketing.customer_reclist_master_specific
     FOR EACH ROW
     EXECUTE FUNCTION marketing.t_f_update_customer_reclist_summary_specific
