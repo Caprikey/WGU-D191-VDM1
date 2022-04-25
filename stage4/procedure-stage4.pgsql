@@ -3,9 +3,9 @@ CREATE OR REPLACE PROCEDURE staging.vdm1_stage4()
 	AS $vdm1_stage4run$
 	
 	BEGIN 
-	
-		PERFORM staging.f_vdm1_stage4_calc_update_customer_watch_history_row_number();
 
+		PERFORM staging.f_vdm1_stage4_calc_update_customer_watch_history_row_number();
+	
 		PERFORM staging.f_vdm1_stage4_calc_update_category_popularity_count();
 
 		-- PERFORM staging.f_vdm1_stage4_city_rental_count();
@@ -18,7 +18,8 @@ CREATE OR REPLACE PROCEDURE staging.vdm1_stage4()
 
         PERFORM staging.f_vdm1_stage4_calc_update_film_inventory_flag_inspection();
 
-		PERFORM staging.f_vdm1_stage4_create_table_film_inventory_summary();
+		-- MIGRATING TO STAGE 5
+		-- PERFORM staging.f_vdm1_stage4_create_table_film_inventory_summary();
         
 		-- #### #### #### #### 
 

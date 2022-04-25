@@ -65,8 +65,8 @@ CREATE OR REPLACE FUNCTION staging.f_vdm1_stage4_cleanup()
 		ALTER TABLE IF EXISTS staging.vdm1_stage4_film_inventory
 			RENAME TO vdm1_stage5_inventory_maintenance;
 
-		ALTER TABLE IF EXISTS staging.vdm1_stage4_film_inventory_summary
-			RENAME TO vdm1_stage5_inventory_maintenance_summary;
+		-- ALTER TABLE IF EXISTS staging.vdm1_stage4_film_inventory_summary
+		--	RENAME TO vdm1_stage5_inventory_maintenance_summary;
 
 		ALTER TABLE IF EXISTS staging.vdm1_stage4_cobbwebbed_film_inventory
 			RENAME TO vdm1_stage5_stagnant_film_inventory;

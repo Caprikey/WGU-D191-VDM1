@@ -21,7 +21,6 @@ CREATE OR REPLACE FUNCTION marketing.t_f_insert_new_inventory()
 			  NEW.film_id
 			, NEW.inventory_id
 
-            -- TODO :: REMOVE THESE ONCE DEFAULT VALUES ARE SET.
 
 			, 0
 			, false -- NEW RELEASE FLAG

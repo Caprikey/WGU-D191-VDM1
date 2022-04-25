@@ -15,7 +15,7 @@ CREATE OR REPLACE PROCEDURE staging.vdm1_stage5()
 
 
         -- #### #### #### #### #### #### #### #### 
-
+        PERFOMR staging.f_vdm1_stage5_create_table_inventory_maintenance_summary();
 
         PERFORM staging.f_vdm1_stage5_insert_cx_reclist_summary_nonspecific();
 
@@ -48,3 +48,7 @@ CREATE OR REPLACE PROCEDURE staging.vdm1_stage5()
 
     END;
 $vdm1_stage5_run$;
+
+
+
+-- #### #### #### #### #### #### #### #### 

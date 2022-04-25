@@ -34,6 +34,7 @@ CREATE TABLE staging.vdm1_stage3_customer_watch_history_details AS (
 	GROUP BY
 		-- a.customer_id, b.city_id, b.country_id, a.rental_id, a.inventory_id, a.film_id, a.category_id, a.rental_date, a.return_date
 		a.customer_id, a.rental_id, a.inventory_id, a.film_id, a.category_id, a.rental_date, a.return_date
+		
 	ORDER BY 
 		a.customer_id
 

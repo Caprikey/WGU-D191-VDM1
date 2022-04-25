@@ -1,0 +1,32 @@
+
+customer_id : 1
+    first_name : Mary
+    last_name : Smith
+    email : mary.smith@sakilacustomer.org
+    city_id : 463
+    country_id : 50
+
+    store_id :
+    
+    customer_watch_list : 
+        watch_history : {3,22,44,70,159,174,204,228,243,294,308,315,316,317,341,480,490,539,579,611,663,709,764,766,814,875,924,929,982,997}
+
+    recommendation_list:
+
+        category_rank : 1
+            category_id : 4
+                film_id : {[1:891, 2:951, 3:358, 4:525, 5:554]}
+        category_rank : 2
+            category_id : 5
+                film_id : {[1:1000, 2:127, 3:638, 4:938]}
+        category_rank : 3
+            category_id : 7
+                film_id : {[1:418, 2:979, 3:403]}
+        category_rank : 4
+            category_id : 14
+                film_id : {[1:369, 2:285]}
+        category_rank : 5
+            category_id : 13
+                film_id : {[1:730]}
+
+            

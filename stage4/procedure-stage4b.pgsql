@@ -29,7 +29,6 @@ CREATE OR REPLACE PROCEDURE staging.vdm1_stage4b()
 
 		PERFORM staging.f_vdm1_stage4_calc_update_film_category_popularity_row_number();
 
-		-- PERFORM staging.f_vdm1_stage4_calc_update_customer_watch_history_row_number();
 
 
 

@@ -7,6 +7,65 @@ CREATE OR REPLACE FUNCTION marketing.t_f_insert_new_category()
 	
 		-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
+
+	    INSERT INTO marketing.customer_rec_custom_preferences (
+              customer_id
+			, category_id
+			, customer_rec_custom_order
+        )
+
+		WITH get_customers_with_custom_rec_preferences AS (
+
+			SELECT
+				customer_id 
+			FROM 
+				marketing.customer_rec_custom_preferences
+		)
+		, cross_join_customer_to_new_category AS (
+			
+			SELECT
+				  DISTINCT (customer_id)
+				, category_id
+			FROM 
+				get_customers_with_custom_rec_preferences
+					CROSS JOIN
+						public.category
+			
+			WHERE
+				category_id = NEW.category_id
+		)
+		, get_total_count_of_categories AS (
+
+			SELECT
+				COUNT(*) AS category_length
+			FROM
+				public.category
+		)
+		, cross_join_cuscat_to_catleng AS (
+			
+			SELECT
+				  customer_id
+				, category_id 
+				, category_length AS customer_rec_custom_order
+			FROM
+				cross_join_customer_to_new_category
+					CROSS JOIN
+						get_total_count_of_categories
+		)
+
+		SELECT
+			  customer_id
+			, category_id
+			, customer_rec_custom_order
+		FROM
+			cross_join_cuscat_to_catleng
+			
+			
+			; 
+
+
+		-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
         INSERT INTO marketing.category_popularity (
               category_id
             , name
@@ -27,12 +86,12 @@ CREATE OR REPLACE FUNCTION marketing.t_f_insert_new_category()
  		-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####        
 		
         INSERT INTO marketing.customer_category(
-                customer_id
+              customer_id
             , category_id
         )
 
         SELECT
-                b.customer_id
+              b.customer_id
             , a.category_id
         FROM public.category AS a
             CROSS JOIN public.customer AS b

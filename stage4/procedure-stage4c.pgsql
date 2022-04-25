@@ -5,8 +5,6 @@ CREATE OR REPLACE PROCEDURE staging.vdm1_stage4c()
 	
 	BEGIN 
         
-
-		
         -- #### #### #### #### 
 
 
@@ -20,7 +18,6 @@ CREATE OR REPLACE PROCEDURE staging.vdm1_stage4c()
     
         -- PERFORM staging.f_vdm1_stage4_calc_insert_customer_reclist_summary_default();
         
-
         -- PERFORM staging.f_vdm1_stage4_calc_update_customer_reclist_summary_row_number();
 
 		-- PERFORM staging.f_vdm1_stage4_calc_insert_customer_recommendation_list_summary();

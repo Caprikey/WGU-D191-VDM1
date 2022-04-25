@@ -1,4 +1,4 @@
-CREATE TRIGGER insert_customer_watch_history
+CREATE OR REPLACE TRIGGER insert_customer_watch_history
     AFTER INSERT
     ON public.rental
     FOR EACH ROW

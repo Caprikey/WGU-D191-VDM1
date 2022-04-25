@@ -191,9 +191,7 @@
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
--- CREATE SCHEMA IF NOT EXISTS marketing;
-
-
+CREATE SCHEMA IF NOT EXISTS marketing;
 
 -- #### #### #### #### #### #### #### #### 
 
@@ -203,8 +201,6 @@
 -- #### #### #### #### #### #### #### #### 
 
 CREATE SCHEMA IF NOT EXISTS staging;
-
-
 
 -- #### #### #### #### #### #### #### #### 
 

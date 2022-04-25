@@ -4,11 +4,9 @@ CREATE OR REPLACE PROCEDURE staging.vdm1_stage4a()
 
 	
 	BEGIN 
-
+	
 		PERFORM staging.f_vdm1_stage4_calc_update_customer_watch_history_row_number();
 
-		-- #### #### #### #### 
-	
 		PERFORM staging.f_vdm1_stage4_calc_update_category_popularity_count();
 
         -- #### #### #### #### 
@@ -37,8 +35,9 @@ CREATE OR REPLACE PROCEDURE staging.vdm1_stage4a()
         -- #### #### #### #### 
 
         PERFORM staging.f_vdm1_stage4_calc_update_film_inventory_flag_inspection();
-
-        PERFORM staging.f_vdm1_stage4_create_table_film_inventory_summary();
+        
+		-- MIGRATING TO STAGE 5
+        -- PERFORM staging.f_vdm1_stage4_create_table_film_inventory_summary();
 
         PERFORM staging.f_vdm1_stage4_calc_delete_cx_history_from_cx_filmcat();
 

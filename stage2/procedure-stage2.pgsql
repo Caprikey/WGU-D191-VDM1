@@ -16,7 +16,7 @@ CREATE OR REPLACE PROCEDURE staging.vdm1_stage2()
 	
 		EXECUTE staging.f_vdm1_stage2_films();
 		
-		-- EXECUTE staging.f_vdm1_stage2_film_inventory();
+		EXECUTE staging.f_vdm1_stage2_film_inventory();
 		
 		EXECUTE staging.f_vdm1_stage2_rentals();
 		

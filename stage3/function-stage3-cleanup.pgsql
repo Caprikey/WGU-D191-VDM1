@@ -49,7 +49,6 @@ CREATE OR REPLACE FUNCTION staging.f_vdm1_stage3_cleanup()
 		ALTER TABLE IF EXISTS staging.vdm1_stage3_customer_reclist_master_specific
 			RENAME TO vdm1_stage4_customer_reclist_master_specific;
 
-
         ALTER TABLE IF EXISTS staging.vdm1_stage3_category_count_init
             RENAME TO vdm1_stage4_category_popularity_count;
 
