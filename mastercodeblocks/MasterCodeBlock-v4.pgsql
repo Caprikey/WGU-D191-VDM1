@@ -105,14 +105,13 @@
 
 --                  1. staging.f_vdm1_stage3_create_table_new_releases()
 --                  2. staging.f_vdm1_stage3_create_table_failed_returns()
---                  3. staging.f_vdm1_stage3_create_table_cobbwebbed_film_inventory()
---                  4. staging.f_vdm1_stage3_create_table_category_count_init()
---                  5. staging.f_vdm1_stage3_create_table_customer_watch_history_details()
---                  6. staging.f_vdm1_stage3_create_table_cx_reclist_master_nonspecific()
---                  7. staging.f_vdm1_stage3_create_table_cx_reclist_master_specific()
---                  8. staging.f_vdm1_stage3_create_table_customer_rec_custom_preferences()
---                  9. staging.f_vdm1_stage3_table_changes()
---                 10. staging.f_vdm1_stage3_cleanup()
+--                  3. staging.f_vdm1_stage3_create_table_category_count_init()
+--                  4. staging.f_vdm1_stage3_create_table_customer_watch_history_details()
+--                  5. staging.f_vdm1_stage3_create_table_cx_reclist_master_nonspecific()
+--                  6. staging.f_vdm1_stage3_create_table_cx_reclist_master_specific()
+--                  7. staging.f_vdm1_stage3_create_table_customer_rec_custom_preferences()
+--                  8. staging.f_vdm1_stage3_table_changes()
+--                  9. staging.f_vdm1_stage3_cleanup()
 
 
 --     #### #### #### ####
@@ -151,16 +150,15 @@
 --                 16. staging.f_vdm1_stage4_calc_update_customer_watch_history_row_number()
 --                 17. staging.f_vdm1_stage4_calc_insert_failed_returns_v2()
 --                 18. staging.f_vdm1_stage4_calc_insert_new_releases_v2()
---                 19. staging.f_vdm1_stage4_calc_insert_cobbwebbed_film_inventory()
---                 20. staging.f_vdm1_stage4_calc_delete_cx_history_from_cx_filmcat
---                 21. staging.f_vdm1_stage4_calc_insert_cx_reclist_master_nonspecific()
---                 22. staging.f_vdm1_stage4_calc_update_cx_reclist_master_nonspecific_rn()
---                 23. staging.f_vdm1_stage4_calc_insert_cx_reclist_master_specific_default();
---                 24. staging.f_vdm1_stage4_calc_update_cx_reclist_master_specific_rn();
---                 25. staging.f_vdm1_stage4_transform_customer_full_name(p_first_name VARCHAR, p_last_name VARCHAR)
---                 26. staging.f_vdm1_stage4_transform_filmlength_int2vchar(p_length INTEGER)
---                 27. staging.f_vdm1_stage4_calc_expected_return_date(p_film_id INT, p_rental_date DATE)
---                 28. staging.f_vdm1_stage4_cleanup()
+--                 19. staging.f_vdm1_stage4_calc_delete_cx_history_from_cx_filmcat
+--                 20. staging.f_vdm1_stage4_calc_insert_cx_reclist_master_nonspecific()
+--                 21. staging.f_vdm1_stage4_calc_update_cx_reclist_master_nonspecific_rn()
+--                 22. staging.f_vdm1_stage4_calc_insert_cx_reclist_master_specific_default();
+--                 23. staging.f_vdm1_stage4_calc_update_cx_reclist_master_specific_rn();
+--                 24. staging.f_vdm1_stage4_transform_customer_full_name(p_first_name VARCHAR, p_last_name VARCHAR)
+--                 25. staging.f_vdm1_stage4_transform_filmlength_int2vchar(p_length INTEGER)
+--                 26. staging.f_vdm1_stage4_calc_expected_return_date(p_film_id INT, p_rental_date DATE)
+--                 27. staging.f_vdm1_stage4_cleanup()
 
 
 --     #### #### #### ####
@@ -710,22 +708,23 @@ $vdm1_stage2_create_table_films$;
 CREATE OR REPLACE FUNCTION staging.f_vdm1_stage2_film_inventory()
 	RETURNS VOID
 	LANGUAGE plpgsql
-	AS $vdm1_stage2_create_table_film_inv$
+	AS $vdm1_stage2_create_table_film_inventory$
 	
 	BEGIN 
 	
 		CREATE TABLE staging.vdm1_stage2_film_inventory AS (
 	
             SELECT 
-                a.film_id
+                  a.film_id
                 , b.inventory_id
-            FROM staging.vdm1_stage1_film a
-                INNER JOIN staging.vdm1_stage1_inventory b
+
+            FROM staging.vdm1_stage1_film AS a
+                INNER JOIN staging.vdm1_stage1_inventory AS b
                     ON b.film_id = a.film_id
 	    );
 	
 	END;
-$vdm1_stage2_create_table_film_inv$;
+$vdm1_stage2_create_table_film_inventory$;
 
 -- #### #### #### #### #### #### #### #### 
 
@@ -1083,8 +1082,6 @@ CREATE OR REPLACE PROCEDURE staging.vdm1_stage3()
 		
 		PERFORM staging.f_vdm1_stage3_create_table_failed_returns();
 
-		PERFORM staging.f_vdm1_stage3_create_table_cobbwebbed_film_inventory();
-
 
 		-- #### #### #### #### 
 
@@ -1126,14 +1123,13 @@ $vdm1_stage3_run$;
 
 --      1. staging.f_vdm1_stage3_create_table_new_releases()
 --      2. staging.f_vdm1_stage3_create_table_failed_returns()
---      3. staging.f_vdm1_stage3_create_table_cobbwebbed_film_inventory()
---      4. staging.f_vdm1_stage3_create_table_category_count_init()
---      5. staging.f_vdm1_stage3_create_table_customer_watch_history_details()
---      6. staging.f_vdm1_stage3_create_table_cx_reclist_master_nonspecific()
---      7. staging.f_vdm1_stage3_create_table_cx_reclist_master_specific()
---      8. staging.f_vdm1_stage3_create_table_customer_rec_custom_preferences()
---      9. staging.f_vdm1_stage3_table_changes()
---     10. staging.f_vdm1_stage3_cleanup()
+--      3. staging.f_vdm1_stage3_create_table_category_count_init()
+--      4. staging.f_vdm1_stage3_create_table_customer_watch_history_details()
+--      5. staging.f_vdm1_stage3_create_table_cx_reclist_master_nonspecific()
+--      6. staging.f_vdm1_stage3_create_table_cx_reclist_master_specific()
+--      7. staging.f_vdm1_stage3_create_table_customer_rec_custom_preferences()
+--      8. staging.f_vdm1_stage3_table_changes()
+--      9. staging.f_vdm1_stage3_cleanup()
 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
@@ -1195,20 +1191,7 @@ $vdm1_stage3_create_table_failed_returns$;
 -- ####     3     #### 
 -- #### #### #### #### 
 
-CREATE OR REPLACE FUNCTION staging.f_vdm1_stage3_create_table_cobbwebbed_film_inventory()
-	RETURNS VOID
-	LANGUAGE plpgsql
-	AS $vdm1_stage3_create_table_cobbwebbed_film_inventory$
-	
-	BEGIN 
-	
-        CREATE TABLE IF NOT EXISTS staging.vdm1_stage3_cobbwebbed_film_inventory(
 
-              film_id INTEGER NOT NULL
-            , inventory_id INTEGER NOT NULL
-        );
-	END;
-$vdm1_stage3_create_table_cobbwebbed_film_inventory$;
 
 -- #### #### #### #### #### #### #### #### 
 
@@ -1503,9 +1486,6 @@ CREATE OR REPLACE FUNCTION staging.f_vdm1_stage3_cleanup()
 
 		-- #### #### #### #### 
 
-		ALTER TABLE IF EXISTS staging.vdm1_stage3_cobbwebbed_film_inventory
-			RENAME TO vdm1_stage4_cobbwebbed_film_inventory;
-
 		ALTER TABLE IF EXISTS staging.vdm1_stage3_failed_returns
 			RENAME TO vdm1_stage4_failed_returns;
 
@@ -1631,8 +1611,6 @@ CREATE OR REPLACE PROCEDURE staging.vdm1_stage4()
 
 		PERFORM staging.f_vdm1_stage4_calc_insert_new_releases_v2();
 
-		PERFORM staging.f_vdm1_stage4_calc_insert_cobbwebbed_film_inventory();
-
 		PERFORM staging.f_vdm1_stage4_calc_insert_cx_reclist_master_nonspecific();
 
 		PERFORM staging.f_vdm1_stage4_calc_update_cx_reclist_master_nonspecific_rn();
@@ -1690,8 +1668,6 @@ CREATE OR REPLACE PROCEDURE staging.vdm1_stage4a()
 		PERFORM staging.f_vdm1_stage4_calc_insert_failed_returns_v2();
 
 		PERFORM staging.f_vdm1_stage4_calc_insert_new_releases_v2();
-
-		PERFORM staging.f_vdm1_stage4_calc_insert_cobbwebbed_film_inventory();
         
 
 	END;
@@ -1789,16 +1765,15 @@ $vdm1_stage4c_run$;
 --     16. staging.f_vdm1_stage4_calc_update_customer_watch_history_row_number()
 --     17. staging.f_vdm1_stage4_calc_insert_failed_returns_v2()
 --     18. staging.f_vdm1_stage4_calc_insert_new_releases_v2()
---     19. staging.f_vdm1_stage4_calc_insert_cobbwebbed_film_inventory()
---     20. staging.f_vdm1_stage4_calc_delete_cx_history_from_cx_filmcat
---     21. staging.f_vdm1_stage4_calc_insert_cx_reclist_master_nonspecific()
---     22. staging.f_vdm1_stage4_calc_update_cx_reclist_master_nonspecific_rn()
---     23. staging.f_vdm1_stage4_calc_insert_cx_reclist_master_specific_default();
---     24. staging.f_vdm1_stage4_calc_update_cx_reclist_master_specific_rn();
---     25. staging.f_vdm1_stage4_transform_customer_full_name(p_first_name VARCHAR, p_last_name VARCHAR)
---     26. staging.f_vdm1_stage4_transform_filmlength_int2vchar(p_length INTEGER)
---     27. staging.f_vdm1_stage4_calc_expected_return_date(p_film_id INT, p_rental_date DATE)
---     28. staging.f_vdm1_stage4_cleanup()
+--     19. staging.f_vdm1_stage4_calc_delete_cx_history_from_cx_filmcat
+--     20. staging.f_vdm1_stage4_calc_insert_cx_reclist_master_nonspecific()
+--     21. staging.f_vdm1_stage4_calc_update_cx_reclist_master_nonspecific_rn()
+--     22. staging.f_vdm1_stage4_calc_insert_cx_reclist_master_specific_default();
+--     23. staging.f_vdm1_stage4_calc_update_cx_reclist_master_specific_rn();
+--     24. staging.f_vdm1_stage4_transform_customer_full_name(p_first_name VARCHAR, p_last_name VARCHAR)
+--     25. staging.f_vdm1_stage4_transform_filmlength_int2vchar(p_length INTEGER)
+--     26. staging.f_vdm1_stage4_calc_expected_return_date(p_film_id INT, p_rental_date DATE)
+--     27. staging.f_vdm1_stage4_cleanup()
 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
@@ -2400,8 +2375,6 @@ CREATE OR REPLACE FUNCTION staging.f_vdm1_stage4_calc_insert_failed_returns_v2()
 	AS $vdm1_stage4_calc_insert_failed_returns$
 	
 	BEGIN  
-    
-        TRUNCATE TABLE staging.vdm1_stage4_failed_returns;
             
 		INSERT INTO staging.vdm1_stage4_failed_returns(
 
@@ -2448,8 +2421,6 @@ CREATE OR REPLACE FUNCTION staging.f_vdm1_stage4_calc_insert_new_releases_v2()
 	
 	BEGIN 
 
-		TRUNCATE TABLE staging.vdm1_stage4_new_releases;
-
 
 		INSERT INTO staging.vdm1_stage4_new_releases(
 			  film_id
@@ -2468,43 +2439,6 @@ $vdm1_stage4_calc_insert_new_releases$;
 
 -- #### #### #### ####
 -- ####    19     #### 
--- #### #### #### ####
-
-CREATE OR REPLACE FUNCTION staging.f_vdm1_stage4_calc_insert_cobbwebbed_film_inventory()
-	RETURNS VOID
-	LANGUAGE plpgsql
-	AS $vdm1_stage4_calc_insert_cobbwebbed_film_inventory$
-	
-	BEGIN 
-
-		TRUNCATE TABLE staging.vdm1_stage4_cobbwebbed_film_inventory;
-
-
-		INSERT INTO staging.vdm1_stage4_cobbwebbed_film_inventory(
-			  film_id
-            , inventory_id
-		)		
-		
-		SELECT
-			  a.film_id
-			, c.inventory_id
-		FROM staging.vdm1_stage4_film_category_popularity a
-            LEFT JOIN staging.vdm1_stage4_new_releases b
-                ON b.film_id = a.film_id
-            LEFT JOIN staging.vdm1_stage4_film_inventory c 
-                ON c.film_id = a.film_id
-		
-		WHERE a.total_rentals = 0
-            AND
-        b.film_id != a.film_id;
-		
-	END;
-$vdm1_stage4_calc_insert_cobbwebbed_film_inventory$;
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####    20     #### 
 -- #### #### #### ####
 
 CREATE OR REPLACE FUNCTION staging.f_vdm1_stage4_calc_delete_cx_history_from_cx_filmcat()
@@ -2540,9 +2474,8 @@ $vdm1_stage4_calc_delete_customer_film_category$;
 
 -- #### #### #### #### #### #### #### #### 
 
-
 -- #### #### #### ####
--- ####    21     #### 
+-- ####    20     #### 
 -- #### #### #### ####
 
 CREATE OR REPLACE FUNCTION staging.f_vdm1_stage4_calc_insert_cx_reclist_master_nonspecific()
@@ -2597,8 +2530,9 @@ $vdm1_stage4_calc_insert_customer_reclist_master_nonspecific$;
 
 -- #### #### #### #### #### #### #### #### 
 
+
 -- #### #### #### ####
--- ####    22     #### 
+-- ####    21     #### 
 -- #### #### #### ####
 
 CREATE OR REPLACE FUNCTION staging.f_vdm1_stage4_calc_update_cx_reclist_master_nonspecific_rn()
@@ -2651,10 +2585,10 @@ $vdm1_stage4_calc_update_customer_reclist_master_nonspecific_row_number$;
 
 -- #### #### #### #### #### #### #### #### 
 
+-- #### #### #### ####
+-- ####    22     #### 
+-- #### #### #### ####
 
--- #### #### #### ####
--- ####    23     #### 
--- #### #### #### ####
 
 CREATE OR REPLACE FUNCTION staging.f_vdm1_stage4_calc_insert_cx_reclist_master_specific_default()
 	RETURNS VOID
@@ -2724,8 +2658,9 @@ $vdm1_stage4_calc_insert_customer_reclist_master_specific_default$;
 
 -- #### #### #### #### #### #### #### #### 
 
+
 -- #### #### #### ####
--- ####    24    #### 
+-- ####    23     #### 
 -- #### #### #### ####
 
 CREATE OR REPLACE FUNCTION staging.f_vdm1_stage4_calc_update_cx_reclist_master_specific_rn()
@@ -2776,12 +2711,10 @@ CREATE OR REPLACE FUNCTION staging.f_vdm1_stage4_calc_update_cx_reclist_master_s
 
 $vdm1_stage4_calc_update_customer_reclist_master_specific_row_number$;
 
-
-
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    25     #### 
+-- ####    24    #### 
 -- #### #### #### ####
 
 
@@ -2848,8 +2781,10 @@ $vdm1_stage4_transform_customer_full_name$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    26     #### 
+-- ####    25     #### 
 -- #### #### #### ####
+
+
 
 CREATE OR REPLACE FUNCTION staging.f_vdm1_stage4_transform_filmlength_int2vchar(
 	p_length INTEGER
@@ -2894,10 +2829,11 @@ $vdm1_stage4_filmlength_int2vchar$;
 
 -- #### #### #### #### #### #### #### #### 
 
+-- #### #### #### ####
+-- ####    26     #### 
+-- #### #### #### ####
 
--- #### #### #### ####
--- ####    27     #### 
--- #### #### #### ####
+
 
 
 CREATE OR REPLACE FUNCTION staging.f_vdm1_stage4_calc_expected_return_date(
@@ -2933,9 +2869,11 @@ $vdm1_stage4_calc_expectedreturndate$;
 
 -- #### #### #### #### #### #### #### #### 
 
+
 -- #### #### #### ####
--- ####    28     #### 
+-- ####    27     #### 
 -- #### #### #### ####
+
 
 CREATE OR REPLACE FUNCTION staging.f_vdm1_stage4_cleanup()
 	RETURNS VOID
@@ -2995,9 +2933,6 @@ CREATE OR REPLACE FUNCTION staging.f_vdm1_stage4_cleanup()
 		ALTER TABLE IF EXISTS staging.vdm1_stage4_film_inventory
 			RENAME TO vdm1_stage5_inventory_maintenance;
 
-		ALTER TABLE IF EXISTS staging.vdm1_stage4_cobbwebbed_film_inventory
-			RENAME TO vdm1_stage5_stagnant_film_inventory;
-
 		-- #### #### #### #### 
 
 		ALTER TABLE IF EXISTS staging.vdm1_stage4_customer_watch_history_details
@@ -3026,6 +2961,7 @@ CREATE OR REPLACE FUNCTION staging.f_vdm1_stage4_cleanup()
 	END;
 $vdm1_stage4_cleanup$;
 
+-- #### #### #### #### #### #### #### #### 
 
 
 
@@ -3692,9 +3628,6 @@ CREATE OR REPLACE FUNCTION staging.f_vdm1_stage5_datestamp()
 		ALTER TABLE IF EXISTS staging.vdm1_stage5_new_releases
 			ADD COLUMN generated_date DATE DEFAULT CURRENT_DATE;
 
-		ALTER TABLE IF EXISTS staging.vdm1_stage5_stagnant_film_inventory
-			ADD COLUMN generated_date DATE DEFAULT CURRENT_DATE;
-
 		ALTER TABLE IF EXISTS staging.vdm1_stage5_category_popularity
             ADD COLUMN generated_date DATE DEFAULT CURRENT_DATE;
 
@@ -3706,6 +3639,7 @@ CREATE OR REPLACE FUNCTION staging.f_vdm1_stage5_datestamp()
 
     END;
 $vdm1_stage5_datestamp$;
+
 
 -- #### #### #### #### #### #### #### #### 
 
@@ -3759,9 +3693,6 @@ CREATE OR REPLACE FUNCTION staging.f_vdm1_stage5_cleanup()
 
 		ALTER TABLE IF EXISTS staging.vdm1_stage5_inventory_maintenance_summary
 			RENAME TO inventory_maintenance_summary;
-
-		ALTER TABLE IF EXISTS staging.vdm1_stage5_stagnant_film_inventory
-			RENAME TO stagnant_film_inventory;
 
 		-- #### #### #### #### 
 
@@ -6563,8 +6494,63 @@ $vdm1_stage4_transform_rental_date_to_report_stamp$;
 
 -- #### #### #### #### #### #### #### #### 
 
+/*
+CREATE OR REPLACE FUNCTION staging.f_vdm1_stage3_create_table_cobbwebbed_film_inventory()
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_stage3_create_table_cobbwebbed_film_inventory$
+	
+	BEGIN 
+	
+        CREATE TABLE IF NOT EXISTS staging.vdm1_stage3_cobbwebbed_film_inventory(
+
+              film_id INTEGER NOT NULL
+            , inventory_id INTEGER NOT NULL
+        );
+	END;
+$vdm1_stage3_create_table_cobbwebbed_film_inventory$;
+
+*/
 
 
+-- #### #### #### #### #### #### #### #### 
+
+/*
+
+
+CREATE OR REPLACE FUNCTION staging.f_vdm1_stage4_calc_insert_cobbwebbed_film_inventory()
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_stage4_calc_insert_cobbwebbed_film_inventory$
+	
+	BEGIN 
+
+
+		INSERT INTO staging.vdm1_stage4_cobbwebbed_film_inventory(
+			  film_id
+            , inventory_id
+		)		
+		
+		SELECT
+			  a.film_id
+			, c.inventory_id
+
+		FROM staging.vdm1_stage4_film_category_popularity AS a
+
+            LEFT JOIN staging.vdm1_stage4_new_releases AS b
+                ON b.film_id = a.film_id
+        
+            LEFT JOIN staging.vdm1_stage4_film_inventory AS c 
+                ON c.film_id = a.film_id
+		
+		WHERE 
+            a.total_rentals = 0
+                AND
+            b.film_id != a.film_id;
+		
+	END;
+$vdm1_stage4_calc_insert_cobbwebbed_film_inventory$;
+*/
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### ####  DISABLED FUNCTIONS END  #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
