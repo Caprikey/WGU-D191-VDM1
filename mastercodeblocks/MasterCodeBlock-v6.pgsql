@@ -3095,17 +3095,22 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5()
 
         -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
+        PERFORM vdm1_etl.f_vdm1_stage5_create_table_constraints
+        
+        -- #### #### #### #### 
+
         PERFORM vdm1_etl.f_vdm1_stage5_cleanup();
 
         -- #### #### #### #### #### #### #### #### 
 
-        -- PERFORM vdm1_etl.f_vdm1_stage5_destroy_stage();
+        PERFORM vdm1_etl.f_vdm1_stage5_destroy_stage();
+
+        PERFORM vdm1_etl.f_refresh_mview_all_marketing();
 
         -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
     END;
 $vdm1_stage5_run$;
-
 
 
 -- #### #### #### #### #### #### #### #### 
@@ -3145,8 +3150,9 @@ $vdm1_stage5_run$;
 --     21. vdm1_data.f_vdm1_stage4_transform_customer_full_name();
 --     22. vdm1_data.f_vdm1_stage4_transform_filmlength_int2vchar();
 --     23. vdm1_etl.f_vdm1_stage5_trigger_setup();
---     24. vdm1_etl.f_vdm1_stage5_cleanup();
---     25. vdm1_etl.f_vdm1_stage5_delete_stage();
+--     24. vdm1_etl.f_vdm1_stage5_create_table_constraints();
+--     25. vdm1_etl.f_vdm1_stage5_cleanup();
+--     26. vdm1_etl.f_vdm1_stage5_delete_stage();
 
 
 
@@ -4499,8 +4505,88 @@ $vdm1_stage5_trigger_setup$;
 
 -- #### #### #### #### #### #### #### #### 
 
+
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_create_table_constraints()
+    RETURNS VOID
+    LANGUAGE plpgsql
+    AS $vdm1_stage5_add_table_constraints$
+
+    BEGIN
+
+
+        ALTER TABLE customer_category
+            ADD PRIMARY KEY (customer_id, category_id),
+            ADD CONSTRAINT fk_customer_id FOREGIN KEY (customer_id) REFERENCES public.customer (customer_id),
+            ADD CONSTRAINT fk_category_id FOREIGN KEY (category_id) REFERENCES public.category (category_id);
+
+        ALTER TABLE failed_returns
+            ADD PRIMARY KEY (customer_id, rental_id),
+            ADD CONSTRAINT fk_customer_id FOREGIN KEY (customer_id) REFERENCES public.customer (customer_id),
+            ADD CONSTRAINT fk_rental_id FOREIGN KEY (rental_id) REFERENCES public.rental (rental_id);
+
+        ALTER TABLE new_releases
+            ADD PRIMARY KEY (film_id),
+            ADD CONSTRAINT fk_film_id FOREGIN KEY (film_id) REFERENCES public.film (film_id);
+
+        ALTER TABLE inventory_maintenance
+            ADD PRIMARY KEY (inventory_id),
+            ADD CONSTRAINT fk_inventory_id FOREGIN KEY (inventory_id) REFERENCES public.inventory (inventory_id);
+
+        ALTER TABLE inventory_maintenance_summary
+            ADD PRIMARY KEY (inventory_id),
+            ADD CONSTRAINT fk_inventory_id FOREGIN KEY (inventory_id) REFERENCES public.inventory (inventory_id);
+
+        ALTER TABLE customer_watch_history_detailed
+            ADD PRIMARY KEY (customer_id, rental_id),
+            ADD CONSTRAINT fk_customer_id FOREGIN KEY (customer_id) REFERENCES public.customer (customer_id),
+            ADD CONSTRAINT fk_rental_id FOREIGN KEY (rental_id) REFERENCES public.rental (rental_id),
+            ALTER COLUMN rental_date SET NOT NULL;
+
+        ALTER TABLE customer_reclist_master_nonspecific
+            ADD PRIMARY KEY (customer_id, film_id),
+            ADD CONSTRAINT fk_customer_id FOREGIN KEY (customer_id) REFERENCES public.customer (customer_id),
+            ADD CONSTRAINT fk_film_id FOREIGN KEY (film_id) REFERENCES public.film (film_id);
+
+        ALTER TABLE customer_reclist_master_specific
+            ADD PRIMARY KEY (customer_id, film_id),
+            ADD CONSTRAINT fk_customer_id FOREGIN KEY (customer_id) REFERENCES public.customer (customer_id),
+            ADD CONSTRAINT fk_film_id FOREIGN KEY (film_id) REFERENCES public.film (film_id),
+            ADD CONSTRAINT fk_category_id FOREIGN KEY (category_id) REFERENCES public.category (category_id);
+
+        ALTER TABLE customer_reclist_summary_nonspecific
+            ADD PRIMARY KEY (customer_id, film_id),
+            ADD CONSTRAINT fk_customer_id FOREGIN KEY (customer_id) REFERENCES public.customer (customer_id),
+            ADD CONSTRAINT fk_film_id FOREIGN KEY (film_id) REFERENCES public.film (film_id);
+
+        ALTER TABLE customer_reclist_summary_specific
+            ADD PRIMARY KEY (customer_id, film_id),
+            ADD CONSTRAINT fk_customer_id FOREGIN KEY (customer_id) REFERENCES public.customer (customer_id),
+            ADD CONSTRAINT fk_film_id FOREIGN KEY (film_id) REFERENCES public.film (film_id),
+            ADD CONSTRAINT fk_category_id FOREIGN KEY (category_id) REFERENCES public.category (category_id);
+
+        ALTER TABLE category_popularity
+            ADD PRIMARY KEY (category_id),
+            ADD CONSTRAINT fk_category_id FOREGIN KEY (category_id) REFERENCES public.category (category_id);
+
+        ALTER TABLE film_category_popularity
+            ADD PRIMARY KEY (film_id),
+            ADD CONSTRAINT fk_film_id FOREIGN KEY (film_id) REFERENCES public.film (film_id),
+            ADD CONSTRAINT fk_category_id FOREIGN KEY (category_id) REFERENCES public.category (category_id);
+
+        ALTER TABLE customer_rec_custom_preferences
+            ADD PRIMARY KEY (customer_id, category_id),
+            ADD CONSTRAINT fk_customer_id FOREGIN KEY (customer_id) REFERENCES public.customer (customer_id),
+            ADD CONSTRAINT fk_category_id FOREIGN KEY (category_id) REFERENCES public.category (category_id);
+
+    END;
+$vdm1_stage5_add_table_constraints$;
+
+
+-- #### #### #### #### #### #### #### #### 
+
 -- #### #### #### ####
--- ####    24     #### 
+-- ####    25     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_cleanup()
@@ -4602,7 +4688,7 @@ $vdm1_stage5_cleanup$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    25     #### 
+-- ####    26     #### 
 -- #### #### #### #### 
 
 
@@ -4619,8 +4705,44 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_destroy_stage()
 	END;
 $vdm1_stage5_destroy_stage$;
 
+
 -- #### #### #### #### #### #### #### #### 
 
+-- #### #### #### ####
+-- ####    27     #### 
+-- #### #### #### #### 
+
+
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_refresh_mview_all_marketing()
+    RETURNS VOID
+    LANGUAGE plpgsql
+    AS $vdm1_refresh_materialized_views_all_marketing$
+
+    BEGIN
+
+        -- #### #### #### #### #### #### #### #### 
+
+		REFERESH MATERIALIZED VIEW marketing.customer_details;  
+
+		REFERESH MATERIALIZED VIEW marketing.film_details;  
+
+		REFERESH MATERIALIZED VIEW marketing.location_details;  
+
+		REFERESH MATERIALIZED VIEW marketing.store_details ;    
+
+		REFERESH MATERIALIZED VIEW marketing.category;  
+
+		REFERESH MATERIALIZED VIEW marketing.city;  
+
+		REFERESH MATERIALIZED VIEW marketing.country;   
+
+		REFERESH MATERIALIZED VIEW marketing.language;  
+    
+        -- #### #### #### #### #### #### #### #### 
+
+    END;
+$vdm1_refresh_materialized_views_all_marketing$;
 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
