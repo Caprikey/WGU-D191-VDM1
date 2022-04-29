@@ -1,0 +1,143 @@
+
+Material Views
+    Film Details 
+    Category Details 
+    City Details 
+    Country Details 
+    
+    Store Details 
+    Customer Details
+
+
+
+
+category popularity
+    category_id
+    name
+        REMOVE
+    total_rentals
+
+customer_category
+    customer_id 
+    category_id
+    historical_rental_count
+    recommendation_order_historical
+    average_rental_count
+    recommendation_order_average 
+    halfaverage_rental_count 
+    recommendation_order_halfaverage
+    recommendation_order_customer_preference
+
+customer_rec_custom_preferences
+    customer_id
+    category_id 
+    customer_rec_custom_order
+    customer_rec_custom_amount 
+
+        CUT THIS TABLE OUT AND JUST PUT DIRECTLY TO customer_category Table?
+
+
+customer_watch_history_detailed 
+    customer_id 
+    rental_id 
+    inventory_id
+        REMOVE COLUMN. Just Get This Information From Rental Table
+    film_id
+        REMOVE COLUMN? Just Get This Information From Rental Table
+    category_id 
+        REMOVE COLUMN. Just Get This Information From Rental Table
+    rental_date
+        CHANGE NAME TO WATCHED DATE 
+    return_date
+        REMOVE COLUMN. 
+    customer_watch_history_desc_order
+
+
+failed_returns
+    customer_id
+    rental_id 
+    film_id
+        REMOVE COLUMN? Just Get This Information From Inventory Table 
+    inventory_id 
+        REMOVE COLUMN. Just Get This Information From The Rental Table
+    store_id 
+    rental_date 
+        REMOVE COLUMN. Just Get This Information From The Rental Table 
+    expected_return_date
+    age
+
+film_category_popularity
+    film_id
+    category_id 
+    total_rentals
+    film_rank
+    film_category_rank 
+    new_release
+       REMOVE COLUMN. Just Check Table for existence on new_releases Table  
+
+inventory_maintenance
+    film_id 
+        REMOVE COLUMN. Just Get This Information From Inventory Table
+    inventory_id 
+    life_cycle
+    new_release 
+        REMOVE COLUMN. Just Check Table for existence on new_releases Table .
+    inspect_flag
+    maintenance_complete_flag 
+
+    inventory_maintenance_summary 
+        film_id 
+            REMOVE COLUMN
+        inventory_id 
+        life_cycle
+        new_release
+            REMOVE COLUMN. Just Check Table for existence on new_releases Table 
+        inspect_flag
+        maintenance_complete_flag 
+
+new_releases
+    film_id 
+    status
+        Change Status To Created_Date Or Similar.
+
+
+
+-- #### #### #### #### 
+    
+    customer_reclist_master_nonspecific
+        customer_id 
+        film_rank
+            REMOVE COLUMN. Just Get This Information From film_category_popularity Table
+        category_id
+            REMOVE COLUMN
+        film_rec_order 
+        film_id 
+        film_category_rank
+            REMOVE COLUMN. Just Get This Information From film_category_popularity Table
+        total_rentals
+            REMOVE COLUMN. Just Get This Information From film_category_popularity Table
+
+    customer_reclist_master_specifc 
+        customer_id 
+        cat_rec_order 
+        category_id 
+        rental_rec_order 
+        film_id 
+        film_category_rank 
+            REMOVE COLUMN. Just Get This Information From film_category_popularity Table
+        total_rentals
+            REMOVE COLUMN. Just Get This Information From film_category_popularity Table
+
+    customer_reclist_summary_nonspecific
+        customer_id 
+        film_rec_order
+        film_id 
+        category_id 
+            REMOVE COLUMN 
+
+    customer_reclist_summary_specific
+        customer_id 
+        cat_rec_order
+        rental_rec_order
+        film_id 
+        category_id 

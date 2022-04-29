@@ -1,5 +1,5 @@
 -- MASTER CODE BLOCK
--- Version 5
+-- Version 6
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
@@ -16,11 +16,11 @@
 --             SCHEMA CREATION
 
 --                  1. CREATE SCHEMA :: MARKETING
---                  2. CREATE SCHEMA :: VDMA1_ETL
+--                  2. CREATE SCHEMA :: VDM1_ETL
 --                  3. DROP SCHEMA :: STAGING - CASCADE
 --                  4. CREATE SCHEMA :: STAGING
---                  5. DROP SCHEMA :: VDMA1_DATA - CASCADE
---					6. CREATE SCHEMA :: VDMA1_DATA
+--                  5. DROP SCHEMA :: VDM1_DATA - CASCADE
+--					6. CREATE SCHEMA :: VDM1_DATA
 --                  5. CREATE SCHEMA :: EXTENSIONS
 
 --             SCHEMA PRIVILAGES
@@ -177,21 +177,31 @@
 
 --             FUNCTIONS
 
---                   1. vdm1_etl.f_vdm1_stage5_createtable_cx_reclist_summary_nonspecific(); 
---                   2. vdm1_etl.f_vdm1_stage5_createtable_cx_reclist_summary_specific();
---                   3. vdm1_etl.f_vdm1_stage5_create_table_inventory_maintenance_summary();
---                   4. vdm1_etl.f_vdm1_stage5_insert_cx_reclist_summary_nonspecific();
---                   5. vdm1_etl.f_vdm1_stage5_insert_cx_reclist_summary_specific();
---                   6. vdm1_etl.f_vdm1_stage5_create_mview_customer_details(); 
---                   7. vdm1_etl.f_vdm1_stage5_create_mview_store_details(); 
---                   8. vdm1_etl.f_vdm1_stage5_create_mview_location_details(); 
---                   9. vdm1_etl.f_vdm1_stage5_create_mview_film_details(); 
---                  10. vdm1_etl.f_vdm1_stage5_datestamp();
---                  11. vdm1_data.f_vdm1_stage4_calc_expected_return_date();
---                  12. vdm1_data.f_vdm1_stage4_transform_customer_full_name();
---                  13. vdm1_data.f_vdm1_stage4_transform_filmlength_int2vchar();
---                  14. 
---                  15. vdm1_etl.f_vdm1_stage4_cleanup()
+--                  1. vdm1_etl.f_vdm1_stage5_createtable_cx_reclist_summary_nonspecific(); 
+--                  2. vdm1_etl.f_vdm1_stage5_createtable_cx_reclist_summary_specific();
+--                  3. vdm1_etl.f_vdm1_stage5_create_table_inventory_maintenance_summary();
+--                  4. vdm1_etl.f_vdm1_stage5_insert_cx_reclist_summary_nonspecific();
+--                  5. vdm1_etl.f_vdm1_stage5_insert_cx_reclist_summary_specific();
+--                  6. vdm1_etl.f_vdm1_stage5_create_mview_customer_details(); 
+--                  7. vdm1_etl.f_vdm1_stage5_create_mview_store_details(); 
+--                  8. vdm1_etl.f_vdm1_stage5_create_mview_location_details(); 
+--                  9. vdm1_etl.f_vdm1_stage5_create_mview_film_details(); 
+--                 10. vdm1_etl.f_vdm1_stage5_create_table_dictkey();
+--                 11. vdm1_etl.f_vdm1_stage5_dictkey_insert_category_data();
+--                 12. vdm1_etl.f_vdm1_stage5_dictkey_insert_language_data();
+--                 13. vdm1_etl.f_vdm1_stage5_dictkey_insert_city_data();
+--                 14. vdm1_etl.f_vdm1_stage5_dictkey_insert_country_data();
+--                 15. vdm1_etl.f_vdm1_stage5_datestamp();
+--                 16. vdm1_etl.f_vdm1_stage5_table_rename();
+--                 17. vdm1_etl.f_vdm1_stage5_load_data_marketing();
+--                 18. vdm1_etl.f_vdm1_stage5_load_data_vdm1_data();
+--                 19. vdm1_etl.f_vdm1_stage5_table_enabled_logging_vdm1_data()
+--                 20. vdm1_data.f_vdm1_stage4_calc_expected_return_date();
+--                 21. vdm1_data.f_vdm1_stage4_transform_customer_full_name();
+--                 22. vdm1_data.f_vdm1_stage4_transform_filmlength_int2vchar();
+--                 23. vdm1_etl.f_vdm1_stage5_trigger_setup();
+--                 24. vdm1_etl.f_vdm1_stage5_cleanup();
+--                 25. vdm1_etl.f_vdm1_stage5_delete_stage();
 
 --     #### #### #### ####
 --         STAGE 5 END
@@ -256,6 +266,18 @@
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### ####    STAGE 0 BEGIN    #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+
+
+CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage0()
+    RETURNS VOID
+    LANGUAGE plpgsql
+    AS $vdm1_stage0_etl_env_setup$
+
+    BEGIN
+
+
+
 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
@@ -387,6 +409,8 @@ CREATE SCHEMA IF NOT EXISTS vdm1_data;
 
 -- #### #### #### #### #### #### #### #### 
 
+END;
+$vdm1_stage0_etl_env_setup$;
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
@@ -397,11 +421,13 @@ CREATE SCHEMA IF NOT EXISTS vdm1_data;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 
-CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1__etl_main()
+CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_etl_main()
 	LANGUAGE plpgsql
 	AS $etl_main_run$
 	
 	BEGIN 
+
+        CALL vdm1_etl.vdm1_stage0();
 
 		CALL vdm1_etl.vdm1_stage1();
 
@@ -1377,7 +1403,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage3_table_changes()
         ALTER TABLE IF EXISTS staging.vdm1_stage3_film_category
 			ADD COLUMN total_rentals INTEGER NOT NULL DEFAULT 0,
 			ADD COLUMN film_rank INTEGER DEFAULT NULL,
-			ADD COLUMN film_category_rank INTEGER DEFAULT NULL
+			ADD COLUMN film_category_rank INTEGER DEFAULT NULL,
             ADD COLUMN new_release BOOLEAN DEFAULT FALSE;
 
 		-- #### #### #### #### 
@@ -3024,6 +3050,8 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5()
         
         PERFORM vdm1_etl.f_vdm1_stage5_create_mview_film_details(); 
 
+        PERFORM vdm1_etl.f_vdm1_stage5_table_rename();
+
 
         -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
@@ -3065,9 +3093,15 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5()
 
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup();
 
+        -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_stage5_cleanup();
+
         -- #### #### #### #### #### #### #### #### 
 
-        -- PERFORM vdm1_etl.f_vdm1_stage5_cleanup();
+        -- PERFORM vdm1_etl.f_vdm1_stage5_destroy_stage();
+
+        -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
     END;
 $vdm1_stage5_run$;
@@ -3097,13 +3131,24 @@ $vdm1_stage5_run$;
 --      7. vdm1_etl.f_vdm1_stage5_create_mview_store_details(); 
 --      8. vdm1_etl.f_vdm1_stage5_create_mview_location_details(); 
 --      9. vdm1_etl.f_vdm1_stage5_create_mview_film_details(); 
---     10. vdm1_etl.f_vdm1_stage5_datestamp();
---     11. vdm1_etl.f_vdm1_stage5_
---     11. vdm1_data.f_vdm1_stage4_calc_expected_return_date();
---     12. vdm1_data.f_vdm1_stage4_transform_customer_full_name();
---     13. vdm1_data.f_vdm1_stage4_transform_filmlength_int2vchar();
---     14. vdm1_etl.f_vdm1_stage5_trigger_setup()
---     15. vdm1_etl.f_vdm1_stage4_cleanup()
+--     10. vdm1_etl.f_vdm1_stage5_create_table_dictkey();
+--     11. vdm1_etl.f_vdm1_stage5_dictkey_insert_category_data();
+--     12. vdm1_etl.f_vdm1_stage5_dictkey_insert_language_data();
+--     13. vdm1_etl.f_vdm1_stage5_dictkey_insert_city_data();
+--     14. vdm1_etl.f_vdm1_stage5_dictkey_insert_country_data();
+--     15. vdm1_etl.f_vdm1_stage5_datestamp();
+--     16. vdm1_etl.f_vdm1_stage5_table_rename();
+--     17. vdm1_etl.f_vdm1_stage5_load_data_marketing();
+--     18. vdm1_etl.f_vdm1_stage5_load_data_vdm1_data();
+--     19. vdm1_etl.f_vdm1_stage5_table_enabled_logging_vdm1_data()
+--     20. vdm1_data.f_vdm1_stage4_calc_expected_return_date();
+--     21. vdm1_data.f_vdm1_stage4_transform_customer_full_name();
+--     22. vdm1_data.f_vdm1_stage4_transform_filmlength_int2vchar();
+--     23. vdm1_etl.f_vdm1_stage5_trigger_setup();
+--     24. vdm1_etl.f_vdm1_stage5_cleanup();
+--     25. vdm1_etl.f_vdm1_stage5_delete_stage();
+
+
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
@@ -3639,10 +3684,10 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_create_table_dictkey()
 		CREATE TABLE staging.vdm1_stage5_dictionary_key (
 
                   dictkey_id INTEGER        -- Primary Key for new Dictionary Key table
-                , dictionary VARCHAR()      -- Table Name is Dictionary
+                , dictionary VARCHAR      -- Table Name is Dictionary
                 , key_id INTEGER            -- Column ID is Key ID
-                , key_name VARCHAR()        -- Column Data is Key Name 
-            )
+                , key_name VARCHAR        -- Column Data is Key Name 
+            );
     
     END;
 $vdm1_stage5_create_table_dictkey$;
@@ -3654,6 +3699,7 @@ $vdm1_stage5_create_table_dictkey$;
 -- ####    11     #### 
 -- #### #### #### #### 
 
+
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_dictkey_insert_category_data()
 	RETURNS VOID
 	LANGUAGE plpgsql
@@ -3663,24 +3709,18 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_dictkey_insert_category_data()
 
         INSERT INTO staging.vdm1_stage5_dictionary_key(
 
-            table_name
-            key_id
-            key_name
+              table_name
+            , key_id
+            , key_name
         )
 
             SELECT
-				  
-                , b.address_id
-                , b.address
-                , b.address2
-                , b.district
-                , c.city
-                , d.country
-                , b.postal_code
-                , b.phone
-
-            FROM 
-
+				  'category'  
+				, category_id
+				, name
+				
+            FROM
+				vdm1_etl.vdm1_stage5_dictkey_category
 		);
 		
 	END;
@@ -3699,35 +3739,20 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_dictkey_insert_language_data()
 		
 	BEGIN 
 
+        INSERT INTO staging.vdm1_stage5_dictionary_key(
+
+              table_name
+            , key_id
+            , key_name
+        )
+
             SELECT
-				  a.store_id
-                , b.address_id
-                , b.address
-                , b.address2
-                , b.district
-                , c.city
-                , d.country
-                , b.postal_code
-                , b.phone
-
-            FROM 
-                public.store AS a
-                
-                
-                INNER JOIN 
-                    public.address AS b
-                        ON b.address_id = a.address_id
-                
-                
-                    INNER JOIN 
-                        public.city AS c
-                            ON c.city_id = b.city_id
-
-					INNER JOIN
-						public.country AS d 
-							ON d.country_id = c.country_id
-
-
+				  'language'  
+				, language_id
+				, name
+				
+            FROM
+				vdm1_etl.vdm1_stage5_dictkey_language
 		);
 		
 	END;
@@ -3747,16 +3772,24 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_dictkey_insert_city_data()
 		
 	BEGIN 
 
-        INSERT INTO vdm1_stage5_dict
+        INSERT INTO staging.vdm1_stage5_dictionary_key(
 
+              table_name
+            , key_id
+            , key_name
+        )
 
-        FROM 
-
-
-
+            SELECT
+				  'city'  
+				, city_id
+				, city
+				
+            FROM
+				vdm1_etl.vdm1_stage5_dictkey_city
 		);
 		
 	END;
+
 $vdm1_stage5_dictkey_insert_city_data$;
 
 -- #### #### #### #### #### #### #### #### 
@@ -3772,39 +3805,25 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_dictkey_insert_country_data()
 		
 	BEGIN 
 
+        INSERT INTO staging.vdm1_stage5_dictionary_key(
+
+              table_name
+            , key_id
+            , key_name
+        )
+
             SELECT
-				  a.store_id
-                , b.address_id
-                , b.address
-                , b.address2
-                , b.district
-                , c.city
-                , d.country
-                , b.postal_code
-                , b.phone
-
-            FROM 
-                public.store AS a
-                
-                
-                INNER JOIN 
-                    public.address AS b
-                        ON b.address_id = a.address_id
-                
-                
-                    INNER JOIN 
-                        public.city AS c
-                            ON c.city_id = b.city_id
-
-					INNER JOIN
-						public.country AS d 
-							ON d.country_id = c.country_id
-
-
+				  'country'  
+				, country_id
+				, country
+				
+            FROM
+				vdm1_etl.vdm1_stage5_dictkey_category
 		);
 		
 	END;
 $vdm1_stage5_dictkey_insert_country_data$;
+
 
 -- #### #### #### #### #### #### #### #### 
 
@@ -3879,6 +3898,79 @@ $vdm1_stage5_datestamp$;
 -- #### #### #### #### 
 
 
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_table_rename()
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_stage5_table_rename$
+	
+	BEGIN
+		
+		-- #### #### #### #### #### #### #### #### 
+
+		ALTER TABLE IF EXISTS staging.vdm1_stage5_customer_category
+			RENAME TO customer_category;
+
+		-- #### #### #### #### 
+		
+		ALTER TABLE IF EXISTS staging.vdm1_stage5_failed_returns
+			RENAME TO failed_returns;
+
+		ALTER TABLE IF EXISTS staging.vdm1_stage5_new_releases
+			RENAME TO new_releases;
+
+		ALTER TABLE IF EXISTS staging.vdm1_stage5_inventory_maintenance
+			RENAME TO inventory_maintenance;
+
+
+		ALTER TABLE IF EXISTS staging.vdm1_stage5_inventory_maintenance_summary
+			RENAME TO inventory_maintenance_summary;
+
+		-- #### #### #### #### 
+
+		ALTER TABLE IF EXISTS staging.vdm1_stage5_customer_watch_history_details
+			RENAME TO customer_watch_history_detailed;
+            
+		-- #### #### #### #### #### #### #### #### 
+
+		ALTER TABLE IF EXISTS staging.vdm1_stage5_customer_reclist_master_nonspecific
+			RENAME TO customer_reclist_master_nonspecific;
+
+		ALTER TABLE IF EXISTS staging.vdm1_stage5_customer_reclist_master_specific
+			RENAME TO customer_reclist_master_specific;
+		
+        -- #### #### #### #### 
+
+		ALTER TABLE IF EXISTS staging.vdm1_stage5_customer_reclist_summary_nonspecific
+			RENAME TO customer_reclist_summary_nonspecific;
+
+		ALTER TABLE IF EXISTS staging.vdm1_stage5_customer_reclist_summary_specific
+			RENAME TO customer_reclist_summary_specific;
+
+
+		-- #### #### #### #### #### #### #### #### 
+ 
+
+        ALTER TABLE IF EXISTS staging.vdm1_stage5_category_popularity
+            RENAME TO category_popularity;
+
+        ALTER TABLE IF EXISTS staging.vdm1_stage5_film_category_popularity
+            RENAME TO film_category_popularity;
+			
+        ALTER TABLE IF EXISTS staging.vdm1_stage5_customer_rec_custom_preferences
+            RENAME TO customer_rec_custom_preferences;
+
+        -- #### #### #### #### 
+
+
+	END;
+$vdm1_stage5_table_rename$;
+
+-- #### #### #### #### #### #### #### #### 
+
+-- #### #### #### ####
+-- ####    17     #### 
+-- #### #### #### #### 
+
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_load_data_marketing(tablename VARCHAR(30)) 
 	RETURNS VOID
 	LANGUAGE plpgsql
@@ -3896,7 +3988,7 @@ $vdm1_stage5_load_data_marketing$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    17     #### 
+-- ####    18     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_load_data_vdm1_data(tablename VARCHAR(30)) 
@@ -3916,7 +4008,67 @@ $vdm1_stage5_load_data_vdm1_data$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    18     #### 
+-- ####    19     #### 
+-- #### #### #### #### 
+
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_table_enabled_logging_vdm1_data()
+    RETURNS VOID
+    LANGUAGE plpgsql
+    AS $vdm1_stage5_table_changes_activate_logging_vdm1_data$
+    
+    BEGIN
+
+        -- #### #### #### #### #### #### #### #### 
+
+        ALTER TABLE IF EXISTS vdm1_data.customer_category
+            SET LOGGED;
+
+        ALTER TABLE IF EXISTS vdm1_data.failed_returns
+            SET LOGGED;
+
+        ALTER TABLE IF EXISTS vdm1_data.new_releases
+            SET LOGGED;
+
+        ALTER TABLE IF EXISTS vdm1_data.inventory_maintenance
+            SET LOGGED;
+
+        ALTER TABLE IF EXISTS vdm1_data.inventory_maintenance_summary
+            SET LOGGED;
+
+        ALTER TABLE IF EXISTS vdm1_data.customer_watch_history_detailed
+            SET LOGGED;
+
+        ALTER TABLE IF EXISTS vdm1_data.customer_reclist_master_nonspecific
+            SET LOGGED;
+
+        ALTER TABLE IF EXISTS vdm1_data.customer_reclist_master_specific
+            SET LOGGED;
+
+        ALTER TABLE IF EXISTS vdm1_data.customer_reclist_summary_nonspecific
+            SET LOGGED;
+
+        ALTER TABLE IF EXISTS vdm1_data.customer_reclist_summary_specific
+            SET LOGGED;
+
+        ALTER TABLE IF EXISTS vdm1_data.category_popularity
+            SET LOGGED;
+
+        ALTER TABLE IF EXISTS vdm1_data.film_category_popularity
+            SET LOGGED;
+
+        ALTER TABLE IF EXISTS vdm1_data.customer_rec_custom_preferences
+            SET LOGGED;
+
+        -- #### #### #### #### #### #### #### #### 
+
+    END;
+$vdm1_stage5_table_changes_activate_logging_vdm1_data$;
+
+-- #### #### #### #### #### #### #### #### 
+
+-- #### #### #### ####
+-- ####    20     #### 
 -- #### #### #### #### 
 
 
@@ -3925,7 +4077,7 @@ CREATE OR REPLACE FUNCTION vdm1_data.f_calc_expected_return_date(
 		p_rental_date DATE)
 	RETURNS DATE
 	LANGUAGE plpgsql
-	AS $vdm1_stage4_calc_expectedreturndate$
+	AS $vdm1_data_calc_expectedreturndate$
 	
 	DECLARE
 		
@@ -3942,20 +4094,22 @@ CREATE OR REPLACE FUNCTION vdm1_data.f_calc_expected_return_date(
 		
 			SELECT 
 				rental_duration INTO vlu_rental_duration
-			FROM staging.vdm1_stage4_films a
-			WHERE vi_film_id = a.film_id;
+			FROM 
+                public.film AS a
+			WHERE 
+                vi_film_id = a.film_id;
 
 			vo_expected_return_date := vi_rental_date + vlu_rental_duration;
 
 		RETURN vo_expected_return_date;
 	END;
-$vdm1_stage4_calc_expectedreturndate$;
+$vdm1_data_calc_expectedreturndate$;
 
 -- #### #### #### #### #### #### #### #### 
 
 
 -- #### #### #### ####
--- ####    19     #### 
+-- ####    21     #### 
 -- #### #### #### #### 
 
 
@@ -4022,7 +4176,7 @@ $vdm1_stage4_transform_customer_full_name$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    20     #### 
+-- ####    22     #### 
 -- #### #### #### #### 
 
 
@@ -4070,7 +4224,7 @@ $vdm1_stage4_filmlength_int2vchar$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    21     #### 
+-- ####    23     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup()
@@ -4342,10 +4496,11 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup()
 	
 	END;
 $vdm1_stage5_trigger_setup$;
+
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    22     #### 
+-- ####    24     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_cleanup()
@@ -4381,7 +4536,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_cleanup()
         DROP TABLE IF EXISTS staging.vdm1_stage5_dictkey_film_details;		
 
         DROP TABLE IF EXISTS staging.vdm1_stage5_dictkey_store_details;			
-
+/*
 
 		-- #### #### #### #### #### #### #### #### 
 
@@ -4438,13 +4593,17 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_cleanup()
             RENAME TO customer_rec_custom_preferences;
 
         -- #### #### #### #### 
-
+    */
 
 	END;
 $vdm1_stage5_cleanup$;
 
 
 -- #### #### #### #### #### #### #### #### 
+
+-- #### #### #### ####
+-- ####    25     #### 
+-- #### #### #### #### 
 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_destroy_stage()
@@ -4459,6 +4618,8 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_destroy_stage()
 
 	END;
 $vdm1_stage5_destroy_stage$;
+
+-- #### #### #### #### #### #### #### #### 
 
 
 
@@ -4542,8 +4703,8 @@ CREATE OR REPLACE FUNCTION vdm1_data.t_f_insert_failed_return()
             , a.inventory_id
             , b.store_id
             , a.rental_date
-            , vdm1_data.calc_expected_return_date(a.film_id::int, a.rental_date::DATE) as expected_return_date
-            , (SELECT AGE('2007-01-01', vdm1_data.calc_expected_return_date(a.film_id::int, a.rental_date::DATE))) as age
+            , vdm1_data.f_calc_expected_return_date(a.film_id::int, a.rental_date::DATE) as expected_return_date
+            , (SELECT AGE('2007-01-01', vdm1_data.f_calc_expected_return_date(a.film_id::int, a.rental_date::DATE))) as age
         FROM 
             vdm1_data.customer_watch_history_detailed AS a
                 LEFT JOIN public.customer AS b
@@ -6797,7 +6958,7 @@ CREATE OR REPLACE TRIGGER update_customer_reclist_master_specific_summary
 
 
 
-CREATE OR REPLACE PROCEDURE vdm1_etl.vmd1_reset()
+CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_reset()
 	LANGUAGE plpgsql
 	AS $vdm1_reset$
 	
@@ -6929,7 +7090,7 @@ $vdm1_reset_procedure_function_delete_tables_vdm1_data$;
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
-CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_drop_mviews_marketing();
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_drop_mviews_marketing()
     RETURNS VOID
     LANGUAGE plpgsql
     AS $vdm1_reset_drop_materialized_views_marketing$
@@ -6958,7 +7119,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_drop_mviews_marketing();
 
 $vdm1_reset_drop_materialized_views_marketing$;
 
--- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####a
 
 
 
@@ -6987,484 +7148,5 @@ $vdm1_reset_drop_materialized_views_marketing$;
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
--- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
-
--- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
--- #### #### #### #### #### #### #### #### #### #### #### #### #### DISABLED FUNCTIONS START #### #### #### #### #### #### #### #### #### #### #### #### #### ####
--- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
-
-
-
-
--- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
--- Original film recommendation master list function.
-
-
-/* 
-
-CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_insert_customer_reclist_master_v2()
-    RETURNS VOID
-	LANGUAGE plpgsql
-	AS $vdm1_stage4_calc_insert_customer_reclist_master$
-
-	BEGIN 
-
-    -- TRUNCATE TABLE staging.vdm1_stage4_customer_recommendation_list_master;
-
-    -- TRUNCATE TABLE staging.vdm1_stage4_customer_recommendation_list_master;
-
-    INSERT INTO staging.vdm1_stage4_customer_reclist_master_nonspecific(
-
-			  customer_id
-			, film_rank
-            , category_id
-			, film_rec_order
-			, film_id
-			, film_category_rank
-			, total_rentals
-		)	
-
-*/
-/*
-    WITH get_s_list AS (SELECT 
-    	  a.customer_id
-    	-- , a.category_rank
-    	-- , a.category_rank_number
-    	, a.recommendation_order_historical
-    	, b.*
-    	-- , ROW_NUMBER() OVER (PARTITION BY a.customer_id, category_id ORDER BY film_category_rank) as rec_order
-    FROM staging.vdm1_stage4_customer_category a
-    	INNER JOIN staging.vdm1_stage4_film_category_popularity b USING (category_id)
-    
-    	--  WHERE a.category_rank = 'S'
-    	-- WHERE a.category_rank_number = 1
-    	WHERE a.recommendation_order_historical = 1
-    	AND 
-    -- 	b.film_id NOT IN (
-    -- 		SELECT 
-    -- 			DISTINCT film_id
-    -- 		FROM staging.vdm1_stage4_rentals
-    -- 		WHERE customer_id = a.customer_id
-    -- 	)
-    	b.film_id != ALL (
-    		SELECT 
-    			  unnest(customer_watch_history_distinct_film_array)
-    		FROM 
-    			staging.vdm1_stage4_customer_watch_history_array
-    		WHERE
-    			customer_id = a.customer_id
-    			)
-    
-    	ORDER BY 1,5 DESC--, 8
-    ),
-    
-    get_a_list AS (SELECT 
-    	  a.customer_id
-    	-- , a.category_rank
-    	-- , a.category_rank_number
-    	, a.recommendation_order_historical
-    	, b.*
-    	-- , ROW_NUMBER() OVER (PARTITION BY a.customer_id, category_id ORDER BY film_category_rank) as rec_order
-    FROM staging.vdm1_stage4_customer_category a
-    	INNER JOIN staging.vdm1_stage4_film_category_popularity b USING (category_id)
-    
-    	--  WHERE a.category_rank = 'A'
-    	-- WHERE a.category_rank_number = 2
-    	WHERE a.recommendation_order_historical = 2
-    	AND 
-    -- 	b.film_id NOT IN (
-    -- 		SELECT 
-    -- 			DISTINCT film_id
-    -- 		FROM staging.vdm1_stage4_rentals
-    -- 		WHERE customer_id = a.customer_id
-    -- 	)
-    	b.film_id != ALL (
-    		SELECT 
-    			  unnest(customer_watch_history_distinct_film_array)
-    		FROM 
-    			staging.vdm1_stage4_customer_watch_history_array
-    		WHERE
-    			customer_id = a.customer_id
-    			)
-    
-    	ORDER BY 1,5 DESC--, 8
-    ),
-    
-    get_b_list AS (SELECT 
-    	  a.customer_id
-    	-- , a.category_rank
-    	-- , a.category_rank_number
-    	, a.recommendation_order_historical
-    	, b.*
-    	-- , ROW_NUMBER() OVER (PARTITION BY a.customer_id, category_id ORDER BY film_category_rank) as rec_order
-    FROM staging.vdm1_stage4_customer_category a
-    	INNER JOIN staging.vdm1_stage4_film_category_popularity b USING (category_id)
-    
-    	--  WHERE a.category_rank = 'B'
-    	-- WHERE a.category_rank_number = 3
-    	WHERE a.recommendation_order_historical = 3
-    	AND 
-    -- 	b.film_id NOT IN (
-    -- 		SELECT 
-    -- 			DISTINCT film_id
-    -- 		FROM staging.vdm1_stage4_rentals
-    -- 		WHERE customer_id = a.customer_id
-    -- 	)
-    	b.film_id != ALL (
-    		SELECT 
-    			  unnest(customer_watch_history_distinct_film_array)
-    		FROM 
-    			staging.vdm1_stage4_customer_watch_history_array
-    		WHERE
-    			customer_id = a.customer_id
-    			)
-    
-    	ORDER BY 1,5 DESC--, 8
-    ),
-    
-    get_c_list AS (SELECT 
-    	  a.customer_id
-    	-- , a.category_rank
-    	-- , a.category_rank_number
-    	, a.recommendation_order_historical
-    	, b.*
-    	-- , ROW_NUMBER() OVER (PARTITION BY a.customer_id, category_id ORDER BY film_category_rank) as rec_order
-    FROM staging.vdm1_stage4_customer_category a
-    	INNER JOIN staging.vdm1_stage4_film_category_popularity b USING (category_id)
-    
-    	--  WHERE a.category_rank = 'C'
-    	-- WHERE a.category_rank_number = 4
-    	WHERE a.recommendation_order_historical = 4
-    	AND 
-    -- 	b.film_id NOT IN (
-    -- 		SELECT 
-    -- 			DISTINCT film_id
-    -- 		FROM staging.vdm1_stage4_rentals
-    -- 		WHERE customer_id = a.customer_id
-    -- 	)
-    	b.film_id != ALL (
-    		SELECT 
-    			  unnest(customer_watch_history_distinct_film_array)
-    		FROM 
-    			staging.vdm1_stage4_customer_watch_history_array
-    		WHERE
-    			customer_id = a.customer_id
-    			)
-    
-    	ORDER BY 1,5 DESC--, 8
-    ),
-    
-    get_d_list AS (SELECT 
-    	  a.customer_id
-    	-- , a.category_rank
-    	-- , a.category_rank_number
-    	, a.recommendation_order_historical
-    	, b.*
-    	-- , ROW_NUMBER() OVER (PARTITION BY a.customer_id, category_id ORDER BY film_category_rank) as rec_order
-    FROM staging.vdm1_stage4_customer_category a
-    	INNER JOIN staging.vdm1_stage4_film_category_popularity b USING (category_id)
-    
-    	-- WHERE a.category_rank = 'D'
-    	-- WHERE a.category_rank_number = 5
-    	-- WHERE a.category_rank_row_number >= 5
-    	WHERE a.recommendation_order_historical = 5
-    	AND 
-    -- 	b.film_id NOT IN (
-    -- 		SELECT 
-    -- 			DISTINCT film_id
-    -- 		FROM staging.vdm1_stage4_rentals
-    -- 		WHERE customer_id = a.customer_id
-    -- 	)
-    	b.film_id != ALL (
-    		SELECT 
-    			  unnest(customer_watch_history_distinct_film_array)
-    		FROM 
-    			staging.vdm1_stage4_customer_watch_history_array
-    		WHERE
-    			customer_id = a.customer_id
-    			)
-    
-    	ORDER BY 1,5 DESC--, 8
-    ),
-    list_build AS (
-    	SELECT 
-    		*
-    	FROM get_s_list
-    		-- WHERE rec_order <= 5
-    	
-    	UNION ALL
-    	
-    	SELECT 
-    		* 
-    	FROM get_a_list
-    		-- WHERE rec_order <= 4
-    	
-    	UNION ALL
-    	
-    	SELECT 
-    		* 
-    	FROM get_b_list
-    		-- WHERE rec_order <= 3
-    	
-    	UNION ALL
-    	
-    	SELECT 
-    		* 
-    	FROM get_c_list
-    		-- WHERE rec_order <= 2
-    	
-    	UNION ALL
-    	
-    	SELECT 
-    		* 
-    	FROM get_d_list
-    		-- WHERE rec_order = 1
-    		
-    ),
-    		
-    list as (
-    SELECT
-    	  customer_id
-    	-- , category_rank_number
-    	, recommendation_order_historical
-    	, film_id
-    	, category_idA
-    	, total_rentals
-    	-- , film_rank
-    	, film_category_rank
-    	-- , generated_date
-    	-- , rec_order
-    	-- *
-    	--  category_id
-    	-- , count(distinct category_id) 
-    FROM list_build
-    	-- WHERE customer_id = 1
-    -- GROUP BY 
-    	-- customer_id
-    	-- category_id
-    ORDER BY 
-    	-- category_id
-    	-- customer_id, (category_rank_row_number, category_id, rec_order)
-    	customer_id, (recommendation_order_historical, category_id)
-    )
-    */
-	
-   /* 
-
-
-	WITH get_customer_film_cat_x_film_cat_pop AS (
-
-		SELECT
-			  a.customer_id
-			, b.film_rank
-			, a.category_id
-			, a.film_id
-			, b.film_category_rank
-			, b.total_rentals
-		FROM staging.vdm1_stage4_customer_film_category a
-			LEFT JOIN 
-				staging.vdm1_stage4_film_category_popularity b
-					ON b.film_id = a.film_id 
-
-		ORDER BY 
-			a.customer_id, a.film_id	
-	)
-    
-    SELECT
-	      customer_id
-	    , film_rank
-	    , category_id
-        -- , ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY film_rank) as film_rec_order
-        , film_id
-		, film_category_rank
-	    , total_rentals
-    FROM get_customer_film_cat_x_film_cat_pop;
-
-
-    
-	END;
-$vdm1_stage4_calc_insert_customer_reclist_master$;
- */
-
--- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
-
-/*
-CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_city_rental_count()
-    RETURNS VOID
-    LANGUAGE plpgsql
-    AS $vdm1_stage4_calc_update_city_rental_count$
-
-    BEGIN 
-
-
-    WITH calc_city_rentals AS (
-        
-        SELECT 
-              b.city
-            , a.city_id
-            , COUNT(a.city_id) AS total_rentals
-        FROM
-            staging.vdm1_stage4_customer_watch_history_details a
-                INNER JOIN staging.vdm1_stage4_dictkey_city b
-                    ON b.city_id = a.city_id
-
-        GROUP BY 
-            b.city, a.city_id
-
-        ORDER BY 
-            total_rentals DESC
-    )
-
-    UPDATE staging.vdm1_stage4_city_count_init a
-
-    SET 
-        total_rentals = calc_city_rentals.total_rentals
-
-    FROM calc_city_rentals
-
-    WHERE
-        a.city_id = calc_city_rentals.city_id;
-
-    END;
-$vdm1_stage4_calc_update_city_rental_count$;
-
-*/
-
--- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
-
-/*
-CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_country_rental_count()
-    RETURNS VOID
-    LANGUAGE plpgsql
-    AS $vdm1_stage4_calc_update_country_rental_count$
-
-    BEGIN 
-
-    WITH calc_country_rentals AS (
-
-        SELECT 
-            b.country
-            , a.country_id
-            , COUNT(a.country_id) AS total_rentals
-        FROM
-            staging.vdm1_stage4_customer_watch_history_details a
-                INNER JOIN staging.vdm1_stage4_dictkey_country b
-                    ON b.country_id = a.country_id
-        GROUP BY 
-            b.country, a.country_id
-
-        ORDER BY 
-	        total_rentals DESC
-    )
-
-    UPDATE staging.vdm1_stage4_country_count_init a
-
-    SET 
-        total_rentals = calc_country_rentals.total_rentals
-
-    FROM calc_country_rentals
-
-    WHERE
-        a.country_id = calc_country_rentals.country_id;
-
-    END;
-$vdm1_stage4_calc_update_country_rental_count$;
-
-*/
-
--- #### #### #### #### #### #### #### #### 
-
-/*
-CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_generate_report_year_weeknumber_stamp(
-		p_rental_date DATE
-)
-	RETURNS VARCHAR
-	LANGUAGE plpgsql
-	AS $vdm1_stage4_transform_rental_date_to_report_stamp$
-	
-	DECLARE
-		
-		vi_rental_date DATE;
-
-		vo_report_name VARCHAR;
-		
-	BEGIN
-		
-		vi_rental_date := $1;
-
-    SELECT 
-        CONCAT('rpt_y', (RIGHT((EXTRACT('year' FROM rental_date)::text),2)), 'wk', (EXTRACT('week' FROM rental_date)::text))
-    INTO
-        vo_report_name;
-
-		RETURN vo_report_name;
-
-	END;
-$vdm1_stage4_transform_rental_date_to_report_stamp$;
-
-*/
-
-
--- #### #### #### #### #### #### #### #### 
-
-/*
-CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage3_create_table_cobbwebbed_film_inventory()
-	RETURNS VOID
-	LANGUAGE plpgsql
-	AS $vdm1_stage3_create_table_cobbwebbed_film_inventory$
-	
-	BEGIN 
-	
-        CREATE TABLE IF NOT EXISTS staging.vdm1_stage3_cobbwebbed_film_inventory(
-
-              film_id INTEGER NOT NULL
-            , inventory_id INTEGER NOT NULL
-        );
-	END;
-$vdm1_stage3_create_table_cobbwebbed_film_inventory$;
-
-*/
-
-
--- #### #### #### #### #### #### #### #### 
-
-/*
-
-
-CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_insert_cobbwebbed_film_inventory()
-	RETURNS VOID
-	LANGUAGE plpgsql
-	AS $vdm1_stage4_calc_insert_cobbwebbed_film_inventory$
-	
-	BEGIN 
-
-
-		INSERT INTO staging.vdm1_stage4_cobbwebbed_film_inventory(
-			  film_id
-            , inventory_id
-		)		
-		
-		SELECT
-			  a.film_id
-			, c.inventory_id
-
-		FROM staging.vdm1_stage4_film_category_popularity AS a
-
-            LEFT JOIN staging.vdm1_stage4_new_releases AS b
-                ON b.film_id = a.film_id
-        
-            LEFT JOIN staging.vdm1_stage4_film_inventory AS c 
-                ON c.film_id = a.film_id
-		
-		WHERE 
-            a.total_rentals = 0
-                AND
-            b.film_id != a.film_id;
-		
-	END;
-$vdm1_stage4_calc_insert_cobbwebbed_film_inventory$;
-*/
--- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
--- #### #### #### #### #### #### #### #### #### #### #### #### ####  DISABLED FUNCTIONS END  #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 

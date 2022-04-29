@@ -1,36 +1,7 @@
 {
 	"folders": [
 		{
-			"name": "mastercodeblocks",
-			"path": "mastercodeblocks"
-		},
-		{
-			"name": "adhoc",
-			"path": "adhoc"
-		},
-		{
-			"name": "stage1",
-			"path": "stage1"
-		},
-		{
-			"name": "stage2",
-			"path": "stage2"
-		},
-		{
-			"name": "stage3",
-			"path": "stage3"
-		},
-		{
-			"name": "stage4",
-			"path": "stage4"
-		},
-		{
-			"name": "stage5",
-			"path": "stage5"
-		},
-		{
-			"name": "triggers",
-			"path": "triggers"
+			"path": "."
 		}
 	],
 	"settings": {
