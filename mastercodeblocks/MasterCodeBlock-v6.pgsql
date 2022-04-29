@@ -270,7 +270,6 @@
 
 
 CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage0()
-    RETURNS VOID
     LANGUAGE plpgsql
     AS $vdm1_stage0_etl_env_setup$
 
@@ -3095,7 +3094,7 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5()
 
         -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
-        PERFORM vdm1_etl.f_vdm1_stage5_create_table_constraints
+        PERFORM vdm1_etl.f_vdm1_stage5_create_table_constraints();
         
         -- #### #### #### #### 
 
@@ -3726,8 +3725,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_dictkey_insert_category_data()
 				, name
 				
             FROM
-				vdm1_etl.vdm1_stage5_dictkey_category
-		);
+				vdm1_etl.vdm1_stage5_dictkey_category;
 		
 	END;
 $vdm1_stage5_dictkey_insert_category_data$;
@@ -3758,8 +3756,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_dictkey_insert_language_data()
 				, name
 				
             FROM
-				vdm1_etl.vdm1_stage5_dictkey_language
-		);
+				vdm1_etl.vdm1_stage5_dictkey_language;
 		
 	END;
 $vdm1_stage5_dictkey_insert_language_data$;
@@ -3791,8 +3788,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_dictkey_insert_city_data()
 				, city
 				
             FROM
-				vdm1_etl.vdm1_stage5_dictkey_city
-		);
+				vdm1_etl.vdm1_stage5_dictkey_city;
 		
 	END;
 
@@ -3824,8 +3820,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_dictkey_insert_country_data()
 				, country
 				
             FROM
-				vdm1_etl.vdm1_stage5_dictkey_category
-		);
+				vdm1_etl.vdm1_stage5_dictkey_category;
 		
 	END;
 $vdm1_stage5_dictkey_insert_country_data$;
@@ -4723,21 +4718,21 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_refresh_mview_all_marketing()
 
         -- #### #### #### #### #### #### #### #### 
 
-		REFERESH MATERIALIZED VIEW marketing.customer_details;  
+		REFRESH MATERIALIZED VIEW marketing.customer_details;  
 
-		REFERESH MATERIALIZED VIEW marketing.film_details;  
+		REFRESH MATERIALIZED VIEW marketing.film_details;  
 
-		REFERESH MATERIALIZED VIEW marketing.location_details;  
+		REFRESH MATERIALIZED VIEW marketing.location_details;  
 
-		REFERESH MATERIALIZED VIEW marketing.store_details ;    
+		REFRESH MATERIALIZED VIEW marketing.store_details ;    
 
-		REFERESH MATERIALIZED VIEW marketing.category;  
+		REFRESH MATERIALIZED VIEW marketing.category;  
 
-		REFERESH MATERIALIZED VIEW marketing.city;  
+		REFRESH MATERIALIZED VIEW marketing.city;  
 
-		REFERESH MATERIALIZED VIEW marketing.country;   
+		REFRESH MATERIALIZED VIEW marketing.country;   
 
-		REFERESH MATERIALIZED VIEW marketing.language;  
+		REFRESH MATERIALIZED VIEW marketing.language;  
     
         -- #### #### #### #### #### #### #### #### 
 
@@ -7103,7 +7098,7 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_reset()
 		-- #### #### #### #### #### #### #### #### 
 		
 
-		CALL vdm1_etl.vdm1_etl_main;
+		CALL vdm1_etl.vdm1_etl_main();
 
         
 		-- #### #### #### #### #### #### #### #### 		
