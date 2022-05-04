@@ -44,6 +44,10 @@
 
 --                  1. vdm1_etl.f_vdm1_stage1_extractimport(tablename VARCHAR(30));
 --                  2. vdm1_etl.f_vdm1_stage1_data_validation_count_check(p_schema_one varchar, p_table_one varchar, p_schmea_two varchar, p_table_two varchar);
+--                  3. vdm1_data.f_vdm1_calc_expected_return_date(p_film_id INT, p_rental_date DATE)
+--                  4. vdm1_data.f_vdm1_transform_customer_full_name(p_first_name VARCHAR, p_last_name VARCHAR)
+--                  5. vdm1_data.f_vdm1_transform_filmlength_int2vchar(p_length INTEGER)
+--                  6. vdm1_data.f_vdm1_transform_customer_phone_e164(p_phone VARCHAR)
 
 --     #### #### #### ####
 --         STAGE 1 END
@@ -460,29 +464,98 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_etl_main()
 	
 	BEGIN 
 
+		-- #### #### #### #### #### #### #### #### 
+
+		-- STAGE 0 / RESET STAGE 0
+
+		RAISE NOTICE 'RUNNING VDM1 ETL STAGE 0 / RESET STAGE 0';
         CALL vdm1_etl.vdm1_reset_stage0();
+		RAISE NOTICE 'COMPLETED VDM1 ETL STAGE 0 / RESET STAGE 0 ';
 
+		-- #### #### #### #### 
+
+		-- STAGE 1
+
+		RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 1';
 		CALL vdm1_etl.vdm1_stage1();
+		RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 1';
 
+		-- #### #### #### #### 
+
+		-- STAGE 2
+
+		RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 2';
 		CALL vdm1_etl.vdm1_stage2();
+		RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 2';
 
+		-- #### #### #### #### 
+
+		-- STAGE 3
+
+		RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 3';
 		CALL vdm1_etl.vdm1_stage3();
+		RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 3';
+
+		-- #### #### #### #### #### #### #### #### 
+
+		-- STAGE 4
 
         -- DISABLING MAIN RUN DUE TO PERFORMANCE/TIME IMPACT
         -- CALL vdm1_etl.vdm1_stage4();
 
-            -- STAGE 4 HAS BEEN SPLIT INTO 3 SUBPARTS TO ASSIST WITH PERFORMANCE IMPACT
+            -- STAGE 4 HAS BEEN SPLIT INTO 3 SUBPARTS, THEN AGAIN 4 MORE SUB PARTS TO ASSIST WITH PERFORMANCE IMPACT
+			RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 4a';
             CALL vdm1_etl.vdm1_stage4a();
+		    RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 4a';
 
+			RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 4b';
             CALL vdm1_etl.vdm1_stage4b();
+			RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 4b';
 
-            CALL vdm1_etl.vdm1_stage4c();
+		-- #### #### #### #### #### #### #### #### 
+		
+		-- STAGE 4
 
+				-- STAGE 4-C-1-A :: INSERTS CUSTOMER RECOMMENDATION LIST INTO MASTER NONSPECIFIC
+				RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 4c1a';
+				CALL vdm1_etl.vdm1_stage4c1a();
+				RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 4c1a';
+
+				-- STAGE 4-C-1-B :: PERFORMS ROW NUBMER COUNT ON CUSTOMER RECOMMENDATION LIST MASTER NONSPECIFIC
+				RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 4c1b';
+				CALL vdm1_etl.vdm1_stage4c1b();
+				RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 4c1b';
+
+				-- STAGE 4-C-2-A :: INSERTS CUSTOMER RECOMMENDATION LIST INTO MASTER SPECIFIC
+				RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 4c2a';
+				CALL vdm1_etl.vdm1_stage4c2a();
+				RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 4c2a';
+
+				-- STAGE 4-C-2-B :: PERFORMS ROW NUBMER COUNT ON CUSTOMER RECOMMENDATION LIST MASTER SPECIFIC
+				RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 4c2b';
+				CALL vdm1_etl.vdm1_stage4c2b();
+				RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 4c2b';
+
+				-- STAGE 4-C-3 :: PERFORMS CLEANUP
+				RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 4c3';
+				CALL vdm1_etl.vdm1_stage4c3();
+				RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 4c3';
+
+		-- #### #### #### #### #### #### #### #### 
+
+		-- STAGE 5
+
+		RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 5a - MAIN';
         CALL vdm1_etl.vdm1_stage5a_main();
-
+		RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 5a - MAIN';
+		
+		RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 5b - TRIGGER FUNCTION SETUP';
         CALL vdm1_etl.vdm1_stage5b_trigger_functions_setup();
+		RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 5b - TRIGGER FUNCTION SETUP';
 
+		RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 5c - TRIGGER SETUP';
         CALL vdm1_etl.vdm1_stage5c_triggers_setup();
+		RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 5c - TRIGGER SETUP';
 
 	END;
 $etl_main_run$;
@@ -706,6 +779,22 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage1()
         -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 
+		PERFORM vdm1_etl.f_calc_expected_return_date_container();
+
+
+		PERFORM vdm1_etl.f_transform_customer_full_name_container();
+
+
+		PERFORM vdm1_etl.f_transform_filmlength_int2vchar_container();
+
+
+		PERFORM vdm1_etl.f_transform_customer_phone_e164_container();
+
+
+        -- #### #### #### #### #### #### #### #### #### #### #### ####
+
+        -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
     END;
 $vdm1_stage1_run$;
 
@@ -724,8 +813,13 @@ $vdm1_stage1_run$;
 
 -- TABLE OF CONTENTS
 
---     1. vdm1_etl.f_vdm1_stage1_extractimport(tablename VARCHAR(30));
---     2. vdm1_etl.f_vdm1_stage1_data_validation_count_check(p_schema_one varchar, p_table_one varchar, p_schmea_two varchar, p_table_two varchar);
+--      1. vdm1_etl.f_vdm1_stage1_extractimport(tablename VARCHAR(30));
+--      2. vdm1_etl.f_vdm1_stage1_data_validation_count_check(p_schema_one varchar, p_table_one varchar, p_schmea_two varchar, p_table_two varchar);
+--      3. vdm1_data.f_vdm1_calc_expected_return_date(p_film_id INT, p_rental_date DATE)
+--      4. vdm1_data.f_vdm1_transform_customer_full_name(p_first_name VARCHAR, p_last_name VARCHAR)
+--      5. vdm1_data.f_vdm1_transform_filmlength_int2vchar(p_length INTEGER)
+--      6. vdm1_data.f_vdm1_transform_customer_phone_e164(p_phone VARCHAR)
+
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ###
 -- #TODO STAGE 1 - FUNCTIONS
@@ -841,6 +935,255 @@ $vdm1_stage1_data_validation_source_count_matches_destination_count$;
 -- https://www.geeksforgeeks.org/postgresql-if-statement/
 -- https://www.postgresql.org/docs/current/plpgsql-errors-and-messages.html
 -- https://www.enterprisedb.com/postgres-tutorials/how-raise-errors-and-report-messages-within-stored-procedures-and-functions
+
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+
+-- #### #### #### ####
+-- ####     3     #### 
+-- #### #### #### #### 
+
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_calc_expected_return_date_container()
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_data_f_calc_expected_return_date_container$
+
+	BEGIN
+
+	EXECUTE
+	'
+		CREATE OR REPLACE FUNCTION vdm1_data.f_calc_expected_return_date(
+				p_film_id INT,
+				p_rental_date DATE)
+			RETURNS DATE
+			LANGUAGE plpgsql
+			AS $vdm1_f_calc_expected_return_date$
+			
+			DECLARE
+			
+				vi_film_id INTEGER;
+				vlu_rental_duration INTEGER;
+				vi_rental_date DATE;
+				
+				vo_expected_return_date DATE;
+			
+			BEGIN
+
+				vi_film_id := $1;
+				vi_rental_date := $2;
+				
+					
+				SELECT 
+					rental_duration INTO vlu_rental_duration
+				FROM 
+					staging.vdm1_stage4_films as A
+				WHERE 
+					vi_film_id = a.film_id;
+
+				vo_expected_return_date := vi_rental_date + vlu_rental_duration;
+
+				RETURN vo_expected_return_date;
+			END;
+		$vdm1_f_calc_expected_return_date$;
+	';
+	END;
+$vdm1_data_f_calc_expected_return_date_container$;
+
+
+-- #### #### #### #### #### #### #### #### 
+
+
+-- #### #### #### ####
+-- ####     4     #### 
+-- #### #### #### #### 
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_transform_customer_full_name_container()
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_data_f_transform_customer_full_name_container$
+
+	BEGIN
+	
+	EXECUTE
+	'
+		CREATE OR REPLACE FUNCTION vdm1_data.f_transform_customer_full_name(
+				p_first_name VARCHAR,
+				p_last_name VARCHAR)
+			RETURNS VARCHAR
+			LANGUAGE plpgsql
+			AS $vdm1_f_transform_customer_full_name$
+			
+			DECLARE
+				
+				vi_first_name VARCHAR;
+				vi_last_name VARCHAR;
+				
+				vo_full_name VARCHAR;
+				
+				-- bicapitalization_list varchar[]; 
+				bicapitalization_list_2l varchar[]; 
+				bicapitalization_list_3l varchar[]; 
+				bicapitalization_list_4l varchar[]; 
+
+			BEGIN
+				
+				vi_first_name := $1;
+				vi_last_name := $2;
+				
+				-- bicapitalization_list := array[''mc'', ''le'', ''la'', ''o'''''', ''da'', ''de'' ];
+				bicapitalization_list_2l := array[''mc'', ''o''];
+				bicapitalization_list_3l := array[''mac''];
+				bicapitalization_list_4l := array[''von '', ''fitz''];
+
+				
+				CASE 
+						
+					WHEN (LOWER(LEFT($2,4)) = ANY(bicapitalization_list_4l)) THEN
+						vi_last_name := (UPPER(LEFT($2,1))) || (LOWER(SUBSTRING($2,2,3))) || (UPPER(SUBSTRING($2,4,1))) || (LOWER(SUBSTRING($2,5,length($2))));
+					WHEN (LOWER(LEFT($2,3)) = ANY(bicapitalization_list_3l)) THEN
+						vi_last_name := (UPPER(LEFT($2,1))) || (LOWER(SUBSTRING($2,2,2))) || (UPPER(SUBSTRING($2,4,1))) || (LOWER(SUBSTRING($2,5,length($2))));
+					WHEN (LOWER(LEFT($2,2)) = ANY(bicapitalization_list_2l)) THEN 
+						vi_last_name := (UPPER(LEFT($2,1))) || (LOWER(SUBSTRING($2,2,1))) || (UPPER(SUBSTRING($2,3,1))) || (LOWER(SUBSTRING($2,4,length($2))));
+					ELSE 
+						vi_last_name := $2;
+				END CASE;
+
+				SELECT 
+					CONCAT_WS( 
+						'' '',
+						vi_first_name, 
+						vi_last_name)
+				INTO vo_full_name;
+
+				RETURN vo_full_name;
+			END;
+		$vdm1_f_transform_customer_full_name$;
+	';
+	END;
+$vdm1_data_f_transform_customer_full_name_container$;
+
+
+-- #### #### #### #### #### #### #### #### 
+
+-- #### #### #### ####
+-- ####     5     #### 
+-- #### #### #### #### 
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_transform_filmlength_int2vchar_container()
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_data_f_transform_filmlength_int2vchar_container$
+
+	BEGIN
+	
+	EXECUTE
+	'
+		CREATE OR REPLACE FUNCTION vdm1_data.f_transform_filmlength_int2vchar(
+			p_length INTEGER
+		)
+			RETURNS VARCHAR
+			LANGUAGE plpgsql
+			AS $vdm1_f_transform_filmlength_int2vchar$
+			
+			DECLARE
+				-- IN Variable
+				vi_len_int INTEGER;
+				-- OUT Variable
+				vo_len_varchar VARCHAR;
+			
+			BEGIN 
+				-- Clearing the variables
+				vo_len_varchar := '''';
+				vi_len_int := 0;
+				-- Setting the variable to input integer
+				vi_len_int := $1;
+				
+				-- Mathing
+				CASE
+					WHEN ((vi_len_int / 60 > 0) AND (vi_len_int % 60) = 0) THEN 
+						vo_len_varchar := (
+							(vi_len_int / 60) || '' hrs''
+						);
+					WHEN (vi_len_int / 60 > 0) THEN 
+						vo_len_varchar := (
+							(vi_len_int / 60) || '' hrs '' || (vi_len_int % 60) || '' min''
+						);
+					ELSE
+						vo_len_varchar := (
+							(vi_len_int % 60) || '' min''
+						);
+				END CASE;
+					
+				RETURN vo_len_varchar;
+			
+			END;
+		$vdm1_f_transform_filmlength_int2vchar$;
+	';
+	END;
+$vdm1_data_f_transform_filmlength_int2vchar_container$;
+
+
+-- #### #### #### #### #### #### #### #### 
+
+-- #### #### #### ####
+-- ####     6     #### 
+-- #### #### #### #### 
+
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_transform_customer_phone_e164_container()
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_data_f_transform_customer_phone_e164_container$
+
+	BEGIN
+	
+	EXECUTE
+	'
+
+		CREATE OR REPLACE FUNCTION vdm1_data.f_transform_customer_phone_e164(
+				p_phone VARCHAR)
+			RETURNS VARCHAR
+			LANGUAGE plpgsql
+			AS $vdm1_f_transform_customer_phone_e164$
+			
+			DECLARE
+				
+				vi_phone VARCHAR;
+				
+				vo_phone VARCHAR;
+
+			BEGIN 
+
+				vi_phone := $1;
+
+		SELECT
+			CONCAT_WS(
+				'' ''
+				, ''+''
+				, LEFT(vi_phone, (LENGTH(vi_phone)-10))
+				, SUBSTRING(vi_phone, (LENGTH(vi_phone)-10)+1, 2)
+				, SUBSTRING(vi_phone, ((LENGTH(vi_phone)-8)+1), 4)
+				, RIGHT(vi_phone,4)
+			)
+			INTO
+				vo_phone;
+
+			RETURN vo_phone;
+
+
+			END;
+		$vdm1_f_transform_customer_phone_e164$;
+	';
+	END;
+$vdm1_data_f_transform_customer_phone_e164_container$;
+
+
+-- #### #### #### #### #### #### #### #### 
 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
@@ -1762,7 +2105,8 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage3_table_changes()
 		-- #### #### #### #### 
 
 		ALTER TABLE IF EXISTS staging.vdm1_stage3_films
-			ADD COLUMN new_release BOOLEAN NOT NULL DEFAULT FALSE;
+			ADD COLUMN new_release BOOLEAN NOT NULL DEFAULT FALSE, 
+			ALTER COLUMN length TYPE VARCHAR(20);
 						
 		-- #### #### #### #### 
 
@@ -1818,7 +2162,10 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage3_table_changes()
 		-- #### #### #### #### #### #### #### #### 
 
 		ALTER TABLE IF EXISTS staging.vdm1_stage3_customers
-			ADD COLUMN customer_full_name VARCHAR;
+			ADD COLUMN customer_full_name VARCHAR,
+			ALTER COLUMN phone TYPE VARCHAR(40);
+
+
 
 		-- #### #### #### #### #### #### #### #### 
 			
@@ -2132,11 +2479,11 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4a()
 
 		-- PERFORM vdm1_etl.f_vdm1_stage4_create_transform_function();
 
-		-- PERFORM vdm1_etl.f_vdm1_stage4_transform_customer_full_name();
+		PERFORM vdm1_etl.f_vdm1_stage4_transform_customer_full_name();
 
-		-- PERFORM vdm1_etl.f_vdm1_stage4_transform_customer_phone_number();
+		PERFORM vdm1_etl.f_vdm1_stage4_transform_customer_phone_number();
 
-		-- PERFORM vdm1_etl.f_vdm1_stage4_transform_film_length();
+		PERFORM vdm1_etl.f_vdm1_stage4_transform_film_length();
         
 
 	END;
@@ -2410,7 +2757,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_transform_customer_full_name()
 
 	UPDATE staging.vdm1_stage4_customers AS a
 
-	SET customer_full_name = vdm1_etl.f_vdm1_stage4_transform_customer_full_name(b.first_name, b.last_name)
+	SET customer_full_name = vdm1_data.f_transform_customer_full_name(b.first_name :: VARCHAR, b.last_name :: VARCHAR)
 
 	FROM get_customer_details AS b
 
@@ -2443,7 +2790,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_transform_customer_phone_numbe
 
 	UPDATE staging.vdm1_stage4_customers AS a
 
-	SET phone = vdm1_etl.f_vdm1_stage4_transform_customer_phone_number(b.phone)
+	SET phone = vdm1_data.f_transform_customer_phone_e164(b.phone)
 
 	FROM get_customer_details AS b
 
@@ -2477,7 +2824,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_transform_film_length()
 
 	UPDATE staging.vdm1_stage4_films AS a
 
-	SET phone = vdm1_etl.f_vdm1_stage4_transform_filmlength_int2vchar(b.length)
+	SET length = vdm1_data.f_transform_filmlength_int2vchar(b.length :: INTEGER)
 
 	FROM get_film_details AS b
 
@@ -3107,8 +3454,8 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_insert_failed_returns_v2(
 			, inventory_id
 			, store_id
 			, rental_date
-			, vdm1_etl.f_vdm1_stage4_calc_expected_return_date(a.film_id::int, rental_date::DATE) as expected_return_date
-            , (SELECT AGE('2007-01-01', vdm1_etl.f_vdm1_stage4_calc_expected_return_date(a.film_id::int, rental_date::DATE))) as age
+			, vdm1_data.f_calc_expected_return_date(a.film_id::int, rental_date::DATE) as expected_return_date
+            , (SELECT AGE('2007-01-01', vdm1_data.f_calc_expected_return_date(a.film_id::int, rental_date::DATE))) as age
 		FROM staging.vdm1_stage4_rentals a
 			INNER JOIN staging.vdm1_stage4_customers b
 				ON b.customer_id = a.customer_id
@@ -3426,204 +3773,8 @@ $vdm1_stage4_calc_update_customer_reclist_master_specific_row_number$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    27    #### 
+-- ####    27     #### 
 -- #### #### #### ####
-
-	CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_transform_customer_full_name(
-			p_first_name VARCHAR,
-			p_last_name VARCHAR)
-		RETURNS VARCHAR
-		LANGUAGE plpgsql
-		AS $vdm1_stage4_transform_customer_full_name$
-		
-		DECLARE
-			
-			vi_first_name VARCHAR;
-			vi_last_name VARCHAR;
-			
-			vo_full_name VARCHAR;
-			
-			-- bicapitalization_list varchar[]; 
-			bicapitalization_list_2l varchar[]; 
-			bicapitalization_list_3l varchar[]; 
-			bicapitalization_list_4l varchar[]; 
-
-		BEGIN
-			
-			vi_first_name := $1;
-			vi_last_name := $2;
-			
-			-- bicapitalization_list := array['mc', 'le', 'la', 'o''', 'da', 'de' ];
-			bicapitalization_list_2l := array['mc', 'o'''];
-			bicapitalization_list_3l := array['mac'];
-			bicapitalization_list_4l := array['von ', 'fitz'];
-
-			
-			CASE 
-				-- WHEN (LOWER(LEFT($2,4)) = 'von ') THEN
-				--	vi_last_name := (UPPER(LEFT($2,1))) || (LOWER(SUBSTRING($2,2,2))) || ' ' || (UPPER(SUBSTRING($2,5,1))) || (LOWER(SUBSTRING($2,5,length($2))));			
-				-- WHEN (LOWER(LEFT($2,4)) = 'fitz') THEN
-				--	vi_last_name := (UPPER(LEFT($2,1))) || (LOWER(SUBSTRING($2,2,3))) || (UPPER(SUBSTRING($2,4,1))) || (LOWER(SUBSTRING($2,5,length($2))));
-				-- WHEN (LOWER(LEFT($2,3)) = 'mac') THEN
-				--	vi_last_name := (UPPER(LEFT($2,1))) || (LOWER(SUBSTRING($2,2,2))) || (UPPER(SUBSTRING($2,3,1))) || (LOWER(SUBSTRING($2,4,length($2))));
-					
-				WHEN (LOWER(LEFT($2,4)) = ANY(bicapitalization_list_4l)) THEN
-					vi_last_name := (UPPER(LEFT($2,1))) || (LOWER(SUBSTRING($2,2,3))) || (UPPER(SUBSTRING($2,4,1))) || (LOWER(SUBSTRING($2,5,length($2))));
-				WHEN (LOWER(LEFT($2,3)) = ANY(bicapitalization_list_3l)) THEN
-					vi_last_name := (UPPER(LEFT($2,1))) || (LOWER(SUBSTRING($2,2,2))) || (UPPER(SUBSTRING($2,4,1))) || (LOWER(SUBSTRING($2,5,length($2))));
-				WHEN (LOWER(LEFT($2,2)) = ANY(bicapitalization_list_2l)) THEN 
-					vi_last_name := (UPPER(LEFT($2,1))) || (LOWER(SUBSTRING($2,2,1))) || (UPPER(SUBSTRING($2,3,1))) || (LOWER(SUBSTRING($2,4,length($2))));
-				ELSE 
-					vi_last_name := $2;
-			END CASE;
-
-			SELECT 
-				CONCAT_WS( 
-					' ',
-					vi_first_name, 
-					vi_last_name)
-			INTO vo_full_name;
-
-			RETURN vo_full_name;
-		END;
-	$vdm1_stage4_transform_customer_full_name$;
-
-
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####    28     #### 
--- #### #### #### ####
-
-
-
-CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_transform_filmlength_int2vchar(
-	p_length INTEGER
-)
-	RETURNS VARCHAR
-	LANGUAGE plpgsql
-	AS $vdm1_stage4_filmlength_int2vchar$
-	
-	DECLARE
-		-- IN Variable
-		vi_len_int INTEGER;
-		-- OUT Variable
-		vo_len_varchar VARCHAR;
-	
-	BEGIN 
-		-- Clearing the variables
-		vo_len_varchar := '';
-		vi_len_int := 0;
-		-- Setting the variable to input integer
-		vi_len_int := $1;
-		
-		-- Mathing
-		CASE
-			WHEN ((vi_len_int / 60 > 0) AND (vi_len_int % 60) = 0) THEN 
-				vo_len_varchar := (
-					(vi_len_int / 60) || ' hrs'
-				);
-			WHEN (vi_len_int / 60 > 0) THEN 
-				vo_len_varchar := (
-					(vi_len_int / 60) || ' hrs ' || (vi_len_int % 60) || ' min'
-				);
-			ELSE
-				vo_len_varchar := (
-					(vi_len_int % 60) || ' min'
-				);
-		END CASE;
-			
-		RETURN vo_len_varchar;
-	
-	END;
-$vdm1_stage4_filmlength_int2vchar$;
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####    30     #### 
--- #### #### #### ####
-
-
-CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_expected_return_date(
-		p_film_id INT,
-		p_rental_date DATE)
-	RETURNS DATE
-	LANGUAGE plpgsql
-	AS $vdm1_stage4_calc_expectedreturndate$
-	
-	DECLARE
-		
-		vi_film_id INTEGER;
-		vlu_rental_duration INTEGER;
-		vi_rental_date DATE;
-		
-		vo_expected_return_date DATE;
-	
-	BEGIN
-		
-		vi_film_id := $1;
-		vi_rental_date := $2;
-		
-			SELECT 
-				rental_duration INTO vlu_rental_duration
-			FROM staging.vdm1_stage4_films a
-			WHERE vi_film_id = a.film_id;
-
-			vo_expected_return_date := vi_rental_date + vlu_rental_duration;
-
-		RETURN vo_expected_return_date;
-	END;
-$vdm1_stage4_calc_expectedreturndate$;
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####    31     #### 
--- #### #### #### ####
-
-CREATE OR REPLACE FUNCTION vdm1_data.f_vdm1_stage4_transform_customer_phone_e164(
-		p_phone VARCHAR)
-	RETURNS VARCHAR
-	LANGUAGE plpgsql
-	AS $vdm1_stage4_transform_customer_phone_e164$
-	
-	DECLARE
-		
-		vi_phone VARCHAR;
-		
-		vo_phone VARCHAR;
-
-	BEGIN 
-
-		vi_phone := $1;
-
-SELECT
-	CONCAT_WS(
-		' '
-		, '+'
-		, LEFT(vi_phone, (LENGTH(vi_phone)-10))
-		, SUBSTRING(vi_phone, (LENGTH(vi_phone)-10)+1, 2)
-		, SUBSTRING(vi_phone, ((LENGTH(vi_phone)-8)+1), 4)
-		, RIGHT(vi_phone,4)
-	)
-	INTO
-		vo_phone;
-
-	RETURN vo_phone;
-
-
-	END;
-$vdm1_stage4_transform_customer_phone_e164$;
-
-
--- #### #### #### #### #### #### #### ####
-
--- #### #### #### ####
--- ####    31     #### 
--- #### #### #### ####
-
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_cleanup()
 	RETURNS VOID
@@ -5482,208 +5633,6 @@ $vdm1_stage5_table_changes_activate_logging_vdm1_data$;
 
 -- #### #### #### #### #### #### #### #### 
 
--- #### #### #### ####
--- ####    18     #### 
--- #### #### #### #### 
-
-CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_adhoc_functions_setup_cerd()
-	RETURNS VOID
-	LANGUAGE plpgsql
-	AS $vdm1_stage5_adhoc_function_execute_calc_expected_return_date$
-
-    
-    BEGIN
-
-		EXECUTE
-		'
-			CREATE OR REPLACE FUNCTION vdm1_data.f_calc_expected_return_date(
-					p_film_id INT,
-					p_rental_date DATE)
-				RETURNS DATE
-				LANGUAGE plpgsql
-				AS $vdm1_data_calc_expectedreturndate$
-				
-				DECLARE
-					
-					vi_film_id INTEGER;
-					vlu_rental_duration INTEGER;
-					vi_rental_date DATE;
-					
-					vo_expected_return_date DATE;
-				
-				BEGIN
-					
-					vi_film_id := $1;
-					vi_rental_date := $2;
-					
-						SELECT 
-							rental_duration INTO vlu_rental_duration
-						FROM 
-							public.film AS a
-						WHERE 
-							vi_film_id = a.film_id;
-
-						vo_expected_return_date := vi_rental_date + vlu_rental_duration;
-
-					RETURN vo_expected_return_date;
-				END;
-			$vdm1_data_calc_expectedreturndate$;
-		';
-	END;
-$vdm1_stage5_adhoc_function_execute_calc_expected_return_date$;
-
--- #### #### #### #### #### #### #### #### 
-
-
--- #### #### #### ####
--- ####    19     #### 
--- #### #### #### #### 
-
-
-CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_transform_customer_full_name(
-		p_first_name VARCHAR,
-		p_last_name VARCHAR)
-	RETURNS VARCHAR
-	LANGUAGE plpgsql
-	AS $vdm1_stage5_transform_customer_full_name$
-	
-	DECLARE
-		
-		vi_first_name VARCHAR;
-		vi_last_name VARCHAR;
-		
-		vo_full_name VARCHAR;
-		
-		-- bicapitalization_list varchar[]; 
-		bicapitalization_list_2l varchar[]; 
-		bicapitalization_list_3l varchar[]; 
-		bicapitalization_list_4l varchar[]; 
-
-	BEGIN
-		
-		vi_first_name := $1;
-		vi_last_name := $2;
-		
-		-- bicapitalization_list := array['mc', 'le', 'la', 'o''', 'da', 'de' ];
-		bicapitalization_list_2l := array['mc', 'o'''];
-		bicapitalization_list_3l := array['mac'];
-		bicapitalization_list_4l := array['von ', 'fitz'];
-
-		
-		CASE 
-				
-			WHEN (LOWER(LEFT($2,4)) = ANY(bicapitalization_list_4l)) THEN
-				vi_last_name := (UPPER(LEFT($2,1))) || (LOWER(SUBSTRING($2,2,3))) || (UPPER(SUBSTRING($2,4,1))) || (LOWER(SUBSTRING($2,5,length($2))));
-			WHEN (LOWER(LEFT($2,3)) = ANY(bicapitalization_list_3l)) THEN
-				vi_last_name := (UPPER(LEFT($2,1))) || (LOWER(SUBSTRING($2,2,2))) || (UPPER(SUBSTRING($2,4,1))) || (LOWER(SUBSTRING($2,5,length($2))));
-			WHEN (LOWER(LEFT($2,2)) = ANY(bicapitalization_list_2l)) THEN 
-				vi_last_name := (UPPER(LEFT($2,1))) || (LOWER(SUBSTRING($2,2,1))) || (UPPER(SUBSTRING($2,3,1))) || (LOWER(SUBSTRING($2,4,length($2))));
-			ELSE 
-				vi_last_name := $2;
-		END CASE;
-
-		SELECT 
-			CONCAT_WS( 
-				' ',
-				vi_first_name, 
-				vi_last_name)
-		INTO vo_full_name;
-
-		RETURN vo_full_name;
-	END;
-$vdm1_stage5_transform_customer_full_name$;
-
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####    20     #### 
--- #### #### #### #### 
-
-
-
-CREATE OR REPLACE FUNCTION vdm1_data.f_transform_filmlength_int2vchar(
-	p_length INTEGER
-)
-	RETURNS VARCHAR
-	LANGUAGE plpgsql
-	AS $vdm1_stage5_filmlength_int2vchar$
-	
-	DECLARE
-		-- IN Variable
-		vi_len_int INTEGER;
-		-- OUT Variable
-		vo_len_varchar VARCHAR;
-	
-	BEGIN 
-		-- Clearing the variables
-		vo_len_varchar := '';
-		vi_len_int := 0;
-		-- Setting the variable to input integer
-		vi_len_int := $1;
-		
-		-- Mathing
-		CASE
-			WHEN ((vi_len_int / 60 > 0) AND (vi_len_int % 60) = 0) THEN 
-				vo_len_varchar := (
-					(vi_len_int / 60) || ' hrs'
-				);
-			WHEN (vi_len_int / 60 > 0) THEN 
-				vo_len_varchar := (
-					(vi_len_int / 60) || ' hrs ' || (vi_len_int % 60) || ' min'
-				);
-			ELSE
-				vo_len_varchar := (
-					(vi_len_int % 60) || ' min'
-				);
-		END CASE;
-			
-		RETURN vo_len_varchar;
-	
-	END;
-$vdm1_stage5_filmlength_int2vchar$;
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####    21     #### 
--- #### #### #### #### 
-
-CREATE OR REPLACE FUNCTION vdm1_data.f_transform_customer_phone_e164(
-		p_phone VARCHAR)
-	RETURNS VARCHAR
-	LANGUAGE plpgsql
-	AS $vdm1_stage5_transform_customer_phone_e164$
-	
-	DECLARE
-		
-		vi_phone VARCHAR;
-		
-		vo_phone VARCHAR;
-
-	BEGIN 
-
-		vi_phone := $1;
-
-SELECT
-	CONCAT_WS(
-		  ' '
-		, '+'
-		, LEFT(vi_phone, (LENGTH(vi_phone)-10))
-		, SUBSTRING(vi_phone, (LENGTH(vi_phone)-10)+1, 2)
-		, SUBSTRING(vi_phone, ((LENGTH(vi_phone)-8)+1), 4)
-		, RIGHT(vi_phone,4)
-	)
-	INTO
-		vo_phone;
-
-	RETURN vo_phone;
-
-
-	END;
-$vdm1_stage5_transform_customer_phone_e164$;
-
--- #### #### #### #### #### #### #### #### 
 
 
 -- #### #### #### ####
@@ -5920,6 +5869,10 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_referesh_materialized_view(
 	END;
 $vdm1_stage5_refresh_materialized_view$;
 
+-- #### #### #### #### #### #### #### #### 
+
+
+
 -- #TODO STAGE 5 END
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### ####     STAGE 5a END    #### #### #### #### #### #### #### #### #### #### #### #### #### ####
@@ -5969,6 +5922,7 @@ $vdm1_stage5_refresh_materialized_view$;
 --                 15. vdm1_data.t_f_update_inventory_maintenance();
 --                 16. vdm1_data.t_f_update_new_release();
 --                 17. vdm1_data.t_f_update_rental_return();
+-- 				   18. vdm1_data.t_f_insert_new_film_release()
 
 
 
@@ -5991,6 +5945,7 @@ $vdm1_stage5_refresh_materialized_view$;
 --                 15. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_uinvm()
 --                 16. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_unewr()
 --                 17. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_urr()
+--				   18. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_infr()
 
 --     #### #### #### ####
 --        STAGE 5b END
@@ -6002,6 +5957,14 @@ $vdm1_stage5_refresh_materialized_view$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### ####   TRIGGERS BEGIN    #### #### #### #### #### #### #### #### #### #### #### #### #### ####
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+-- #TODO TRIGGERS BEGIN
+
 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
@@ -6053,6 +6016,8 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5b_trigger_functions_setup()
 
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_urr();
 
+		PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_infr();
+
 
     END;
 $vdm1_stage5_trigger_functions_setup_procedure$;
@@ -6090,6 +6055,7 @@ $vdm1_stage5_trigger_functions_setup_procedure$;
 --       15. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_uinvm()
 --       16. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_unewr()
 --       17. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_urr()
+--	     18. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_infr()
 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
@@ -6978,23 +6944,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_infilm
 					
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
-				INSERT INTO vdm1_data.new_releases(
-					film_id
-					, status
-				)
 
-				SELECT
-					film_id
-					, true
-				FROM 
-					vdm1_data.film_category_popularity
-
-				WHERE
-					film_id = NEW.film_id;
-
-
-				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####           
-				
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 				-- #### #### #### #### #### #### #### #### 
@@ -8336,6 +8286,56 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_urr()
     END;
 $vdm1_stage5_trigger_functions_setup_update_rental_return$;
 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+-- #### #### #### ####
+-- ####    18     #### 
+-- #### #### #### ####
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_infr()
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_stage5_trigger_functions_setup_insert_new_film_release$
+
+    
+    BEGIN
+		EXECUTE
+		'
+		CREATE OR REPLACE FUNCTION vdm1_data.t_f_insert_new_film_release()
+			RETURNS TRIGGER
+			LANGUAGE plpgsql
+			AS $trigger_function_insert_new_film_release$
+
+			BEGIN 
+			
+			
+			-- #### #### #### #### #### #### #### #### 
+
+
+
+				INSERT INTO vdm1_data.new_releases(
+					film_id
+					, status
+				)
+
+				SELECT
+					film_id
+					, true
+				FROM 
+					vdm1_data.film_category_popularity
+
+				WHERE
+					film_id = NEW.film_id;
+
+			END;
+		$trigger_function_insert_new_film_release$;
+		';
+
+		-- #### #### #### #### #### #### #### #### 
+
+	END;
+$vdm1_stage5_trigger_functions_setup_insert_new_film_release$;
+
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 
@@ -8344,11 +8344,15 @@ $vdm1_stage5_trigger_functions_setup_update_rental_return$;
 
 -- #### #### #### #### #### #### #### #### 
 
--- #TODO STATE 5b END
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
--- #### #### #### #### #### #### #### #### #### #### #### #### #### ####     STAGE 5b END     #### #### #### #### #### #### #### #### #### #### #### #### #### ####
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### ####    TRIGGERS END     #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### ####     STAGE 5b END    #### #### #### #### #### #### #### #### #### #### #### #### #### ####
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####      
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####      
@@ -8436,7 +8440,7 @@ $vdm1_stage5_trigger_functions_setup_update_rental_return$;
 --                     #### #### #### #### #### #### #### #### 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
-
+-- #TODO STAGE 5c - STORED PROCECURES
 
 CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5c_triggers_setup()
     LANGUAGE plpgsql
@@ -8478,6 +8482,8 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5c_triggers_setup()
         
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_specific();
 
+		PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_inewrel();
+
     END;
 $vdm1_stage5_triggers_setup_procedure$;
 
@@ -8485,7 +8491,7 @@ $vdm1_stage5_triggers_setup_procedure$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 
-
+-- #TODO STAGE 5c - FUNCTIONS 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 --                      #### #### #### #### #### #### #### #### 
@@ -8494,6 +8500,7 @@ $vdm1_stage5_triggers_setup_procedure$;
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
+
 
 --        1. vdm1_etl.f_vdm1_stage5_trigger_setup_icwh()
 --        2. vdm1_etl.f_vdm1_stage5_trigger_setup_incust()
@@ -8512,6 +8519,7 @@ $vdm1_stage5_triggers_setup_procedure$;
 --       15. vdm1_etl.f_vdm1_stage5_trigger_setup_unr()
 --       16. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_nonspecific()
 --       17. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_specific()
+--		 18. vdm1_etl.f_vdm1_stage5_trigger_setup_inewrel();
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
@@ -8902,6 +8910,37 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_specific()
     END;
 $vdm1_stage5_trigger_setup_update_customer_reclist_summary_specific$;
 
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+
+-- #### #### #### ####
+-- ####    18     #### 
+-- #### #### #### #### 
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_inewrel()
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_stage5_trigger_setup_insert_new_film$
+
+    BEGIN 
+
+        EXECUTE
+            'CREATE OR REPLACE TRIGGER insert_new_film_release
+                AFTER INSERT
+                ON vdm1_data.film_category_popularity
+                FOR EACH ROW
+                EXECUTE FUNCTION vdm1_data.t_f_insert_new_film_release()';
+
+    END;
+$vdm1_stage5_trigger_setup_insert_new_film$;
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+
+
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 

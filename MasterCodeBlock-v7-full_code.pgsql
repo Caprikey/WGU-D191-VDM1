@@ -44,6 +44,10 @@
 
 --                  1. vdm1_etl.f_vdm1_stage1_extractimport(tablename VARCHAR(30));
 --                  2. vdm1_etl.f_vdm1_stage1_data_validation_count_check(p_schema_one varchar, p_table_one varchar, p_schmea_two varchar, p_table_two varchar);
+--                  3. vdm1_data.f_vdm1_calc_expected_return_date(p_film_id INT, p_rental_date DATE)
+--                  4. vdm1_data.f_vdm1_transform_customer_full_name(p_first_name VARCHAR, p_last_name VARCHAR)
+--                  5. vdm1_data.f_vdm1_transform_filmlength_int2vchar(p_length INTEGER)
+--                  6. vdm1_data.f_vdm1_transform_customer_phone_e164(p_phone VARCHAR)
 
 --     #### #### #### ####
 --         STAGE 1 END
@@ -111,7 +115,13 @@
 --                  2. vdm1_etl.vdm1_stage4a();
 --                  3. vdm1_etl.vdm1_stage4b();
 --                  4. vdm1_etl.vdm1_stage4c();
-
+--                  5. vdm1_etl.vdm1_stage4c1();
+--                  6. vdm1_etl.vdm1_stage4c1a();
+--                  7. vdm1_etl.vdm1_stage4c1b();
+--                  8. vdm1_etl.vdm1_stage4c2();
+--                  9. vdm1_etl.vdm1_stage4c2a();
+--                 10. vdm1_etl.vdm1_stage4c2b();
+--                 11. vdm1_etl.vdm1_stage4c3();
 
 --             FUNCTIONS
 
@@ -165,29 +175,26 @@
 --                  3. vdm1_etl.f_vdm1_stage5_create_table_inventory_maintenance_summary();
 --                  4. vdm1_etl.f_vdm1_stage5_insert_cx_reclist_summary_nonspecific();
 --                  5. vdm1_etl.f_vdm1_stage5_insert_cx_reclist_summary_specific();
---                  6. vdm1_etl.f_vdm1_stage5_create_mview_customer_details(); 
---                  7. vdm1_etl.f_vdm1_stage5_create_mview_store_details(); 
---                  8. vdm1_etl.f_vdm1_stage5_create_mview_location_details(); 
---                  9. vdm1_etl.f_vdm1_stage5_create_mview_film_details(); 
---                 10. vdm1_etl.f_vdm1_stage5_create_table_dictkey();
---                 11. vdm1_etl.f_vdm1_stage5_dictkey_insert_category_data();
---                 12. vdm1_etl.f_vdm1_stage5_dictkey_insert_language_data();
---                 13. vdm1_etl.f_vdm1_stage5_dictkey_insert_city_data();
---                 14. vdm1_etl.f_vdm1_stage5_dictkey_insert_country_data();
---                 15. vdm1_etl.f_vdm1_stage5_datestamp();
---                 16. vdm1_etl.f_vdm1_stage5_table_rename();
---                 17. vdm1_etl.f_vdm1_stage5_load_data_marketing();
---                 18. vdm1_etl.f_vdm1_stage5_load_data_vdm1_data();
---                 19. vdm1_etl.f_vdm1_stage5_data_validation_count_check();
---                 20. vdm1_etl.f_vdm1_stage5_table_enabled_logging_vdm1_data()
---                 21. vdm1_data.f_vdm1_stage4_calc_expected_return_date();
---                 22. vdm1_data.f_vdm1_stage4_transform_customer_full_name();
---                 23. vdm1_data.f_vdm1_stage4_transform_filmlength_int2vchar();
---                 24. vdm1_data.f_transform_customer_phone_e164();
---                 25. vdm1_etl.f_vdm1_stage5_create_table_constraints();
---                 26. vdm1_etl.f_vdm1_stage5_cleanup();
---                 27. vdm1_etl.f_vdm1_stage5_delete_stage(); 
---                 28. vdm1_etl.f_refresh_mview_all_marketing();
+--                  6. vdm1_etl.f_vdm1_stage5_create_materialized_view(); 
+--                  7. vdm1_etl.f_vdm1_stage5_create_table_dictkey();
+--                  8. vdm1_etl.f_vdm1_stage5_dictkey_insert_category_data();
+--                  9. vdm1_etl.f_vdm1_stage5_dictkey_insert_language_data();
+--                 10. vdm1_etl.f_vdm1_stage5_dictkey_insert_city_data();
+--                 11. vdm1_etl.f_vdm1_stage5_dictkey_insert_country_data();
+--                 12. vdm1_etl.f_vdm1_stage5_datestamp();
+--                 13. vdm1_etl.f_vdm1_stage5_table_rename();
+--                 14. vdm1_etl.f_vdm1_stage5_load_data_marketing();
+--                 15. vdm1_etl.f_vdm1_stage5_load_data_vdm1_data();
+--                 16. vdm1_etl.f_vdm1_stage5_data_validation_count_check();
+--                 17. vdm1_etl.f_vdm1_stage5_table_enabled_logging_vdm1_data()
+--                 18. vdm1_data.f_calc_expected_return_date();
+--                 19. vdm1_data.f_transform_customer_full_name();
+--                 20. vdm1_data.f_transform_filmlength_int2vchar();
+--                 21. vdm1_data.f_transform_customer_phone_e164();
+--                 22. vdm1_etl.f_vdm1_stage5_create_table_constraints();
+--                 23. vdm1_etl.f_vdm1_stage5_cleanup();
+--                 24. vdm1_etl.f_vdm1_stage5_delete_stage(); 
+--                 25. vdm1_etl.f_refresh_mview_all_marketing();
 
 
 --     #### #### #### ####
@@ -256,6 +263,7 @@
 --       STAGE 5c BEGIN
 --           TRIGGERS
 --     #### #### #### ####
+
 --             STORED PROCEDURES
 
 --                  1. vdm1_etl.vdm1_stage5c_triggers_setup();
@@ -322,22 +330,12 @@
 
 --              FUNCTIONS
 
---                  1. vdm1_etl.f_vdm1_reset_drop_triggers();
---             	    2. vdm1_etl.f_vdm1_reset_delete_table_vdm1_data(); 
---                  3. vdm1_etl.f_vdm1_reset_create_mview_customer_details();
---                  4. vdm1_etl.f_vdm1_reset_create_mview_store_details();
---                  5. vdm1_etl.f_vdm1_reset_create_mview_location_details();
---                  6. vdm1_etl.f_vdm1_reset_create_mview_film_details();
---                  7. vdm1_etl.f_vdm1_reset_drop_all_mviews_marketing();
---                  8. vdm1_etl.f_vdm1_reset_drop_mviews_marketing_customer_details();
---                  9. vdm1_etl.f_vdm1_reset_drop_mviews_marketing_film_details();
---                 10. vdm1_etl.f_vdm1_reset_drop_mviews_marketing_location_details();
---                 11. vdm1_etl.f_vdm1_reset_drop_mviews_marketing_store_details();
---                 12. vdm1_etl.f_vdm1_reset_refresh_mview_all_marketing();
---                 13. vdm1_etl.f_vdm1_reset_refresh_mview_marketing_customer_details();
---                 14. vdm1_etl.f_vdm1_reset_refresh_mview_marketing_film_details();
---                 15. vdm1_etl.f_vdm1_reset_refresh_mview_marketing_location_details();
---                 16. vdm1_etl.f_vdm1_reset_refresh_mview_marketing_store_details();
+--                  1. vdm1_etl.f_vdm1_reset_disable_triggers() 
+--                  2. vdm1_etl.f_vdm1_reset_drop_triggers();
+--             	    3. vdm1_etl.f_vdm1_reset_delete_table_vdm1_data(); 
+--                  4. vdm1_etl.f_vdm1_reset_create_materialized_view();
+--                  5. vdm1_etl.f_vdm1_reset_drop_materialized_view();
+--                  6. vdm1_etl.f_vdm1_reset_referesh_materialized_view();
 
 
 --     #### #### #### ####
@@ -466,29 +464,98 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_etl_main()
 	
 	BEGIN 
 
-        CALL vdm1_etl.vdm1_stage0();
+		-- #### #### #### #### #### #### #### #### 
 
+		-- STAGE 0 / RESET STAGE 0
+
+		RAISE NOTICE 'RUNNING VDM1 ETL STAGE 0 / RESET STAGE 0';
+        CALL vdm1_etl.vdm1_reset_stage0();
+		RAISE NOTICE 'COMPLETED VDM1 ETL STAGE 0 / RESET STAGE 0 ';
+
+		-- #### #### #### #### 
+
+		-- STAGE 1
+
+		RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 1';
 		CALL vdm1_etl.vdm1_stage1();
+		RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 1';
 
+		-- #### #### #### #### 
+
+		-- STAGE 2
+
+		RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 2';
 		CALL vdm1_etl.vdm1_stage2();
+		RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 2';
 
+		-- #### #### #### #### 
+
+		-- STAGE 3
+
+		RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 3';
 		CALL vdm1_etl.vdm1_stage3();
+		RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 3';
+
+		-- #### #### #### #### #### #### #### #### 
+
+		-- STAGE 4
 
         -- DISABLING MAIN RUN DUE TO PERFORMANCE/TIME IMPACT
         -- CALL vdm1_etl.vdm1_stage4();
 
-            -- STAGE 4 HAS BEEN SPLIT INTO 3 SUBPARTS TO ASSIST WITH PERFORMANCE IMPACT
+            -- STAGE 4 HAS BEEN SPLIT INTO 3 SUBPARTS, THEN AGAIN 4 MORE SUB PARTS TO ASSIST WITH PERFORMANCE IMPACT
+			RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 4a';
             CALL vdm1_etl.vdm1_stage4a();
+		    RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 4a';
 
+			RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 4b';
             CALL vdm1_etl.vdm1_stage4b();
+			RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 4b';
 
-            CALL vdm1_etl.vdm1_stage4c();
+		-- #### #### #### #### #### #### #### #### 
+		
+		-- STAGE 4
 
+				-- STAGE 4-C-1-A :: INSERTS CUSTOMER RECOMMENDATION LIST INTO MASTER NONSPECIFIC
+				RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 4c1a';
+				CALL vdm1_etl.vdm1_stage4c1a();
+				RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 4c1a';
+
+				-- STAGE 4-C-1-B :: PERFORMS ROW NUBMER COUNT ON CUSTOMER RECOMMENDATION LIST MASTER NONSPECIFIC
+				RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 4c1b';
+				CALL vdm1_etl.vdm1_stage4c1b();
+				RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 4c1b';
+
+				-- STAGE 4-C-2-A :: INSERTS CUSTOMER RECOMMENDATION LIST INTO MASTER SPECIFIC
+				RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 4c2a';
+				CALL vdm1_etl.vdm1_stage4c2a();
+				RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 4c2a';
+
+				-- STAGE 4-C-2-B :: PERFORMS ROW NUBMER COUNT ON CUSTOMER RECOMMENDATION LIST MASTER SPECIFIC
+				RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 4c2b';
+				CALL vdm1_etl.vdm1_stage4c2b();
+				RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 4c2b';
+
+				-- STAGE 4-C-3 :: PERFORMS CLEANUP
+				RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 4c3';
+				CALL vdm1_etl.vdm1_stage4c3();
+				RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 4c3';
+
+		-- #### #### #### #### #### #### #### #### 
+
+		-- STAGE 5
+
+		RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 5a - MAIN';
         CALL vdm1_etl.vdm1_stage5a_main();
-
+		RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 5a - MAIN';
+		
+		RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 5b - TRIGGER FUNCTION SETUP';
         CALL vdm1_etl.vdm1_stage5b_trigger_functions_setup();
+		RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 5b - TRIGGER FUNCTION SETUP';
 
+		RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 5c - TRIGGER SETUP';
         CALL vdm1_etl.vdm1_stage5c_triggers_setup();
+		RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 5c - TRIGGER SETUP';
 
 	END;
 $etl_main_run$;
@@ -712,6 +779,22 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage1()
         -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 
+		PERFORM vdm1_etl.f_calc_expected_return_date_container();
+
+
+		PERFORM vdm1_etl.f_transform_customer_full_name_container();
+
+
+		PERFORM vdm1_etl.f_transform_filmlength_int2vchar_container();
+
+
+		PERFORM vdm1_etl.f_transform_customer_phone_e164_container();
+
+
+        -- #### #### #### #### #### #### #### #### #### #### #### ####
+
+        -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
     END;
 $vdm1_stage1_run$;
 
@@ -730,8 +813,13 @@ $vdm1_stage1_run$;
 
 -- TABLE OF CONTENTS
 
---     1. vdm1_etl.f_vdm1_stage1_extractimport(tablename VARCHAR(30));
---     2. vdm1_etl.f_vdm1_stage1_data_validation_count_check(p_schema_one varchar, p_table_one varchar, p_schmea_two varchar, p_table_two varchar);
+--      1. vdm1_etl.f_vdm1_stage1_extractimport(tablename VARCHAR(30));
+--      2. vdm1_etl.f_vdm1_stage1_data_validation_count_check(p_schema_one varchar, p_table_one varchar, p_schmea_two varchar, p_table_two varchar);
+--      3. vdm1_data.f_vdm1_calc_expected_return_date(p_film_id INT, p_rental_date DATE)
+--      4. vdm1_data.f_vdm1_transform_customer_full_name(p_first_name VARCHAR, p_last_name VARCHAR)
+--      5. vdm1_data.f_vdm1_transform_filmlength_int2vchar(p_length INTEGER)
+--      6. vdm1_data.f_vdm1_transform_customer_phone_e164(p_phone VARCHAR)
+
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ###
 -- #TODO STAGE 1 - FUNCTIONS
@@ -847,6 +935,255 @@ $vdm1_stage1_data_validation_source_count_matches_destination_count$;
 -- https://www.geeksforgeeks.org/postgresql-if-statement/
 -- https://www.postgresql.org/docs/current/plpgsql-errors-and-messages.html
 -- https://www.enterprisedb.com/postgres-tutorials/how-raise-errors-and-report-messages-within-stored-procedures-and-functions
+
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+
+-- #### #### #### ####
+-- ####     3     #### 
+-- #### #### #### #### 
+
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_calc_expected_return_date_container()
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_data_f_calc_expected_return_date_container$
+
+	BEGIN
+
+	EXECUTE
+	'
+		CREATE OR REPLACE FUNCTION vdm1_data.f_calc_expected_return_date(
+				p_film_id INT,
+				p_rental_date DATE)
+			RETURNS DATE
+			LANGUAGE plpgsql
+			AS $vdm1_f_calc_expected_return_date$
+			
+			DECLARE
+			
+				vi_film_id INTEGER;
+				vlu_rental_duration INTEGER;
+				vi_rental_date DATE;
+				
+				vo_expected_return_date DATE;
+			
+			BEGIN
+
+				vi_film_id := $1;
+				vi_rental_date := $2;
+				
+					
+				SELECT 
+					rental_duration INTO vlu_rental_duration
+				FROM 
+					staging.vdm1_stage4_films as A
+				WHERE 
+					vi_film_id = a.film_id;
+
+				vo_expected_return_date := vi_rental_date + vlu_rental_duration;
+
+				RETURN vo_expected_return_date;
+			END;
+		$vdm1_f_calc_expected_return_date$;
+	';
+	END;
+$vdm1_data_f_calc_expected_return_date_container$;
+
+
+-- #### #### #### #### #### #### #### #### 
+
+
+-- #### #### #### ####
+-- ####     4     #### 
+-- #### #### #### #### 
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_transform_customer_full_name_container()
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_data_f_transform_customer_full_name_container$
+
+	BEGIN
+	
+	EXECUTE
+	'
+		CREATE OR REPLACE FUNCTION vdm1_data.f_transform_customer_full_name(
+				p_first_name VARCHAR,
+				p_last_name VARCHAR)
+			RETURNS VARCHAR
+			LANGUAGE plpgsql
+			AS $vdm1_f_transform_customer_full_name$
+			
+			DECLARE
+				
+				vi_first_name VARCHAR;
+				vi_last_name VARCHAR;
+				
+				vo_full_name VARCHAR;
+				
+				-- bicapitalization_list varchar[]; 
+				bicapitalization_list_2l varchar[]; 
+				bicapitalization_list_3l varchar[]; 
+				bicapitalization_list_4l varchar[]; 
+
+			BEGIN
+				
+				vi_first_name := $1;
+				vi_last_name := $2;
+				
+				-- bicapitalization_list := array[''mc'', ''le'', ''la'', ''o'''''', ''da'', ''de'' ];
+				bicapitalization_list_2l := array[''mc'', ''o''];
+				bicapitalization_list_3l := array[''mac''];
+				bicapitalization_list_4l := array[''von '', ''fitz''];
+
+				
+				CASE 
+						
+					WHEN (LOWER(LEFT($2,4)) = ANY(bicapitalization_list_4l)) THEN
+						vi_last_name := (UPPER(LEFT($2,1))) || (LOWER(SUBSTRING($2,2,3))) || (UPPER(SUBSTRING($2,4,1))) || (LOWER(SUBSTRING($2,5,length($2))));
+					WHEN (LOWER(LEFT($2,3)) = ANY(bicapitalization_list_3l)) THEN
+						vi_last_name := (UPPER(LEFT($2,1))) || (LOWER(SUBSTRING($2,2,2))) || (UPPER(SUBSTRING($2,4,1))) || (LOWER(SUBSTRING($2,5,length($2))));
+					WHEN (LOWER(LEFT($2,2)) = ANY(bicapitalization_list_2l)) THEN 
+						vi_last_name := (UPPER(LEFT($2,1))) || (LOWER(SUBSTRING($2,2,1))) || (UPPER(SUBSTRING($2,3,1))) || (LOWER(SUBSTRING($2,4,length($2))));
+					ELSE 
+						vi_last_name := $2;
+				END CASE;
+
+				SELECT 
+					CONCAT_WS( 
+						'' '',
+						vi_first_name, 
+						vi_last_name)
+				INTO vo_full_name;
+
+				RETURN vo_full_name;
+			END;
+		$vdm1_f_transform_customer_full_name$;
+	';
+	END;
+$vdm1_data_f_transform_customer_full_name_container$;
+
+
+-- #### #### #### #### #### #### #### #### 
+
+-- #### #### #### ####
+-- ####     5     #### 
+-- #### #### #### #### 
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_transform_filmlength_int2vchar_container()
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_data_f_transform_filmlength_int2vchar_container$
+
+	BEGIN
+	
+	EXECUTE
+	'
+		CREATE OR REPLACE FUNCTION vdm1_data.f_transform_filmlength_int2vchar(
+			p_length INTEGER
+		)
+			RETURNS VARCHAR
+			LANGUAGE plpgsql
+			AS $vdm1_f_transform_filmlength_int2vchar$
+			
+			DECLARE
+				-- IN Variable
+				vi_len_int INTEGER;
+				-- OUT Variable
+				vo_len_varchar VARCHAR;
+			
+			BEGIN 
+				-- Clearing the variables
+				vo_len_varchar := '''';
+				vi_len_int := 0;
+				-- Setting the variable to input integer
+				vi_len_int := $1;
+				
+				-- Mathing
+				CASE
+					WHEN ((vi_len_int / 60 > 0) AND (vi_len_int % 60) = 0) THEN 
+						vo_len_varchar := (
+							(vi_len_int / 60) || '' hrs''
+						);
+					WHEN (vi_len_int / 60 > 0) THEN 
+						vo_len_varchar := (
+							(vi_len_int / 60) || '' hrs '' || (vi_len_int % 60) || '' min''
+						);
+					ELSE
+						vo_len_varchar := (
+							(vi_len_int % 60) || '' min''
+						);
+				END CASE;
+					
+				RETURN vo_len_varchar;
+			
+			END;
+		$vdm1_f_transform_filmlength_int2vchar$;
+	';
+	END;
+$vdm1_data_f_transform_filmlength_int2vchar_container$;
+
+
+-- #### #### #### #### #### #### #### #### 
+
+-- #### #### #### ####
+-- ####     6     #### 
+-- #### #### #### #### 
+
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_transform_customer_phone_e164_container()
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_data_f_transform_customer_phone_e164_container$
+
+	BEGIN
+	
+	EXECUTE
+	'
+
+		CREATE OR REPLACE FUNCTION vdm1_data.f_transform_customer_phone_e164(
+				p_phone VARCHAR)
+			RETURNS VARCHAR
+			LANGUAGE plpgsql
+			AS $vdm1_f_transform_customer_phone_e164$
+			
+			DECLARE
+				
+				vi_phone VARCHAR;
+				
+				vo_phone VARCHAR;
+
+			BEGIN 
+
+				vi_phone := $1;
+
+		SELECT
+			CONCAT_WS(
+				'' ''
+				, ''+''
+				, LEFT(vi_phone, (LENGTH(vi_phone)-10))
+				, SUBSTRING(vi_phone, (LENGTH(vi_phone)-10)+1, 2)
+				, SUBSTRING(vi_phone, ((LENGTH(vi_phone)-8)+1), 4)
+				, RIGHT(vi_phone,4)
+			)
+			INTO
+				vo_phone;
+
+			RETURN vo_phone;
+
+
+			END;
+		$vdm1_f_transform_customer_phone_e164$;
+	';
+	END;
+$vdm1_data_f_transform_customer_phone_e164_container$;
+
+
+-- #### #### #### #### #### #### #### #### 
 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
@@ -1518,15 +1855,15 @@ $vdm1_stage3_run$;
 
 -- TABLE OF CONTENTS
 
---      1vdm1_etl.f_vdm1_stage3_create_table_new_releases()
---      2vdm1_etl.f_vdm1_stage3_create_table_failed_returns()
---      3vdm1_etl.f_vdm1_stage3_create_table_category_count_init()
---      4vdm1_etl.f_vdm1_stage3_create_table_customer_watch_history_details()
---      5vdm1_etl.f_vdm1_stage3_create_table_cx_reclist_master_nonspecific()
---      6vdm1_etl.f_vdm1_stage3_create_table_cx_reclist_master_specific()
---      7vdm1_etl.f_vdm1_stage3_create_table_customer_rec_custom_preferences()
---      8vdm1_etl.f_vdm1_stage3_table_changes()
---      9vdm1_etl.f_vdm1_stage3_cleanup()
+--      1. vdm1_etl.f_vdm1_stage3_create_table_new_releases()
+--      2. vdm1_etl.f_vdm1_stage3_create_table_failed_returns()
+--      3. vdm1_etl.f_vdm1_stage3_create_table_category_count_init()
+--      4. vdm1_etl.f_vdm1_stage3_create_table_customer_watch_history_details()
+--      5. vdm1_etl.f_vdm1_stage3_create_table_cx_reclist_master_nonspecific()
+--      6. vdm1_etl.f_vdm1_stage3_create_table_cx_reclist_master_specific()
+--      7. vdm1_etl.f_vdm1_stage3_create_table_customer_rec_custom_preferences()
+--      8. vdm1_etl.f_vdm1_stage3_table_changes()
+--      9. vdm1_etl.f_vdm1_stage3_cleanup()
 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
@@ -1768,7 +2105,8 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage3_table_changes()
 		-- #### #### #### #### 
 
 		ALTER TABLE IF EXISTS staging.vdm1_stage3_films
-			ADD COLUMN new_release BOOLEAN NOT NULL DEFAULT FALSE;
+			ADD COLUMN new_release BOOLEAN NOT NULL DEFAULT FALSE, 
+			ALTER COLUMN length TYPE VARCHAR(20);
 						
 		-- #### #### #### #### 
 
@@ -1823,7 +2161,13 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage3_table_changes()
 
 		-- #### #### #### #### #### #### #### #### 
 
+		ALTER TABLE IF EXISTS staging.vdm1_stage3_customers
+			ADD COLUMN customer_full_name VARCHAR,
+			ALTER COLUMN phone TYPE VARCHAR(40);
 
+
+
+		-- #### #### #### #### #### #### #### #### 
 			
 	END;
 $vdm1_stage3_table_changes$;
@@ -1947,7 +2291,13 @@ $vdm1_stage3cleanup$;
 --                  2. vdm1_etl.vdm1_stage4a();
 --                  3. vdm1_etl.vdm1_stage4b();
 --                  4. vdm1_etl.vdm1_stage4c();
-
+--                  5. vdm1_etl.vdm1_stage4c1();
+--                  6. vdm1_etl.vdm1_stage4c1a();
+--                  7. vdm1_etl.vdm1_stage4c1b();
+--                  8. vdm1_etl.vdm1_stage4c2();
+--                  9. vdm1_etl.vdm1_stage4c2a();
+--                 10. vdm1_etl.vdm1_stage4c2b();
+--                 11. vdm1_etl.vdm1_stage4c3();
 
 --             FUNCTIONS
 
@@ -1977,7 +2327,8 @@ $vdm1_stage3cleanup$;
 --                 24. vdm1_etl.f_vdm1_stage4_transform_customer_full_name(p_first_name VARCHAR, p_last_name VARCHAR)
 --                 25. vdm1_etl.f_vdm1_stage4_transform_filmlength_int2vchar(p_length INTEGER)
 --                 26. vdm1_etl.f_vdm1_stage4_calc_expected_return_date(p_film_id INT, p_rental_date DATE)
---                 27. vdm1_etl.f_vdm1_stage4_cleanup()
+--                 27. vdm1_etl.f_vdm1_stage4_transform_customer_phone_e164();
+--                 28. vdm1_etl.f_vdm1_stage4_cleanup()
 
 
 --     #### #### #### ####
@@ -2015,6 +2366,15 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4()
         PERFORM vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_count();
 
 		PERFORM vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_count();
+
+		-- PERFORM vdm1_etl.f_vdm1_stage4_create_transform_function();
+
+		-- PERFORM vdm1_etl.f_vdm1_stage4_transform_customer_full_name();
+
+		-- PERFORM vdm1_etl.f_vdm1_stage4_transform_customer_phone_number();
+
+		-- PERFORM vdm1_etl.f_vdm1_stage4_transform_film_length();
+        
 
         -- #### #### #### #### 
 
@@ -2116,6 +2476,14 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4a()
 		PERFORM vdm1_etl.f_vdm1_stage4_calc_insert_failed_returns_v2();
 
 		PERFORM vdm1_etl.f_vdm1_stage4_calc_insert_new_releases_v2();
+
+		-- PERFORM vdm1_etl.f_vdm1_stage4_create_transform_function();
+
+		PERFORM vdm1_etl.f_vdm1_stage4_transform_customer_full_name();
+
+		PERFORM vdm1_etl.f_vdm1_stage4_transform_customer_phone_number();
+
+		PERFORM vdm1_etl.f_vdm1_stage4_transform_film_length();
         
 
 	END;
@@ -2184,6 +2552,141 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4c()
 $vdm1_stage4c_run$;
 
 
+-- #### #### #### #### #### #### #### #### #### #### #### #### 
+
+CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4c1()
+	LANGUAGE plpgsql
+	AS $vdm1_stage4c1_run$
+
+	
+	BEGIN 
+        
+        -- #### #### #### #### 
+
+
+		PERFORM vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_nonspecific();
+
+        PERFORM vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_nonspecific_rn();
+        
+        -- #### #### #### #### 
+
+    END;
+$vdm1_stage4c1_run$;
+
+-- #### #### #### #### #### #### #### #### 
+
+CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4c1a()
+	LANGUAGE plpgsql
+	AS $vdm1_stage4c1a_run$
+
+	
+	BEGIN 
+        
+        -- #### #### #### #### 
+
+
+		PERFORM vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_nonspecific();
+        
+        -- #### #### #### #### 
+
+    END;
+$vdm1_stage4c1a_run$;
+
+-- #### #### #### #### #### #### #### #### 
+
+CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4c1b()
+	LANGUAGE plpgsql
+	AS $vdm1_stage4c1b_run$
+
+	
+	BEGIN 
+        
+        -- #### #### #### #### 
+
+
+        PERFORM vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_nonspecific_rn();
+        
+        -- #### #### #### #### 
+
+    END;
+$vdm1_stage4c1b_run$;
+
+-- #### #### #### #### #### #### #### #### 
+
+CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4c2()
+	LANGUAGE plpgsql
+	AS $vdm1_stage4c2_run$
+
+	
+	BEGIN 
+        
+        -- #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_specific_default();
+
+		PERFORM vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_specific_rn();
+
+        -- #### #### #### #### 
+
+    END;
+$vdm1_stage4c2_run$;
+
+-- #### #### #### #### #### #### #### #### 
+
+CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4c2a()
+	LANGUAGE plpgsql
+	AS $vdm1_stage4c2a_run$
+
+	
+	BEGIN 
+        
+        -- #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_specific_default();
+
+        -- #### #### #### #### 
+
+    END;
+$vdm1_stage4c2a_run$;
+
+-- #### #### #### #### #### #### #### #### 
+
+CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4c2b()
+	LANGUAGE plpgsql
+	AS $vdm1_stage4c2b_run$
+
+	
+	BEGIN 
+        
+        -- #### #### #### #### 
+
+		PERFORM vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_specific_rn();
+
+        -- #### #### #### #### 
+
+    END;
+$vdm1_stage4c2b_run$;
+
+-- #### #### #### #### #### #### #### #### 
+
+CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4c3()
+	LANGUAGE plpgsql
+	AS $vdm1_stage4c3_run$
+
+	
+	BEGIN 
+        
+        -- #### #### #### #### 
+
+		PERFORM vdm1_etl.f_vdm1_stage4_cleanup();
+
+        -- #### #### #### #### 
+
+    END;
+$vdm1_stage4c3_run$;
+
+-- #### #### #### #### #### #### #### #### 
+
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 --                      #### #### #### #### #### #### #### #### 
@@ -2196,33 +2699,37 @@ $vdm1_stage4c_run$;
 
 -- TABLE OF CONTENTS
 
---      1. vdm1_etl.f_vdm1_stage4_calc_update_category_popularity_count()
---      2. vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_count()
---      3. vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_row_number()
---      4. vdm1_etl.f_vdm1_stage4_calc_update_film_category_popularity_row_number()
---      5. vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_count()
---      6. vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_flag_inspection()
---      7. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_count_null_corrections()
---      8. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_historical_count()
---      9. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_average_count()
---     10. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_halfaverage_count()
---     11. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_historical()
---     12. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_average()
---     13. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_halfaverage()
---     14. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_custom_set_default()
---     15. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_set_custom_order()
---     16. vdm1_etl.f_vdm1_stage4_calc_update_customer_watch_history_row_number()
---     17. vdm1_etl.f_vdm1_stage4_calc_insert_failed_returns_v2()
---     18. vdm1_etl.f_vdm1_stage4_calc_insert_new_releases_v2()
---     19. vdm1_etl.f_vdm1_stage4_calc_delete_cx_history_from_cx_filmcat
---     20. vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_nonspecific()
---     21. vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_nonspecific_rn()
---     22. vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_specific_default();
---     23. vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_specific_rn();
---     24. vdm1_etl.f_vdm1_stage4_transform_customer_full_name(p_first_name VARCHAR, p_last_name VARCHAR)
---     25. vdm1_etl.f_vdm1_stage4_transform_filmlength_int2vchar(p_length INTEGER)
---     26. vdm1_etl.f_vdm1_stage4_calc_expected_return_date(p_film_id INT, p_rental_date DATE)
---     27. vdm1_etl.f_vdm1_stage4_cleanup()
+--      1. vdm1_etl.f_vdm1_stage4_transform_customer_full_name();
+--      2. vdm1_etl.f_vdm1_stage4_transform_customer_phone_number();
+--      3. vdm1_etl.f_vdm1_stage4_transform_film_length();
+--      4. vdm1_etl.f_vdm1_stage4_calc_update_category_popularity_count()
+--      5. vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_count()
+--      6. vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_row_number()
+--      7. vdm1_etl.f_vdm1_stage4_calc_update_film_category_popularity_row_number()
+--      8. vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_count()
+--      9. vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_flag_inspection()
+--     10. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_count_null_corrections()
+--     11. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_historical_count()
+--     12. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_average_count()
+--     13. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_halfaverage_count()
+--     14. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_historical()
+--     15. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_average()
+--     16. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_halfaverage()
+--     17. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_custom_set_default()
+--     18. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_set_custom_order()
+--     19. vdm1_etl.f_vdm1_stage4_calc_update_customer_watch_history_row_number()
+--     20. vdm1_etl.f_vdm1_stage4_calc_insert_failed_returns_v2()
+--     21. vdm1_etl.f_vdm1_stage4_calc_insert_new_releases_v2()
+--     22. vdm1_etl.f_vdm1_stage4_calc_delete_cx_history_from_cx_filmcat
+--     23. vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_nonspecific()
+--     24. vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_nonspecific_rn()
+--     25. vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_specific_default();
+--     26. vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_specific_rn();
+--     27. vdm1_etl.f_vdm1_stage4_transform_customer_full_name(p_first_name VARCHAR, p_last_name VARCHAR)
+--     28. vdm1_etl.f_vdm1_stage4_transform_filmlength_int2vchar(p_length INTEGER)
+--     29. vdm1_etl.f_vdm1_stage4_calc_expected_return_date(p_film_id INT, p_rental_date DATE)
+--     30. vdm1_etl.f_vdm1_stage4_transform_customer_phone_e164(p_phone VARCHAR);
+--     31. vdm1_etl.f_vdm1_stage4_cleanup()
 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
@@ -2231,6 +2738,109 @@ $vdm1_stage4c_run$;
 -- #### #### #### ####
 -- ####     1     #### 
 -- #### #### #### #### 
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_transform_customer_full_name()
+	RETURNS VOID 
+	LANGUAGE plpgsql
+	AS $vdm1_stage4_transform_update_customer_full_name$
+
+	BEGIN
+
+			WITH get_customer_details AS (
+			SELECT 
+				  customer_id
+				, first_name
+				, last_name
+			FROM 
+				staging.vdm1_stage4_customers
+		)
+
+	UPDATE staging.vdm1_stage4_customers AS a
+
+	SET customer_full_name = vdm1_data.f_transform_customer_full_name(b.first_name :: VARCHAR, b.last_name :: VARCHAR)
+
+	FROM get_customer_details AS b
+
+	WHERE
+		a.customer_id = b.customer_id;
+
+	END;
+$vdm1_stage4_transform_update_customer_full_name$;
+
+-- #### #### #### #### #### #### #### #### 
+
+-- #### #### #### ####
+-- ####     2     #### 
+-- #### #### #### #### 
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_transform_customer_phone_number()
+	RETURNS VOID 
+	LANGUAGE plpgsql
+	AS $vdm1_stage4_transform_update_customer_phone_number$
+
+	BEGIN
+
+			WITH get_customer_details AS (
+			SELECT 
+				  customer_id
+				, phone
+			FROM 
+				staging.vdm1_stage4_customers
+		)
+
+	UPDATE staging.vdm1_stage4_customers AS a
+
+	SET phone = vdm1_data.f_transform_customer_phone_e164(b.phone)
+
+	FROM get_customer_details AS b
+
+	WHERE
+		a.customer_id = b.customer_id;
+
+	END;
+$vdm1_stage4_transform_update_customer_phone_number$;
+
+-- #### #### #### #### #### #### #### #### 
+
+
+-- #### #### #### ####
+-- ####     3     #### 
+-- #### #### #### #### 
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_transform_film_length()
+	RETURNS VOID 
+	LANGUAGE plpgsql
+	AS $vdm1_stage4_transform_update_film_length$
+
+	BEGIN
+
+			WITH get_film_details AS (
+			SELECT 
+				  film_id
+				, length
+			FROM 
+				staging.vdm1_stage4_films
+		)
+
+	UPDATE staging.vdm1_stage4_films AS a
+
+	SET length = vdm1_data.f_transform_filmlength_int2vchar(b.length :: INTEGER)
+
+	FROM get_film_details AS b
+
+	WHERE
+		a.film_id = b.film_id;
+
+	END;
+$vdm1_stage4_transform_update_film_length$;
+
+-- #### #### #### #### #### #### #### ####  
+
+
+-- #### #### #### ####
+-- ####     4     #### 
+-- #### #### #### #### 
+
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_category_popularity_count()
 	RETURNS VOID
@@ -2264,7 +2874,7 @@ $vdm1_stage4_calc_update_category_popularity_count$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####     2     #### 
+-- ####     5     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_count()
@@ -2300,7 +2910,7 @@ $vdm1_stage4_calc_update_film_popularity_count$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####     3     #### 
+-- ####     6     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_row_number()
@@ -2336,7 +2946,7 @@ $vdm1_stage4_calc_update_film_popularity_row_number$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####     4     #### 
+-- ####     7     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_film_category_popularity_row_number()
@@ -2373,7 +2983,7 @@ $vdm1_stage4_calc_update_film_category_popularity_row_number$;
 
 
 -- #### #### #### ####
--- ####     5     #### 
+-- ####     8     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_count()
@@ -2411,7 +3021,7 @@ $vdm1_stage4_calc_update_film_inventory_count$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####     6     #### 
+-- ####     9     #### 
 -- #### #### #### #### 
  
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_flag_inspection()
@@ -2440,7 +3050,7 @@ $vdm1_stage4_calcupdate_film_inventory_flag_inspection$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####     7     #### 
+-- ####    10     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_cuscat_count_null_corrections()
@@ -2469,7 +3079,7 @@ $vdm1_stage4_calc_update_customer_category_count_null_correction$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####     8     #### 
+-- ####    11     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_cuscat_historical_count()
@@ -2508,7 +3118,7 @@ $vdm1_stage4_calc_update_customer_category_historical_count$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####     9     #### 
+-- ####    12     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_cuscat_average_count()
@@ -2549,7 +3159,7 @@ $vdm1_stage4_calc_update_customer_category_average_count$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    10     #### 
+-- ####    13     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_cuscat_halfaverage_count()
@@ -2590,7 +3200,7 @@ $vdm1_stage4_calc_update_customer_category_halfaverage_count$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    11     #### 
+-- ####    14     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_historical()
@@ -2628,7 +3238,7 @@ $vdm1_stage4_calc_update_customer_category_rec_order_historical$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    12     #### 
+-- ####    15     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_average()
@@ -2666,7 +3276,7 @@ $vdm1_stage4_calc_update_customer_category_rec_order_average$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    13     #### 
+-- ####    16     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_halfaverage()
@@ -2703,7 +3313,7 @@ $vdm1_stage4_calc_update_customer_category_rec_order_halfaverage$;
 -- #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
--- ####    14     #### 
+-- ####    17     #### 
 -- #### #### #### ####
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_custom_set_default()
@@ -2731,7 +3341,7 @@ $vdm1_stage4_calc_update_customer_category_recommendation_order_user_custom_set_
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    15     #### 
+-- ####    18     #### 
 -- #### #### #### ####
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_set_custom_order()
@@ -2770,7 +3380,7 @@ $vdm1_stage4_calc_update_customer_category_recommendation_order_user_set_custom_
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    16     #### 
+-- ####    19     #### 
 -- #### #### #### ####
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_customer_watch_history_row_number()
@@ -2815,7 +3425,7 @@ $vdm1_stage4_calc_update_cx_wh_rn$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    17     #### 
+-- ####    20     #### 
 -- #### #### #### ####
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_insert_failed_returns_v2()
@@ -2844,8 +3454,8 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_insert_failed_returns_v2(
 			, inventory_id
 			, store_id
 			, rental_date
-			, vdm1_etl.f_vdm1_stage4_calc_expected_return_date(a.film_id::int, rental_date::DATE) as expected_return_date
-            , (SELECT AGE('2007-01-01', vdm1_etl.f_vdm1_stage4_calc_expected_return_date(a.film_id::int, rental_date::DATE))) as age
+			, vdm1_data.f_calc_expected_return_date(a.film_id::int, rental_date::DATE) as expected_return_date
+            , (SELECT AGE('2007-01-01', vdm1_data.f_calc_expected_return_date(a.film_id::int, rental_date::DATE))) as age
 		FROM staging.vdm1_stage4_rentals a
 			INNER JOIN staging.vdm1_stage4_customers b
 				ON b.customer_id = a.customer_id
@@ -2860,7 +3470,7 @@ $vdm1_stage4_calc_insert_failed_returns$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    18     #### 
+-- ####    21     #### 
 -- #### #### #### ####
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_insert_new_releases_v2()
@@ -2887,7 +3497,7 @@ $vdm1_stage4_calc_insert_new_releases$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    19     #### 
+-- ####    22     #### 
 -- #### #### #### ####
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_delete_cx_history_from_cx_filmcat()
@@ -2924,7 +3534,7 @@ $vdm1_stage4_calc_delete_customer_film_category$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    20     #### 
+-- ####    23     #### 
 -- #### #### #### ####
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_nonspecific()
@@ -2981,7 +3591,7 @@ $vdm1_stage4_calc_insert_customer_reclist_master_nonspecific$;
 
 
 -- #### #### #### ####
--- ####    21     #### 
+-- ####    24     #### 
 -- #### #### #### ####
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_nonspecific_rn()
@@ -3035,7 +3645,7 @@ $vdm1_stage4_calc_update_customer_reclist_master_nonspecific_row_number$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    22     #### 
+-- ####    25     #### 
 -- #### #### #### ####
 
 
@@ -3109,7 +3719,7 @@ $vdm1_stage4_calc_insert_customer_reclist_master_specific_default$;
 
 
 -- #### #### #### ####
--- ####    23     #### 
+-- ####    26     #### 
 -- #### #### #### ####
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_specific_rn()
@@ -3163,164 +3773,8 @@ $vdm1_stage4_calc_update_customer_reclist_master_specific_row_number$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    24    #### 
--- #### #### #### ####
-
-
-CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_transform_customer_full_name(
-		p_first_name VARCHAR,
-		p_last_name VARCHAR)
-	RETURNS VARCHAR
-	LANGUAGE plpgsql
-	AS $vdm1_stage4_transform_customer_full_name$
-	
-	DECLARE
-		
-		vi_first_name VARCHAR;
-		vi_last_name VARCHAR;
-		
-		vo_full_name VARCHAR;
-		
-		-- bicapitalization_list varchar[]; 
-		bicapitalization_list_2l varchar[]; 
-		bicapitalization_list_3l varchar[]; 
-		bicapitalization_list_4l varchar[]; 
-
-	BEGIN
-		
-		vi_first_name := $1;
-		vi_last_name := $2;
-		
-		-- bicapitalization_list := array['mc', 'le', 'la', 'o''', 'da', 'de' ];
-		bicapitalization_list_2l := array['mc', 'o'''];
-		bicapitalization_list_3l := array['mac'];
-		bicapitalization_list_4l := array['von ', 'fitz'];
-
-		
-		CASE 
-			-- WHEN (LOWER(LEFT($2,4)) = 'von ') THEN
-			--	vi_last_name := (UPPER(LEFT($2,1))) || (LOWER(SUBSTRING($2,2,2))) || ' ' || (UPPER(SUBSTRING($2,5,1))) || (LOWER(SUBSTRING($2,5,length($2))));			
-			-- WHEN (LOWER(LEFT($2,4)) = 'fitz') THEN
-			--	vi_last_name := (UPPER(LEFT($2,1))) || (LOWER(SUBSTRING($2,2,3))) || (UPPER(SUBSTRING($2,4,1))) || (LOWER(SUBSTRING($2,5,length($2))));
-			-- WHEN (LOWER(LEFT($2,3)) = 'mac') THEN
-			--	vi_last_name := (UPPER(LEFT($2,1))) || (LOWER(SUBSTRING($2,2,2))) || (UPPER(SUBSTRING($2,3,1))) || (LOWER(SUBSTRING($2,4,length($2))));
-				
-			WHEN (LOWER(LEFT($2,4)) = ANY(bicapitalization_list_4l)) THEN
-				vi_last_name := (UPPER(LEFT($2,1))) || (LOWER(SUBSTRING($2,2,3))) || (UPPER(SUBSTRING($2,4,1))) || (LOWER(SUBSTRING($2,5,length($2))));
-			WHEN (LOWER(LEFT($2,3)) = ANY(bicapitalization_list_3l)) THEN
-				vi_last_name := (UPPER(LEFT($2,1))) || (LOWER(SUBSTRING($2,2,2))) || (UPPER(SUBSTRING($2,4,1))) || (LOWER(SUBSTRING($2,5,length($2))));
-			WHEN (LOWER(LEFT($2,2)) = ANY(bicapitalization_list_2l)) THEN 
-				vi_last_name := (UPPER(LEFT($2,1))) || (LOWER(SUBSTRING($2,2,1))) || (UPPER(SUBSTRING($2,3,1))) || (LOWER(SUBSTRING($2,4,length($2))));
-			ELSE 
-				vi_last_name := $2;
-		END CASE;
-
-		SELECT 
-			CONCAT_WS( 
-				' ',
-				vi_first_name, 
-				vi_last_name)
-		INTO vo_full_name;
-
-		RETURN vo_full_name;
-	END;
-$vdm1_stage4_transform_customer_full_name$;
-
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####    25     #### 
--- #### #### #### ####
-
-
-
-CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_transform_filmlength_int2vchar(
-	p_length INTEGER
-)
-	RETURNS VARCHAR
-	LANGUAGE plpgsql
-	AS $vdm1_stage4_filmlength_int2vchar$
-	
-	DECLARE
-		-- IN Variable
-		vi_len_int INTEGER;
-		-- OUT Variable
-		vo_len_varchar VARCHAR;
-	
-	BEGIN 
-		-- Clearing the variables
-		vo_len_varchar := '';
-		vi_len_int := 0;
-		-- Setting the variable to input integer
-		vi_len_int := $1;
-		
-		-- Mathing
-		CASE
-			WHEN ((vi_len_int / 60 > 0) AND (vi_len_int % 60) = 0) THEN 
-				vo_len_varchar := (
-					(vi_len_int / 60) || ' hrs'
-				);
-			WHEN (vi_len_int / 60 > 0) THEN 
-				vo_len_varchar := (
-					(vi_len_int / 60) || ' hrs ' || (vi_len_int % 60) || ' min'
-				);
-			ELSE
-				vo_len_varchar := (
-					(vi_len_int % 60) || ' min'
-				);
-		END CASE;
-			
-		RETURN vo_len_varchar;
-	
-	END;
-$vdm1_stage4_filmlength_int2vchar$;
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####    26     #### 
--- #### #### #### ####
-
-
-CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_expected_return_date(
-		p_film_id INT,
-		p_rental_date DATE)
-	RETURNS DATE
-	LANGUAGE plpgsql
-	AS $vdm1_stage4_calc_expectedreturndate$
-	
-	DECLARE
-		
-		vi_film_id INTEGER;
-		vlu_rental_duration INTEGER;
-		vi_rental_date DATE;
-		
-		vo_expected_return_date DATE;
-	
-	BEGIN
-		
-		vi_film_id := $1;
-		vi_rental_date := $2;
-		
-			SELECT 
-				rental_duration INTO vlu_rental_duration
-			FROM staging.vdm1_stage4_films a
-			WHERE vi_film_id = a.film_id;
-
-			vo_expected_return_date := vi_rental_date + vlu_rental_duration;
-
-		RETURN vo_expected_return_date;
-	END;
-$vdm1_stage4_calc_expectedreturndate$;
-
--- #### #### #### #### #### #### #### #### 
-
-
--- #### #### #### ####
 -- ####    27     #### 
 -- #### #### #### ####
-
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_cleanup()
 	RETURNS VOID
@@ -3420,12 +3874,14 @@ $vdm1_stage4_cleanup$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
-
+-- MASTER CODE BLOCK - STAGE 5
+-- MASTER CODE BLOCK - STAGE 5
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### ####    STAGE 5a BEGIN    #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #TODO STAGE 5a BEGIN
+
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
@@ -3437,8 +3893,8 @@ $vdm1_stage4_cleanup$;
 
 --             STORED PROCEDURES
 
---                  1. vdm1_etl.vdm1_stage5_main();
---                  2. vdm1_etl.vdm1_stage5_reset();
+--                  1. vdm1_etl.vdm1_stage5a_main();
+--                  2. vdm1_etl.vdm1_stage5a_reset();
 
 --             FUNCTIONS
 
@@ -3447,29 +3903,26 @@ $vdm1_stage4_cleanup$;
 --                  3. vdm1_etl.f_vdm1_stage5_create_table_inventory_maintenance_summary();
 --                  4. vdm1_etl.f_vdm1_stage5_insert_cx_reclist_summary_nonspecific();
 --                  5. vdm1_etl.f_vdm1_stage5_insert_cx_reclist_summary_specific();
---                  6. vdm1_etl.f_vdm1_stage5_create_mview_customer_details(); 
---                  7. vdm1_etl.f_vdm1_stage5_create_mview_store_details(); 
---                  8. vdm1_etl.f_vdm1_stage5_create_mview_location_details(); 
---                  9. vdm1_etl.f_vdm1_stage5_create_mview_film_details(); 
---                 10. vdm1_etl.f_vdm1_stage5_create_table_dictkey();
---                 11. vdm1_etl.f_vdm1_stage5_dictkey_insert_category_data();
---                 12. vdm1_etl.f_vdm1_stage5_dictkey_insert_language_data();
---                 13. vdm1_etl.f_vdm1_stage5_dictkey_insert_city_data();
---                 14. vdm1_etl.f_vdm1_stage5_dictkey_insert_country_data();
---                 15. vdm1_etl.f_vdm1_stage5_datestamp();
---                 16. vdm1_etl.f_vdm1_stage5_table_rename();
---                 17. vdm1_etl.f_vdm1_stage5_load_data_marketing();
---                 18. vdm1_etl.f_vdm1_stage5_load_data_vdm1_data();
---                 19. vdm1_etl.f_vdm1_stage5_data_validation_count_check();
---                 20. vdm1_etl.f_vdm1_stage5_table_enabled_logging_vdm1_data()
---                 21. vdm1_data.f_calc_expected_return_date();
---                 22. vdm1_data.f_transform_customer_full_name();
---                 23. vdm1_data.f_transform_filmlength_int2vchar();
---                 24. vdm1_data.f_transform_customer_phone_e164();
---                 25. vdm1_etl.f_vdm1_stage5_create_table_constraints();
---                 26. vdm1_etl.f_vdm1_stage5_cleanup();
---                 27. vdm1_etl.f_vdm1_stage5_delete_stage(); 
---                 28. vdm1_etl.f_refresh_mview_all_marketing();
+--                  6. vdm1_etl.f_vdm1_stage5_create_materialized_view(); 
+--                  7. vdm1_etl.f_vdm1_stage5_create_table_dictkey();
+--                  8. vdm1_etl.f_vdm1_stage5_dictkey_insert_category_data();
+--                  9. vdm1_etl.f_vdm1_stage5_dictkey_insert_language_data();
+--                 10. vdm1_etl.f_vdm1_stage5_dictkey_insert_city_data();
+--                 11. vdm1_etl.f_vdm1_stage5_dictkey_insert_country_data();
+--                 12. vdm1_etl.f_vdm1_stage5_datestamp();
+--                 13. vdm1_etl.f_vdm1_stage5_table_rename();
+--                 14. vdm1_etl.f_vdm1_stage5_load_data_marketing();
+--                 15. vdm1_etl.f_vdm1_stage5_load_data_vdm1_data();
+--                 16. vdm1_etl.f_vdm1_stage5_data_validation_count_check();
+--                 17. vdm1_etl.f_vdm1_stage5_table_enabled_logging_vdm1_data()
+--                 18. vdm1_data.f_calc_expected_return_date(p_film_id INT, p_rental_date DATE);
+--                 19. vdm1_data.f_transform_customer_full_name(p_first_name VARCHAR, p_last_name VARCHAR);
+--                 20. vdm1_data.f_transform_filmlength_int2vchar(p_length INTEGER);
+--                 21. vdm1_data.f_transform_customer_phone_e164(p_phone VARCHAR);
+--                 22. vdm1_etl.f_vdm1_stage5_create_table_constraints();
+--                 23. vdm1_etl.f_vdm1_stage5_cleanup();
+--                 24. vdm1_etl.f_vdm1_stage5_delete_stage(); 
+--                 25. vdm1_etl.f_vdm1_stage5_referesh_materialized_view();
 
 
 --     #### #### #### ####
@@ -3489,6 +3942,7 @@ $vdm1_stage4_cleanup$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #TODO STAGE 5 - STORED PROCEDURES
 
+
 CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_main()
 	LANGUAGE plpgsql
 	AS $vdm1_stage5_run_main$
@@ -3498,6 +3952,15 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_main()
 
         -- #### #### #### #### #### #### #### #### 
 
+		-- PERFORM vdm1_etl.f_vdm1_stage5_adhoc_functions_setup_cerd();
+
+		-- PERFORM vdm1_etl.f_vdm1_stage5_adhoc_functions_setup_tcfn();
+
+		-- PERFORM vdm1_etl.f_vdm1_stage5_adhoc_functions_setup_tcpn();
+
+		-- PERFORM vdm1_etl.f_vdm1_stage5_adhoc_functions_setup_tfldt();
+
+        -- #### #### #### #### #### #### #### #### 
 
         PERFORM vdm1_etl.f_vdm1_stage5_createtable_cx_reclist_summary_nonspecific();
 
@@ -3514,21 +3977,28 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_main()
 
 
         -- #### #### #### #### #### #### #### #### 
-
-
-        PERFORM vdm1_etl.f_vdm1_stage5_create_mview_customer_details(); 
-
-        PERFORM vdm1_etl.f_vdm1_stage5_create_mview_store_details(); 
-
-        PERFORM vdm1_etl.f_vdm1_stage5_create_mview_location_details(); 
         
-        PERFORM vdm1_etl.f_vdm1_stage5_create_mview_film_details(); 
+        PERFORM vdm1_etl.f_vdm1_stage5_create_table_dictkey();
+        
+        PERFORM vdm1_etl.f_vdm1_stage5_dictkey_insert_category_data();
+        
+        PERFORM vdm1_etl.f_vdm1_stage5_dictkey_insert_city_data();
+        
+        PERFORM vdm1_etl.f_vdm1_stage5_dictkey_insert_country_data();
+        
+        PERFORM vdm1_etl.f_vdm1_stage5_dictkey_insert_language_data();
+
+
+        -- #### #### #### #### #### #### #### #### 
 
         PERFORM vdm1_etl.f_vdm1_stage5_table_rename();
+    
+        -- #### #### #### #### #### #### #### #### 
 
 
         -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
         PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('customer_category');
 
         -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
@@ -3536,6 +4006,7 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_main()
 
         -- #### #### #### #### 
 
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
         PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('failed_returns');
 
         -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
@@ -3543,6 +4014,7 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_main()
 
         -- #### #### #### #### 
 
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
         PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('new_releases');
         
         -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
@@ -3550,6 +4022,7 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_main()
 
         -- #### #### #### #### 
 
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
         PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('inventory_maintenance');
         
         -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
@@ -3557,6 +4030,7 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_main()
 
         -- #### #### #### #### 
 
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
         PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('inventory_maintenance_summary');
         
         -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
@@ -3564,6 +4038,7 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_main()
 
         -- #### #### #### #### 
 
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
         PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('customer_watch_history_detailed');
  
         -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
@@ -3571,6 +4046,7 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_main()
 
         -- #### #### #### #### 
 
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
         PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('customer_reclist_master_nonspecific');
 
         -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
@@ -3578,13 +4054,15 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_main()
 
         -- #### #### #### #### 
 
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
         PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('customer_reclist_master_specific');
 
         -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
         PERFORM vdm1_etl.f_vdm1_stage5_data_validation_count_check('staging', 'customer_reclist_master_specific', 'vdm1_data', 'customer_reclist_master_specific');
 
         -- #### #### #### #### 
-        
+
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA         
         PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('customer_reclist_summary_nonspecific');
         
         -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
@@ -3592,6 +4070,7 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_main()
 
         -- #### #### #### #### 
 
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
         PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('customer_reclist_summary_specific');
         
         -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
@@ -3599,6 +4078,7 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_main()
 
         -- #### #### #### #### 
 
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
         PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('category_popularity');
 
         -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
@@ -3607,6 +4087,7 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_main()
 
         -- #### #### #### #### 
 
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
         PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('film_category_popularity');
 
         -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
@@ -3614,13 +4095,121 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_main()
 
         -- #### #### #### #### 
 
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
         PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('customer_rec_custom_preferences');
 
         -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
         PERFORM vdm1_etl.f_vdm1_stage5_data_validation_count_check('staging', 'customer_rec_custom_preferences', 'vdm1_data', 'customer_rec_custom_preferences');
 
+
+        -- #### #### #### #### #### #### #### #### 
+
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
+        PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('dictionary_key');
+
+        -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
+        PERFORM vdm1_etl.f_vdm1_stage5_data_validation_count_check('staging', 'dictionary_key', 'vdm1_data', 'dictionary_key');
+
+        -- #### #### #### #### 
+
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
+        PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('dictkey_category');
+
+        -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
+        PERFORM vdm1_etl.f_vdm1_stage5_data_validation_count_check('staging', 'dictkey_category', 'vdm1_data', 'dictkey_category');
+
+        -- #### #### #### #### 
+
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
+        PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('dictkey_city');
+
+        -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
+        PERFORM vdm1_etl.f_vdm1_stage5_data_validation_count_check('staging', 'dictkey_city', 'vdm1_data', 'dictkey_city');
+
+        -- #### #### #### #### 
+
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
+        PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('dictkey_country');
+
+        -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
+        PERFORM vdm1_etl.f_vdm1_stage5_data_validation_count_check('staging', 'dictkey_country', 'vdm1_data', 'dictkey_country');
+
+        -- #### #### #### #### 
+
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
+        PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('dictkey_language');
+
+        -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
+        PERFORM vdm1_etl.f_vdm1_stage5_data_validation_count_check('staging', 'dictkey_language', 'vdm1_data', 'dictkey_language');
+
+        -- #### #### #### #### 
+
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
+        PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('dictkey_customer_details');
+
+        -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
+        PERFORM vdm1_etl.f_vdm1_stage5_data_validation_count_check('staging', 'dictkey_customer_details', 'vdm1_data', 'dictkey_customer_details');
+
+        -- #### #### #### #### 
+
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
+        PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('dictkey_film_details');
+
+        -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
+        PERFORM vdm1_etl.f_vdm1_stage5_data_validation_count_check('staging', 'dictkey_film_details', 'vdm1_data', 'dictkey_film_details');
+
+        -- #### #### #### #### 
+
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
+        PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('dictkey_store_details');
+
+        -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
+        PERFORM vdm1_etl.f_vdm1_stage5_data_validation_count_check('staging', 'dictkey_store_details', 'vdm1_data', 'dictkey_store_details');
+
         -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
+        PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('dictkey_customer_details', 'customer_id');
+
+        PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('dictkey_store_details', 'store_id');
+
+        PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('dictkey_film_details', 'film_id');
+        
+        -- #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('dictionary_key');
+
+        PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('dictkey_category', 'category_id');
+
+        PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('dictkey_city', 'city_id');
+
+        PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('dictkey_country', 'country_id');
+
+        PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('dictkey_language', 'language_id');
+
+        -- #### #### #### #### 
+
+
+        PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('customer_reclist_master_nonspecific', 'customer_id, film_rec_order');
+
+        PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('customer_reclist_master_specific', 'customer_id, cat_rec_order, rental_rec_order');
+
+        PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('customer_reclist_summary_nonspecific', 'customer_id, film_rec_order');
+
+        PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('customer_reclist_summary_specific', 'customer_id, cat_rec_order, rental_rec_order');
+
+        -- #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('failed_returns', 'customer_id');
+
+        PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('new_releases', 'film_id');
+
+        PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('customer_watch_history_detailed', 'customer_id, customer_watch_history_desc_order');
+
+        PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('film_category_popularity', 'total_rentals DESC, film_id');
+
+        PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('category_popularity', 'total_rentals DESC');
+
+        -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
         -- PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup();
 
@@ -3640,7 +4229,73 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_main()
 
         PERFORM vdm1_etl.f_vdm1_stage5_destroy_stage();
 
-        PERFORM vdm1_etl.f_refresh_mview_all_marketing();
+        -- #### #### #### #### #### #### #### ###
+
+        PERFORM vdm1_etl.f_vdm1_stage5_referesh_materialized_view('dictkey_category');
+
+        -- #### #### #### #### #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_stage5_referesh_materialized_view('dictkey_city');
+
+        -- #### #### #### #### #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_stage5_referesh_materialized_view('dictkey_country');
+
+        -- #### #### #### #### #### #### #### ####       
+
+        PERFORM vdm1_etl.f_vdm1_stage5_referesh_materialized_view('dictkey_language');
+
+        -- #### #### #### #### #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_stage5_referesh_materialized_view('dictkey_customer_details');
+
+        -- #### #### #### #### #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_stage5_referesh_materialized_view('dictkey_store_details');
+
+        -- #### #### #### #### #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_stage5_referesh_materialized_view('dictkey_film_details');
+
+        -- #### #### #### #### #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_stage5_referesh_materialized_view('customer_reclist_master_nonspecific');
+
+        -- #### #### #### #### #### #### #### ####       
+
+        PERFORM vdm1_etl.f_vdm1_stage5_referesh_materialized_view('customer_reclist_master_specific');
+
+        -- #### #### #### #### #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_stage5_referesh_materialized_view('customer_reclist_summary_nonspecific');
+
+        -- #### #### #### #### #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_stage5_referesh_materialized_view('customer_reclist_summary_specific');
+
+        -- #### #### #### #### #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_stage5_referesh_materialized_view('failed_returns');
+
+        -- #### #### #### #### #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_stage5_referesh_materialized_view('new_releases');
+
+        -- #### #### #### #### #### #### #### ####       
+
+        PERFORM vdm1_etl.f_vdm1_stage5_referesh_materialized_view('film_category_popularity');
+
+        -- #### #### #### #### #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_stage5_referesh_materialized_view('category_popularity');
+
+        -- #### #### #### #### #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_stage5_referesh_materialized_view('customer_watch_history_detailed');
+
+        -- #### #### #### #### #### #### #### #### 
+
+
 
         -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
@@ -3656,8 +4311,18 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_reset()
 	BEGIN 
 
 
+ 
         -- #### #### #### #### #### #### #### #### 
 
+		-- PERFORM vdm1_etl.f_vdm1_stage5_adhoc_functions_setup_cerd();
+
+		-- PERFORM vdm1_etl.f_vdm1_stage5_adhoc_functions_setup_tcfn();
+
+		-- PERFORM vdm1_etl.f_vdm1_stage5_adhoc_functions_setup_tcpn();
+
+		-- PERFORM vdm1_etl.f_vdm1_stage5_adhoc_functions_setup_tfldt();
+
+        -- #### #### #### #### #### #### #### #### 
 
         PERFORM vdm1_etl.f_vdm1_stage5_createtable_cx_reclist_summary_nonspecific();
 
@@ -3675,19 +4340,29 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_reset()
 
         -- #### #### #### #### #### #### #### #### 
 
-        -- PERFORM vdm1_etl.f_vdm1_stage5_create_mview_customer_details(); 
-
-        -- PERFORM vdm1_etl.f_vdm1_stage5_create_mview_store_details(); 
-
-        -- PERFORM vdm1_etl.f_vdm1_stage5_create_mview_location_details(); 
         
-        -- PERFORM vdm1_etl.f_vdm1_stage5_create_mview_film_details(); 
+        PERFORM vdm1_etl.f_vdm1_stage5_create_table_dictkey();
+        
+        PERFORM vdm1_etl.f_vdm1_stage5_dictkey_insert_category_data();
+        
+        PERFORM vdm1_etl.f_vdm1_stage5_dictkey_insert_city_data();
+        
+        PERFORM vdm1_etl.f_vdm1_stage5_dictkey_insert_country_data();
+        
+        PERFORM vdm1_etl.f_vdm1_stage5_dictkey_insert_language_data();
+
+
+        -- #### #### #### #### #### #### #### #### 
+
 
         PERFORM vdm1_etl.f_vdm1_stage5_table_rename();
+    
+        -- #### #### #### #### #### #### #### #### 
 
 
         -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
         PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('customer_category');
 
         -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
@@ -3695,6 +4370,7 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_reset()
 
         -- #### #### #### #### 
 
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
         PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('failed_returns');
 
         -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
@@ -3702,6 +4378,7 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_reset()
 
         -- #### #### #### #### 
 
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
         PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('new_releases');
         
         -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
@@ -3709,6 +4386,7 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_reset()
 
         -- #### #### #### #### 
 
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
         PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('inventory_maintenance');
         
         -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
@@ -3716,6 +4394,7 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_reset()
 
         -- #### #### #### #### 
 
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
         PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('inventory_maintenance_summary');
         
         -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
@@ -3723,6 +4402,7 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_reset()
 
         -- #### #### #### #### 
 
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
         PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('customer_watch_history_detailed');
  
         -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
@@ -3730,6 +4410,7 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_reset()
 
         -- #### #### #### #### 
 
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
         PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('customer_reclist_master_nonspecific');
 
         -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
@@ -3737,13 +4418,15 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_reset()
 
         -- #### #### #### #### 
 
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
         PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('customer_reclist_master_specific');
 
         -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
         PERFORM vdm1_etl.f_vdm1_stage5_data_validation_count_check('staging', 'customer_reclist_master_specific', 'vdm1_data', 'customer_reclist_master_specific');
 
         -- #### #### #### #### 
-        
+
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA         
         PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('customer_reclist_summary_nonspecific');
         
         -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
@@ -3751,6 +4434,7 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_reset()
 
         -- #### #### #### #### 
 
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
         PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('customer_reclist_summary_specific');
         
         -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
@@ -3758,6 +4442,7 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_reset()
 
         -- #### #### #### #### 
 
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
         PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('category_popularity');
 
         -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
@@ -3766,6 +4451,7 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_reset()
 
         -- #### #### #### #### 
 
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
         PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('film_category_popularity');
 
         -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
@@ -3773,17 +4459,123 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_reset()
 
         -- #### #### #### #### 
 
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
         PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('customer_rec_custom_preferences');
 
         -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
         PERFORM vdm1_etl.f_vdm1_stage5_data_validation_count_check('staging', 'customer_rec_custom_preferences', 'vdm1_data', 'customer_rec_custom_preferences');
 
+
+        -- #### #### #### #### #### #### #### #### 
+
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
+        PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('dictionary_key');
+
+        -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
+        PERFORM vdm1_etl.f_vdm1_stage5_data_validation_count_check('staging', 'dictionary_key', 'vdm1_data', 'dictionary_key');
+
+        -- #### #### #### #### 
+
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
+        PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('dictkey_category');
+
+        -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
+        PERFORM vdm1_etl.f_vdm1_stage5_data_validation_count_check('staging', 'dictkey_category', 'vdm1_data', 'dictkey_category');
+
+        -- #### #### #### #### 
+
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
+        PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('dictkey_city');
+
+        -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
+        PERFORM vdm1_etl.f_vdm1_stage5_data_validation_count_check('staging', 'dictkey_city', 'vdm1_data', 'dictkey_city');
+
+        -- #### #### #### #### 
+
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
+        PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('dictkey_country');
+
+        -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
+        PERFORM vdm1_etl.f_vdm1_stage5_data_validation_count_check('staging', 'dictkey_country', 'vdm1_data', 'dictkey_country');
+
+        -- #### #### #### #### 
+
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
+        PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('dictkey_language');
+
+        -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
+        PERFORM vdm1_etl.f_vdm1_stage5_data_validation_count_check('staging', 'dictkey_language', 'vdm1_data', 'dictkey_language');
+
+        -- #### #### #### #### 
+
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
+        PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('dictkey_customer_details');
+
+        -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
+        PERFORM vdm1_etl.f_vdm1_stage5_data_validation_count_check('staging', 'dictkey_customer_details', 'vdm1_data', 'dictkey_customer_details');
+
+        -- #### #### #### #### 
+
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
+        PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('dictkey_film_details');
+
+        -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
+        PERFORM vdm1_etl.f_vdm1_stage5_data_validation_count_check('staging', 'dictkey_film_details', 'vdm1_data', 'dictkey_film_details');
+
+        -- #### #### #### #### 
+
+        -- LOAD TABLE FROM STAGING TO VDM1_DATA 
+        PERFORM vdm1_etl.f_vdm1_stage5_load_data_vdm1_data('dictkey_store_details');
+
+        -- DATA VALIDATION - COUNT CHECK - SOURCE COUNT TO TARGET COUNT 
+        PERFORM vdm1_etl.f_vdm1_stage5_data_validation_count_check('staging', 'dictkey_store_details', 'vdm1_data', 'dictkey_store_details');
+
         -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
+        PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('dictkey_customer_details', 'customer_id');
 
-        -- PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup();
+        PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('dictkey_store_details', 'store_id');
 
-        -- PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup();
+        PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('dictkey_film_details', 'film_id');
+        
+        -- #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('dictionary_key');
+
+
+        PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('dictkey_category', 'category_id');
+
+        PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('dictkey_city', 'city_id');
+
+        PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('dictkey_country', 'country_id');
+
+        PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('dictkey_language', 'language_id');
+
+        -- #### #### #### #### 
+
+
+        PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('customer_reclist_master_nonspecific', 'customer_id, film_rec_order');
+
+        PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('customer_reclist_master_specific', 'customer_id, cat_rec_order, rental_rec_order');
+
+        PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('customer_reclist_summary_nonspecific', 'customer_id, film_rec_order');
+
+        PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('customer_reclist_summary_specific', 'customer_id, cat_rec_order, rental_rec_order');
+        
+        -- #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('failed_returns', 'customer_id');
+
+        PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('new_releases', 'film_id');
+
+        PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('customer_watch_history_detailed', 'customer_id, customer_watch_history_desc_order');
+
+        PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('film_category_popularity', 'total_rentals DESC, film_id');
+
+        PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('category_popularity', 'total_rentals DESC');
+
+
+        -- #### #### #### #### #### #### #### #### 
 
         -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
@@ -3797,7 +4589,75 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_reset()
 
         PERFORM vdm1_etl.f_vdm1_stage5_destroy_stage();
 
-        -- PERFORM vdm1_etl.f_refresh_mview_all_marketing();
+
+        -- #### #### #### #### #### #### #### ###
+
+        PERFORM vdm1_etl.f_vdm1_stage5_referesh_materialized_view('dictkey_category');
+
+        -- #### #### #### #### #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_stage5_referesh_materialized_view('dictkey_city');
+
+        -- #### #### #### #### #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_stage5_referesh_materialized_view('dictkey_country');
+
+        -- #### #### #### #### #### #### #### ####       
+
+        PERFORM vdm1_etl.f_vdm1_stage5_referesh_materialized_view('dictkey_language');
+
+        -- #### #### #### #### #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_stage5_referesh_materialized_view('dictkey_customer_details');
+
+        -- #### #### #### #### #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_stage5_referesh_materialized_view('dictkey_store_details');
+
+        -- #### #### #### #### #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_stage5_referesh_materialized_view('dictkey_film_details');
+
+        -- #### #### #### #### #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_stage5_referesh_materialized_view('customer_reclist_master_nonspecific');
+
+        -- #### #### #### #### #### #### #### ####       
+
+        PERFORM vdm1_etl.f_vdm1_stage5_referesh_materialized_view('customer_reclist_master_specific');
+
+        -- #### #### #### #### #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_stage5_referesh_materialized_view('customer_reclist_summary_nonspecific');
+
+        -- #### #### #### #### #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_stage5_referesh_materialized_view('customer_reclist_summary_specific');
+
+        -- #### #### #### #### #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_stage5_referesh_materialized_view('failed_returns');
+
+        -- #### #### #### #### #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_stage5_referesh_materialized_view('new_releases');
+
+        -- #### #### #### #### #### #### #### ####       
+
+        PERFORM vdm1_etl.f_vdm1_stage5_referesh_materialized_view('film_category_popularity');
+
+        -- #### #### #### #### #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_stage5_referesh_materialized_view('category_popularity');
+
+        -- #### #### #### #### #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_stage5_referesh_materialized_view('customer_watch_history_detailed');
+
+        -- #### #### #### #### #### #### #### #### 
+
+
+
 
         -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
@@ -3823,29 +4683,26 @@ $vdm1_stage5_run_reset$;
 --      3. vdm1_etl.f_vdm1_stage5_create_table_inventory_maintenance_summary();
 --      4. vdm1_etl.f_vdm1_stage5_insert_cx_reclist_summary_nonspecific();
 --      5. vdm1_etl.f_vdm1_stage5_insert_cx_reclist_summary_specific();
---      6. vdm1_etl.f_vdm1_stage5_create_mview_customer_details(); 
---      7. vdm1_etl.f_vdm1_stage5_create_mview_store_details(); 
---      8. vdm1_etl.f_vdm1_stage5_create_mview_location_details(); 
---      9. vdm1_etl.f_vdm1_stage5_create_mview_film_details(); 
---     10. vdm1_etl.f_vdm1_stage5_create_table_dictkey();
---     11. vdm1_etl.f_vdm1_stage5_dictkey_insert_category_data();
---     12. vdm1_etl.f_vdm1_stage5_dictkey_insert_language_data();
---     13. vdm1_etl.f_vdm1_stage5_dictkey_insert_city_data();
---     14. vdm1_etl.f_vdm1_stage5_dictkey_insert_country_data();
---     15. vdm1_etl.f_vdm1_stage5_datestamp();
---     16. vdm1_etl.f_vdm1_stage5_table_rename();
---     17. vdm1_etl.f_vdm1_stage5_load_data_marketing();
---     18. vdm1_etl.f_vdm1_stage5_load_data_vdm1_data();
---     19. vdm1_etl.f_vdm1_stage5_data_validation_count_check();
---     20. vdm1_etl.f_vdm1_stage5_table_enabled_logging_vdm1_data()
---     21. vdm1_data.f_calc_expected_return_date();
---     22. vdm1_data.f_transform_customer_full_name();
---     23. vdm1_data.f_transform_filmlength_int2vchar();
---     24. vdm1_data.f_transform_customer_phone_e164();
---     25. vdm1_etl.f_vdm1_stage5_create_table_constraints();
---     26. vdm1_etl.f_vdm1_stage5_cleanup();
---     27. vdm1_etl.f_vdm1_stage5_delete_stage(); 
---     28. vdm1_etl.f_refresh_mview_all_marketing();
+--      6. vdm1_etl.f_vdm1_stage5_create_materialzied_view(); 
+--      7. vdm1_etl.f_vdm1_stage5_create_table_dictkey();
+--      8. vdm1_etl.f_vdm1_stage5_dictkey_insert_category_data();
+--      9. vdm1_etl.f_vdm1_stage5_dictkey_insert_language_data();
+--     10. vdm1_etl.f_vdm1_stage5_dictkey_insert_city_data();
+--     11. vdm1_etl.f_vdm1_stage5_dictkey_insert_country_data();
+--     12. vdm1_etl.f_vdm1_stage5_datestamp();
+--     13. vdm1_etl.f_vdm1_stage5_table_rename();
+--     14. vdm1_etl.f_vdm1_stage5_load_data_marketing();
+--     15. vdm1_etl.f_vdm1_stage5_load_data_vdm1_data();
+--     16. vdm1_etl.f_vdm1_stage5_data_validation_count_check();
+--     17. vdm1_etl.f_vdm1_stage5_table_enabled_logging_vdm1_data()
+--     18. vdm1_data.f_calc_expected_return_date(p_film_id INT, p_rental_date DATE);
+--     19. vdm1_data.f_transform_customer_full_name(p_first_name VARCHAR, p_last_name VARCHAR);
+--     20. vdm1_data.f_transform_filmlength_int2vchar(p_length INTEGER);
+--     21. vdm1_data.f_transform_customer_phone_e164(p_phone VARCHAR);
+--     22. vdm1_etl.f_vdm1_stage5_create_table_constraints();
+--     23. vdm1_etl.f_vdm1_stage5_cleanup();
+--     24. vdm1_etl.f_vdm1_stage5_delete_stage(); 
+--     25. vdm1_etl.f_vdm1_stage5_referesh_materialized_view();
 
 
 
@@ -4181,201 +5038,57 @@ $vdm1_stage5_insert_customer_reclist_summary_specific$;
 -- ####     6     #### 
 -- #### #### #### #### 
 
-CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_create_mview_customer_details()
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_create_materialized_view(
+      p_tablename VARCHAR
+    , p_order_by VARCHAR DEFAULT NULL
+)
 	RETURNS VOID
 	LANGUAGE plpgsql
-	AS $vdm1_stage5_create_materialized_view_customer_details$
+	AS $vdm1_stage5_create_materialized_view$
+
+    DECLARE 
+
+        table_name VARCHAR;
+        order_by VARCHAR;
+		order_by_clause VARCHAR;
 	
 	BEGIN 
-	
-        CREATE MATERIALIZED VIEW IF NOT EXISTS marketing.customer_details AS (
 
-            SELECT 
-                  a.customer_id
-                , a.store_id
-                , a.first_name
-                , a.last_name
-                , vdm1_data.f_transform_customer_full_name(a.first_name :: VARCHAR, a.last_name :: VARCHAR ) AS full_name
-                , a.email
-                , (SELECT AGE('2007-04-29', a.create_date)) as account_age
-                , CASE 
-                    WHEN a.activebool = true 
-                        THEN 'ACTIVE'
-                    ELSE 
-                        'INACTIVE'
-                  END AS active_status
-                , vdm1_data.f_transform_customer_phone_e164(b.phone :: VARCHAR ) AS phone
-                , c.city
-                , d.country
-            FROM 
-                public.customer AS a
-                
-                    INNER JOIN 
-                        public.address AS b
-                            ON b.address_id = a.address_id
-                    
-                        INNER JOIN 
-                            public.city AS c
-                                ON c.city_id = b.city_id
-                        
-                            INNER JOIN 
-                                public.country AS d
-                                    ON d.country_id = c.country_id
+        table_name := $1;
+        order_by := $2;
+		
+		IF 
+			(order_by is not null)
+		THEN 
 
-            ORDER BY
-                a.customer_id
-        )
-            WITH NO DATA;
-	
+			EXECUTE
+				'CREATE MATERIALIZED VIEW IF NOT EXISTS marketing.' || table_name || ' AS (
+					SELECT
+						*
+					FROM 
+						vdm1_data.' || table_name || ' ORDER BY ' || order_by ||
+				' ) 
+					WITH NO DATA';
+		ELSE 
+			EXECUTE
+				'CREATE MATERIALIZED VIEW IF NOT EXISTS marketing.' || table_name || ' AS (
+					SELECT
+						*
+					FROM 
+						vdm1_data.' || table_name || 
+				' ) 
+					WITH NO DATA';
+		END IF;
 	END;
-$vdm1_stage5_create_materialized_view_customer_details$;
+$vdm1_stage5_create_materialized_view$;
+
+-- #### #### #### #### #### #### #### #### 
 
 
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####     7     #### 
--- #### #### #### #### 
-
-CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_create_mview_store_details()
-	RETURNS VOID
-	LANGUAGE plpgsql
-	AS $vdm1_stage5_create_materialized_view_store_details$
-		
-	BEGIN 
-
-		CREATE MATERIALIZED VIEW IF NOT EXISTS marketing.store_details AS (
-
-			SELECT
-				  a.store_id
-                , b.address_id
-                , b.address
-                , b.address2
-                , b.district
-                , c.city
-                , d.country
-                , b.postal_code
-                , vdm1_data.f_transform_customer_phone_e164(b.phone :: VARCHAR ) AS phone
-
-            FROM 
-                public.store AS a
-                
-                
-                INNER JOIN 
-                    public.address AS b
-                        ON b.address_id = a.address_id
-                
-                
-                    INNER JOIN 
-                        public.city AS c
-                            ON c.city_id = b.city_id
-
-					INNER JOIN
-						public.country AS d 
-							ON d.country_id = c.country_id
-
-
-		)
-            WITH NO DATA;
-		
-	END;
-$vdm1_stage5_create_materialized_view_store_details$;
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####     8     #### 
--- #### #### #### #### 
-
-CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_create_mview_location_details()
-	RETURNS VOID
-	LANGUAGE plpgsql
-	AS $vdm1_stage5_create_materialized_view_location_details$
-		
-	BEGIN 
-	
-        CREATE MATERIALIZED VIEW IF NOT EXISTS marketing.location_details AS (
-        
-            SELECT 
-
-                  a.address_id
-                , a.address
-                , a.address2
-                , a.district
-                , b.city
-                , c.country
-                , a.postal_code
-                , vdm1_data.f_transform_customer_phone_e164(a.phone :: VARCHAR) AS phone
-
-            FROM 
-                public.address AS a
-                
-                
-                INNER JOIN 
-                    public.city AS b
-                        ON b.city_id = a.city_id
-                
-                
-                    INNER JOIN 
-                        public.country AS c
-                            ON c.country_id = b.country_id
-        
-        )
-        
-            WITH NO DATA;
-
-    END;
-$vdm1_stage5_create_materialized_view_location_details$;
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####     9     #### 
--- #### #### #### #### 
-
-CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_create_mview_film_details()
-	RETURNS VOID
-	LANGUAGE plpgsql
-	AS $vdm1_stage5_create_materialized_view_film_details$
-	
-	BEGIN 
-		
-		CREATE MATERIALIZED VIEW IF NOT EXISTS marketing.film_details AS (
-
-			SELECT
-
-				  a.film_id
-				, a.title
-				, b.category_id
-				, a.release_year
-				, c.name
-				, vdm1_data.f_transform_filmlength_int2vchar(a.length :: INT ) as film_length
-				, a.rating
-				, a.description
-				, a.rental_duration
-				, a.rental_rate
-				, a.replacement_cost
-
-			FROM 
-                public.film AS a
-
-				INNER JOIN 
-                    public.film_category AS b
-					    ON b.film_id = a.film_id
-
-                INNER JOIN
-                    public.language AS c 
-                        ON c.language_id = a.language_id
-		)
-    WITH NO DATA;
-
-	END;
-$vdm1_stage5_create_materialized_view_film_details$;
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####    10     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_create_table_dictkey()
@@ -4400,7 +5113,7 @@ $vdm1_stage5_create_table_dictkey$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    11     #### 
+-- ####     8     #### 
 -- #### #### #### #### 
 
 
@@ -4413,7 +5126,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_dictkey_insert_category_data()
 
         INSERT INTO staging.vdm1_stage5_dictionary_key(
 
-              table_name
+              dictionary
             , key_id
             , key_name
         )
@@ -4424,7 +5137,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_dictkey_insert_category_data()
 				, name
 				
             FROM
-				vdm1_etl.vdm1_stage5_dictkey_category;
+				staging.vdm1_stage5_dictkey_category;
 		
 	END;
 $vdm1_stage5_dictkey_insert_category_data$;
@@ -4432,7 +5145,7 @@ $vdm1_stage5_dictkey_insert_category_data$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    12     #### 
+-- ####     9     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_dictkey_insert_language_data()
@@ -4444,7 +5157,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_dictkey_insert_language_data()
 
         INSERT INTO staging.vdm1_stage5_dictionary_key(
 
-              table_name
+              dictionary
             , key_id
             , key_name
         )
@@ -4455,7 +5168,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_dictkey_insert_language_data()
 				, name
 				
             FROM
-				vdm1_etl.vdm1_stage5_dictkey_language;
+				staging.vdm1_stage5_dictkey_language;
 		
 	END;
 $vdm1_stage5_dictkey_insert_language_data$;
@@ -4464,7 +5177,7 @@ $vdm1_stage5_dictkey_insert_language_data$;
 
 
 -- #### #### #### ####
--- ####    13     #### 
+-- ####    10     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_dictkey_insert_city_data()
@@ -4476,7 +5189,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_dictkey_insert_city_data()
 
         INSERT INTO staging.vdm1_stage5_dictionary_key(
 
-              table_name
+              dictionary
             , key_id
             , key_name
         )
@@ -4487,7 +5200,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_dictkey_insert_city_data()
 				, city
 				
             FROM
-				vdm1_etl.vdm1_stage5_dictkey_city;
+				staging.vdm1_stage5_dictkey_city;
 		
 	END;
 
@@ -4496,8 +5209,9 @@ $vdm1_stage5_dictkey_insert_city_data$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    14     #### 
+-- ####    11     #### 
 -- #### #### #### #### 
+
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_dictkey_insert_country_data()
 	RETURNS VOID
@@ -4508,7 +5222,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_dictkey_insert_country_data()
 
         INSERT INTO staging.vdm1_stage5_dictionary_key(
 
-              table_name
+              dictionary
             , key_id
             , key_name
         )
@@ -4519,16 +5233,17 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_dictkey_insert_country_data()
 				, country
 				
             FROM
-				vdm1_etl.vdm1_stage5_dictkey_category;
+				staging.vdm1_stage5_dictkey_country;
 		
 	END;
 $vdm1_stage5_dictkey_insert_country_data$;
 
 
+
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    15     #### 
+-- ####    12     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_datestamp()
@@ -4586,6 +5301,31 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_datestamp()
         
         -- #### #### #### #### 
 
+        ALTER TABLE IF EXISTS staging.vdm1_stage5_dictionary_key
+			ADD COLUMN generated_date DATE DEFAULT CURRENT_DATE;
+
+        ALTER TABLE IF EXISTS staging.vdm1_stage5_dictkey_category
+			ADD COLUMN generated_date DATE DEFAULT CURRENT_DATE;
+
+        ALTER TABLE IF EXISTS staging.vdm1_stage5_dictkey_city
+			ADD COLUMN generated_date DATE DEFAULT CURRENT_DATE;
+			
+        ALTER TABLE IF EXISTS staging.vdm1_stage5_dictkey_country
+			ADD COLUMN generated_date DATE DEFAULT CURRENT_DATE;
+
+        ALTER TABLE IF EXISTS staging.vdm1_stage5_dictkey_language
+			ADD COLUMN generated_date DATE DEFAULT CURRENT_DATE;
+
+        ALTER TABLE IF EXISTS staging.vdm1_stage5_dictkey_customer_details
+			ADD COLUMN generated_date DATE DEFAULT CURRENT_DATE;
+			
+        ALTER TABLE IF EXISTS staging.vdm1_stage5_dictkey_store_details
+			ADD COLUMN generated_date DATE DEFAULT CURRENT_DATE;
+
+        ALTER TABLE IF EXISTS staging.vdm1_stage5_dictkey_film_details
+			ADD COLUMN generated_date DATE DEFAULT CURRENT_DATE;
+
+        -- #### #### #### #### 
 
     END;
 $vdm1_stage5_datestamp$;
@@ -4594,7 +5334,7 @@ $vdm1_stage5_datestamp$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    16     #### 
+-- ####    13     #### 
 -- #### #### #### #### 
 
 
@@ -4660,14 +5400,38 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_table_rename()
 
         -- #### #### #### #### 
 
+        ALTER TABLE IF EXISTS staging.vdm1_stage5_dictionary_key
+            RENAME TO dictionary_key;
 
+        ALTER TABLE IF EXISTS staging.vdm1_stage5_dictkey_category
+            RENAME TO dictkey_category;
+
+        ALTER TABLE IF EXISTS staging.vdm1_stage5_dictkey_city
+            RENAME TO dictkey_city;
+			
+        ALTER TABLE IF EXISTS staging.vdm1_stage5_dictkey_country
+            RENAME TO dictkey_country;
+
+        ALTER TABLE IF EXISTS staging.vdm1_stage5_dictkey_language
+            RENAME TO dictkey_language;
+
+        ALTER TABLE IF EXISTS staging.vdm1_stage5_dictkey_customer_details
+            RENAME TO dictkey_customer_details;
+			
+        ALTER TABLE IF EXISTS staging.vdm1_stage5_dictkey_store_details
+            RENAME TO dictkey_store_details;
+
+        ALTER TABLE IF EXISTS staging.vdm1_stage5_dictkey_film_details
+            RENAME TO dictkey_film_details;
+
+        -- #### #### #### #### 
 	END;
 $vdm1_stage5_table_rename$;
 
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    17     #### 
+-- ####    14     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_load_data_marketing(tablename VARCHAR(30)) 
@@ -4687,7 +5451,7 @@ $vdm1_stage5_load_data_marketing$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    18     #### 
+-- ####    15     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_load_data_vdm1_data(tablename VARCHAR(30)) 
@@ -4707,7 +5471,7 @@ $vdm1_stage5_load_data_vdm1_data$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    19     #### 
+-- ####    16     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_data_validation_count_check(
@@ -4785,7 +5549,7 @@ $vdm1_stage5_data_validation_source_count_matches_destination_count$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    20     #### 
+-- ####    17     #### 
 -- #### #### #### #### 
 
 
@@ -4837,6 +5601,31 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_table_enabled_logging_vdm1_dat
         ALTER TABLE IF EXISTS vdm1_data.customer_rec_custom_preferences
             SET LOGGED;
 
+
+        ALTER TABLE IF EXISTS vdm1_data.dictkey_category
+            SET LOGGED;
+
+        ALTER TABLE IF EXISTS vdm1_data.dictkey_city
+            SET LOGGED;
+
+        ALTER TABLE IF EXISTS vdm1_data.dictkey_country
+            SET LOGGED;
+
+        ALTER TABLE IF EXISTS vdm1_data.dictkey_language
+            SET LOGGED;
+
+        ALTER TABLE IF EXISTS vdm1_data.dictkey_customer_details
+            SET LOGGED;
+
+        ALTER TABLE IF EXISTS vdm1_data.dictkey_store_details
+            SET LOGGED;
+
+        ALTER TABLE IF EXISTS vdm1_data.dictkey_location_details
+            SET LOGGED;
+
+        ALTER TABLE IF EXISTS vdm1_data.dictionary_key
+            SET LOGGED;
+
         -- #### #### #### #### #### #### #### #### 
 
     END;
@@ -4844,205 +5633,10 @@ $vdm1_stage5_table_changes_activate_logging_vdm1_data$;
 
 -- #### #### #### #### #### #### #### #### 
 
--- #### #### #### ####
--- ####    21     #### 
--- #### #### #### #### 
-
-
-CREATE OR REPLACE FUNCTION vdm1_data.f_calc_expected_return_date(
-		p_film_id INT,
-		p_rental_date DATE)
-	RETURNS DATE
-	LANGUAGE plpgsql
-	AS $vdm1_data_calc_expectedreturndate$
-	
-	DECLARE
-		
-		vi_film_id INTEGER;
-		vlu_rental_duration INTEGER;
-		vi_rental_date DATE;
-		
-		vo_expected_return_date DATE;
-	
-	BEGIN
-		
-		vi_film_id := $1;
-		vi_rental_date := $2;
-		
-			SELECT 
-				rental_duration INTO vlu_rental_duration
-			FROM 
-                public.film AS a
-			WHERE 
-                vi_film_id = a.film_id;
-
-			vo_expected_return_date := vi_rental_date + vlu_rental_duration;
-
-		RETURN vo_expected_return_date;
-	END;
-$vdm1_data_calc_expectedreturndate$;
-
--- #### #### #### #### #### #### #### #### 
 
 
 -- #### #### #### ####
 -- ####    22     #### 
--- #### #### #### #### 
-
-
-CREATE OR REPLACE FUNCTION vdm1_data.f_transform_customer_full_name(
-		p_first_name VARCHAR,
-		p_last_name VARCHAR)
-	RETURNS VARCHAR
-	LANGUAGE plpgsql
-	AS $vdm1_stage4_transform_customer_full_name$
-	
-	DECLARE
-		
-		vi_first_name VARCHAR;
-		vi_last_name VARCHAR;
-		
-		vo_full_name VARCHAR;
-		
-		-- bicapitalization_list varchar[]; 
-		bicapitalization_list_2l varchar[]; 
-		bicapitalization_list_3l varchar[]; 
-		bicapitalization_list_4l varchar[]; 
-
-	BEGIN
-		
-		vi_first_name := $1;
-		vi_last_name := $2;
-		
-		-- bicapitalization_list := array['mc', 'le', 'la', 'o''', 'da', 'de' ];
-		bicapitalization_list_2l := array['mc', 'o'''];
-		bicapitalization_list_3l := array['mac'];
-		bicapitalization_list_4l := array['von ', 'fitz'];
-
-		
-		CASE 
-			-- WHEN (LOWER(LEFT($2,4)) = 'von ') THEN
-			--	vi_last_name := (UPPER(LEFT($2,1))) || (LOWER(SUBSTRING($2,2,2))) || ' ' || (UPPER(SUBSTRING($2,5,1))) || (LOWER(SUBSTRING($2,5,length($2))));			
-			-- WHEN (LOWER(LEFT($2,4)) = 'fitz') THEN
-			--	vi_last_name := (UPPER(LEFT($2,1))) || (LOWER(SUBSTRING($2,2,3))) || (UPPER(SUBSTRING($2,4,1))) || (LOWER(SUBSTRING($2,5,length($2))));
-			-- WHEN (LOWER(LEFT($2,3)) = 'mac') THEN
-			--	vi_last_name := (UPPER(LEFT($2,1))) || (LOWER(SUBSTRING($2,2,2))) || (UPPER(SUBSTRING($2,3,1))) || (LOWER(SUBSTRING($2,4,length($2))));
-				
-			WHEN (LOWER(LEFT($2,4)) = ANY(bicapitalization_list_4l)) THEN
-				vi_last_name := (UPPER(LEFT($2,1))) || (LOWER(SUBSTRING($2,2,3))) || (UPPER(SUBSTRING($2,4,1))) || (LOWER(SUBSTRING($2,5,length($2))));
-			WHEN (LOWER(LEFT($2,3)) = ANY(bicapitalization_list_3l)) THEN
-				vi_last_name := (UPPER(LEFT($2,1))) || (LOWER(SUBSTRING($2,2,2))) || (UPPER(SUBSTRING($2,4,1))) || (LOWER(SUBSTRING($2,5,length($2))));
-			WHEN (LOWER(LEFT($2,2)) = ANY(bicapitalization_list_2l)) THEN 
-				vi_last_name := (UPPER(LEFT($2,1))) || (LOWER(SUBSTRING($2,2,1))) || (UPPER(SUBSTRING($2,3,1))) || (LOWER(SUBSTRING($2,4,length($2))));
-			ELSE 
-				vi_last_name := $2;
-		END CASE;
-
-		SELECT 
-			CONCAT_WS( 
-				' ',
-				vi_first_name, 
-				vi_last_name)
-		INTO vo_full_name;
-
-		RETURN vo_full_name;
-	END;
-$vdm1_stage4_transform_customer_full_name$;
-
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####    23     #### 
--- #### #### #### #### 
-
-
-CREATE OR REPLACE FUNCTION vdm1_data.f_transform_filmlength_int2vchar(
-	p_length INTEGER
-)
-	RETURNS VARCHAR
-	LANGUAGE plpgsql
-	AS $vdm1_stage4_filmlength_int2vchar$
-	
-	DECLARE
-		-- IN Variable
-		vi_len_int INTEGER;
-		-- OUT Variable
-		vo_len_varchar VARCHAR;
-	
-	BEGIN 
-		-- Clearing the variables
-		vo_len_varchar := '';
-		vi_len_int := 0;
-		-- Setting the variable to input integer
-		vi_len_int := $1;
-		
-		-- Mathing
-		CASE
-			WHEN ((vi_len_int / 60 > 0) AND (vi_len_int % 60) = 0) THEN 
-				vo_len_varchar := (
-					(vi_len_int / 60) || ' hrs'
-				);
-			WHEN (vi_len_int / 60 > 0) THEN 
-				vo_len_varchar := (
-					(vi_len_int / 60) || ' hrs ' || (vi_len_int % 60) || ' min'
-				);
-			ELSE
-				vo_len_varchar := (
-					(vi_len_int % 60) || ' min'
-				);
-		END CASE;
-			
-		RETURN vo_len_varchar;
-	
-	END;
-$vdm1_stage4_filmlength_int2vchar$;
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####    24     #### 
--- #### #### #### #### 
-
-CREATE OR REPLACE FUNCTION vdm1_data.f_transform_customer_phone_e164(
-		p_phone VARCHAR)
-	RETURNS VARCHAR
-	LANGUAGE plpgsql
-	AS $vdm1_stage5_transform_customer_phone_e164$
-	
-	DECLARE
-		
-		vi_phone VARCHAR;
-		
-		vo_phone VARCHAR;
-
-    BEGIN 
-
-    	vi_phone := $1;
-
-SELECT
-	CONCAT_WS(
-          ' '
-        , '+'
-        , LEFT(vi_phone, (LENGTH(vi_phone)-10))
-		, SUBSTRING(vi_phone, (LENGTH(vi_phone)-10)+1, 2)
-		, SUBSTRING(vi_phone, ((LENGTH(vi_phone)-8)+1), 4)
-		, RIGHT(vi_phone,4)
-    )
-    INTO
-        vo_phone;
-
-    RETURN vo_phone;
-
-
-	END;
-$vdm1_stage5_transform_customer_phone_e164$;
-
--- #### #### #### #### #### #### #### #### 
-
-
--- #### #### #### ####
--- ####    25     #### 
 -- #### #### #### #### 
 
 
@@ -5125,7 +5719,7 @@ $vdm1_stage5_add_table_constraints$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    26     #### 
+-- ####    23     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_cleanup()
@@ -5153,6 +5747,8 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_cleanup()
         DROP TABLE IF EXISTS staging.vdm1_stage5_dictkey_country;		
 
         DROP TABLE IF EXISTS staging.vdm1_stage5_dictkey_language;	
+
+        DROP TABLE IF EXISTS staging.vdm1_stage5_dictionary_key;	
 
         -- #### #### #### #### 	
 
@@ -5227,7 +5823,7 @@ $vdm1_stage5_cleanup$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    27     #### 
+-- ####    24     #### 
 -- #### #### #### #### 
 
 
@@ -5248,52 +5844,48 @@ $vdm1_stage5_destroy_stage$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    28     #### 
+-- ####    25     #### 
 -- #### #### #### #### 
 
 
 
-CREATE OR REPLACE FUNCTION vdm1_etl.f_refresh_mview_all_marketing()
-    RETURNS VOID
-    LANGUAGE plpgsql
-    AS $vdm1_refresh_materialized_views_all_marketing$
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_referesh_materialized_view(
+      p_tablename VARCHAR
+)
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_stage5_refresh_materialized_view$
 
-    BEGIN
+    DECLARE 
 
-        -- #### #### #### #### #### #### #### #### 
+        table_name VARCHAR;
 
-		REFRESH MATERIALIZED VIEW marketing.customer_details;  
+	BEGIN 
 
-		REFRESH MATERIALIZED VIEW marketing.film_details;  
+        table_name := $1;
 
-		REFRESH MATERIALIZED VIEW marketing.location_details;  
+			EXECUTE 
+            ' REFRESH MATERIALIZED VIEW marketing.' || table_name;
+	END;
+$vdm1_stage5_refresh_materialized_view$;
 
-		REFRESH MATERIALIZED VIEW marketing.store_details;    
+-- #### #### #### #### #### #### #### #### 
 
-		-- REFRESH MATERIALIZED VIEW marketing.category;  
 
-		-- REFRESH MATERIALIZED VIEW marketing.city;  
-
-		-- REFRESH MATERIALIZED VIEW marketing.country;   
-
-		-- REFRESH MATERIALIZED VIEW marketing.language;  
-    
-        -- #### #### #### #### #### #### #### #### 
-
-    END;
-$vdm1_refresh_materialized_views_all_marketing$;
 
 -- #TODO STAGE 5 END
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### ####     STAGE 5a END    #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
+
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####      
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####      
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####                           
+-- STAGE 5 - TRIGGER FUNCTIONS CODE BLOCK
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
--- #### #### #### #### #### #### #### #### #### #### #### #### #### ####    STAGE 5b BEGIN   #### #### #### #### #### #### #### #### #### #### #### #### #### ####
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### ####    STAGE 5b BEGIN    #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #TODO STAGE 5b BEGIN
 
@@ -5330,6 +5922,7 @@ $vdm1_refresh_materialized_views_all_marketing$;
 --                 15. vdm1_data.t_f_update_inventory_maintenance();
 --                 16. vdm1_data.t_f_update_new_release();
 --                 17. vdm1_data.t_f_update_rental_return();
+-- 				   18. vdm1_data.t_f_insert_new_film_release()
 
 
 
@@ -5352,6 +5945,7 @@ $vdm1_refresh_materialized_views_all_marketing$;
 --                 15. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_uinvm()
 --                 16. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_unewr()
 --                 17. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_urr()
+--				   18. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_infr()
 
 --     #### #### #### ####
 --        STAGE 5b END
@@ -5363,6 +5957,14 @@ $vdm1_refresh_materialized_views_all_marketing$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### ####   TRIGGERS BEGIN    #### #### #### #### #### #### #### #### #### #### #### #### #### ####
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+-- #TODO TRIGGERS BEGIN
+
 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
@@ -5414,6 +6016,8 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5b_trigger_functions_setup()
 
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_urr();
 
+		PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_infr();
+
 
     END;
 $vdm1_stage5_trigger_functions_setup_procedure$;
@@ -5442,8 +6046,8 @@ $vdm1_stage5_trigger_functions_setup_procedure$;
 --        6. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_iucrcp()
 --        7. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucatpop()
 --        8. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucustcat()
---        9. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlma_non()
---       10. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_non()
+--        9. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_non()
+--       10. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_spe()
 --       11. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_non()
 --       12. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_spe()
 --       13. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_upcxwatchhist()
@@ -5451,6 +6055,7 @@ $vdm1_stage5_trigger_functions_setup_procedure$;
 --       15. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_uinvm()
 --       16. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_unewr()
 --       17. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_urr()
+--	     18. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_infr()
 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
@@ -5497,8 +6102,8 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ifr()
                         , a.inventory_id
                         , b.store_id
                         , a.rental_date
-                        , vdm1_data.calc_expected_return_date(a.film_id::int, a.rental_date::DATE) as expected_return_date
-                        , (SELECT AGE(''2007-01-01'', vdm1_data.calc_expected_return_date(a.film_id::int, a.rental_date::DATE))) as age
+                        , vdm1_data.f_calc_expected_return_date(a.film_id::int, a.rental_date::DATE) as expected_return_date
+                        , (SELECT AGE(''2007-01-01'', vdm1_data.f_calc_expected_return_date(a.film_id::int, a.rental_date::DATE))) as age
                     FROM 
                         vdm1_data.customer_watch_history_detailed AS a
                             LEFT JOIN public.customer AS b
@@ -6339,23 +6944,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_infilm
 					
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
-				INSERT INTO vdm1_data.new_releases(
-					film_id
-					, status
-				)
 
-				SELECT
-					film_id
-					, true
-				FROM 
-					vdm1_data.film_category_popularity
-
-				WHERE
-					film_id = NEW.film_id;
-
-
-				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####           
-				
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 				-- #### #### #### #### #### #### #### #### 
@@ -6986,7 +7575,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_
 
 				-- #### #### #### #### #### #### #### #### 
 
-				DELETE FROM vdm1_data.customer_reclist_master_nonspecific
+				DELETE FROM vdm1_data.customer_reclist_summary_nonspecific
 				
 				WHERE
 					customer_id = NEW.customer_id;
@@ -7075,7 +7664,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_
 
 				-- #### #### #### #### #### #### #### #### 
 
-				DELETE FROM vdm1_data.customer_reclist_master_specific
+				DELETE FROM vdm1_data.customer_reclist_summary_specific
 				
 				WHERE
 					customer_id = NEW.customer_id;
@@ -7697,6 +8286,56 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_urr()
     END;
 $vdm1_stage5_trigger_functions_setup_update_rental_return$;
 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+-- #### #### #### ####
+-- ####    18     #### 
+-- #### #### #### ####
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_infr()
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_stage5_trigger_functions_setup_insert_new_film_release$
+
+    
+    BEGIN
+		EXECUTE
+		'
+		CREATE OR REPLACE FUNCTION vdm1_data.t_f_insert_new_film_release()
+			RETURNS TRIGGER
+			LANGUAGE plpgsql
+			AS $trigger_function_insert_new_film_release$
+
+			BEGIN 
+			
+			
+			-- #### #### #### #### #### #### #### #### 
+
+
+
+				INSERT INTO vdm1_data.new_releases(
+					film_id
+					, status
+				)
+
+				SELECT
+					film_id
+					, true
+				FROM 
+					vdm1_data.film_category_popularity
+
+				WHERE
+					film_id = NEW.film_id;
+
+			END;
+		$trigger_function_insert_new_film_release$;
+		';
+
+		-- #### #### #### #### #### #### #### #### 
+
+	END;
+$vdm1_stage5_trigger_functions_setup_insert_new_film_release$;
+
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 
@@ -7705,16 +8344,24 @@ $vdm1_stage5_trigger_functions_setup_update_rental_return$;
 
 -- #### #### #### #### #### #### #### #### 
 
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### ####    TRIGGERS END     #### #### #### #### #### #### #### #### #### #### #### #### #### ####
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### ####     STAGE 5b END    #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
+
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####      
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####      
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####                           
+-- STAGE 5 - TRIGGERS CODE BLOCK
+
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
--- #### #### #### #### #### #### #### #### #### #### #### #### #### ####    STAGE 5c BEGIN   #### #### #### #### #### #### #### #### #### #### #### #### #### ####
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### ####    STAGE 5c BEGIN    #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #TODO STAGE 5c BEGIN
 
@@ -7785,10 +8432,6 @@ $vdm1_stage5_trigger_functions_setup_update_rental_return$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
--- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
--- #### #### #### #### #### #### #### #### #### #### #### #### #### ####   TRIGGERS BEGIN    #### #### #### #### #### #### #### #### #### #### #### #### #### ####
--- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
--- #TODO TRIGGERS BEGIN
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
@@ -7797,7 +8440,7 @@ $vdm1_stage5_trigger_functions_setup_update_rental_return$;
 --                     #### #### #### #### #### #### #### #### 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
-
+-- #TODO STAGE 5c - STORED PROCECURES
 
 CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5c_triggers_setup()
     LANGUAGE plpgsql
@@ -7839,6 +8482,8 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5c_triggers_setup()
         
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_specific();
 
+		PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_inewrel();
+
     END;
 $vdm1_stage5_triggers_setup_procedure$;
 
@@ -7846,7 +8491,7 @@ $vdm1_stage5_triggers_setup_procedure$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 
-
+-- #TODO STAGE 5c - FUNCTIONS 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 --                      #### #### #### #### #### #### #### #### 
@@ -7855,6 +8500,7 @@ $vdm1_stage5_triggers_setup_procedure$;
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
+
 
 --        1. vdm1_etl.f_vdm1_stage5_trigger_setup_icwh()
 --        2. vdm1_etl.f_vdm1_stage5_trigger_setup_incust()
@@ -7873,6 +8519,7 @@ $vdm1_stage5_triggers_setup_procedure$;
 --       15. vdm1_etl.f_vdm1_stage5_trigger_setup_unr()
 --       16. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_nonspecific()
 --       17. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_specific()
+--		 18. vdm1_etl.f_vdm1_stage5_trigger_setup_inewrel();
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
@@ -8266,8 +8913,39 @@ $vdm1_stage5_trigger_setup_update_customer_reclist_summary_specific$;
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
+
+-- #### #### #### ####
+-- ####    18     #### 
+-- #### #### #### #### 
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_inewrel()
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_stage5_trigger_setup_insert_new_film$
+
+    BEGIN 
+
+        EXECUTE
+            'CREATE OR REPLACE TRIGGER insert_new_film_release
+                AFTER INSERT
+                ON vdm1_data.film_category_popularity
+                FOR EACH ROW
+                EXECUTE FUNCTION vdm1_data.t_f_insert_new_film_release()';
+
+    END;
+$vdm1_stage5_trigger_setup_insert_new_film$;
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+
+
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
--- #### #### #### #### #### #### #### #### #### #### #### #### #### ####     STAGE 5c END    #### #### #### #### #### #### #### #### #### #### #### #### #### ####
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### ####     STAGE 5c END     #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####      
@@ -8297,20 +8975,9 @@ $vdm1_stage5_trigger_setup_update_customer_reclist_summary_specific$;
 
 --                  1. vdm1_etl.f_vdm1_reset_drop_triggers();
 --             	    2. vdm1_etl.f_vdm1_reset_delete_table_vdm1_data(); 
---                  3. vdm1_etl.f_vdm1_reset_create_mview_customer_details();
---                  4. vdm1_etl.f_vdm1_reset_create_mview_store_details();
---                  5. vdm1_etl.f_vdm1_reset_create_mview_location_details();
---                  6. vdm1_etl.f_vdm1_reset_create_mview_film_details();
---                  7. vdm1_etl.f_vdm1_reset_drop_all_mviews_marketing();
---                  8. vdm1_etl.f_vdm1_reset_drop_mviews_marketing_customer_details();
---                  9. vdm1_etl.f_vdm1_reset_drop_mviews_marketing_film_details();
---                 10. vdm1_etl.f_vdm1_reset_drop_mviews_marketing_location_details();
---                 11. vdm1_etl.f_vdm1_reset_drop_mviews_marketing_store_details();
---                 12. vdm1_etl.f_vdm1_reset_refresh_mview_all_marketing();
---                 13. vdm1_etl.f_vdm1_reset_refresh_mview_marketing_customer_details();
---                 14. vdm1_etl.f_vdm1_reset_refresh_mview_marketing_film_details();
---                 15. vdm1_etl.f_vdm1_reset_refresh_mview_marketing_location_details();
---                 16. vdm1_etl.f_vdm1_reset_refresh_mview_marketing_store_details();
+--                  3. vdm1_etl.f_vdm1_reset_create_materialized_view();
+--                  4. vdm1_etl.f_vdm1_reset_drop_materialized_view();
+--                  5. vdm1_etl.f_vdm1_reset_referesh_materialized_view();
 
 
 --     #### #### #### ####
@@ -8320,7 +8987,9 @@ $vdm1_stage5_trigger_setup_update_customer_reclist_summary_specific$;
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
--- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### c
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
@@ -8340,6 +9009,8 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_reset()
 
 		-- #### #### #### #### #### #### #### #### 
 
+		PERFORM vdm1_etl.f_vdm1_reset_disable_triggers();
+
 		PERFORM vdm1_etl.f_vdm1_reset_drop_triggers();
 
 
@@ -8349,7 +9020,7 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_reset()
 
 		-- #### #### #### #### #### #### #### #### 
 
-        CALL vdm1_etl.vdm1_stage0();
+        CALL vdm1_etl.vdm1_reset_stage0();
 
 		CALL vdm1_etl.vdm1_stage1();
 
@@ -8389,37 +9060,142 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_reset_mview_setup()
 
 		-- #### #### #### #### #### #### #### #### 
 
-        PERFORM vdm1_etl.f_vdm1_reset_drop_mviews_marketing_customer_details();
+        PERFORM vdm1_etl.f_vdm1_reset_drop_materialized_view('dictionary_key');
 
-        PERFORM vdm1_etl.f_vdm1_reset_create_mview_customer_details();
+        PERFORM vdm1_etl.f_vdm1_reset_create_materialized_view('dictionary_key');
 
-        PERFORM vdm1_etl.f_vdm1_reset_refresh_mview_marketing_customer_details();
-        
- 		-- #### #### #### #### #### #### #### #### 
-
-        PERFORM vdm1_etl.f_vdm1_reset_drop_mviews_marketing_film_details();
-
-        PERFORM vdm1_etl.f_vdm1_reset_create_mview_film_details();
-
-        PERFORM vdm1_etl.f_vdm1_reset_refresh_mview_marketing_film_details();
+        PERFORM vdm1_etl.f_vdm1_reset_referesh_materialized_view('dictionary_key');
 
 		-- #### #### #### #### #### #### #### #### 
 
-        PERFORM vdm1_etl.f_vdm1_reset_drop_mviews_marketing_location_details();
+        PERFORM vdm1_etl.f_vdm1_reset_drop_materialized_view('dictkey_category');
 
-        PERFORM vdm1_etl.f_vdm1_reset_create_mview_location_details();
+        PERFORM vdm1_etl.f_vdm1_reset_create_materialized_view('dictkey_category');
 
-        PERFORM vdm1_etl.f_vdm1_reset_refresh_mview_marketing_location_details();
+        PERFORM vdm1_etl.f_vdm1_reset_referesh_materialized_view('dictkey_category');
+        
+ 		-- #### #### #### #### #### #### #### #### 
+        PERFORM vdm1_etl.f_vdm1_reset_drop_materialized_view('dictkey_city');
+
+        PERFORM vdm1_etl.f_vdm1_reset_create_materialized_view('dictkey_city');
+
+        PERFORM vdm1_etl.f_vdm1_reset_referesh_materialized_view('dictkey_city');
+        
+
+		-- #### #### #### #### #### #### #### #### 
+        PERFORM vdm1_etl.f_vdm1_reset_drop_materialized_view('dictkey_country');
+
+        PERFORM vdm1_etl.f_vdm1_reset_create_materialized_view('dictkey_country');
+
+        PERFORM vdm1_etl.f_vdm1_reset_referesh_materialized_view('dictkey_country');
+        
 
   		-- #### #### #### #### #### #### #### ####       
 
-        PERFORM vdm1_etl.f_vdm1_reset_drop_mviews_marketing_store_details();
+        PERFORM vdm1_etl.f_vdm1_reset_drop_materialized_view('dictkey_language');
 
-        PERFORM vdm1_etl.f_vdm1_reset_create_mview_store_details();
+        PERFORM vdm1_etl.f_vdm1_reset_create_materialized_view('dictkey_language');
 
-        PERFORM vdm1_etl.f_vdm1_reset_refresh_mview_marketing_store_details();
+        PERFORM vdm1_etl.f_vdm1_reset_referesh_materialized_view('dictkey_language');
+        
+		-- #### #### #### #### #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_reset_drop_materialized_view('dictkey_customer_details');
+
+        PERFORM vdm1_etl.f_vdm1_reset_create_materialized_view('dictkey_customer_details');
+
+        PERFORM vdm1_etl.f_vdm1_reset_referesh_materialized_view('dictkey_customer_details');
+        
+		-- #### #### #### #### #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_reset_drop_materialized_view('dictkey_store_details');
+
+        PERFORM vdm1_etl.f_vdm1_reset_create_materialized_view('dictkey_store_details');
+
+        PERFORM vdm1_etl.f_vdm1_reset_referesh_materialized_view('dictkey_store_details');
+        
+ 		-- #### #### #### #### #### #### #### #### 
+        PERFORM vdm1_etl.f_vdm1_reset_drop_materialized_view('dictkey_film_details');
+
+        PERFORM vdm1_etl.f_vdm1_reset_create_materialized_view('dictkey_film_details');
+
+        PERFORM vdm1_etl.f_vdm1_reset_referesh_materialized_view('dictkey_film_details');
+        
 
 		-- #### #### #### #### #### #### #### #### 
+        PERFORM vdm1_etl.f_vdm1_reset_drop_materialized_view('customer_reclist_master_nonspecific');
+
+        PERFORM vdm1_etl.f_vdm1_reset_create_materialized_view('customer_reclist_master_nonspecific');
+
+        PERFORM vdm1_etl.f_vdm1_reset_referesh_materialized_view('customer_reclist_master_nonspecific');
+        
+
+  		-- #### #### #### #### #### #### #### ####       
+
+        PERFORM vdm1_etl.f_vdm1_reset_drop_materialized_view('customer_reclist_master_specific');
+
+        PERFORM vdm1_etl.f_vdm1_reset_create_materialized_view('customer_reclist_master_specific');
+
+        PERFORM vdm1_etl.f_vdm1_reset_referesh_materialized_view('customer_reclist_master_specific');
+        
+		-- #### #### #### #### #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_reset_drop_materialized_view('customer_reclist_summary_nonspecific');
+
+        PERFORM vdm1_etl.f_vdm1_reset_create_materialized_view('customer_reclist_summary_nonspecific');
+
+        PERFORM vdm1_etl.f_vdm1_reset_referesh_materialized_view('customer_reclist_summary_nonspecific');
+        
+		-- #### #### #### #### #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_reset_drop_materialized_view('customer_reclist_summary_specific');
+
+        PERFORM vdm1_etl.f_vdm1_reset_create_materialized_view('customer_reclist_summary_specific');
+
+        PERFORM vdm1_etl.f_vdm1_reset_referesh_materialized_view('customer_reclist_summary_specific');
+        
+ 		-- #### #### #### #### #### #### #### #### 
+        PERFORM vdm1_etl.f_vdm1_reset_drop_materialized_view('failed_returns');
+
+        PERFORM vdm1_etl.f_vdm1_reset_create_materialized_view('failed_returns');
+
+        PERFORM vdm1_etl.f_vdm1_reset_referesh_materialized_view('failed_returns');
+        
+
+		-- #### #### #### #### #### #### #### #### 
+        PERFORM vdm1_etl.f_vdm1_reset_drop_materialized_view('new_releases');
+
+        PERFORM vdm1_etl.f_vdm1_reset_create_materialized_view('new_releases');
+
+        PERFORM vdm1_etl.f_vdm1_reset_referesh_materialized_view('new_releases');
+        
+
+  		-- #### #### #### #### #### #### #### ####       
+
+        PERFORM vdm1_etl.f_vdm1_reset_drop_materialized_view('film_category_popularity');
+
+        PERFORM vdm1_etl.f_vdm1_reset_create_materialized_view('film_category_popularity');
+
+        PERFORM vdm1_etl.f_vdm1_reset_referesh_materialized_view('film_category_popularity');
+        
+		-- #### #### #### #### #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_reset_drop_materialized_view('category_popularity');
+
+        PERFORM vdm1_etl.f_vdm1_reset_create_materialized_view('category_popularity');
+
+        PERFORM vdm1_etl.f_vdm1_reset_referesh_materialized_view('category_popularity');
+        
+		-- #### #### #### #### #### #### #### #### 
+
+        PERFORM vdm1_etl.f_vdm1_reset_drop_materialized_view('customer_watch_history_detailed');
+
+        PERFORM vdm1_etl.f_vdm1_reset_create_materialized_view('customer_watch_history_detailed');
+
+        PERFORM vdm1_etl.f_vdm1_reset_referesh_materialized_view('customer_watch_history_detailed');
+        
+		-- #### #### #### #### #### #### #### #### 
+
 
 	END;
 $vdm1_reset_materialized_view_recreation$;
@@ -8441,20 +9217,9 @@ $vdm1_reset_materialized_view_recreation$;
 
 --       1. vdm1_etl.f_vdm1_reset_drop_triggers();
 --  	 2. vdm1_etl.f_vdm1_reset_delete_table_vdm1_data(); 
---       3. vdm1_etl.f_vdm1_reset_create_mview_customer_details();
---       4. vdm1_etl.f_vdm1_reset_create_mview_store_details();
---       5. vdm1_etl.f_vdm1_reset_create_mview_location_details();
---       6. vdm1_etl.f_vdm1_reset_create_mview_film_details();
---       7. vdm1_etl.f_vdm1_reset_drop_all_mviews_marketing();
---       8. vdm1_etl.f_vdm1_reset_drop_mviews_marketing_customer_details();
---       9. vdm1_etl.f_vdm1_reset_drop_mviews_marketing_film_details();
---      10. vdm1_etl.f_vdm1_reset_drop_mviews_marketing_location_details();
---      11. vdm1_etl.f_vdm1_reset_drop_mviews_marketing_store_details();
---      12. vdm1_etl.f_vdm1_reset_refresh_mview_all_marketing();
---      13. vdm1_etl.f_vdm1_reset_refresh_mview_marketing_customer_details();
---      14. vdm1_etl.f_vdm1_reset_refresh_mview_marketing_film_details();
---      15. vdm1_etl.f_vdm1_reset_refresh_mview_marketing_location_details();
---      16. vdm1_etl.f_vdm1_reset_refresh_mview_marketing_store_details();
+--       3. vdm1_etl.f_vdm1_reset_create_materialized_view();
+--       4. vdm1_etl.f_vdm1_reset_drop_materialized_view();
+--       5. vdm1_etl.f_vdm1_reset_referesh_materialized_view();
 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
@@ -8462,6 +9227,61 @@ $vdm1_reset_materialized_view_recreation$;
 
 -- #### #### #### ####
 -- ####     1     #### 
+-- #### #### #### #### 
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_disable_triggers()
+	RETURNS VOID
+	LANGUAGE plpgsql
+	
+	AS $vdm1_reset_procedure_function_disable_triggers$
+	
+	
+	BEGIN
+
+        -- #### #### #### #### #### #### #### #### 
+
+			ALTER TABLE public.customer
+				DISABLE TRIGGER ALL;
+
+			ALTER TABLE public.category
+				DISABLE TRIGGER ALL;
+
+			ALTER TABLE public.inventory
+				DISABLE TRIGGER ALL;
+
+			ALTER TABLE public.rental
+				DISABLE TRIGGER ALL;
+
+			ALTER TABLE public.film_category
+				DISABLE TRIGGER ALL;
+
+			ALTER TABLE vdm1_data.customer_watch_history_detailed
+				DISABLE TRIGGER ALL;
+
+			ALTER TABLE vdm1_data.customer_rec_custom_preferences
+				DISABLE TRIGGER ALL;
+
+			ALTER TABLE vdm1_data.film_category_popularity
+				DISABLE TRIGGER ALL;
+
+			ALTER TABLE vdm1_data.customer_reclist_master_nonspecific
+				DISABLE TRIGGER ALL;
+
+			ALTER TABLE vdm1_data.customer_reclist_master_specific
+				DISABLE TRIGGER ALL;
+
+
+
+        -- #### #### #### #### #### #### #### #### 
+
+	END;
+$vdm1_reset_procedure_function_disable_triggers$;
+
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
+
+-- #### #### #### ####
+-- ####     2     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_drop_triggers()
@@ -8475,7 +9295,113 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_drop_triggers()
 
         -- #### #### #### #### #### #### #### #### 
 
+            /*
 
+			DROP TRIGGER IF EXISTS vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ifr()
+				ON public.rental CASCADE;
+
+			DROP TRIGGER IF EXISTS vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incat()
+				ON public.category CASCADE;
+
+			DROP TRIGGER IF EXISTS vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incust()
+				ON public.customer CASCADE;
+
+			DROP TRIGGER IF EXISTS vdm1_etl.f_vdm1_stage5_trigger_functions_setup_infilm()
+				ON public.film_category CASCADE;
+
+			DROP TRIGGER IF EXISTS vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ininv()
+				ON public.inventory CASCADE;
+
+			DROP TRIGGER IF EXISTS vdm1_etl.f_vdm1_stage5_trigger_functions_setup_iucrcp()
+				ON vdm1_data.customer_rec_custom_preferences CASCADE;
+
+			DROP TRIGGER IF EXISTS vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucatpop()
+				ON vdm1_data.category_popularity CASCADE;
+
+			DROP TRIGGER IF EXISTS vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucustcat()
+				ON vdm1_data.customer_category CASCADE;
+
+			DROP TRIGGER IF EXISTS vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_non()
+				ON vdm1_data.customer_reclist_master_nonspecific CASCADE;
+
+			DROP TRIGGER IF EXISTS vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_spe()
+				ON vdm1_data.customer_reclist_master_specific CASCADE;
+
+			DROP TRIGGER IF EXISTS vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_non()
+				ON vdm1_data.customer_reclist_summary_nonspecific CASCADE;
+
+			DROP TRIGGER IF EXISTS vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_spe()
+				ON vdm1_data.customer_reclist_summary_specific CASCADE;
+
+			DROP TRIGGER IF EXISTS vdm1_etl.f_vdm1_stage5_trigger_functions_setup_upcxwatchhist()
+				ON vdm1_data.customer_watch_history_detailed CASCADE;
+
+			DROP TRIGGER IF EXISTS vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ufcp()
+				ON vdm1_data.film_category_popularity CASCADE; 
+
+			DROP TRIGGER IF EXISTS vdm1_etl.f_vdm1_stage5_trigger_functions_setup_uinvm()
+				ON vdm1_data.inventory_maintenance CASCADE;
+
+			DROP TRIGGER IF EXISTS vdm1_etl.f_vdm1_stage5_trigger_functions_setup_unewr()
+				ON vdm1_data.film_category_popularity;
+
+			DROP TRIGGER IF EXISTS vdm1_etl.f_vdm1_stage5_trigger_functions_setup_urr()
+				ON public.rental CASCADE;
+
+            */
+
+        -- #### #### #### #### #### #### #### #### 
+                    
+            DROP TRIGGER IF EXISTS insert_customer_watch_history
+                ON public.rental CASCADE;
+
+            DROP TRIGGER IF EXISTS insert_new_customer
+                ON public.customer CASCADE;
+
+            DROP TRIGGER IF EXISTS insert_new_category
+                ON public.category CASCADE;
+
+            DROP TRIGGER IF EXISTS insert_new_inventory
+                ON public.inventory CASCADE;
+
+            DROP TRIGGER IF EXISTS update_rental_return
+                ON public.rental CASCADE;
+
+            DROP TRIGGER IF EXISTS insert_failed_return
+                ON public.rental CASCADE;
+
+            DROP TRIGGER IF EXISTS insert_new_film
+                ON public.film_category CASCADE;
+
+            DROP TRIGGER IF EXISTS update_customer_category
+                ON vdm1_data.customer_watch_history_detailed CASCADE;
+
+            DROP TRIGGER IF EXISTS new_rental_update_category_popularity
+                ON vdm1_data.customer_watch_history_detailed CASCADE;
+
+            DROP TRIGGER IF EXISTS update_film_category_popularity
+                ON vdm1_data.customer_watch_history_detailed CASCADE;
+
+            DROP TRIGGER IF EXISTS update_inventory_maintenance
+                ON vdm1_data.customer_watch_history_detailed CASCADE;
+
+            DROP TRIGGER IF EXISTS update_customer_reclist_master_nonspecific
+                ON vdm1_data.customer_watch_history_detailed CASCADE;
+
+            DROP TRIGGER IF EXISTS update_customer_reclist_master_specific
+                ON vdm1_data.customer_watch_history_detailed CASCADE;
+
+            DROP TRIGGER IF EXISTS insert_update_customer_rec_custom_preferences
+                ON vdm1_data.customer_rec_custom_preferences CASCADE;
+
+            DROP TRIGGER IF EXISTS update_new_release
+                ON vdm1_data.film_category_popularity CASCADE;
+
+            DROP TRIGGER IF EXISTS update_customer_reclist_summary_nonspecific
+                ON vdm1_data.customer_reclist_master_nonspecific CASCADE;
+
+            DROP TRIGGER IF EXISTS update_customer_reclist_summary_specific
+                ON vdm1_data.customer_reclist_master_specific CASCADE;
 
         -- #### #### #### #### #### #### #### #### 
 
@@ -8486,8 +9412,10 @@ $vdm1_reset_procedure_function_drop_triggers$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
--- ####     2     #### 
+-- ####     3     #### 
 -- #### #### #### #### 
+
+
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_delete_tables_vdm1_data()
 	RETURNS VOID
@@ -8539,7 +9467,34 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_delete_tables_vdm1_data()
         DROP TABLE IF EXISTS vdm1_data.customer_rec_custom_preferences 
 			CASCADE;
 
-	
+        -- #### #### #### #### #### #### #### #### 
+
+		DROP TABLE IF EXISTS vdm1_data.dictionary_key 
+			CASCADE;
+		
+        DROP TABLE IF EXISTS vdm1_data.dictkey_category 
+			CASCADE;
+		
+        DROP TABLE IF EXISTS vdm1_data.dictkey_city
+			CASCADE;
+		
+        DROP TABLE IF EXISTS vdm1_data.dictkey_country
+			CASCADE;
+		
+        DROP TABLE IF EXISTS vdm1_data.dictkey_language
+			CASCADE;
+
+        DROP TABLE IF EXISTS vdm1_data.dictkey_customer_details
+			CASCADE;
+		
+        DROP TABLE IF EXISTS vdm1_data.dictkey_store_details
+			CASCADE;
+		
+        DROP TABLE IF EXISTS vdm1_data.dictkey_film_details
+			CASCADE;
+
+
+
         -- #### #### #### #### #### #### #### #### 
 
 	END;
@@ -8549,560 +9504,110 @@ $vdm1_reset_procedure_function_delete_tables_vdm1_data$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####     3     #### 
+-- ####     4     #### 
 -- #### #### #### #### 
 
-CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_create_mview_customer_details()
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_create_materialized_view(
+      p_tablename VARCHAR
+    , p_order_by VARCHAR DEFAULT NULL
+)
 	RETURNS VOID
 	LANGUAGE plpgsql
-	AS $vdm1_reset_create_materialized_view_customer_details$
+	AS $vdm1_stage5_create_materialized_view$
+
+    DECLARE 
+
+        table_name VARCHAR;
+        order_by VARCHAR;
+		order_by_clause VARCHAR;
 	
 	BEGIN 
-	
-        CREATE MATERIALIZED VIEW IF NOT EXISTS marketing.customer_details AS (
 
-            SELECT 
-                  a.customer_id
-                , a.store_id
-                , a.first_name
-                , a.last_name
-                --, vdm1_data.f_transform_customer_full_name(a.first_name, a.last_name) AS full_name
-                , a.email
-                , (SELECT AGE('2007-04-29', a.create_date)) as account_age
-                , CASE 
-                    WHEN a.activebool = true 
-                        THEN 'ACTIVE'
-                    ELSE 
-                        'INACTIVE'
-                  END AS active_status
-                , vdm1_data.f_transform_customer_phone_e164(b.phone) AS phone
-                , c.city
-                , d.country
-            FROM 
-                public.customer AS a
-                
-                    INNER JOIN 
-                        public.address AS b
-                            ON b.address_id = a.address_id
-                    
-                        INNER JOIN 
-                            public.city AS c
-                                ON c.city_id = b.city_id
-                        
-                            INNER JOIN 
-                                public.country AS d
-                                    ON d.country_id = c.country_id
+        table_name := $1;
+        order_by := $2;
+		
+		IF 
+			(order_by is not null)
+		THEN 
 
-            ORDER BY
-                a.customer_id
-        )
-            WITH NO DATA;
-	
+			EXECUTE
+				'CREATE MATERIALIZED VIEW IF NOT EXISTS marketing.' || table_name || ' AS (
+					SELECT
+						*
+					FROM 
+						vdm1_data.' || table_name || ' ORDER BY ' || order_by ||
+				' ) 
+					WITH NO DATA';
+		ELSE 
+			EXECUTE
+				'CREATE MATERIALIZED VIEW IF NOT EXISTS marketing.' || table_name || ' AS (
+					SELECT
+						*
+					FROM 
+						vdm1_data.' || table_name || 
+				' ) 
+					WITH NO DATA';
+		END IF;
 	END;
-$vdm1_reset_create_materialized_view_customer_details$;
+$vdm1_stage5_create_materialized_view$;
 
 
 -- #### #### #### #### #### #### #### #### 
 
--- #### #### #### ####
--- ####     4     #### 
--- #### #### #### #### 
-
-CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_create_mview_store_details()
-	RETURNS VOID
-	LANGUAGE plpgsql
-	AS $vdm1_reset_create_materialized_view_store_details$
-		
-	BEGIN 
-
-		CREATE MATERIALIZED VIEW IF NOT EXISTS marketing.store_details AS (
-
-			SELECT
-				  a.store_id
-                , b.address_id
-                , b.address
-                , b.address2
-                , b.district
-                , c.city
-                , d.country
-                , b.postal_code
-                , vdm1_data.f_transform_customer_phone_e164(b.phone) AS phone
-
-            FROM 
-                public.store AS a
-                
-                
-                INNER JOIN 
-                    public.address AS b
-                        ON b.address_id = a.address_id
-                
-                
-                    INNER JOIN 
-                        public.city AS c
-                            ON c.city_id = b.city_id
-
-					INNER JOIN
-						public.country AS d 
-							ON d.country_id = c.country_id
-
-
-		)
-            WITH NO DATA;
-		
-	END;
-$vdm1_reset_create_materialized_view_store_details$;
 
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####     5     #### 
 -- #### #### #### #### 
-
-CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_create_mview_location_details()
+        
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_drop_materialized_view(
+      p_tablename VARCHAR
+)
 	RETURNS VOID
 	LANGUAGE plpgsql
-	AS $vdm1_reset_create_materialized_view_location_details$
-		
+	AS $vdm1_stage5_drop_materialized_view$
+
+    DECLARE 
+
+        table_name VARCHAR;
+
 	BEGIN 
-	
-        CREATE MATERIALIZED VIEW IF NOT EXISTS marketing.location_details AS (
-        
-            SELECT 
 
-                  a.address_id
-                , a.address
-                , a.address2
-                , a.district
-                , b.city
-                , c.country
-                , a.postal_code
-                , vdm1_data.f_transform_customer_phone_e164(a.phone) AS phone
+        table_name := $1;
 
-            FROM 
-                public.address AS a
-                
-                
-                INNER JOIN 
-                    public.city AS b
-                        ON b.city_id = a.city_id
-                
-                
-                    INNER JOIN 
-                        public.country AS c
-                            ON c.country_id = b.country_id
-        
-        )
-        
-            WITH NO DATA;
-
-    END;
-$vdm1_reset_create_materialized_view_location_details$;
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####     6     #### 
--- #### #### #### #### 
-
-CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_create_mview_film_details()
-	RETURNS VOID
-	LANGUAGE plpgsql
-	AS $vdm1_reset_create_materialized_view_film_details$
-	
-	BEGIN 
-		
-		CREATE MATERIALIZED VIEW IF NOT EXISTS marketing.film_details AS (
-
-			SELECT
-
-				  a.film_id
-				, a.title
-				, b.category_id
-				, a.release_year
-				, c.name
-				, vdm1_data.f_transform_filmlength_int2vchar(a.length) as film_legnth
-				, a.rating
-				, a.description
-				, a.rental_duration
-				, a.rental_rate
-				, a.replacement_cost
-
-			FROM 
-                public.film AS a
-
-				INNER JOIN 
-                    public.film_category AS b
-					    ON b.film_id = a.film_id
-
-                INNER JOIN
-                    public.language AS c 
-                        ON c.language_id = a.language_id
-		)
-    WITH NO DATA;
-
+			EXECUTE 
+            ' DROP MATERIALIZED VIEW marketing.' || table_name || ' CASCADE';
 	END;
-$vdm1_reset_create_materialized_view_film_details$;
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####     7     #### 
--- #### #### #### #### 
-
-CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_drop_all_mviews_marketing()
-    RETURNS VOID
-    LANGUAGE plpgsql
-    AS $vdm1_reset_drop_all_materialized_views_marketing$
-
-    BEGIN
-
-        -- #### #### #### #### #### #### #### #### 
-
-            DROP MATERIALIZED VIEW vdm1_data.customer_details;
-
-            DROP MATERIALIZED VIEW vdm1_data.film_details;
-
-            DROP MATERIALIZED VIEW vdm1_data.location_details;
-
-            DROP MATERIALIZED VIEW vdm1_data.store_details;
-
-
-        -- #### #### #### #### #### #### #### #### 
-
-
-
-
-
-        -- #### #### #### #### #### #### #### #### 
-
-    END;
-
-$vdm1_reset_drop_all_materialized_views_marketing$;
-
--- #### #### #### #### #### #### #### #### 
--- #### #### #### ####
--- ####     8     #### 
--- #### #### #### #### 
-
-CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_drop_mviews_marketing_customer_details()
-    RETURNS VOID
-    LANGUAGE plpgsql
-    AS $vdm1_reset_drop_materialized_views_marketing_customer_details$
-
-    BEGIN
-
-        -- #### #### #### #### #### #### #### #### 
-
-            DROP MATERIALIZED VIEW vdm1_data.customer_details;
-
-            -- DROP MATERIALIZED VIEW vdm1_data.film_details;
-
-            -- DROP MATERIALIZED VIEW vdm1_data.location_details;
-
-            -- DROP MATERIALIZED VIEW vdm1_data.store_details;
-
-
-        -- #### #### #### #### #### #### #### #### 
-
-
-
-
-
-        -- #### #### #### #### #### #### #### #### 
-
-    END;
-
-$vdm1_reset_drop_materialized_views_marketing_customer_details$;
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####     9     #### 
--- #### #### #### #### 
-
-CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_drop_mviews_marketing_film_details()
-    RETURNS VOID
-    LANGUAGE plpgsql
-    AS $vdm1_reset_drop_materialized_views_marketing_film_details$
-
-    BEGIN
-
-        -- #### #### #### #### #### #### #### #### 
-
-            -- DROP MATERIALIZED VIEW vdm1_data.customer_details;
-
-            DROP MATERIALIZED VIEW vdm1_data.film_details;
-
-            -- DROP MATERIALIZED VIEW vdm1_data.location_details;
-
-            -- DROP MATERIALIZED VIEW vdm1_data.store_details;
-
-
-        -- #### #### #### #### #### #### #### #### 
-
-
-
-
-
-        -- #### #### #### #### #### #### #### #### 
-
-    END;
-
-$vdm1_reset_drop_materialized_views_marketing_film_details$;
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####    10     #### 
--- #### #### #### #### 
-
-CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_drop_mviews_marketing_location_details()
-    RETURNS VOID
-    LANGUAGE plpgsql
-    AS $vdm1_reset_drop_materialized_views_marketing_location_details$
-
-    BEGIN
-
-        -- #### #### #### #### #### #### #### #### 
-
-            -- DROP MATERIALIZED VIEW vdm1_data.customer_details;
-
-            -- DROP MATERIALIZED VIEW vdm1_data.film_details;
-
-            DROP MATERIALIZED VIEW vdm1_data.location_details;
-
-            -- DROP MATERIALIZED VIEW vdm1_data.store_details;
-
-
-        -- #### #### #### #### #### #### #### #### 
-
-
-
-
-
-        -- #### #### #### #### #### #### #### #### 
-
-    END;
-
-$vdm1_reset_drop_materialized_views_marketing_location_details$;
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####    11     #### 
--- #### #### #### #### 
-
-CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_drop_mviews_marketing_store_details()
-    RETURNS VOID
-    LANGUAGE plpgsql
-    AS $vdm1_reset_drop_materialized_views_marketing_store_details$
-
-    BEGIN
-
-        -- #### #### #### #### #### #### #### #### 
-
-            -- DROP MATERIALIZED VIEW vdm1_data.customer_details;
-
-            -- DROP MATERIALIZED VIEW vdm1_data.film_details;
-
-            -- DROP MATERIALIZED VIEW vdm1_data.location_details;
-
-            DROP MATERIALIZED VIEW vdm1_data.store_details;
-
-
-        -- #### #### #### #### #### #### #### #### 
-
-
-
-
-
-        -- #### #### #### #### #### #### #### #### 
-
-    END;
-
-$vdm1_reset_drop_materialized_views_marketing_store_details$;
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####    12     #### 
--- #### #### #### #### 
-
-CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_refresh_mview_all_marketing()
-    RETURNS VOID
-    LANGUAGE plpgsql
-    AS $vdm1_reset_refresh_materialized_views_all_marketing$
-
-    BEGIN
-
-        -- #### #### #### #### #### #### #### #### 
-
-		REFRESH MATERIALIZED VIEW marketing.customer_details;  
-
-		REFRESH MATERIALIZED VIEW marketing.film_details;  
-
-		REFRESH MATERIALIZED VIEW marketing.location_details;  
-
-		REFRESH MATERIALIZED VIEW marketing.store_details;    
-
-		-- REFRESH MATERIALIZED VIEW marketing.category;  
-
-		-- REFRESH MATERIALIZED VIEW marketing.city;  
-
-		-- REFRESH MATERIALIZED VIEW marketing.country;   
-
-		-- REFRESH MATERIALIZED VIEW marketing.language;  
-    
-        -- #### #### #### #### #### #### #### #### 
-
-    END;
-$vdm1_reset_refresh_materialized_views_all_marketing$;
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####    13     #### 
--- #### #### #### #### 
-
-CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_refresh_mview_marketing_customer_details()
-    RETURNS VOID
-    LANGUAGE plpgsql
-    AS $vdm1_reset_refresh_materialized_views_marketing_customer_details$
-
-    BEGIN
-
-        -- #### #### #### #### #### #### #### #### 
-
-		REFRESH MATERIALIZED VIEW marketing.customer_details;  
-
-		-- REFRESH MATERIALIZED VIEW marketing.film_details;  
-
-		-- REFRESH MATERIALIZED VIEW marketing.location_details;  
-
-		-- REFRESH MATERIALIZED VIEW marketing.store_details;    
-
-		-- REFRESH MATERIALIZED VIEW marketing.category;  
-
-		-- REFRESH MATERIALIZED VIEW marketing.city;  
-
-		-- REFRESH MATERIALIZED VIEW marketing.country;   
-
-		-- REFRESH MATERIALIZED VIEW marketing.language;  
-    
-        -- #### #### #### #### #### #### #### #### 
-
-    END;
-$vdm1_reset_refresh_materialized_views_marketing_customer_details$;
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####    14     #### 
--- #### #### #### #### 
-
-CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_refresh_mview_marketing_film_details()
-    RETURNS VOID
-    LANGUAGE plpgsql
-    AS $vdm1_reset_refresh_materialized_views_marketing_film_details$
-
-    BEGIN
-
-        -- #### #### #### #### #### #### #### #### 
-
-		-- REFRESH MATERIALIZED VIEW marketing.customer_details;  
-
-		REFRESH MATERIALIZED VIEW marketing.film_details;  
-
-		-- REFRESH MATERIALIZED VIEW marketing.location_details;  
-
-		-- REFRESH MATERIALIZED VIEW marketing.store_details;    
-
-		-- REFRESH MATERIALIZED VIEW marketing.category;  
-
-		-- REFRESH MATERIALIZED VIEW marketing.city;  
-
-		-- REFRESH MATERIALIZED VIEW marketing.country;   
-
-		-- REFRESH MATERIALIZED VIEW marketing.language;  
-    
-        -- #### #### #### #### #### #### #### #### 
-
-    END;
-$vdm1_reset_refresh_materialized_views_marketing_film_details$;
+$vdm1_stage5_drop_materialized_view$;
 
 
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    15     #### 
+-- ####    6     #### 
 -- #### #### #### #### 
 
-CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_refresh_mview_marketing_location_details()
-    RETURNS VOID
-    LANGUAGE plpgsql
-    AS $vdm1_reset_refresh_materialized_views_marketing_location_details$
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_referesh_materialized_view(
+      p_tablename VARCHAR
+)
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_reset_refresh_materialized_view$
 
-    BEGIN
+    DECLARE 
 
-        -- #### #### #### #### #### #### #### #### 
+        table_name VARCHAR;
 
-		-- REFRESH MATERIALIZED VIEW marketing.customer_details;  
+	BEGIN 
 
-		-- REFRESH MATERIALIZED VIEW marketing.film_details;  
+        table_name := $1;
 
-		REFRESH MATERIALIZED VIEW marketing.location_details;  
-
-		-- REFRESH MATERIALIZED VIEW marketing.store_details;    
-
-		-- REFRESH MATERIALIZED VIEW marketing.category;  
-
-		-- REFRESH MATERIALIZED VIEW marketing.city;  
-
-		-- REFRESH MATERIALIZED VIEW marketing.country;   
-
-		-- REFRESH MATERIALIZED VIEW marketing.language;  
-    
-        -- #### #### #### #### #### #### #### #### 
-
-    END;
-$vdm1_reset_refresh_materialized_views_marketing_location_details$;
-
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####    16     #### 
--- #### #### #### #### 
-
-CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_refresh_mview_marketing_store_details()
-    RETURNS VOID
-    LANGUAGE plpgsql
-    AS $vdm1_reset_refresh_materialized_views_marketing_store_details$
-
-    BEGIN
-
-        -- #### #### #### #### #### #### #### #### 
-
-		-- REFRESH MATERIALIZED VIEW marketing.customer_details;  
-
-		-- REFRESH MATERIALIZED VIEW marketing.film_details;  
-
-		-- REFRESH MATERIALIZED VIEW marketing.location_details;  
-
-		REFRESH MATERIALIZED VIEW marketing.store_details;    
-
-		-- REFRESH MATERIALIZED VIEW marketing.category;  
-
-		-- REFRESH MATERIALIZED VIEW marketing.city;  
-
-		-- REFRESH MATERIALIZED VIEW marketing.country;   
-
-		-- REFRESH MATERIALIZED VIEW marketing.language;  
-    
-        -- #### #### #### #### #### #### #### #### 
-
-    END;
-$vdm1_reset_refresh_materialized_views_marketing_store_details$;
+			EXECUTE 
+            ' REFRESH MATERIALIZED VIEW marketing.' || table_name;
+	END;
+$vdm1_reset_refresh_materialized_view$;
 
 -- #### #### #### #### #### #### #### #### 
 
