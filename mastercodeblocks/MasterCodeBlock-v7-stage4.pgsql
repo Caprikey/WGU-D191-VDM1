@@ -1,8 +1,9 @@
--- MASTER CODE BLOCK - STAGE 4
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### ####    STAGE 4 BEGIN    #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
--- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+-- #TODO STAGE 4 BEGIN
+
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
@@ -29,37 +30,34 @@
 
 --             FUNCTIONS
 
---                  1. vdm1_etl.f_vdm1_stage4_transform_customer_full_name();
---                  2. vdm1_etl.f_vdm1_stage4_transform_customer_phone_number();
---                  3. vdm1_etl.f_vdm1_stage4_transform_film_length();
---                  4. vdm1_etl.f_vdm1_stage4_calc_update_category_popularity_count()
---                  5. vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_count()
---                  6. vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_row_number()
---                  7. vdm1_etl.f_vdm1_stage4_calc_update_film_category_popularity_row_number()
---                  8. vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_count()
---                  9. vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_flag_inspection()
---                 10. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_count_null_corrections()
---                 11. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_historical_count()
---                 12. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_average_count()
---                 13. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_halfaverage_count()
---                 14. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_historical()
---                 15. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_average()
---                 16. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_halfaverage()
---                 17. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_custom_set_default()
---                 18. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_set_custom_order()
---                 19. vdm1_etl.f_vdm1_stage4_calc_update_customer_watch_history_row_number()
---                 20. vdm1_etl.f_vdm1_stage4_calc_insert_failed_returns_v2()
---                 21. vdm1_etl.f_vdm1_stage4_calc_insert_new_releases_v2()
---                 22. vdm1_etl.f_vdm1_stage4_calc_delete_cx_history_from_cx_filmcat
---                 23. vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_nonspecific()
---                 24. vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_nonspecific_rn()
---                 25. vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_specific_default();
---                 26. vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_specific_rn();
---                 27. vdm1_etl.f_vdm1_stage4_transform_customer_full_name(p_first_name VARCHAR, p_last_name VARCHAR)
---                 28. vdm1_etl.f_vdm1_stage4_transform_filmlength_int2vchar(p_length INTEGER)
---                 29. vdm1_etl.f_vdm1_stage4_calc_expected_return_date(p_film_id INT, p_rental_date DATE)
---                 30. vdm1_etl.f_vdm1_stage4_transform_customer_phone_e164(p_phone VARCHAR);
---                 31. vdm1_etl.f_vdm1_stage4_cleanup()
+--                  1. vdm1_etl.f_vdm1_stage4_calc_update_category_popularity_count()
+--                  2. vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_count()
+--                  3. vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_row_number()
+--                  4. vdm1_etl.f_vdm1_stage4_calc_update_film_category_popularity_row_number()
+--                  5. vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_count()
+--                  6. vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_flag_inspection()
+--                  7. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_count_null_corrections()
+--                  8. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_historical_count()
+--                  9. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_average_count()
+--                 10. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_halfaverage_count()
+--                 11. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_historical()
+--                 12. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_average()
+--                 13. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_halfaverage()
+--                 14. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_custom_set_default()
+--                 15. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_set_custom_order()
+--                 16. vdm1_etl.f_vdm1_stage4_calc_update_customer_watch_history_row_number()
+--                 17. vdm1_etl.f_vdm1_stage4_calc_insert_failed_returns_v2()
+--                 18. vdm1_etl.f_vdm1_stage4_calc_insert_new_releases_v2()
+--                 19. vdm1_etl.f_vdm1_stage4_calc_delete_cx_history_from_cx_filmcat
+--                 20. vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_nonspecific()
+--                 21. vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_nonspecific_rn()
+--                 22. vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_specific_default();
+--                 23. vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_specific_rn();
+--                 24. vdm1_etl.f_vdm1_stage4_transform_customer_full_name(p_first_name VARCHAR, p_last_name VARCHAR)
+--                 25. vdm1_etl.f_vdm1_stage4_transform_filmlength_int2vchar(p_length INTEGER)
+--                 26. vdm1_etl.f_vdm1_stage4_calc_expected_return_date(p_film_id INT, p_rental_date DATE)
+--                 27. vdm1_etl.f_vdm1_stage4_transform_customer_phone_e164();
+--                 28. vdm1_etl.f_vdm1_stage4_cleanup()
 
 
 --     #### #### #### ####
@@ -70,12 +68,6 @@
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
-
-
--- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
--- #### #### #### #### #### #### #### #### #### #### #### #### #### ####    STAGE 4 BEGIN    #### #### #### #### #### #### #### #### #### #### #### #### #### ####
--- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
--- #TODO STAGE 4 BEGIN
 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
@@ -103,6 +95,15 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4()
         PERFORM vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_count();
 
 		PERFORM vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_count();
+
+		-- PERFORM vdm1_etl.f_vdm1_stage4_create_transform_function();
+
+		-- PERFORM vdm1_etl.f_vdm1_stage4_transform_customer_full_name();
+
+		-- PERFORM vdm1_etl.f_vdm1_stage4_transform_customer_phone_number();
+
+		-- PERFORM vdm1_etl.f_vdm1_stage4_transform_film_length();
+        
 
         -- #### #### #### #### 
 
@@ -204,6 +205,14 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4a()
 		PERFORM vdm1_etl.f_vdm1_stage4_calc_insert_failed_returns_v2();
 
 		PERFORM vdm1_etl.f_vdm1_stage4_calc_insert_new_releases_v2();
+
+		-- PERFORM vdm1_etl.f_vdm1_stage4_create_transform_function();
+
+		PERFORM vdm1_etl.f_vdm1_stage4_transform_customer_full_name();
+
+		PERFORM vdm1_etl.f_vdm1_stage4_transform_customer_phone_number();
+
+		PERFORM vdm1_etl.f_vdm1_stage4_transform_film_length();
         
 
 	END;
@@ -271,6 +280,7 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4c()
     END;
 $vdm1_stage4c_run$;
 
+
 -- #### #### #### #### #### #### #### #### #### #### #### #### 
 
 CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4c1()
@@ -281,6 +291,7 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4c1()
 	BEGIN 
         
         -- #### #### #### #### 
+
 
 		PERFORM vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_nonspecific();
 
@@ -304,7 +315,7 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4c1a()
 
 
 		PERFORM vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_nonspecific();
-
+        
         -- #### #### #### #### 
 
     END;
@@ -405,7 +416,6 @@ $vdm1_stage4c3_run$;
 
 -- #### #### #### #### #### #### #### #### 
 
-
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 --                      #### #### #### #### #### #### #### #### 
@@ -418,34 +428,37 @@ $vdm1_stage4c3_run$;
 
 -- TABLE OF CONTENTS
 
---      1. vdm1_etl.f_vdm1_stage4_calc_update_category_popularity_count()
---      2. vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_count()
---      3. vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_row_number()
---      4. vdm1_etl.f_vdm1_stage4_calc_update_film_category_popularity_row_number()
---      5. vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_count()
---      6. vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_flag_inspection()
---      7. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_count_null_corrections()
---      8. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_historical_count()
---      9. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_average_count()
---     10. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_halfaverage_count()
---     11. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_historical()
---     12. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_average()
---     13. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_halfaverage()
---     14. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_custom_set_default()
---     15. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_set_custom_order()
---     16. vdm1_etl.f_vdm1_stage4_calc_update_customer_watch_history_row_number()
---     17. vdm1_etl.f_vdm1_stage4_calc_insert_failed_returns_v2()
---     18. vdm1_etl.f_vdm1_stage4_calc_insert_new_releases_v2()
---     19. vdm1_etl.f_vdm1_stage4_calc_delete_cx_history_from_cx_filmcat
---     20. vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_nonspecific()
---     21. vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_nonspecific_rn()
---     22. vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_specific_default();
---     23. vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_specific_rn();
---     24. vdm1_etl.f_vdm1_stage4_transform_customer_full_name(p_first_name VARCHAR, p_last_name VARCHAR)
---     25. vdm1_etl.f_vdm1_stage4_transform_filmlength_int2vchar(p_length INTEGER)
---     26. vdm1_etl.f_vdm1_stage4_calc_expected_return_date(p_film_id INT, p_rental_date DATE)
---     27. vdm1_etl.f_vdm1_stage4_transform_customer_phone_e164();
---     28. vdm1_etl.f_vdm1_stage4_cleanup()
+--      1. vdm1_etl.f_vdm1_stage4_transform_customer_full_name();
+--      2. vdm1_etl.f_vdm1_stage4_transform_customer_phone_number();
+--      3. vdm1_etl.f_vdm1_stage4_transform_film_length();
+--      4. vdm1_etl.f_vdm1_stage4_calc_update_category_popularity_count()
+--      5. vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_count()
+--      6. vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_row_number()
+--      7. vdm1_etl.f_vdm1_stage4_calc_update_film_category_popularity_row_number()
+--      8. vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_count()
+--      9. vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_flag_inspection()
+--     10. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_count_null_corrections()
+--     11. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_historical_count()
+--     12. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_average_count()
+--     13. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_halfaverage_count()
+--     14. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_historical()
+--     15. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_average()
+--     16. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_halfaverage()
+--     17. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_custom_set_default()
+--     18. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_set_custom_order()
+--     19. vdm1_etl.f_vdm1_stage4_calc_update_customer_watch_history_row_number()
+--     20. vdm1_etl.f_vdm1_stage4_calc_insert_failed_returns_v2()
+--     21. vdm1_etl.f_vdm1_stage4_calc_insert_new_releases_v2()
+--     22. vdm1_etl.f_vdm1_stage4_calc_delete_cx_history_from_cx_filmcat
+--     23. vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_nonspecific()
+--     24. vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_nonspecific_rn()
+--     25. vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_specific_default();
+--     26. vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_specific_rn();
+--     27. vdm1_etl.f_vdm1_stage4_transform_customer_full_name(p_first_name VARCHAR, p_last_name VARCHAR)
+--     28. vdm1_etl.f_vdm1_stage4_transform_filmlength_int2vchar(p_length INTEGER)
+--     29. vdm1_etl.f_vdm1_stage4_calc_expected_return_date(p_film_id INT, p_rental_date DATE)
+--     30. vdm1_etl.f_vdm1_stage4_transform_customer_phone_e164(p_phone VARCHAR);
+--     31. vdm1_etl.f_vdm1_stage4_cleanup()
 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
@@ -454,6 +467,109 @@ $vdm1_stage4c3_run$;
 -- #### #### #### ####
 -- ####     1     #### 
 -- #### #### #### #### 
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_transform_customer_full_name()
+	RETURNS VOID 
+	LANGUAGE plpgsql
+	AS $vdm1_stage4_transform_update_customer_full_name$
+
+	BEGIN
+
+			WITH get_customer_details AS (
+			SELECT 
+				  customer_id
+				, first_name
+				, last_name
+			FROM 
+				staging.vdm1_stage4_customers
+		)
+
+	UPDATE staging.vdm1_stage4_customers AS a
+
+	SET customer_full_name = vdm1_data.f_transform_customer_full_name(b.first_name :: VARCHAR, b.last_name :: VARCHAR)
+
+	FROM get_customer_details AS b
+
+	WHERE
+		a.customer_id = b.customer_id;
+
+	END;
+$vdm1_stage4_transform_update_customer_full_name$;
+
+-- #### #### #### #### #### #### #### #### 
+
+-- #### #### #### ####
+-- ####     2     #### 
+-- #### #### #### #### 
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_transform_customer_phone_number()
+	RETURNS VOID 
+	LANGUAGE plpgsql
+	AS $vdm1_stage4_transform_update_customer_phone_number$
+
+	BEGIN
+
+			WITH get_customer_details AS (
+			SELECT 
+				  customer_id
+				, phone
+			FROM 
+				staging.vdm1_stage4_customers
+		)
+
+	UPDATE staging.vdm1_stage4_customers AS a
+
+	SET phone = vdm1_data.f_transform_customer_phone_e164(b.phone)
+
+	FROM get_customer_details AS b
+
+	WHERE
+		a.customer_id = b.customer_id;
+
+	END;
+$vdm1_stage4_transform_update_customer_phone_number$;
+
+-- #### #### #### #### #### #### #### #### 
+
+
+-- #### #### #### ####
+-- ####     3     #### 
+-- #### #### #### #### 
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_transform_film_length()
+	RETURNS VOID 
+	LANGUAGE plpgsql
+	AS $vdm1_stage4_transform_update_film_length$
+
+	BEGIN
+
+			WITH get_film_details AS (
+			SELECT 
+				  film_id
+				, length
+			FROM 
+				staging.vdm1_stage4_films
+		)
+
+	UPDATE staging.vdm1_stage4_films AS a
+
+	SET length = vdm1_data.f_transform_filmlength_int2vchar(b.length :: INTEGER)
+
+	FROM get_film_details AS b
+
+	WHERE
+		a.film_id = b.film_id;
+
+	END;
+$vdm1_stage4_transform_update_film_length$;
+
+-- #### #### #### #### #### #### #### ####  
+
+
+-- #### #### #### ####
+-- ####     4     #### 
+-- #### #### #### #### 
+
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_category_popularity_count()
 	RETURNS VOID
@@ -487,7 +603,7 @@ $vdm1_stage4_calc_update_category_popularity_count$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####     2     #### 
+-- ####     5     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_count()
@@ -523,7 +639,7 @@ $vdm1_stage4_calc_update_film_popularity_count$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####     3     #### 
+-- ####     6     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_row_number()
@@ -559,7 +675,7 @@ $vdm1_stage4_calc_update_film_popularity_row_number$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####     4     #### 
+-- ####     7     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_film_category_popularity_row_number()
@@ -596,7 +712,7 @@ $vdm1_stage4_calc_update_film_category_popularity_row_number$;
 
 
 -- #### #### #### ####
--- ####     5     #### 
+-- ####     8     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_count()
@@ -634,7 +750,7 @@ $vdm1_stage4_calc_update_film_inventory_count$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####     6     #### 
+-- ####     9     #### 
 -- #### #### #### #### 
  
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_flag_inspection()
@@ -663,7 +779,7 @@ $vdm1_stage4_calcupdate_film_inventory_flag_inspection$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####     7     #### 
+-- ####    10     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_cuscat_count_null_corrections()
@@ -692,7 +808,7 @@ $vdm1_stage4_calc_update_customer_category_count_null_correction$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####     8     #### 
+-- ####    11     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_cuscat_historical_count()
@@ -731,7 +847,7 @@ $vdm1_stage4_calc_update_customer_category_historical_count$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####     9     #### 
+-- ####    12     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_cuscat_average_count()
@@ -772,7 +888,7 @@ $vdm1_stage4_calc_update_customer_category_average_count$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    10     #### 
+-- ####    13     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_cuscat_halfaverage_count()
@@ -813,7 +929,7 @@ $vdm1_stage4_calc_update_customer_category_halfaverage_count$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    11     #### 
+-- ####    14     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_historical()
@@ -851,7 +967,7 @@ $vdm1_stage4_calc_update_customer_category_rec_order_historical$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    12     #### 
+-- ####    15     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_average()
@@ -889,7 +1005,7 @@ $vdm1_stage4_calc_update_customer_category_rec_order_average$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    13     #### 
+-- ####    16     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_halfaverage()
@@ -926,7 +1042,7 @@ $vdm1_stage4_calc_update_customer_category_rec_order_halfaverage$;
 -- #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
--- ####    14     #### 
+-- ####    17     #### 
 -- #### #### #### ####
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_custom_set_default()
@@ -954,7 +1070,7 @@ $vdm1_stage4_calc_update_customer_category_recommendation_order_user_custom_set_
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    15     #### 
+-- ####    18     #### 
 -- #### #### #### ####
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_set_custom_order()
@@ -993,7 +1109,7 @@ $vdm1_stage4_calc_update_customer_category_recommendation_order_user_set_custom_
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    16     #### 
+-- ####    19     #### 
 -- #### #### #### ####
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_customer_watch_history_row_number()
@@ -1038,7 +1154,7 @@ $vdm1_stage4_calc_update_cx_wh_rn$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    17     #### 
+-- ####    20     #### 
 -- #### #### #### ####
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_insert_failed_returns_v2()
@@ -1067,8 +1183,8 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_insert_failed_returns_v2(
 			, inventory_id
 			, store_id
 			, rental_date
-			, vdm1_etl.f_vdm1_stage4_calc_expected_return_date(a.film_id::int, rental_date::DATE) as expected_return_date
-            , (SELECT AGE('2007-01-01', vdm1_etl.f_vdm1_stage4_calc_expected_return_date(a.film_id::int, rental_date::DATE))) as age
+			, vdm1_data.f_calc_expected_return_date(a.film_id::int, rental_date::DATE) as expected_return_date
+            , (SELECT AGE('2007-01-01', vdm1_data.f_calc_expected_return_date(a.film_id::int, rental_date::DATE))) as age
 		FROM staging.vdm1_stage4_rentals a
 			INNER JOIN staging.vdm1_stage4_customers b
 				ON b.customer_id = a.customer_id
@@ -1083,7 +1199,7 @@ $vdm1_stage4_calc_insert_failed_returns$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    18     #### 
+-- ####    21     #### 
 -- #### #### #### ####
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_insert_new_releases_v2()
@@ -1110,7 +1226,7 @@ $vdm1_stage4_calc_insert_new_releases$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    19     #### 
+-- ####    22     #### 
 -- #### #### #### ####
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_delete_cx_history_from_cx_filmcat()
@@ -1147,7 +1263,7 @@ $vdm1_stage4_calc_delete_customer_film_category$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    20     #### 
+-- ####    23     #### 
 -- #### #### #### ####
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_nonspecific()
@@ -1204,7 +1320,7 @@ $vdm1_stage4_calc_insert_customer_reclist_master_nonspecific$;
 
 
 -- #### #### #### ####
--- ####    21     #### 
+-- ####    24     #### 
 -- #### #### #### ####
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_nonspecific_rn()
@@ -1258,7 +1374,7 @@ $vdm1_stage4_calc_update_customer_reclist_master_nonspecific_row_number$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    22     #### 
+-- ####    25     #### 
 -- #### #### #### ####
 
 
@@ -1332,7 +1448,7 @@ $vdm1_stage4_calc_insert_customer_reclist_master_specific_default$;
 
 
 -- #### #### #### ####
--- ####    23     #### 
+-- ####    26     #### 
 -- #### #### #### ####
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_specific_rn()
@@ -1386,206 +1502,8 @@ $vdm1_stage4_calc_update_customer_reclist_master_specific_row_number$;
 -- #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    24    #### 
--- #### #### #### ####
-
-
-CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_transform_customer_full_name(
-		p_first_name VARCHAR,
-		p_last_name VARCHAR)
-	RETURNS VARCHAR
-	LANGUAGE plpgsql
-	AS $vdm1_stage4_transform_customer_full_name$
-	
-	DECLARE
-		
-		vi_first_name VARCHAR;
-		vi_last_name VARCHAR;
-		
-		vo_full_name VARCHAR;
-		
-		-- bicapitalization_list varchar[]; 
-		bicapitalization_list_2l varchar[]; 
-		bicapitalization_list_3l varchar[]; 
-		bicapitalization_list_4l varchar[]; 
-
-	BEGIN
-		
-		vi_first_name := $1;
-		vi_last_name := $2;
-		
-		-- bicapitalization_list := array['mc', 'le', 'la', 'o''', 'da', 'de' ];
-		bicapitalization_list_2l := array['mc', 'o'''];
-		bicapitalization_list_3l := array['mac'];
-		bicapitalization_list_4l := array['von ', 'fitz'];
-
-		
-		CASE 
-			-- WHEN (LOWER(LEFT($2,4)) = 'von ') THEN
-			--	vi_last_name := (UPPER(LEFT($2,1))) || (LOWER(SUBSTRING($2,2,2))) || ' ' || (UPPER(SUBSTRING($2,5,1))) || (LOWER(SUBSTRING($2,5,length($2))));			
-			-- WHEN (LOWER(LEFT($2,4)) = 'fitz') THEN
-			--	vi_last_name := (UPPER(LEFT($2,1))) || (LOWER(SUBSTRING($2,2,3))) || (UPPER(SUBSTRING($2,4,1))) || (LOWER(SUBSTRING($2,5,length($2))));
-			-- WHEN (LOWER(LEFT($2,3)) = 'mac') THEN
-			--	vi_last_name := (UPPER(LEFT($2,1))) || (LOWER(SUBSTRING($2,2,2))) || (UPPER(SUBSTRING($2,3,1))) || (LOWER(SUBSTRING($2,4,length($2))));
-				
-			WHEN (LOWER(LEFT($2,4)) = ANY(bicapitalization_list_4l)) THEN
-				vi_last_name := (UPPER(LEFT($2,1))) || (LOWER(SUBSTRING($2,2,3))) || (UPPER(SUBSTRING($2,4,1))) || (LOWER(SUBSTRING($2,5,length($2))));
-			WHEN (LOWER(LEFT($2,3)) = ANY(bicapitalization_list_3l)) THEN
-				vi_last_name := (UPPER(LEFT($2,1))) || (LOWER(SUBSTRING($2,2,2))) || (UPPER(SUBSTRING($2,4,1))) || (LOWER(SUBSTRING($2,5,length($2))));
-			WHEN (LOWER(LEFT($2,2)) = ANY(bicapitalization_list_2l)) THEN 
-				vi_last_name := (UPPER(LEFT($2,1))) || (LOWER(SUBSTRING($2,2,1))) || (UPPER(SUBSTRING($2,3,1))) || (LOWER(SUBSTRING($2,4,length($2))));
-			ELSE 
-				vi_last_name := $2;
-		END CASE;
-
-		SELECT 
-			CONCAT_WS( 
-				' ',
-				vi_first_name, 
-				vi_last_name)
-		INTO vo_full_name;
-
-		RETURN vo_full_name;
-	END;
-$vdm1_stage4_transform_customer_full_name$;
-
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####    25     #### 
--- #### #### #### ####
-
-
-
-CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_transform_filmlength_int2vchar(
-	p_length INTEGER
-)
-	RETURNS VARCHAR
-	LANGUAGE plpgsql
-	AS $vdm1_stage4_filmlength_int2vchar$
-	
-	DECLARE
-		-- IN Variable
-		vi_len_int INTEGER;
-		-- OUT Variable
-		vo_len_varchar VARCHAR;
-	
-	BEGIN 
-		-- Clearing the variables
-		vo_len_varchar := '';
-		vi_len_int := 0;
-		-- Setting the variable to input integer
-		vi_len_int := $1;
-		
-		-- Mathing
-		CASE
-			WHEN ((vi_len_int / 60 > 0) AND (vi_len_int % 60) = 0) THEN 
-				vo_len_varchar := (
-					(vi_len_int / 60) || ' hrs'
-				);
-			WHEN (vi_len_int / 60 > 0) THEN 
-				vo_len_varchar := (
-					(vi_len_int / 60) || ' hrs ' || (vi_len_int % 60) || ' min'
-				);
-			ELSE
-				vo_len_varchar := (
-					(vi_len_int % 60) || ' min'
-				);
-		END CASE;
-			
-		RETURN vo_len_varchar;
-	
-	END;
-$vdm1_stage4_filmlength_int2vchar$;
-
--- #### #### #### #### #### #### #### #### 
-
--- #### #### #### ####
--- ####    26     #### 
--- #### #### #### ####
-
-
-CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_expected_return_date(
-		p_film_id INT,
-		p_rental_date DATE)
-	RETURNS DATE
-	LANGUAGE plpgsql
-	AS $vdm1_stage4_calc_expectedreturndate$
-	
-	DECLARE
-		
-		vi_film_id INTEGER;
-		vlu_rental_duration INTEGER;
-		vi_rental_date DATE;
-		
-		vo_expected_return_date DATE;
-	
-	BEGIN
-		
-		vi_film_id := $1;
-		vi_rental_date := $2;
-		
-			SELECT 
-				rental_duration INTO vlu_rental_duration
-			FROM staging.vdm1_stage4_films a
-			WHERE vi_film_id = a.film_id;
-
-			vo_expected_return_date := vi_rental_date + vlu_rental_duration;
-
-		RETURN vo_expected_return_date;
-	END;
-$vdm1_stage4_calc_expectedreturndate$;
-
--- #### #### #### #### #### #### #### #### 
-
-
--- #### #### #### ####
 -- ####    27     #### 
 -- #### #### #### ####
-
-
-CREATE OR REPLACE FUNCTION vdm1_data.f_vdm1_stage4_transform_customer_phone_e164(
-		p_phone VARCHAR)
-	RETURNS VARCHAR
-	LANGUAGE plpgsql
-	AS $vdm1_stage5_transform_customer_phone_e164$
-	
-	DECLARE
-		
-		vi_phone VARCHAR;
-		
-		vo_phone VARCHAR;
-
-    BEGIN 
-
-    	vi_phone := $1;
-
-SELECT
-	CONCAT_WS(
-          ' '
-        , '+'
-        , LEFT(vi_phone, (LENGTH(vi_phone)-10))
-		, SUBSTRING(vi_phone, (LENGTH(vi_phone)-10)+1, 2)
-		, SUBSTRING(vi_phone, ((LENGTH(vi_phone)-8)+1), 4)
-		, RIGHT(vi_phone,4)
-    )
-    INTO
-        vo_phone;
-
-    RETURN vo_phone;
-
-
-	END;
-$vdm1_stage5_transform_customer_phone_e164$;
-
--- #### #### #### #### #### #### #### #### 
-
-
--- #### #### #### ####
--- ####    28     #### 
--- #### #### #### ####
-
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_cleanup()
 	RETURNS VOID

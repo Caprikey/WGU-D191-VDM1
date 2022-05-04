@@ -1,3 +1,4 @@
+
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### ####       VDM1 RESET STAGE START       #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
@@ -19,12 +20,11 @@
 
 --              FUNCTIONS
 
---                  1. vdm1_etl.f_vdm1_reset_disable_triggers() 
---                  2. vdm1_etl.f_vdm1_reset_drop_triggers();
---             	    3. vdm1_etl.f_vdm1_reset_delete_table_vdm1_data(); 
---                  4. vdm1_etl.f_vdm1_reset_create_materialized_view();
---                  5. vdm1_etl.f_vdm1_reset_drop_materialized_view();
---                  6. vdm1_etl.f_vdm1_reset_referesh_materialized_view();
+--                  1. vdm1_etl.f_vdm1_reset_drop_triggers();
+--             	    2. vdm1_etl.f_vdm1_reset_delete_table_vdm1_data(); 
+--                  3. vdm1_etl.f_vdm1_reset_create_materialized_view();
+--                  4. vdm1_etl.f_vdm1_reset_drop_materialized_view();
+--                  5. vdm1_etl.f_vdm1_reset_referesh_materialized_view();
 
 
 --     #### #### #### ####
@@ -56,7 +56,7 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_reset()
 
 		-- #### #### #### #### #### #### #### #### 
 
-        PERFORM vdm1_etl.f_vdm1_reset_disable_triggers();
+		PERFORM vdm1_etl.f_vdm1_reset_disable_triggers();
 
 		PERFORM vdm1_etl.f_vdm1_reset_drop_triggers();
 
@@ -147,26 +147,26 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_reset_mview_setup()
         
 		-- #### #### #### #### #### #### #### #### 
 
-        PERFORM vdm1_etl.f_vdm1_reset_drop_materialized_view('customer_details');
+        PERFORM vdm1_etl.f_vdm1_reset_drop_materialized_view('dictkey_customer_details');
 
-        PERFORM vdm1_etl.f_vdm1_reset_create_materialized_view('customer_details');
+        PERFORM vdm1_etl.f_vdm1_reset_create_materialized_view('dictkey_customer_details');
 
-        PERFORM vdm1_etl.f_vdm1_reset_referesh_materialized_view('customer_details');
+        PERFORM vdm1_etl.f_vdm1_reset_referesh_materialized_view('dictkey_customer_details');
         
 		-- #### #### #### #### #### #### #### #### 
 
-        PERFORM vdm1_etl.f_vdm1_reset_drop_materialized_view('store_details');
+        PERFORM vdm1_etl.f_vdm1_reset_drop_materialized_view('dictkey_store_details');
 
-        PERFORM vdm1_etl.f_vdm1_reset_create_materialized_view('store_details');
+        PERFORM vdm1_etl.f_vdm1_reset_create_materialized_view('dictkey_store_details');
 
-        PERFORM vdm1_etl.f_vdm1_reset_referesh_materialized_view('store_details');
+        PERFORM vdm1_etl.f_vdm1_reset_referesh_materialized_view('dictkey_store_details');
         
  		-- #### #### #### #### #### #### #### #### 
-        PERFORM vdm1_etl.f_vdm1_reset_drop_materialized_view('film_details');
+        PERFORM vdm1_etl.f_vdm1_reset_drop_materialized_view('dictkey_film_details');
 
-        PERFORM vdm1_etl.f_vdm1_reset_create_materialized_view('film_details');
+        PERFORM vdm1_etl.f_vdm1_reset_create_materialized_view('dictkey_film_details');
 
-        PERFORM vdm1_etl.f_vdm1_reset_referesh_materialized_view('film_details');
+        PERFORM vdm1_etl.f_vdm1_reset_referesh_materialized_view('dictkey_film_details');
         
 
 		-- #### #### #### #### #### #### #### #### 
@@ -262,12 +262,11 @@ $vdm1_reset_materialized_view_recreation$;
 
 -- TABLE OF CONTENTS
 
---       1. vdm1_etl.f_vdm1_reset_disable_triggers() 
---       2. vdm1_etl.f_vdm1_reset_drop_triggers();
---  	 3. vdm1_etl.f_vdm1_reset_delete_table_vdm1_data(); 
---       4. vdm1_etl.f_vdm1_reset_create_materialized_view();
---       5. vdm1_etl.f_vdm1_reset_drop_materialized_view();
---       6. vdm1_etl.f_vdm1_reset_referesh_materialized_view();
+--       1. vdm1_etl.f_vdm1_reset_drop_triggers();
+--  	 2. vdm1_etl.f_vdm1_reset_delete_table_vdm1_data(); 
+--       3. vdm1_etl.f_vdm1_reset_create_materialized_view();
+--       4. vdm1_etl.f_vdm1_reset_drop_materialized_view();
+--       5. vdm1_etl.f_vdm1_reset_referesh_materialized_view();
 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
@@ -653,7 +652,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_referesh_materialized_view(
         table_name := $1;
 
 			EXECUTE 
-            ' REFERSH MATERIALIZED VIEW marketing.' || table_name;
+            ' REFRESH MATERIALIZED VIEW marketing.' || table_name;
 	END;
 $vdm1_reset_refresh_materialized_view$;
 

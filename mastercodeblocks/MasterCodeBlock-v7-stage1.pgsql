@@ -1,8 +1,9 @@
--- MASTER CODE BLOCK - STAGE 1
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### ####    STAGE 1 BEGIN    #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
--- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+-- #TODO STAGE 1 BEGIN
+
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
@@ -29,11 +30,6 @@
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
-
--- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
--- #### #### #### #### #### #### #### #### #### #### #### #### #### ####    STAGE 1 BEGIN    #### #### #### #### #### #### #### #### #### #### #### #### #### ####
--- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
--- #TODO STAGE 1 BEGIN
 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
@@ -154,6 +150,22 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage1()
         -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 
+		PERFORM vdm1_etl.f_calc_expected_return_date_container();
+
+
+		PERFORM vdm1_etl.f_transform_customer_full_name_container();
+
+
+		PERFORM vdm1_etl.f_transform_filmlength_int2vchar_container();
+
+
+		PERFORM vdm1_etl.f_transform_customer_phone_e164_container();
+
+
+        -- #### #### #### #### #### #### #### #### #### #### #### ####
+
+        -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
     END;
 $vdm1_stage1_run$;
 
@@ -172,8 +184,13 @@ $vdm1_stage1_run$;
 
 -- TABLE OF CONTENTS
 
---     1. vdm1_etl.f_vdm1_stage1_extractimport(tablename VARCHAR(30));
---     2. vdm1_etl.f_vdm1_stage1_data_validation_count_check(p_schema_one varchar, p_table_one varchar, p_schmea_two varchar, p_table_two varchar);
+--      1. vdm1_etl.f_vdm1_stage1_extractimport(tablename VARCHAR(30));
+--      2. vdm1_etl.f_vdm1_stage1_data_validation_count_check(p_schema_one varchar, p_table_one varchar, p_schmea_two varchar, p_table_two varchar);
+--      3. vdm1_data.f_vdm1_calc_expected_return_date(p_film_id INT, p_rental_date DATE)
+--      4. vdm1_data.f_vdm1_transform_customer_full_name(p_first_name VARCHAR, p_last_name VARCHAR)
+--      5. vdm1_data.f_vdm1_transform_filmlength_int2vchar(p_length INTEGER)
+--      6. vdm1_data.f_vdm1_transform_customer_phone_e164(p_phone VARCHAR)
+
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ###
 -- #TODO STAGE 1 - FUNCTIONS
@@ -292,6 +309,255 @@ $vdm1_stage1_data_validation_source_count_matches_destination_count$;
 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+
+-- #### #### #### ####
+-- ####     3     #### 
+-- #### #### #### #### 
+
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_calc_expected_return_date_container()
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_data_f_calc_expected_return_date_container$
+
+	BEGIN
+
+	EXECUTE
+	'
+		CREATE OR REPLACE FUNCTION vdm1_data.f_calc_expected_return_date(
+				p_film_id INT,
+				p_rental_date DATE)
+			RETURNS DATE
+			LANGUAGE plpgsql
+			AS $vdm1_f_calc_expected_return_date$
+			
+			DECLARE
+			
+				vi_film_id INTEGER;
+				vlu_rental_duration INTEGER;
+				vi_rental_date DATE;
+				
+				vo_expected_return_date DATE;
+			
+			BEGIN
+
+				vi_film_id := $1;
+				vi_rental_date := $2;
+				
+					
+				SELECT 
+					rental_duration INTO vlu_rental_duration
+				FROM 
+					staging.vdm1_stage4_films as A
+				WHERE 
+					vi_film_id = a.film_id;
+
+				vo_expected_return_date := vi_rental_date + vlu_rental_duration;
+
+				RETURN vo_expected_return_date;
+			END;
+		$vdm1_f_calc_expected_return_date$;
+	';
+	END;
+$vdm1_data_f_calc_expected_return_date_container$;
+
+
+-- #### #### #### #### #### #### #### #### 
+
+
+-- #### #### #### ####
+-- ####     4     #### 
+-- #### #### #### #### 
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_transform_customer_full_name_container()
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_data_f_transform_customer_full_name_container$
+
+	BEGIN
+	
+	EXECUTE
+	'
+		CREATE OR REPLACE FUNCTION vdm1_data.f_transform_customer_full_name(
+				p_first_name VARCHAR,
+				p_last_name VARCHAR)
+			RETURNS VARCHAR
+			LANGUAGE plpgsql
+			AS $vdm1_f_transform_customer_full_name$
+			
+			DECLARE
+				
+				vi_first_name VARCHAR;
+				vi_last_name VARCHAR;
+				
+				vo_full_name VARCHAR;
+				
+				-- bicapitalization_list varchar[]; 
+				bicapitalization_list_2l varchar[]; 
+				bicapitalization_list_3l varchar[]; 
+				bicapitalization_list_4l varchar[]; 
+
+			BEGIN
+				
+				vi_first_name := $1;
+				vi_last_name := $2;
+				
+				-- bicapitalization_list := array[''mc'', ''le'', ''la'', ''o'''''', ''da'', ''de'' ];
+				bicapitalization_list_2l := array[''mc'', ''o''];
+				bicapitalization_list_3l := array[''mac''];
+				bicapitalization_list_4l := array[''von '', ''fitz''];
+
+				
+				CASE 
+						
+					WHEN (LOWER(LEFT($2,4)) = ANY(bicapitalization_list_4l)) THEN
+						vi_last_name := (UPPER(LEFT($2,1))) || (LOWER(SUBSTRING($2,2,3))) || (UPPER(SUBSTRING($2,4,1))) || (LOWER(SUBSTRING($2,5,length($2))));
+					WHEN (LOWER(LEFT($2,3)) = ANY(bicapitalization_list_3l)) THEN
+						vi_last_name := (UPPER(LEFT($2,1))) || (LOWER(SUBSTRING($2,2,2))) || (UPPER(SUBSTRING($2,4,1))) || (LOWER(SUBSTRING($2,5,length($2))));
+					WHEN (LOWER(LEFT($2,2)) = ANY(bicapitalization_list_2l)) THEN 
+						vi_last_name := (UPPER(LEFT($2,1))) || (LOWER(SUBSTRING($2,2,1))) || (UPPER(SUBSTRING($2,3,1))) || (LOWER(SUBSTRING($2,4,length($2))));
+					ELSE 
+						vi_last_name := $2;
+				END CASE;
+
+				SELECT 
+					CONCAT_WS( 
+						'' '',
+						vi_first_name, 
+						vi_last_name)
+				INTO vo_full_name;
+
+				RETURN vo_full_name;
+			END;
+		$vdm1_f_transform_customer_full_name$;
+	';
+	END;
+$vdm1_data_f_transform_customer_full_name_container$;
+
+
+-- #### #### #### #### #### #### #### #### 
+
+-- #### #### #### ####
+-- ####     5     #### 
+-- #### #### #### #### 
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_transform_filmlength_int2vchar_container()
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_data_f_transform_filmlength_int2vchar_container$
+
+	BEGIN
+	
+	EXECUTE
+	'
+		CREATE OR REPLACE FUNCTION vdm1_data.f_transform_filmlength_int2vchar(
+			p_length INTEGER
+		)
+			RETURNS VARCHAR
+			LANGUAGE plpgsql
+			AS $vdm1_f_transform_filmlength_int2vchar$
+			
+			DECLARE
+				-- IN Variable
+				vi_len_int INTEGER;
+				-- OUT Variable
+				vo_len_varchar VARCHAR;
+			
+			BEGIN 
+				-- Clearing the variables
+				vo_len_varchar := '''';
+				vi_len_int := 0;
+				-- Setting the variable to input integer
+				vi_len_int := $1;
+				
+				-- Mathing
+				CASE
+					WHEN ((vi_len_int / 60 > 0) AND (vi_len_int % 60) = 0) THEN 
+						vo_len_varchar := (
+							(vi_len_int / 60) || '' hrs''
+						);
+					WHEN (vi_len_int / 60 > 0) THEN 
+						vo_len_varchar := (
+							(vi_len_int / 60) || '' hrs '' || (vi_len_int % 60) || '' min''
+						);
+					ELSE
+						vo_len_varchar := (
+							(vi_len_int % 60) || '' min''
+						);
+				END CASE;
+					
+				RETURN vo_len_varchar;
+			
+			END;
+		$vdm1_f_transform_filmlength_int2vchar$;
+	';
+	END;
+$vdm1_data_f_transform_filmlength_int2vchar_container$;
+
+
+-- #### #### #### #### #### #### #### #### 
+
+-- #### #### #### ####
+-- ####     6     #### 
+-- #### #### #### #### 
+
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_transform_customer_phone_e164_container()
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_data_f_transform_customer_phone_e164_container$
+
+	BEGIN
+	
+	EXECUTE
+	'
+
+		CREATE OR REPLACE FUNCTION vdm1_data.f_transform_customer_phone_e164(
+				p_phone VARCHAR)
+			RETURNS VARCHAR
+			LANGUAGE plpgsql
+			AS $vdm1_f_transform_customer_phone_e164$
+			
+			DECLARE
+				
+				vi_phone VARCHAR;
+				
+				vo_phone VARCHAR;
+
+			BEGIN 
+
+				vi_phone := $1;
+
+		SELECT
+			CONCAT_WS(
+				'' ''
+				, ''+''
+				, LEFT(vi_phone, (LENGTH(vi_phone)-10))
+				, SUBSTRING(vi_phone, (LENGTH(vi_phone)-10)+1, 2)
+				, SUBSTRING(vi_phone, ((LENGTH(vi_phone)-8)+1), 4)
+				, RIGHT(vi_phone,4)
+			)
+			INTO
+				vo_phone;
+
+			RETURN vo_phone;
+
+
+			END;
+		$vdm1_f_transform_customer_phone_e164$;
+	';
+	END;
+$vdm1_data_f_transform_customer_phone_e164_container$;
+
+
+-- #### #### #### #### #### #### #### #### 
+
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
@@ -299,3 +565,4 @@ $vdm1_stage1_data_validation_source_count_matches_destination_count$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### ####     STAGE 1 END     #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+-- MASTER CODE BLOCK - STAGE 2

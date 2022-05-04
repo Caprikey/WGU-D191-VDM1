@@ -1,4 +1,3 @@
--- STAGE 5 - TRIGGER FUNCTIONS CODE BLOCK
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### ####    STAGE 5b BEGIN    #### #### #### #### #### #### #### #### #### #### #### #### #### ####
@@ -38,6 +37,7 @@
 --                 15. vdm1_data.t_f_update_inventory_maintenance();
 --                 16. vdm1_data.t_f_update_new_release();
 --                 17. vdm1_data.t_f_update_rental_return();
+-- 				   18. vdm1_data.t_f_insert_new_film_release()
 
 
 
@@ -60,6 +60,7 @@
 --                 15. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_uinvm()
 --                 16. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_unewr()
 --                 17. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_urr()
+--				   18. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_infr()
 
 --     #### #### #### ####
 --        STAGE 5b END
@@ -130,6 +131,8 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5b_trigger_functions_setup()
 
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_urr();
 
+		PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_infr();
+
 
     END;
 $vdm1_stage5_trigger_functions_setup_procedure$;
@@ -167,6 +170,7 @@ $vdm1_stage5_trigger_functions_setup_procedure$;
 --       15. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_uinvm()
 --       16. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_unewr()
 --       17. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_urr()
+--	     18. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_infr()
 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
@@ -1055,23 +1059,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_infilm
 					
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
-				INSERT INTO vdm1_data.new_releases(
-					film_id
-					, status
-				)
 
-				SELECT
-					film_id
-					, true
-				FROM 
-					vdm1_data.film_category_popularity
-
-				WHERE
-					film_id = NEW.film_id;
-
-
-				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####           
-				
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 				-- #### #### #### #### #### #### #### #### 
@@ -2413,6 +2401,56 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_urr()
     END;
 $vdm1_stage5_trigger_functions_setup_update_rental_return$;
 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+-- #### #### #### ####
+-- ####    18     #### 
+-- #### #### #### ####
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_infr()
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_stage5_trigger_functions_setup_insert_new_film_release$
+
+    
+    BEGIN
+		EXECUTE
+		'
+		CREATE OR REPLACE FUNCTION vdm1_data.t_f_insert_new_film_release()
+			RETURNS TRIGGER
+			LANGUAGE plpgsql
+			AS $trigger_function_insert_new_film_release$
+
+			BEGIN 
+			
+			
+			-- #### #### #### #### #### #### #### #### 
+
+
+
+				INSERT INTO vdm1_data.new_releases(
+					film_id
+					, status
+				)
+
+				SELECT
+					film_id
+					, true
+				FROM 
+					vdm1_data.film_category_popularity
+
+				WHERE
+					film_id = NEW.film_id;
+
+			END;
+		$trigger_function_insert_new_film_release$;
+		';
+
+		-- #### #### #### #### #### #### #### #### 
+
+	END;
+$vdm1_stage5_trigger_functions_setup_insert_new_film_release$;
+
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 
@@ -2427,5 +2465,5 @@ $vdm1_stage5_trigger_functions_setup_update_rental_return$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
--- #### #### #### #### #### #### #### #### #### #### #### #### #### ####     STAGE 5b END     #### #### #### #### #### #### #### #### #### #### #### #### #### ####
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### ####     STAGE 5b END    #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 

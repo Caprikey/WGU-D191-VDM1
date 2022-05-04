@@ -1,4 +1,3 @@
--- STAGE 5c - TRIGGERS CODE BLOCK
 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
@@ -81,7 +80,7 @@
 --                     #### #### #### #### #### #### #### #### 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
-
+-- #TODO STAGE 5c - STORED PROCECURES
 
 CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5c_triggers_setup()
     LANGUAGE plpgsql
@@ -123,6 +122,8 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5c_triggers_setup()
         
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_specific();
 
+		PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_inewrel();
+
     END;
 $vdm1_stage5_triggers_setup_procedure$;
 
@@ -130,7 +131,7 @@ $vdm1_stage5_triggers_setup_procedure$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 
-
+-- #TODO STAGE 5c - FUNCTIONS 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 --                      #### #### #### #### #### #### #### #### 
@@ -139,6 +140,7 @@ $vdm1_stage5_triggers_setup_procedure$;
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
+
 
 --        1. vdm1_etl.f_vdm1_stage5_trigger_setup_icwh()
 --        2. vdm1_etl.f_vdm1_stage5_trigger_setup_incust()
@@ -157,6 +159,7 @@ $vdm1_stage5_triggers_setup_procedure$;
 --       15. vdm1_etl.f_vdm1_stage5_trigger_setup_unr()
 --       16. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_nonspecific()
 --       17. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_specific()
+--		 18. vdm1_etl.f_vdm1_stage5_trigger_setup_inewrel();
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
@@ -547,6 +550,37 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_specific()
     END;
 $vdm1_stage5_trigger_setup_update_customer_reclist_summary_specific$;
 
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+
+-- #### #### #### ####
+-- ####    18     #### 
+-- #### #### #### #### 
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_inewrel()
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_stage5_trigger_setup_insert_new_film$
+
+    BEGIN 
+
+        EXECUTE
+            'CREATE OR REPLACE TRIGGER insert_new_film_release
+                AFTER INSERT
+                ON vdm1_data.film_category_popularity
+                FOR EACH ROW
+                EXECUTE FUNCTION vdm1_data.t_f_insert_new_film_release()';
+
+    END;
+$vdm1_stage5_trigger_setup_insert_new_film$;
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+
+
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 

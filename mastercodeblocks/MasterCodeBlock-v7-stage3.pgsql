@@ -1,8 +1,8 @@
--- MASTER CODE BLOCK - STAGE 3
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### ####    STAGE 3 BEGIN    #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
--- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+-- #TODO STAGE 3 BEGIN
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
@@ -37,12 +37,6 @@
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
-
-
--- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
--- #### #### #### #### #### #### #### #### #### #### #### #### #### ####    STAGE 3 BEGIN    #### #### #### #### #### #### #### #### #### #### #### #### #### ####
--- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
--- #TODO STAGE 3 BEGIN
 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
@@ -107,15 +101,15 @@ $vdm1_stage3_run$;
 
 -- TABLE OF CONTENTS
 
---      1vdm1_etl.f_vdm1_stage3_create_table_new_releases()
---      2vdm1_etl.f_vdm1_stage3_create_table_failed_returns()
---      3vdm1_etl.f_vdm1_stage3_create_table_category_count_init()
---      4vdm1_etl.f_vdm1_stage3_create_table_customer_watch_history_details()
---      5vdm1_etl.f_vdm1_stage3_create_table_cx_reclist_master_nonspecific()
---      6vdm1_etl.f_vdm1_stage3_create_table_cx_reclist_master_specific()
---      7vdm1_etl.f_vdm1_stage3_create_table_customer_rec_custom_preferences()
---      8vdm1_etl.f_vdm1_stage3_table_changes()
---      9vdm1_etl.f_vdm1_stage3_cleanup()
+--      1. vdm1_etl.f_vdm1_stage3_create_table_new_releases()
+--      2. vdm1_etl.f_vdm1_stage3_create_table_failed_returns()
+--      3. vdm1_etl.f_vdm1_stage3_create_table_category_count_init()
+--      4. vdm1_etl.f_vdm1_stage3_create_table_customer_watch_history_details()
+--      5. vdm1_etl.f_vdm1_stage3_create_table_cx_reclist_master_nonspecific()
+--      6. vdm1_etl.f_vdm1_stage3_create_table_cx_reclist_master_specific()
+--      7. vdm1_etl.f_vdm1_stage3_create_table_customer_rec_custom_preferences()
+--      8. vdm1_etl.f_vdm1_stage3_table_changes()
+--      9. vdm1_etl.f_vdm1_stage3_cleanup()
 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
@@ -357,7 +351,8 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage3_table_changes()
 		-- #### #### #### #### 
 
 		ALTER TABLE IF EXISTS staging.vdm1_stage3_films
-			ADD COLUMN new_release BOOLEAN NOT NULL DEFAULT FALSE;
+			ADD COLUMN new_release BOOLEAN NOT NULL DEFAULT FALSE, 
+			ALTER COLUMN length TYPE VARCHAR(20);
 						
 		-- #### #### #### #### 
 
@@ -411,12 +406,15 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage3_table_changes()
             ADD COLUMN total_rentals INTEGER DEFAULT 0;
 
 		-- #### #### #### #### #### #### #### #### 
-		
-        ALTER TABLE IF EXISTS staging.vdm1_stage3_customers
-			ADD COLUMN customer_full_name VARCHAR;
 
-		
-        -- #### #### #### #### #### #### #### #### 
+		ALTER TABLE IF EXISTS staging.vdm1_stage3_customers
+			ADD COLUMN customer_full_name VARCHAR,
+			ALTER COLUMN phone TYPE VARCHAR(40);
+
+
+
+		-- #### #### #### #### #### #### #### #### 
+			
 	END;
 $vdm1_stage3_table_changes$;
 
@@ -512,3 +510,4 @@ $vdm1_stage3cleanup$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### ####     STAGE 3 END     #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+-- MASTER CODE BLOCK - STAGE 4
