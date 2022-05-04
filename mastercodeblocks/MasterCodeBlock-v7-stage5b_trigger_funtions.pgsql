@@ -200,7 +200,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ifr()
                     -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
                     INSERT INTO vdm1_data.failed_returns(
-                        customer_id
+                          customer_id
                         , rental_id 
                         , film_id
                         , inventory_id
@@ -211,7 +211,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ifr()
                     )
 
                     SELECT
-                        a.customer_id 
+                          a.customer_id 
                         , a.rental_id
                         , a.film_id
                         , a.inventory_id
@@ -230,6 +230,12 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ifr()
                         a.rental_id = NEW.rental_id;
                     
                     -- #### #### #### #### #### #### #### #### 
+
+
+					REFERESH MATERIALIZED VIEW marketing.failed_returns;
+
+
+                    -- #### #### #### #### #### #### #### #### 				
 
                     -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
@@ -271,9 +277,30 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incat(
 			
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
+				INSERT INTO vdm1_data.dictkey_category (
+					category_id
+					name
+				)
+
+				SELECT
+					  category_id
+					, name
+				FROM public.category
+
+				WHERE 
+					category_id = NEW.category_id;
+				
+
+				-- #### #### #### #### #### #### #### #### #### #### #### #### 
+
+				
+				REFERSH MATERIALIZED VIEW marketing.dictkey_category;
+
+
+				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 				INSERT INTO vdm1_data.customer_rec_custom_preferences (
-					customer_id
+					  customer_id
 					, category_id
 					, customer_rec_custom_order
 				)
@@ -322,10 +349,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incat(
 					, category_id
 					, customer_rec_custom_order
 				FROM
-					cross_join_cuscat_to_catleng
-					
-					
-					; 
+					cross_join_cuscat_to_catleng; 
 
 
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
@@ -345,6 +369,11 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incat(
 
 				WHERE
 					category_id = NEW.category_id;
+
+				-- #### #### #### #### #### #### #### #### #### #### ####      
+
+
+				REFRESH MATERIALIZED VIEW marketing.category_popularity;
 
 
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####        
@@ -503,7 +532,10 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incat(
 					
 				-- #### #### #### #### #### #### #### #### 
 				
+				-- #### #### #### #### #### #### #### #### #### #### ####      
 
+
+				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####     
 
 				-- #### #### #### #### #### #### #### #### 
 				
@@ -511,7 +543,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incat(
 				
 				RETURN NEW;
 				
-				-- #### #### #### #### #### #### #### #### 
+				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####   
 			
 			END;
 		$trigger_function_insert_new_category$;
@@ -541,8 +573,47 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incust
 			AS $trigger_function_insert_new_customer$
 			
 			BEGIN 
-			
-				-- #### #### #### #### #### #### #### #### 
+				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####   			    
+
+					INSERT INTO vdm1_data.dictkey_customer_details (
+						  customer_id
+						, store_id
+						, first_name
+						, last_name
+						, email
+						, create_date
+						, activebool
+						, phone
+						, city_id
+						, country_id
+						, customer_full_name						
+					)
+
+					SELECT 
+						  a.customer_id
+						, a.store_id
+						, a.first_name
+						, a.last_name
+						, a.email
+						, a.create_date
+						, a.activebool
+						, vdm1_data.f_transform_customer_phone_e164(b.phone :: VARCHAR) AS phone
+						, b.city_id
+						, c.country_id
+						, vdm1_data.f_transform_customer_full_name(a.first_name :: VARCHAR, a.last_name :: VARCHAR) AS customer_full_name
+					FROM public.customer AS a 
+						LEFT JOIN public.address AS b
+							ON b.address_id = a.address_id
+						LEFT JOIN public.city AS c
+							ON c.city_id = b.city_id
+
+					WHERE a.customer_id = NEW.customer_id;
+						
+				-- #### #### #### #### #### #### #### #### #### #### #### ####    									
+
+				REFRESH MATERIALIZED VIEW marketing.dictkey_customer_details
+
+				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####   
 				
 					INSERT INTO vdm1_data.customer_category (
 						customer_id
@@ -632,7 +703,13 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incust
 				WHERE
 					customer_id = NEW.customer_id;
 					
-				-- #### #### #### #### #### #### #### #### 
+				-- #### #### #### #### #### #### #### #### #### #### ####      
+
+
+				REFRESH MATERIALIZED VIEW marketing.customer_reclist_master_nonspecific
+
+
+				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####   
 				
 				INSERT INTO vdm1_data.customer_reclist_master_specific (
 					
@@ -694,7 +771,12 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incust
 				WHERE
 					customer_id = NEW.customer_id;
 				
-				-- #### #### #### #### #### #### #### #### 
+				-- #### #### #### #### #### #### #### #### #### #### ####      
+
+
+				REFRESH MATERIALIZED VIEW marketing.customer_reclist_master_specific
+
+				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####   
 				
 				-- #### #### #### ####
 				
@@ -732,6 +814,51 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_infilm
 			
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
+				INSERT INTO vdm1_data.dictkey_film_details (
+						  film_id
+						, title
+						, category_id
+						, release_year
+						, language_id
+						, length
+						, rating
+						, description
+						, rental_duration
+						, rental_rate
+						, replacement_cost
+						, new_release
+				)
+
+				SELECT
+					  a.film_id
+					, a.title
+					, b.category_id
+					, a.release_year
+					, a.language_id
+					, vdm1_data.f_transform_filmlength_int2vchar(a.length :: INT) AS length
+					, a.rating
+					, a.description
+					, a.rental_duration
+					, a.rental_rate
+					, a.replacement_cost
+					, true
+
+				FROM public.film AS a
+					LEFT JOIN public.film_category AS b 
+						ON b.film_id = a.film_id
+				
+				WHERE
+					a.film_id = NEW.film_id;
+
+				-- #### #### #### #### #### #### #### #### #### #### #### ####
+
+
+				REFRESH MATERIALIZED VIEW marketing.dictkey_film_details; 
+
+
+				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+				
 				INSERT INTO vdm1_data.film_category_popularity (
 					film_id
 					, category_id
@@ -1259,6 +1386,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucatpo
 				-- #### #### #### #### #### #### #### #### 
 
 				
+				REFRESH MATERIALIZED VIEW marketing.category_popularity;
 
 				
 				-- #### #### #### #### 
@@ -1543,7 +1671,9 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
 						
 				-- #### #### #### #### #### #### #### #### 
 						
-				
+				REFRESH MATERIALIZED VIEW marketing.customer_reclist_master_nonspecific;
+
+
 				-- #### #### #### #### 
 				
 					RETURN NEW;
@@ -1649,7 +1779,8 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
 				
 						
 				-- #### #### #### #### #### #### #### #### 
-						
+				
+				REFRESH MATERIALIZED VIEW marketing.customer_reclist_master_specific;
 				
 				-- #### #### #### #### 
 				
@@ -1738,6 +1869,8 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 				-- #### #### #### #### #### #### #### #### 
+
+				REFRESH MATERIALIZED VIEW marketing.customer_reclist_summary_nonspecific;
 
 				-- #### #### #### #### 
 
@@ -1970,6 +2103,8 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_
 
 				-- #### #### #### #### #### #### #### #### 
 
+				REFRESH MATERIALIZED VIEW marketing.customer_reclist_summary_specific;
+
 				-- #### #### #### #### 
 
 				RETURN NEW;
@@ -2099,6 +2234,10 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_upcxwa
 						AND
 					b.rental_id = a.rental_id;
 				
+				-- #### #### #### #### #### #### #### #### 
+
+				REFRESH MATERIALIZED VIEW marketing.customer_watch_history_detailed;
+				
 				-- #### #### #### #### 
 				
 				RETURN NEW;
@@ -2205,6 +2344,8 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ufcp()
 					b.category_id = a.category_id;
 					
 				-- #### #### #### #### #### #### #### #### 
+
+				REFRESH MATERIALIZED VIEW marketing.film_category_popularity;
 				
 				-- #### #### #### #### 
 				
@@ -2330,6 +2471,8 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_unewr(
 
 			-- #### #### #### #### #### #### #### #### 
 
+			REFRESH MATERIALIZED VIEW marketing.new_releases;
+
 			-- #### #### #### #### 
 
 			RETURN NEW;
@@ -2388,6 +2531,8 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_urr()
 
 			-- #### #### #### #### #### #### #### #### 
 
+			REFRESH MATERIALIZED VIEW marketing.failed_returns;
+
 			-- #### #### #### #### 
 
 			RETURN NEW;
@@ -2424,9 +2569,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_infr()
 			BEGIN 
 			
 			
-			-- #### #### #### #### #### #### #### #### 
-
-
+				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 				INSERT INTO vdm1_data.new_releases(
 					film_id
@@ -2441,6 +2584,16 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_infr()
 
 				WHERE
 					film_id = NEW.film_id;
+
+				-- #### #### #### #### #### #### #### #### 
+
+				REFRESH MATERIALIZED VIEW marketing.new_releases;
+
+				-- #### #### #### #### 
+
+				RETURNS NEW;
+
+				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 			END;
 		$trigger_function_insert_new_film_release$;
@@ -2467,3 +2620,4 @@ $vdm1_stage5_trigger_functions_setup_insert_new_film_release$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### ####     STAGE 5b END    #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
