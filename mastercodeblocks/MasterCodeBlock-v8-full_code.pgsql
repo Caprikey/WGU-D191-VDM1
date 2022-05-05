@@ -8368,7 +8368,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
 						  customer_id
 						, film_rank
 						, category_id
-						, ROW_NUMBER() OVER (ORDER BY film_rank) as rental_rec_order_rn
+						, ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY film_rank) as rental_rec_order_rn
 						, film_id
 						, film_category_rank
 						, total_rentals
@@ -8484,7 +8484,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
 						customer_id
 						, cat_rec_order
 						, category_id
-						, ROW_NUMBER() OVER (ORDER BY film_category_rank) as rental_rec_order_rn
+						, ROW_NUMBER() OVER (PARTITION BY customer_id, cat_rec_order ORDER BY cat_rec_order, film_category_rank) as rental_rec_order_rn
 						, film_id
 						, film_category_rank
 						, total_rentals
