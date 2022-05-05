@@ -4562,7 +4562,7 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_reset()
 
         -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
-        PERFORM vdm1_etl.f_vdm1_stage5_create_mview_inventory_summary();
+        PERFORM vdm1_etl.f_vdm1_stage5_create_mview_inventory_maintenance_summary();
 
         -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
         
@@ -9453,9 +9453,9 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_reset()
 
 		-- STAGE 5
 
-		RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 5a - MAIN';
-        CALL vdm1_etl.vdm1_stage5a_main();
-		RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 5a - MAIN';
+		RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 5a - RESET';
+        CALL vdm1_etl.vdm1_stage5a_reset();
+		RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 5a - RESET';
 		
 		RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 5b - TRIGGER FUNCTION SETUP';
         CALL vdm1_etl.vdm1_stage5b_trigger_functions_setup();
@@ -9467,7 +9467,7 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_reset()
 
 		-- #### #### #### #### #### #### #### #### 
 
-        CALL vdm1_etl.vdm1_reset_mview_setup();
+        -- CALL vdm1_etl.vdm1_reset_mview_setup();
 		
 	END;
 $vdm1_reset$;
@@ -9624,7 +9624,7 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_reset_mview_setup()
         PERFORM vdm1_etl.f_vdm1_reset_create_materialized_view('inventory_maintenance_summary');
 
         PERFORM vdm1_etl.f_vdm1_reset_refresh_materialized_view('inventory_maintenance_summary');
-        
+    
 		-- #### #### #### #### #### #### #### #### 
 
 	END;
