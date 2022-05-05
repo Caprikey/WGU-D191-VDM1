@@ -6095,15 +6095,13 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incat(
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 				INSERT INTO vdm1_data.dictionary_key (
-                      dictkey_id
-					, dictionary
+					  dictionary
                     , key_id
 					, key_name
 				)
 
 				SELECT
-                      default
-                    , ''category''
+                      ''category''
 					, category_id
 					, name
 				FROM public.category
@@ -8107,13 +8105,13 @@ BEGIN
             INSERT INTO vdm1_data.new_releases(
                   film_id
                 , status
-                , created_date
+                --, created_date
             )
 
             SELECT
                   film_id
                 , true
-                , default
+                --, default
 
             FROM 
                 vdm1_data.film_category_popularity
