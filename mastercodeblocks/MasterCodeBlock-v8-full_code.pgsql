@@ -5922,6 +5922,10 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5b_trigger_functions_setup()
 
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ufcp_nf();
 
+        PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_non_nf();
+
+        PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_spe_nf();
+
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_uinv_comp();
 
 
@@ -6091,13 +6095,15 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incat(
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 				INSERT INTO vdm1_data.dictionary_key (
-					  dictionary
+                      dictkey_id
+					, dictionary
                     , key_id
 					, key_name
 				)
 
 				SELECT
-                      ''category''
+                      default
+                    , ''category''
 					, category_id
 					, name
 				FROM public.category
@@ -6748,7 +6754,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ininv(
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 						
 				INSERT INTO vdm1_data.inventory_maintenance (
-					film_id
+					  film_id
 					, inventory_id
 					, life_cycle
 					, new_release
@@ -8099,13 +8105,15 @@ BEGIN
 			-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####   
 
             INSERT INTO vdm1_data.new_releases(
-                    film_id
+                  film_id
                 , status
+                , created_date
             )
 
             SELECT
-                    film_id
+                  film_id
                 , true
+                , default
 
             FROM 
                 vdm1_data.film_category_popularity
@@ -8273,8 +8281,70 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ufcp_n
                 FROM 
                     combined_film_to_customers;
 
-				-- #### #### #### #### #### #### #### #### 	
+				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+                INSERT INTO vdm1_data.customer_reclist_master_specific (
+                      customer_id
+                    , category_id
+                    , film_id
+                    , film_category_rank
+                    , total_rank
+                )
 				
+                SELECT
+                      customer_id
+                    , category_id
+                    , film_id
+                    , film_category_rank
+                    , total_rentals
+                FROM 
+                    vdm1_data.customer_reclist_master_nonspecific
+
+                WHERE
+
+					film_id = NEW.film_id;
+			
+				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+				
+				
+				-- #### #### #### #### 
+				
+					RETURN NEW;
+				
+				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+				
+			END;
+		$trigger_function_update_film_category_popularity_with_new_film$;
+		';
+
+    END;
+$vdm1_stage5_trigger_functions_setup_update_film_category_popularity_with_new_film$;
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
+
+-- #### #### #### ####
+-- ####    20     #### 
+-- #### #### #### ####
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_non_nf()
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_stage5_trigger_functions_setup_update_customer_reclist_master_nonspecific_with_new_film_row_number$
+
+    
+    BEGIN
+		EXECUTE 
+		'
+		CREATE OR REPLACE FUNCTION vdm1_data.t_f_update_cxreclist_master_nonspecific_new_film()
+			RETURNS TRIGGER
+			LANGUAGE plpgsql
+			AS $trigger_function_update_customer_reclist_master_nonspecific_with_new_film_row_number$
+			
+			BEGIN 
+			
+				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+			
 				UPDATE vdm1_data.customer_reclist_master_nonspecific
 				
 				SET
@@ -8326,30 +8396,37 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ufcp_n
 				REFRESH MATERIALIZED VIEW marketing.customer_reclist_master_nonspecific;
 
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+            END;
+        $trigger_function_update_customer_reclist_master_nonspecific_with_new_film_row_number$;
+            ';
 
-                INSERT INTO vdm1_data.customer_reclist_master_specific (
-                      customer_id
-                    , category_id
-                    , film_id
-                    , film_category_rank
-                    , total_rank
-                )
-				
-                SELECT
-                      customer_id
-                    , category_id
-                    , film_id
-                    , film_category_rank
-                    , total_rentals
-                FROM 
-                    vdm1_data.customer_reclist_master_nonspecific
+    END;
+$vdm1_stage5_trigger_functions_setup_update_customer_reclist_master_nonspecific_with_new_film_row_number$;
 
-                WHERE
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
-					film_id = NEW.film_id;
+-- #### #### #### ####
+-- ####    21     #### 
+-- #### #### #### ####
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_spe_nf()
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_stage5_trigger_functions_setup_update_customer_reclist_master_specific_with_new_film_row_number$
+
+    
+    BEGIN
+		EXECUTE 
+		'
+		CREATE OR REPLACE FUNCTION vdm1_data.t_f_update_cxreclist_master_specific_new_film()
+			RETURNS TRIGGER
+			LANGUAGE plpgsql
+			AS $trigger_function_update_customer_reclist_master_specific_with_new_film_row_number$
 			
-				-- #### #### #### #### #### #### #### #### 	
-				
+			BEGIN 
+			
+				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
                 WITH get_customer_category_details AS (
                     SELECT
                           customer_id
@@ -8360,7 +8437,6 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ufcp_n
                     
                     WHERE
                         category_id = NEW.category_id
-
                 )
 
                 UPDATE vdm1_data.customer_reclist_master_specific AS a
@@ -8438,9 +8514,6 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ufcp_n
 				
 				REFRESH MATERIALIZED VIEW marketing.customer_reclist_master_specific;
 				
-
-
-
 				
 				-- #### #### #### #### 
 				
@@ -8450,17 +8523,16 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ufcp_n
 
 				
 			END;
-		$trigger_function_update_film_category_popularity_with_new_film$;
+		$trigger_function_update_customer_reclist_master_specific_with_new_film_row_number$;
 		';
 
     END;
-$vdm1_stage5_trigger_functions_setup_update_film_category_popularity_with_new_film$;
+$vdm1_stage5_trigger_functions_setup_update_customer_reclist_master_specific_with_new_film_row_number$;
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
--- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    20     #### 
+-- ####    22     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_uinv_comp()
@@ -8664,6 +8736,10 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5c_triggers_setup()
 		PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_inewrel();
 
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_ufcpop_nf();
+
+        PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_non_nf();
+
+        PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_spec_nf();
 
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_uinvmaint_comp();
 
@@ -9148,7 +9224,54 @@ $vdm1_stage5_trigger_setup_update_film_categeory_popularity_with_new_film$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    20     #### 
+-- ####     20    #### 
+-- #### #### #### #### 
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_non_nf()
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_stage5_trigger_setup_update_customer_reclist_master_nonspecific_with_new_film$
+
+    BEGIN 
+
+        EXECUTE 
+            'CREATE OR REPLACE TRIGGER update_customer_reclist_nonspecific_with_new_film
+                AFTER INSERT
+                ON vdm1_data.customer_reclist_master_nonspecific
+                FOR EACH ROW
+                EXECUTE FUNCTION vdm1_data.t_f_update_cxreclist_master_nonspecific_new_film()';
+
+    END;
+$vdm1_stage5_trigger_setup_update_customer_reclist_master_nonspecific_with_new_film$;
+
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+-- #### #### #### ####
+-- ####     21    #### 
+-- #### #### #### #### 
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_spec_nf()
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_stage5_trigger_setup_update_customer_reclist_master_specific_with_new_film$
+
+    BEGIN 
+
+        EXECUTE 
+            'CREATE OR REPLACE TRIGGER update_customer_reclist_specific_with_new_film
+                AFTER INSERT
+                ON vdm1_data.customer_reclist_master_specific
+                FOR EACH ROW
+                EXECUTE FUNCTION vdm1_data.t_f_update_cxreclist_master_specific_new_film()';
+
+    END;
+$vdm1_stage5_trigger_setup_update_customer_reclist_master_specific_with_new_film$;
+
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+-- #### #### #### ####
+-- ####    21     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_uinvmaint_comp()
@@ -9253,29 +9376,96 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_reset()
 
 		-- #### #### #### #### #### #### #### #### 
 
+		RAISE NOTICE 'RUNNING VDM1 ETL STAGE 0 / RESET STAGE 0';
         CALL vdm1_etl.vdm1_reset_stage0();
+		RAISE NOTICE 'COMPLETED VDM1 ETL STAGE 0 / RESET STAGE 0 ';
 
+		-- #### #### #### #### 
+
+		-- STAGE 1
+
+		RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 1';
 		CALL vdm1_etl.vdm1_stage1();
+		RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 1';
 
+		-- #### #### #### #### 
+
+		-- STAGE 2
+
+		RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 2';
 		CALL vdm1_etl.vdm1_stage2();
+		RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 2';
 
+		-- #### #### #### #### 
+
+		-- STAGE 3
+
+		RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 3';
 		CALL vdm1_etl.vdm1_stage3();
+		RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 3';
+
+		-- #### #### #### #### #### #### #### #### 
+
+		-- STAGE 4
 
         -- DISABLING MAIN RUN DUE TO PERFORMANCE/TIME IMPACT
         -- CALL vdm1_etl.vdm1_stage4();
 
-            -- STAGE 4 HAS BEEN SPLIT INTO 3 SUBPARTS TO ASSIST WITH PERFORMANCE IMPACT
+            -- STAGE 4 HAS BEEN SPLIT INTO 3 SUBPARTS, THEN AGAIN 4 MORE SUB PARTS TO ASSIST WITH PERFORMANCE IMPACT
+			RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 4a';
             CALL vdm1_etl.vdm1_stage4a();
+		    RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 4a';
 
+			RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 4b';
             CALL vdm1_etl.vdm1_stage4b();
+			RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 4b';
 
-            CALL vdm1_etl.vdm1_stage4c();
+		-- #### #### #### #### #### #### #### #### 
+		
+		-- STAGE 4
 
-        CALL vdm1_etl.vdm1_stage5a_reset();
+				-- STAGE 4-C-1-A :: INSERTS CUSTOMER RECOMMENDATION LIST INTO MASTER NONSPECIFIC
+				RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 4c1a';
+				CALL vdm1_etl.vdm1_stage4c1a();
+				RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 4c1a';
 
+				-- STAGE 4-C-1-B :: PERFORMS ROW NUBMER COUNT ON CUSTOMER RECOMMENDATION LIST MASTER NONSPECIFIC
+				RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 4c1b';
+				CALL vdm1_etl.vdm1_stage4c1b();
+				RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 4c1b';
+
+				-- STAGE 4-C-2-A :: INSERTS CUSTOMER RECOMMENDATION LIST INTO MASTER SPECIFIC
+				RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 4c2a';
+				CALL vdm1_etl.vdm1_stage4c2a();
+				RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 4c2a';
+
+				-- STAGE 4-C-2-B :: PERFORMS ROW NUBMER COUNT ON CUSTOMER RECOMMENDATION LIST MASTER SPECIFIC
+				RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 4c2b';
+				CALL vdm1_etl.vdm1_stage4c2b();
+				RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 4c2b';
+
+				-- STAGE 4-C-3 :: PERFORMS CLEANUP
+				RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 4c3';
+				CALL vdm1_etl.vdm1_stage4c3();
+				RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 4c3';
+
+		-- #### #### #### #### #### #### #### #### 
+
+		-- STAGE 5
+
+		RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 5a - MAIN';
+        CALL vdm1_etl.vdm1_stage5a_main();
+		RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 5a - MAIN';
+		
+		RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 5b - TRIGGER FUNCTION SETUP';
         CALL vdm1_etl.vdm1_stage5b_trigger_functions_setup();
+		RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 5b - TRIGGER FUNCTION SETUP';
 
+		RAISE NOTICE 'RUNNING VDM1 ETL  STAGE 5c - TRIGGER SETUP';
         CALL vdm1_etl.vdm1_stage5c_triggers_setup();
+		RAISE NOTICE 'COMPLETED VDM1 ETL  STAGE 5c - TRIGGER SETUP';
+
+		-- #### #### #### #### #### #### #### #### 
 
         CALL vdm1_etl.vdm1_reset_mview_setup();
 		
@@ -9429,6 +9619,13 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_reset_mview_setup()
         
 		-- #### #### #### #### #### #### #### #### 
 
+        PERFORM vdm1_etl.f_vdm1_reset_drop_materialized_view('inventory_maintenance_summary');
+
+        PERFORM vdm1_etl.f_vdm1_reset_create_materialized_view('inventory_maintenance_summary');
+
+        PERFORM vdm1_etl.f_vdm1_reset_refresh_materialized_view('inventory_maintenance_summary');
+        
+		-- #### #### #### #### #### #### #### #### 
 
 	END;
 $vdm1_reset_materialized_view_recreation$;
@@ -9473,34 +9670,34 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_disable_triggers()
 
         -- #### #### #### #### #### #### #### #### 
 
-			ALTER TABLE public.customer
+			ALTER TABLE IF EXISTS public.customer
 				DISABLE TRIGGER ALL;
 
-			ALTER TABLE public.category
+			ALTER TABLE IF EXISTS public.category
 				DISABLE TRIGGER ALL;
 
-			ALTER TABLE public.inventory
+			ALTER TABLE IF EXISTS public.inventory
 				DISABLE TRIGGER ALL;
 
-			ALTER TABLE public.rental
+			ALTER TABLE IF EXISTS public.rental
 				DISABLE TRIGGER ALL;
 
-			ALTER TABLE public.film_category
+			ALTER TABLE IF EXISTS public.film_category
 				DISABLE TRIGGER ALL;
 
-			ALTER TABLE vdm1_data.customer_watch_history_detailed
+			ALTER TABLE IF EXISTS vdm1_data.customer_watch_history_detailed
 				DISABLE TRIGGER ALL;
 
-			ALTER TABLE vdm1_data.customer_rec_custom_preferences
+			ALTER TABLE IF EXISTS vdm1_data.customer_rec_custom_preferences
 				DISABLE TRIGGER ALL;
 
-			ALTER TABLE vdm1_data.film_category_popularity
+			ALTER TABLE IF EXISTS vdm1_data.film_category_popularity
 				DISABLE TRIGGER ALL;
 
-			ALTER TABLE vdm1_data.customer_reclist_master_nonspecific
+			ALTER TABLE IF EXISTS vdm1_data.customer_reclist_master_nonspecific
 				DISABLE TRIGGER ALL;
 
-			ALTER TABLE vdm1_data.customer_reclist_master_specific
+			ALTER TABLE IF EXISTS vdm1_data.customer_reclist_master_specific
 				DISABLE TRIGGER ALL;
 
 
@@ -9635,6 +9832,21 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_drop_triggers()
 
             DROP TRIGGER IF EXISTS update_customer_reclist_summary_specific
                 ON vdm1_data.customer_reclist_master_specific CASCADE;
+
+            DROP TRIGGER IF EXISTS insert_new_film_release
+                ON vdm1_data.customer_film_category_popularity CASCADE;
+
+            DROP TRIGGER IF EXISTS update_film_category_popularity_new_film
+                ON vdm1_data.customer_film_category_popularity CASCADE;
+
+            DROP TRIGGER IF EXISTS update_customer_reclist_nonspecific_with_new_film
+                ON vdm1_data.customer_reclist_master_nonspecific CASCADE;
+                   
+            DROP TRIGGER IF EXISTS update_customer_reclist_specific_with_new_film
+                ON vdm1_data.customer_reclist_master_specific CASCADE;
+
+            DROP TRIGGER IF EXISTS update_inventory_maintenance_complete
+                ON vdm1_data.inventory_maintenance CASCADE;     
 
         -- #### #### #### #### #### #### #### #### 
 
