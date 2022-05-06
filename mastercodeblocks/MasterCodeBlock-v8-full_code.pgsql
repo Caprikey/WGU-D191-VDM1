@@ -2001,12 +2001,12 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage3_create_table_cx_reclist_master
         CREATE TABLE staging.vdm1_stage3_customer_reclist_master_nonspecific (
 
                   customer_id INTEGER NOT NULL 
-                , film_rank INTEGER NULL
+                --, film_rank INTEGER NULL
                 , category_id INTEGER NOT NULL
                 , film_rec_order INTEGER NULL
                 , film_id INTEGER NOT NULL
-                , film_category_rank INTEGER NOT NULL		
-                , total_rentals INTEGER NOT NULL
+                --, film_category_rank INTEGER NOT NULL		
+                --, total_rentals INTEGER NOT NULL
         );
 	END;
 $vdm1_stage3_create_table_customer_reclist_master_nonspecific$;
@@ -2031,8 +2031,8 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage3_create_table_cx_reclist_master
                 , category_id INTEGER NOT NULL
                 , rental_rec_order INTEGER NULL
                 , film_id INTEGER NOT NULL
-                , film_category_rank INTEGER NOT NULL		
-                , total_rentals INTEGER NOT NULL
+                --, film_category_rank INTEGER NOT NULL		
+                --, total_rentals INTEGER NOT NULL
         );
 	END;
 $vdm1_stage3_create_table_customer_reclist_master_specific$;
@@ -3456,12 +3456,12 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_insert_failed_returns_v2(
 			, inventory_id
 			, store_id
 			, rental_date
-			, vdm1_data.f_calc_expected_return_date(a.film_id::int, rental_date::DATE) as expected_return_date
-            , (SELECT AGE('2007-01-01', vdm1_data.f_calc_expected_return_date(a.film_id::int, rental_date::DATE))) as age
-		FROM staging.vdm1_stage4_rentals a
-			INNER JOIN staging.vdm1_stage4_customers b
+			, vdm1_data.f_calc_expected_return_date(a.film_id::int, rental_date::DATE) AS expected_return_date
+            , (SELECT AGE('2007-01-01', vdm1_data.f_calc_expected_return_date(a.film_id::int, rental_date::DATE))) AS age
+		FROM staging.vdm1_stage4_rentals AS a
+			INNER JOIN staging.vdm1_stage4_customers AS b
 				ON b.customer_id = a.customer_id
-			INNER JOIN staging.vdm1_stage4_films c
+			INNER JOIN staging.vdm1_stage4_films AS c
                 ON c.film_id = a.film_id
 	                
 		WHERE a.return_date IS NULL;
@@ -3519,16 +3519,16 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_delete_cx_history_from_cx
 				, category_id 
 			FROM staging.vdm1_stage4_customer_watch_history_details
 		),
-		historyfromrecommended as (
+		historyfromrecommended AS (
 			(SELECT * FROM staging.vdm1_stage4_customer_film_category)
 				INTERSECT  
 			(SELECT * FROM get_customer_watch_history)
 		)
 
-		DELETE FROM staging.vdm1_stage4_customer_film_category a
+		DELETE FROM staging.vdm1_stage4_customer_film_category AS a
 
 		WHERE EXISTS  (
-			SELECT * FROM historyfromrecommended b
+			SELECT * FROM historyfromrecommended AS b
 			where b.customer_id = a.customer_id AND b.film_id = a.film_id);
 
 		
@@ -3552,26 +3552,26 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_
     INSERT INTO staging.vdm1_stage4_customer_reclist_master_nonspecific(
 
 			  customer_id
-			, film_rank
+			--, film_rank
             , category_id
 			, film_id
-			, film_category_rank
-			, total_rentals
+			--, film_category_rank
+			--, total_rentals
 		)	
     
 	WITH get_customer_film_cat_x_film_cat_pop AS (
 
 		SELECT
 			  a.customer_id
-			, b.film_rank
+			--, b.film_rank
 			, a.category_id
 			, a.film_id
-			, b.film_category_rank
-			, b.total_rentals
-		FROM staging.vdm1_stage4_customer_film_category a
-			LEFT JOIN 
-				staging.vdm1_stage4_film_category_popularity b
-					ON b.film_id = a.film_id 
+			--, b.film_category_rank
+			--, b.total_rentals
+		FROM staging.vdm1_stage4_customer_film_category AS a
+			-- LEFT JOIN 
+				-- staging.vdm1_stage4_film_category_popularity b
+					-- ON b.film_id = a.film_id 
 
 		ORDER BY 
 			a.customer_id, a.film_id	
@@ -3579,11 +3579,11 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_
     
     SELECT
 	      customer_id
-	    , film_rank
+	    --, film_rank
 	    , category_id
         , film_id
-		, film_category_rank
-	    , total_rentals
+		--, film_category_rank
+	    --, total_rentals
     FROM get_customer_film_cat_x_film_cat_pop;
 
 
@@ -3604,28 +3604,40 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_
 	
 	BEGIN
 		
-		WITH get_customer_reclist_master_nonspecific_values AS (
+		WITH get_film_category_ranks AS (
+
+			SELECT 
+				  film_id
+				, film_rank
+				, film_category_rank
+			FROM 
+				staging.vdm1_stage4_film_category_popularity
+		)
+		, get_customer_reclist_master_nonspecific_values AS (
 
 			SELECT
 				  customer_id
-				, film_rank
+				--, film_rank
 				, category_id
 				, film_id
-				, film_category_rank
-				, total_rentals
+				--, film_category_rank
+				--, total_rentals
 			FROM staging.vdm1_stage4_customer_reclist_master_nonspecific
 		),
 		assign_row_number AS (
 
 			SELECT
-				  customer_id
-				, film_rank
-				, category_id
-				, film_id
-				, film_category_rank
-				, total_rentals
-				, ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY film_rank) as rental_rec_order_rn
-			FROM get_customer_reclist_master_nonspecific_values
+				  a.customer_id
+				--, film_rank
+				, a.category_id
+				, a.film_id
+				--, film_category_rank
+				--, total_rentals
+				, ROW_NUMBER() OVER (PARTITION BY a.customer_id ORDER BY b.film_rank) AS rental_rec_order_rn
+			FROM get_customer_reclist_master_nonspecific_values AS a
+				LEFT JOIN 
+					get_film_category_ranks AS b
+						ON a.film_id = b.film_id
 		)
 
 
@@ -3668,7 +3680,16 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_
                 , total_rentals         -- Film's Total Rentals
             )	
 
-        WITH combined_master_with_cxcat AS (
+        WITH get_film_category_ranks AS (
+
+			SELECT 
+				  film_id
+				, film_rank
+				, film_category_rank
+			FROM 
+				staging.vdm1_stage4_film_category_popularity
+		)
+		, combined_master_with_cxcat AS (
 
             SELECT 
                 a.customer_id
@@ -3678,17 +3699,19 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_
                     ELSE b.recommendation_order_historical
                     -- ELSE b.recommendation_order_average
                     -- ELSE b.recommendation_order_halfaverage
-                END as cat_rec_order 
+                END AS cat_rec_order 
                 , a.category_id
                 , a.film_id
-                , a.film_category_rank
-                , a.total_rentals
+                --, a.film_category_rankS
+                --, a.total_rentals
             FROM 
-                staging.vdm1_stage4_customer_reclist_master_nonspecific a
+                staging.vdm1_stage4_customer_reclist_master_nonspecific AS a
                     LEFT JOIN 
-                        staging.vdm1_stage4_customer_category b
+                        staging.vdm1_stage4_customer_category AS b
                             ON b.customer_id = a.customer_id
-                            
+					LEFT JOIN
+						get_film_category_ranks AS c
+                            ON a.film_id = c.film_id
             WHERE
                 (b.customer_id = a.customer_id
                     AND
@@ -3712,7 +3735,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_
                     staging.vdm1_stage4_customer_category)
             */
             ORDER BY
-                a.customer_id, 2, a.film_category_rank DESC
+                a.customer_id, 2, c.film_category_rank DESC
         )
 
         SELECT
@@ -3720,8 +3743,8 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_
             , cat_rec_order
             , category_id 
             , film_id
-            , film_category_rank
-            , total_rentals
+            --, film_category_rank
+            --, total_rentals
         FROM 
             combined_master_with_cxcat;
 
@@ -3743,28 +3766,40 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_
 	
 	BEGIN
 		
-		WITH get_customer_reclist_master_specific_values AS (
+		WITH get_film_category_ranks AS (
+
+			SELECT 
+				  film_id
+				, film_rank
+				, film_category_rank
+			FROM 
+				staging.vdm1_stage4_film_category_popularity
+		)
+		, get_customer_reclist_master_specific_values AS (
 
 			SELECT
 				  customer_id
 				, cat_rec_order
 				, category_id
 				, film_id
-				, film_category_rank
-				, total_rentals
+				--, film_category_rank
+				--, total_rentals
 			FROM staging.vdm1_stage4_customer_reclist_master_specific
 		),
 		assign_row_number AS (
 
 			SELECT
-				  customer_id
-				, cat_rec_order
-				, category_id
-				, film_id
-				, film_category_rank
-				, total_rentals
-				, ROW_NUMBER() OVER(PARTITION BY customer_id, cat_rec_order ORDER BY cat_rec_order, film_category_rank) AS rental_rec_order_rn
-			FROM get_customer_reclist_master_specific_values
+				  a.customer_id
+				, a.cat_rec_order
+				, a.category_id
+				, a.film_id
+				--, film_category_rank
+				--, total_rentals
+				, ROW_NUMBER() OVER(PARTITION BY a.customer_id, a.cat_rec_order ORDER BY a.cat_rec_order, b.film_category_rank) AS rental_rec_order_rn
+			FROM get_customer_reclist_master_specific_values AS a
+				LEFT JOIN
+					get_film_category_ranks AS b
+						ON a.film_id = b.film_id
 		)
 
 
@@ -8474,7 +8509,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
         
 				-- #### #### #### #### #### #### #### #### 
 						
-				-- REFRESH MATERIALIZED VIEW marketing.customer_reclist_master_nonspecific;
+				REFRESH MATERIALIZED VIEW marketing.customer_reclist_master_nonspecific;
                 
                 -- #### #### #### #### #### #### #### #### #### #### #### #### 
                 
