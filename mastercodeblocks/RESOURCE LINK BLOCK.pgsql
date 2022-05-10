@@ -202,3 +202,34 @@
 -- https://social.msdn.microsoft.com/Forums/sqlserver/en-US/698eaddd-8098-40b4-8db9-54397e51d4f6/set-a-variable-using-a-case-expression-inside-a-select-statement?forum=transactsql
 -- 
 -- https://bobcares.com/blog/postgresql-error-42601/
+
+-- https://www.postgresql.org/docs/current/trigger-definition.html
+-- https://qtibia.com/how-to-install-the-pl-pgsql-debugger-and-use-it-in-pgadmin/
+-- https://chartio.com/resources/tutorials/how-to-define-an-auto-increment-primary-key-in-oracle/
+-- https://stackoverflow.com/questions/13048360/reading-current-table-id-during-trigger-operation
+-- https://dba.stackexchange.com/questions/144197/postgresql-use-new-in-query-for-instead-of-trigger
+-- https://medium.com/analytics-vidhya/interesting-5-functions-and-5-triggers-with-postgresql-52700d554192
+-- https://stackoverflow.com/questions/47852776/how-can-i-fire-a-trigger-at-the-end-of-a-chain-of-updates
+-- https://stackoverflow.com/questions/11001118/postgres-trigger-after-insert-accessing-new
+-- https://stackoverflow.com/questions/70145624/how-to-trigger-after-update-in-postgres
+-- https://stackoverflow.com/questions/62333675/how-to-tell-if-when-postgres-triggers-are-executing
+-- https://stackoverflow.com/questions/306439/debugging-postgresql-trigger
+-- https://stackoverflow.com/questions/28994033/postgresql-trigger-fire-on-update-but-fail-on-insert
+
+-- https://www.cockroachlabs.com/docs/stable/common-table-expressions.html
+-- https://www.adoclib.com/blog/dbeaver-sql-common-expression-table-question.html
+-- https://dbeaver.io/forum/viewtopic.php?f=2&t=669
+-- 
+-- https://stackoverflow.com/questions/22746741/trigger-for-checking-a-given-value-before-insert-or-update-on-postgresql
+-- https://stackoverflow.com/questions/4069718/postgres-insert-if-does-not-exist-already
+-- 
+-- https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-random-range/
+
+-- https://stackoverflow.com/questions/10687582/postgresql-trigger-not-working-neither-before-nor-after-delete
+-- https://www.bluelabellabs.com/blog/how-to-use-postgresql-trigger-functions-to-automate-creation-and-last-modification-timestamps/
+-- 
+-- https://stackoverflow.com/questions/50038611/pgadmin4-enable-debugging
+-- https://qtibia.com/how-to-install-the-pl-pgsql-debugger-and-use-it-in-pgadmin/
+-- https://serveanswer.com/questions/set-breakpoint-function-in-postgresql-pgadmin
+
+-- https://codebeautify.org/sqlformatter
