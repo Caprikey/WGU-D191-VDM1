@@ -1,3 +1,13 @@
+-- Danty Cook
+-- Student ID: 007003568
+-- Course: Advanced Data Management (D191)
+-- Performance Assessment: VDM1 Task 1: Automating Data Integration
+-- May 10, 2022
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####      
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####      
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####                           
+
 -- MASTER CODE BLOCK
 -- Version 9
 
@@ -125,34 +135,33 @@
 
 --             FUNCTIONS
 
---                  1. vdm1_etl.f_vdm1_stage4_calc_update_category_popularity_count()
---                  2. vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_count()
---                  3. vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_row_number()
---                  4. vdm1_etl.f_vdm1_stage4_calc_update_film_category_popularity_row_number()
---                  5. vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_count()
---                  6. vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_flag_inspection()
---                  7. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_count_null_corrections()
---                  8. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_historical_count()
---                  9. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_average_count()
---                 10. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_halfaverage_count()
---                 11. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_historical()
---                 12. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_average()
---                 13. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_halfaverage()
---                 14. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_custom_set_default()
---                 15. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_set_custom_order()
---                 16. vdm1_etl.f_vdm1_stage4_calc_update_customer_watch_history_row_number()
---                 17. vdm1_etl.f_vdm1_stage4_calc_insert_failed_returns_v2()
---                 18. vdm1_etl.f_vdm1_stage4_calc_insert_new_releases_v2()
---                 19. vdm1_etl.f_vdm1_stage4_calc_delete_cx_history_from_cx_filmcat
---                 20. vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_nonspecific()
---                 21. vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_nonspecific_rn()
---                 22. vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_specific_default();
---                 23. vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_specific_rn();
---                 24. vdm1_etl.f_vdm1_stage4_transform_customer_full_name(p_first_name VARCHAR, p_last_name VARCHAR)
---                 25. vdm1_etl.f_vdm1_stage4_transform_filmlength_int2vchar(p_length INTEGER)
---                 26. vdm1_etl.f_vdm1_stage4_calc_expected_return_date(p_film_id INT, p_rental_date DATE)
+--                  1. vdm1_etl.f_vdm1_stage4_transform_customer_full_name();
+--                  2. vdm1_etl.f_vdm1_stage4_transform_customer_phone_number();
+--                  3. vdm1_etl.f_vdm1_stage4_transform_film_length();
+--                  4. vdm1_etl.f_vdm1_stage4_calc_update_category_popularity_count()
+--                  5. vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_count()
+--                  6. vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_row_number()
+--                  7. vdm1_etl.f_vdm1_stage4_calc_update_film_category_popularity_row_number()
+--                  8. vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_count()
+--                  9. vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_flag_inspection()
+--                 10. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_count_null_corrections()
+--                 11. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_historical_count()
+--                 12. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_average_count()
+--                 13. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_halfaverage_count()
+--                 14. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_historical()
+--                 15. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_average()
+--                 16. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_halfaverage()
+--                 17. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_custom_set_default()
+--                 18. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_set_custom_order()
+--                 19. vdm1_etl.f_vdm1_stage4_calc_update_customer_watch_history_row_number()
+--                 20. vdm1_etl.f_vdm1_stage4_calc_insert_failed_returns_v2()
+--                 21. vdm1_etl.f_vdm1_stage4_calc_insert_new_releases_v2()
+--                 22. vdm1_etl.f_vdm1_stage4_calc_delete_cx_history_from_cx_filmcat
+--                 23. vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_nonspecific()
+--                 24. vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_nonspecific_rn()
+--                 25. vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_specific_default();
+--                 26. vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_specific_rn();
 --                 27. vdm1_etl.f_vdm1_stage4_cleanup()
-
 
 --     #### #### #### ####
 --         STAGE 4 END
@@ -170,27 +179,31 @@
 
 --             FUNCTIONS
 
---                 1. vdm1_etl.f_vdm1_stage5_createtable_cx_reclist_summary_nonspecific(); 
---                 2. vdm1_etl.f_vdm1_stage5_createtable_cx_reclist_summary_specific();
---                 3. vdm1_etl.f_vdm1_stage5_insert_cx_reclist_summary_nonspecific();
---                 4. vdm1_etl.f_vdm1_stage5_insert_cx_reclist_summary_specific();
---                 5. vdm1_etl.f_vdm1_stage5_create_materialzied_view(); 
---                 6. vdm1_etl.f_vdm1_stage5_create_table_dictkey();
---                 7. vdm1_etl.f_vdm1_stage5_dictkey_insert_category_data();
---                 8. vdm1_etl.f_vdm1_stage5_dictkey_insert_language_data();
---                 9. vdm1_etl.f_vdm1_stage5_dictkey_insert_city_data();
---                10. vdm1_etl.f_vdm1_stage5_dictkey_insert_country_data();
---                11. vdm1_etl.f_vdm1_stage5_datestamp();
---                12. vdm1_etl.f_vdm1_stage5_table_rename();
---                13. vdm1_etl.f_vdm1_stage5_load_data_marketing();
---                14. vdm1_etl.f_vdm1_stage5_load_data_vdm1_data();
---                15. vdm1_etl.f_vdm1_stage5_data_validation_count_check();
---                16. vdm1_etl.f_vdm1_stage5_table_enabled_logging_vdm1_data()
---                17. vdm1_etl.f_vdm1_stage5_create_table_constraints();
---                18. vdm1_etl.f_vdm1_stage5_cleanup();
---                19. vdm1_etl.f_vdm1_stage5_delete_stage(); 
---                20. vdm1_etl.f_vdm1_stage5_create_mview_inventory_summary();
---                21. vdm1_etl.f_vdm1_stage5_refresh_materialized_view();
+--                  1. vdm1_etl.f_vdm1_stage5_createtable_cx_reclist_summary_nonspecific(); 
+--                  2. vdm1_etl.f_vdm1_stage5_createtable_cx_reclist_summary_specific();
+--                  3. vdm1_etl.f_vdm1_stage5_insert_cx_reclist_summary_nonspecific();
+--                  4. vdm1_etl.f_vdm1_stage5_insert_cx_reclist_summary_specific();
+--                  5. vdm1_etl.f_vdm1_stage5_create_materialzied_view(); 
+--                  6. vdm1_etl.f_vdm1_stage5_create_table_dictkey();
+--                  7. vdm1_etl.f_vdm1_stage5_dictkey_insert_category_data();
+--                  8. vdm1_etl.f_vdm1_stage5_dictkey_insert_language_data();
+--                  9. vdm1_etl.f_vdm1_stage5_dictkey_insert_city_data();
+--                 10. vdm1_etl.f_vdm1_stage5_dictkey_insert_country_data();
+--                 11. vdm1_etl.f_vdm1_stage5_datestamp();
+--                 12. vdm1_etl.f_vdm1_stage5_table_rename();
+--                 13. vdm1_etl.f_vdm1_stage5_load_data_marketing();
+--                 14. vdm1_etl.f_vdm1_stage5_load_data_vdm1_data();
+--                 15. vdm1_etl.f_vdm1_stage5_data_validation_count_check();
+--                 16. vdm1_etl.f_vdm1_stage5_table_enabled_logging_vdm1_data()
+--                 17. vdm1_etl.f_vdm1_stage5_create_table_constraints();
+--                 18. vdm1_etl.f_vdm1_stage5_cleanup();
+--                 19. vdm1_etl.f_vdm1_stage5_delete_stage(); 
+--                 20. vdm1_etl.f_vdm1_stage5_create_mview_inventory_summary();
+--				   21. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_master_non();
+--				   22. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_master_spec();
+--				   23. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_summary_non();
+--				   24. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_summary_spec();
+--                 25. vdm1_etl.f_vdm1_stage5_refresh_materialized_view();
 
 
 --     #### #### #### ####
@@ -204,7 +217,7 @@
 
 --             STORED PROCEDURES
 
---                  1. vdm1_etl.vdm1_stage5b_trigger_functions_setup();
+--                  1. vdm1_etl.vdm1_stage5_trigger_functions_setup();
 
 
 
@@ -218,8 +231,8 @@
 --                  6. vdm1_data.t_f_insert_update_customer_rec_custom_preferences();
 --                  7. vdm1_data.t_f_update_category_popularity();
 --                  8. vdm1_data.t_f_update_customer_category();
---                  9. vdm1_data.t_f_update_customer_reclist_master_nonspecific();
---                 10. vdm1_data.t_f_update_customer_reclist_master_specific()
+--                  9. vdm1_data.t_f_update_customer_reclist_master_nonspecific_new_rental();
+--                 10. vdm1_data.t_f_update_customer_reclist_master_specific_new_rental()
 --                 11. vdm1_data.t_f_update_customer_reclist_summary_nonspecific();
 --                 12. vdm1_data.t_f_update_customer_reclist_summary_specific();
 --                 13. vdm1_data.t_f_insert_customer_watch_history();
@@ -227,8 +240,8 @@
 --                 15. vdm1_data.t_f_update_inventory_maintenance_count();
 --                 16. vdm1_data.t_f_update_new_release();
 --                 17. vdm1_data.t_f_update_rental_return();
--- 				   18. vdm1_data.t_f_insert_new_film_release()
---                 19. vdm1_data.t_f_update_film_category_new_film()
+--                 18. vdm1_data.t_f_insert_customer_reclist_master_nonspecific_new_film();
+--                 19. vdm1_data.t_f_insert_customer_reclist_master_specific_new_film();
 --                 20. vdm1_data.t_f_update_inventory_maintenance_complete()
 
 
@@ -248,12 +261,12 @@
 --                 12. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_spe()
 --                 13. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_upcxwatchhist()
 --                 14. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ufcp_nr()
---                 15. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_uinvm_count()
+--                 15. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_uinv_count()
 --                 16. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_unewr()
 --                 17. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_urr()
---				   18. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_infr()
---                 19. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ufcp_nf()
---                 20. vdm1_etl.f_vdm1_stage5_trigger_setup_uinvmaint_comp()
+--                 18. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_non_inf();
+--				   19. vmd1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_spe_nf();
+--                 20. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_uinv_comp()
 
 --     #### #### #### ####
 --        STAGE 5b END
@@ -267,7 +280,7 @@
 
 --             STORED PROCEDURES
 
---                  1. vdm1_etl.vdm1_stage5c_triggers_setup();
+--                  1. vdm1_etl.vdm1_stage5_triggers_setup();
 
 
 
@@ -282,15 +295,17 @@
 --                  7. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.FILM_CATEGORY :: insert_new_film
 --                  8. CREATE TRIGGER :: AFTER INSERT :: vdm1_data.CUSTOMER_WATCH_HISTORY_DETAILED :: update_customer_category
 --                  9. CREATE TRIGGER :: AFTER INSERT :: vdm1_data.CUSTOMER_WATCH_HISTORY_DETAILED :: update_category_popularity
---                 10. CREATE TRIGGER :: AFTER INSERT :: vdm1_data.CUSTOMER_WATCH_HISTORY_DETAILED :: update_film_category_popularity
---                 11. CREATE TRIGGER :: AFTER INSERT :: vdm1_data.CUSTOMER_WATCH_HISTORY_DETAILED :: update_inventory_maintenance
+--                 10. CREATE TRIGGER :: AFTER INSERT :: vdm1_data.CUSTOMER_WATCH_HISTORY_DETAILED :: update_film_category_popularity with new rental
+--                 11. CREATE TRIGGER :: AFTER INSERT :: vdm1_data.CUSTOMER_WATCH_HISTORY_DETAILED :: update_inventory_maintenance_count
 --                 12. CREATE TRIGGER :: AFTER INSERT :: vdm1_data.CUSTOMER_WATCH_HISTORY_DETAILED :: update_customer_reclist_master_nonspecific
 --                 13. CREATE TRIGGER :: AFTER INSERT :: vdm1_data.CUSTOMER_WATCH_HISTORY_DETAILED :: update_customer_reclist_master_specific
 --                 14. CREATE TRIGGER :: AFTER UPDATE :: vdm1_data.FILM_CATEGORY_POPULARITY :: update_new_release
 --                 15. CREATE TRIGGER :: AFTER INSERT OR UPDATE :: vdm1_data.CUSTOMER_REC_CUSTOM_PREFERNCES :: insert_update_customer_rec_custom_preferences
 --                 16. CREATE TRIGGER :: AFTER INSERT OR UPDATE OR DELETE :: vdm1_data.CUSTOMER_RECLIST_MASTER_NONSPECIFIC :: update_customer_reclist_master_nonspecific_summary
 --                 17. CREATE TRIGGER :: AFTER INSERT OR UPDATE OR DELETE :: vdm1_data.CUSTOMER_RECLIST_MASTER_SPECIFIC :: update_customer_reclist_master_specific_summary
-
+--                 18. CREATE TRIGGER :: AFTER INSERT :: vdm1_data.FILM_CATEGORY_POPULARITY :: insert_customer_reclist_nonspecific_with_new_film
+--                 19. CREATE TRIGGER :: AFTER INSERT :: vdm1_data.FILM_CATEGORY_POPULARITY :: insert_customer_reclist_specific_with_new_film
+--                 20. CREATE TRIGGER :: AFTER UPDATE :: vdm1_data.INVENTORY_MAINTENCE :: update_inventory_maintenance_complete
 
 
 --             FUNCTIONS TO CREATED TRIGGERS 
@@ -304,14 +319,17 @@
 --                  7. vdm1_etl.f_vdm1_stage5_trigger_setup_infilm()
 --                  8. vdm1_etl.f_vdm1_stage5_trigger_setup_ucxcat()
 --                  9. vdm1_etl.f_vdm1_stage5_trigger_setup_nrucatpop()
---                 10. vdm1_etl.f_vdm1_stage5_trigger_setup_ufcpop()
---                 11. vdm1_etl.f_vdm1_stage5_trigger_setup_uinvmaint()
+--                 10. vdm1_etl.f_vdm1_stage5_trigger_setup_ufcpop_nr()
+--                 11. vdm1_etl.f_vdm1_stage5_trigger_setup_uinvmaint_count()
 --                 12. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_nonspecific()
 --                 13. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_specific()
 --                 14. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrcp()
 --                 15. vdm1_etl.f_vdm1_stage5_trigger_setup_unr()
 --                 16. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_nonspecific()
 --                 17. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_specific()
+--                 18. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_non_inf
+--                 19. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_spec_inf
+--                 20. vdm1_etl.f_vdm1_stage5_trigger_setup_uinvmaint_comp()
 
 
 --     #### #### #### ####
@@ -331,13 +349,17 @@
 
 --              FUNCTIONS
 
---                  1. vdm1_etl.f_vdm1_reset_disable_triggers() 
---                  2. vdm1_etl.f_vdm1_reset_drop_triggers();
---             	    3. vdm1_etl.f_vdm1_reset_delete_table_vdm1_data(); 
+--                  1. vdm1_etl.f_vdm1_reset_disable_triggers();
+--             	    2. vdm1_etl.f_vdm1_reset_drop_triggers();
+--                  3. vdm1_etl.f_vdm1_reset_delete_tables_vdm1_data();
 --                  4. vdm1_etl.f_vdm1_reset_create_materialized_view();
 --                  5. vdm1_etl.f_vdm1_reset_drop_materialized_view();
---                  6. vdm1_etl.f_vdm1_reset_refresh_materialized_view();
-
+-- 					6. vdm1_etl.f_vdm1_reset_refresh_materialized_view()
+-- 					7. vdm1_etl.f_vdm1_reset_create_mview_inventory_maintenance_summary
+-- 					8. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_master_non()
+-- 					9. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_master_spec()
+--				   10. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_summary_non()
+--				   11. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_summary_spec()
 
 --     #### #### #### ####
 --         VDM1 RESET
@@ -624,7 +646,6 @@ $vdm1_stage0_etl_env_setup$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### ####     STAGE 0 END     #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
-
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
@@ -633,7 +654,6 @@ $vdm1_stage0_etl_env_setup$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### ####    STAGE 1 BEGIN    #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #TODO STAGE 1 BEGIN
-
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
@@ -652,6 +672,11 @@ $vdm1_stage0_etl_env_setup$;
 
 --                  1. vdm1_etl.f_vdm1_stage1_extractimport(tablename VARCHAR(30));
 --                  2. vdm1_etl.f_vdm1_stage1_data_validation_count_check(p_schema_one varchar, p_table_one varchar, p_schmea_two varchar, p_table_two varchar);
+--                  3. vdm1_data.f_vdm1_calc_expected_return_date(p_film_id INT, p_rental_date DATE)
+--                  4. vdm1_data.f_vdm1_transform_customer_full_name(p_first_name VARCHAR, p_last_name VARCHAR)
+--                  5. vdm1_data.f_vdm1_transform_filmlength_int2vchar(p_length INTEGER)
+--                  6. vdm1_data.f_vdm1_transform_customer_phone_e164(p_phone VARCHAR)
+
 
 --     #### #### #### ####
 --         STAGE 1 END
@@ -660,7 +685,6 @@ $vdm1_stage0_etl_env_setup$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
-
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
@@ -802,7 +826,6 @@ $vdm1_stage1_run$;
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
-
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 --                      #### #### #### #### #### #### #### #### 
@@ -827,11 +850,9 @@ $vdm1_stage1_run$;
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
-
 -- #### #### #### ####
 -- ####     1     #### 
 -- #### #### #### #### 
-
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage1_extractimport(tablename VARCHAR(30)) 
 	RETURNS VOID
@@ -848,13 +869,10 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage1_extractimport(tablename VARCHA
 $vdm1_stage1extract$;
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
--- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
--- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####     2     #### 
 -- #### #### #### #### 
-
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage1_data_validation_count_check(
       p_schema_one varchar
@@ -930,8 +948,6 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage1_data_validation_count_check(
 $vdm1_stage1_data_validation_source_count_matches_destination_count$;
 
 
-
-
 -- REFERENCE LINKS
 -- https://www.geeksforgeeks.org/postgresql-if-statement/
 -- https://www.postgresql.org/docs/current/plpgsql-errors-and-messages.html
@@ -940,14 +956,11 @@ $vdm1_stage1_data_validation_source_count_matches_destination_count$;
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
-
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
-
 
 -- #### #### #### ####
 -- ####     3     #### 
 -- #### #### #### #### 
-
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_calc_expected_return_date_container()
 	RETURNS VOID
@@ -995,9 +1008,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_calc_expected_return_date_container()
 	END;
 $vdm1_data_f_calc_expected_return_date_container$;
 
-
--- #### #### #### #### #### #### #### #### 
-
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####     4     #### 
@@ -1068,8 +1079,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_transform_customer_full_name_container()
 	END;
 $vdm1_data_f_transform_customer_full_name_container$;
 
-
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####     5     #### 
@@ -1128,13 +1138,11 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_transform_filmlength_int2vchar_container()
 	END;
 $vdm1_data_f_transform_filmlength_int2vchar_container$;
 
-
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####     6     #### 
 -- #### #### #### #### 
-
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_transform_customer_phone_e164_container()
 	RETURNS VOID
@@ -1184,18 +1192,12 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_transform_customer_phone_e164_container()
 $vdm1_data_f_transform_customer_phone_e164_container$;
 
 
--- #### #### #### #### #### #### #### #### 
-
-
--- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
--- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #TODO STAGE 1 END
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### ####     STAGE 1 END     #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
--- MASTER CODE BLOCK - STAGE 2
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
@@ -1330,12 +1332,9 @@ $vdm1_stage2run$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
-
 -- #### #### #### ####
 -- ####     1     #### 
 -- #### #### #### #### 
-
-
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage2_customer_status_amend()
 	RETURNS VOID
@@ -1363,12 +1362,11 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage2_customer_status_amend()
 	END;
 $vdm1_stage2_cxstatamend$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####     2     #### 
 -- #### #### #### #### 
-
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage2_films()
 	RETURNS VOID
@@ -1397,12 +1395,11 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage2_films()
 	END;
 $vdm1_stage2_create_table_films$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####     3     #### 
 -- #### #### #### #### 
-
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage2_film_inventory()
 	RETURNS VOID
@@ -1425,7 +1422,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage2_film_inventory()
 	END;
 $vdm1_stage2_create_table_film_inventory$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####     4     #### 
@@ -1458,7 +1455,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage2_rentals()
 	END;
 $vdm1_stage2_create_table_rentals$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####     5     #### 
@@ -1493,12 +1490,11 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage2_locationdetails()
 END;
 $vdm1_stage2_create_table_location_details$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####     6     #### 
 -- #### #### #### #### 
-
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage2_stores()
 	RETURNS VOID
@@ -1527,7 +1523,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage2_stores()
 	END;
 $vdm1_stage2_create_table_store_details$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####     7     #### 
@@ -1565,7 +1561,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage2_customers()
 	END;
 $vdm1_stage2_create_table_customer_details$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####     8     #### 
@@ -1592,7 +1588,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage2_customer_category()
 	END;
 $vdm1_stage2_create_table_customer_category$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####     9     #### 
@@ -1619,7 +1615,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage2_film_category()
 	END;
 $vdm1_stage2_create_table_film_category$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####    10     #### 
@@ -1650,7 +1646,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage2_customer_film_category()
 
 $vdm1_stage2_create_table_customer_film_category$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####    11     #### 
@@ -1741,7 +1737,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage2_cleanup()
 	END;
 $vdm1_stage2_cleanup$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 
 -- #TODO STAGE 2 END
@@ -1804,7 +1800,7 @@ $vdm1_stage2_cleanup$;
 -- #TODO STAGE 3 - STORED PROCEDURES 
 
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage3()
 	LANGUAGE plpgsql
@@ -1840,9 +1836,7 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage3()
 	END;
 $vdm1_stage3_run$;
 
--- #### #### #### #### #### #### #### #### 
-
-
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
@@ -1894,7 +1888,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage3_create_table_new_releases()
 $vdm1_stage3_create_table_new_releases$;
 
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####     2     #### 
@@ -1921,7 +1915,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage3_create_table_failed_returns()
 	END;
 $vdm1_stage3_create_table_failed_returns$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####     3     #### 
@@ -1942,13 +1936,11 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage3_create_table_category_count_in
 
 $vdm1_stage3_create_table_category_count_init$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####     4     #### 
 -- #### #### #### ####
-
-
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage3_create_table_customer_watch_history_details()
 	RETURNS VOID
@@ -1985,7 +1977,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage3_create_table_customer_watch_hi
 	END;
 $vdm1_stage3_create_table_cxwatchhistory_details$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####     5     #### 
@@ -2011,7 +2003,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage3_create_table_cx_reclist_master
 	END;
 $vdm1_stage3_create_table_customer_reclist_master_nonspecific$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####     6     #### 
@@ -2037,7 +2029,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage3_create_table_cx_reclist_master
 	END;
 $vdm1_stage3_create_table_customer_reclist_master_specific$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####     7     #### 
@@ -2064,14 +2056,11 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage3_create_table_customer_rec_cust
     END;
 $vdm1_stage3_create_table_customer_rec_custom_preferences$;
 
-
-
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####     8     #### 
 -- #### #### #### #### 
-
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage3_table_changes()
 	RETURNS VOID
@@ -2174,12 +2163,11 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage3_table_changes()
 	END;
 $vdm1_stage3_table_changes$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####     9     #### 
 -- #### #### #### #### 
-
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage3_cleanup()
 	RETURNS VOID
@@ -2260,13 +2248,12 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage3_cleanup()
 	END;
 $vdm1_stage3cleanup$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #TODO STAGE 3 END
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### ####     STAGE 3 END     #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
--- MASTER CODE BLOCK - STAGE 4
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
@@ -2303,34 +2290,33 @@ $vdm1_stage3cleanup$;
 
 --             FUNCTIONS
 
---                  1. vdm1_etl.f_vdm1_stage4_calc_update_category_popularity_count()
---                  2. vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_count()
---                  3. vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_row_number()
---                  4. vdm1_etl.f_vdm1_stage4_calc_update_film_category_popularity_row_number()
---                  5. vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_count()
---                  6. vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_flag_inspection()
---                  7. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_count_null_corrections()
---                  8. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_historical_count()
---                  9. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_average_count()
---                 10. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_halfaverage_count()
---                 11. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_historical()
---                 12. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_average()
---                 13. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_halfaverage()
---                 14. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_custom_set_default()
---                 15. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_set_custom_order()
---                 16. vdm1_etl.f_vdm1_stage4_calc_update_customer_watch_history_row_number()
---                 17. vdm1_etl.f_vdm1_stage4_calc_insert_failed_returns_v2()
---                 18. vdm1_etl.f_vdm1_stage4_calc_insert_new_releases_v2()
---                 19. vdm1_etl.f_vdm1_stage4_calc_delete_cx_history_from_cx_filmcat
---                 20. vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_nonspecific()
---                 21. vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_nonspecific_rn()
---                 22. vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_specific_default();
---                 23. vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_specific_rn();
---                 24. vdm1_etl.f_vdm1_stage4_transform_customer_full_name(p_first_name VARCHAR, p_last_name VARCHAR)
---                 25. vdm1_etl.f_vdm1_stage4_transform_filmlength_int2vchar(p_length INTEGER)
---                 26. vdm1_etl.f_vdm1_stage4_calc_expected_return_date(p_film_id INT, p_rental_date DATE)
---                 27. vdm1_etl.f_vdm1_stage4_transform_customer_phone_e164();
---                 28. vdm1_etl.f_vdm1_stage4_cleanup()
+--                  1. vdm1_etl.f_vdm1_stage4_transform_customer_full_name();
+--                  2. vdm1_etl.f_vdm1_stage4_transform_customer_phone_number();
+--                  3. vdm1_etl.f_vdm1_stage4_transform_film_length();
+--                  4. vdm1_etl.f_vdm1_stage4_calc_update_category_popularity_count()
+--                  5. vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_count()
+--                  6. vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_row_number()
+--                  7. vdm1_etl.f_vdm1_stage4_calc_update_film_category_popularity_row_number()
+--                  8. vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_count()
+--                  9. vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_flag_inspection()
+--                 10. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_count_null_corrections()
+--                 11. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_historical_count()
+--                 12. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_average_count()
+--                 13. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_halfaverage_count()
+--                 14. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_historical()
+--                 15. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_average()
+--                 16. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_halfaverage()
+--                 17. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_custom_set_default()
+--                 18. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_set_custom_order()
+--                 19. vdm1_etl.f_vdm1_stage4_calc_update_customer_watch_history_row_number()
+--                 20. vdm1_etl.f_vdm1_stage4_calc_insert_failed_returns_v2()
+--                 21. vdm1_etl.f_vdm1_stage4_calc_insert_new_releases_v2()
+--                 22. vdm1_etl.f_vdm1_stage4_calc_delete_cx_history_from_cx_filmcat
+--                 23. vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_nonspecific()
+--                 24. vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_nonspecific_rn()
+--                 25. vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_specific_default();
+--                 26. vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_specific_rn();
+--                 27. vdm1_etl.f_vdm1_stage4_cleanup()
 
 
 --     #### #### #### ####
@@ -2354,33 +2340,31 @@ $vdm1_stage3cleanup$;
 
 -- #### #### #### #### #### #### #### #### 
 
+-- #### #### #### ####
+-- ####  4 Main   #### 
+-- #### #### #### #### 
+
 CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4()
 	LANGUAGE plpgsql
 	AS $vdm1_stage4run$
 	
 	BEGIN 
 	
-    
-		PERFORM vdm1_etl.f_vdm1_stage4_calc_update_customer_watch_history_row_number();
+        -- #### #### #### #### #### #### #### ####    
+
+        PERFORM vdm1_etl.f_vdm1_stage4_calc_update_customer_watch_history_row_number();
 
 		PERFORM vdm1_etl.f_vdm1_stage4_calc_update_category_popularity_count();
 
+        -- #### #### #### #### 
+        
         PERFORM vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_count();
 
 		PERFORM vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_count();
 
-		-- PERFORM vdm1_etl.f_vdm1_stage4_create_transform_function();
+		-- #### #### #### #### 
 
-		-- PERFORM vdm1_etl.f_vdm1_stage4_transform_customer_full_name();
-
-		-- PERFORM vdm1_etl.f_vdm1_stage4_transform_customer_phone_number();
-
-		-- PERFORM vdm1_etl.f_vdm1_stage4_transform_film_length();
-        
-
-        -- #### #### #### #### 
-
-        PERFORM vdm1_etl.f_vdm1_stage4_calc_update_cuscat_count_null_corrections();
+		PERFORM vdm1_etl.f_vdm1_stage4_calc_update_cuscat_count_null_corrections();
 
 		PERFORM vdm1_etl.f_vdm1_stage4_calc_update_cuscat_historical_count();
 
@@ -2388,15 +2372,28 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4()
 
 		PERFORM vdm1_etl.f_vdm1_stage4_calc_update_cuscat_halfaverage_count();
 
+
+        -- #### #### #### #### 
+
         PERFORM vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_flag_inspection();
 
-        
-		-- #### #### #### #### 
-
-		PERFORM vdm1_etl.f_vdm1_stage4_calc_delete_cx_history_from_cx_filmcat();
-
+        PERFORM vdm1_etl.f_vdm1_stage4_calc_delete_cx_history_from_cx_filmcat();
 
 		-- #### #### #### #### 
+
+		PERFORM vdm1_etl.f_vdm1_stage4_calc_insert_failed_returns_v2();
+
+		PERFORM vdm1_etl.f_vdm1_stage4_calc_insert_new_releases_v2();
+
+		-- PERFORM vdm1_etl.f_vdm1_stage4_create_transform_function();
+
+		PERFORM vdm1_etl.f_vdm1_stage4_transform_customer_full_name();
+
+		PERFORM vdm1_etl.f_vdm1_stage4_transform_customer_phone_number();
+
+		PERFORM vdm1_etl.f_vdm1_stage4_transform_film_length();
+
+        -- #### #### #### #### #### #### #### ####    
 
         PERFORM vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_historical();
 
@@ -2415,29 +2412,29 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4()
 
 		PERFORM vdm1_etl.f_vdm1_stage4_calc_update_film_category_popularity_row_number();
 
-		-- #### #### #### #### 
-
-		PERFORM vdm1_etl.f_vdm1_stage4_calc_insert_failed_returns_v2();
-
-		PERFORM vdm1_etl.f_vdm1_stage4_calc_insert_new_releases_v2();
+        -- #### #### #### #### #### #### #### ####    
 
 		PERFORM vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_nonspecific();
 
-		PERFORM vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_nonspecific_rn();
+        PERFORM vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_nonspecific_rn();
 
-		PERFORM vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_specific_default();
+        PERFORM vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_specific_default();
 
-		PERFORM vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_specific_rn();		
-		
+		PERFORM vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_specific_rn();
+
 		-- #### #### #### #### 
 
 		PERFORM vdm1_etl.f_vdm1_stage4_cleanup();
 
+        -- #### #### #### #### #### #### #### ####    
 	END;
 $vdm1_stage4run$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
+-- #### #### #### ####
+-- ####     4a    #### 
+-- #### #### #### #### 
 
 CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4a()
 	LANGUAGE plpgsql
@@ -2491,7 +2488,11 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4a()
 	END;
 $vdm1_stage4a_run$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+-- #### #### #### ####
+-- ####     4b    #### 
+-- #### #### #### #### 
 
 CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4b()
 	LANGUAGE plpgsql
@@ -2500,8 +2501,7 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4b()
 	
 	BEGIN 
 
-
- -- #### #### #### ####      
+        -- #### #### #### #### #### #### #### #### 
 
         PERFORM vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_historical();
 
@@ -2513,19 +2513,23 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4b()
 
 		PERFORM vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_set_custom_order();
 
-
         -- #### #### #### #### 
 
         PERFORM vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_row_number();
 
 		PERFORM vdm1_etl.f_vdm1_stage4_calc_update_film_category_popularity_row_number();
 
+        -- #### #### #### #### #### #### #### #### 
+
 
     END;
 $vdm1_stage4b_run$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
+-- #### #### #### ####
+-- ####     4c    #### 
+-- #### #### #### #### 
 
 CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4c()
 	LANGUAGE plpgsql
@@ -2534,8 +2538,7 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4c()
 	
 	BEGIN 
         
-        -- #### #### #### #### 
-
+        --- #### #### #### #### #### #### #### #### 
 
 		PERFORM vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_nonspecific();
 
@@ -2549,12 +2552,17 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4c()
 
 		PERFORM vdm1_etl.f_vdm1_stage4_cleanup();
 
+        -- #### #### #### #### #### #### #### #### 
 
     END;
 $vdm1_stage4c_run$;
 
 
--- #### #### #### #### #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+-- #### #### #### ####
+-- ####    4c1    #### 
+-- #### #### #### #### 
 
 CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4c1()
 	LANGUAGE plpgsql
@@ -2563,19 +2571,22 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4c1()
 	
 	BEGIN 
         
-        -- #### #### #### #### 
-
+        -- #### #### #### #### #### #### #### #### 
 
 		PERFORM vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_nonspecific();
 
         PERFORM vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_nonspecific_rn();
         
-        -- #### #### #### #### 
+        -- #### #### #### #### #### #### #### #### 
 
     END;
 $vdm1_stage4c1_run$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+-- #### #### #### ####
+-- ####   4c1a    #### 
+-- #### #### #### #### 
 
 CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4c1a()
 	LANGUAGE plpgsql
@@ -2584,17 +2595,20 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4c1a()
 	
 	BEGIN 
         
-        -- #### #### #### #### 
-
+        -- #### #### #### #### #### #### #### ####  
 
 		PERFORM vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_nonspecific();
         
-        -- #### #### #### #### 
+       -- #### #### #### #### #### #### #### #### 
 
     END;
 $vdm1_stage4c1a_run$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+-- #### #### #### ####
+-- ####   4c1b    #### 
+-- #### #### #### #### 
 
 CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4c1b()
 	LANGUAGE plpgsql
@@ -2603,17 +2617,20 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4c1b()
 	
 	BEGIN 
         
-        -- #### #### #### #### 
-
+        -- #### #### #### #### #### #### #### #### 
 
         PERFORM vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_nonspecific_rn();
         
-        -- #### #### #### #### 
+        -- #### #### #### #### #### #### #### #### 
 
     END;
 $vdm1_stage4c1b_run$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+-- #### #### #### ####
+-- ####   4c2    #### 
+-- #### #### #### #### 
 
 CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4c2()
 	LANGUAGE plpgsql
@@ -2622,18 +2639,22 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4c2()
 	
 	BEGIN 
         
-        -- #### #### #### #### 
+        -- #### #### #### #### #### #### #### #### 
 
         PERFORM vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_specific_default();
 
 		PERFORM vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_specific_rn();
 
-        -- #### #### #### #### 
+        -- #### #### #### #### #### #### #### #### 
 
     END;
 $vdm1_stage4c2_run$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+-- #### #### #### ####
+-- ####   4c2a    #### 
+-- #### #### #### #### 
 
 CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4c2a()
 	LANGUAGE plpgsql
@@ -2642,16 +2663,20 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4c2a()
 	
 	BEGIN 
         
-        -- #### #### #### #### 
+        -- #### #### #### #### #### #### #### #### 
 
         PERFORM vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_specific_default();
 
-        -- #### #### #### #### 
+        -- #### #### #### #### #### #### #### #### 
 
     END;
 $vdm1_stage4c2a_run$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+-- #### #### #### ####
+-- ####   4c2b    #### 
+-- #### #### #### #### 
 
 CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4c2b()
 	LANGUAGE plpgsql
@@ -2660,16 +2685,20 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4c2b()
 	
 	BEGIN 
         
-        -- #### #### #### #### 
+        -- #### #### #### #### #### #### #### #### 
 
 		PERFORM vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_specific_rn();
 
-        -- #### #### #### #### 
+        -- #### #### #### #### #### #### #### #### 
 
     END;
 $vdm1_stage4c2b_run$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+-- #### #### #### ####
+-- ####    4c3    #### 
+-- #### #### #### #### 
 
 CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4c3()
 	LANGUAGE plpgsql
@@ -2678,16 +2707,16 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage4c3()
 	
 	BEGIN 
         
-        -- #### #### #### #### 
+        -- #### #### #### #### #### #### #### #### 
 
 		PERFORM vdm1_etl.f_vdm1_stage4_cleanup();
 
-        -- #### #### #### #### 
+        -- #### #### #### #### #### #### #### #### 
 
     END;
 $vdm1_stage4c3_run$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
@@ -2727,11 +2756,7 @@ $vdm1_stage4c3_run$;
 --     24. vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_nonspecific_rn()
 --     25. vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_specific_default();
 --     26. vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_specific_rn();
---     27. vdm1_etl.f_vdm1_stage4_transform_customer_full_name(p_first_name VARCHAR, p_last_name VARCHAR)
---     28. vdm1_etl.f_vdm1_stage4_transform_filmlength_int2vchar(p_length INTEGER)
---     29. vdm1_etl.f_vdm1_stage4_calc_expected_return_date(p_film_id INT, p_rental_date DATE)
---     30. vdm1_etl.f_vdm1_stage4_transform_customer_phone_e164(p_phone VARCHAR);
---     31. vdm1_etl.f_vdm1_stage4_cleanup()
+--     27. vdm1_etl.f_vdm1_stage4_cleanup()
 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
@@ -2769,7 +2794,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_transform_customer_full_name()
 	END;
 $vdm1_stage4_transform_update_customer_full_name$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####     2     #### 
@@ -2802,8 +2827,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_transform_customer_phone_numbe
 	END;
 $vdm1_stage4_transform_update_customer_phone_number$;
 
--- #### #### #### #### #### #### #### #### 
-
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####     3     #### 
@@ -2836,13 +2860,11 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_transform_film_length()
 	END;
 $vdm1_stage4_transform_update_film_length$;
 
--- #### #### #### #### #### #### #### ####  
-
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####     4     #### 
 -- #### #### #### #### 
-
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_category_popularity_count()
 	RETURNS VOID
@@ -2873,7 +2895,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_category_popularit
 	END;
 $vdm1_stage4_calc_update_category_popularity_count$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####     5     #### 
@@ -2909,7 +2931,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_co
 	END;
 $vdm1_stage4_calc_update_film_popularity_count$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####     6     #### 
@@ -2945,7 +2967,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_ro
 	END;
 $vdm1_stage4_calc_update_film_popularity_row_number$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####     7     #### 
@@ -2981,8 +3003,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_film_category_popu
 	END;
 $vdm1_stage4_calc_update_film_category_popularity_row_number$;
 
--- #### #### #### #### #### #### #### #### 
-
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####     8     #### 
@@ -3020,7 +3041,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_cou
     END;
 $vdm1_stage4_calc_update_film_inventory_count$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####     9     #### 
@@ -3048,8 +3069,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_fla
 
 $vdm1_stage4_calcupdate_film_inventory_flag_inspection$;
 
-
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####    10     #### 
@@ -3078,7 +3098,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_cuscat_count_null_
 	END;
 $vdm1_stage4_calc_update_customer_category_count_null_correction$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####    11     #### 
@@ -3116,8 +3136,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_cuscat_historical_
 	END;
 $vdm1_stage4_calc_update_customer_category_historical_count$;
 
-
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####    12     #### 
@@ -3157,8 +3176,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_cuscat_average_cou
 	END;
 $vdm1_stage4_calc_update_customer_category_average_count$;
 
-
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####    13     #### 
@@ -3198,8 +3216,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_cuscat_halfaverage
 	END;
 $vdm1_stage4_calc_update_customer_category_halfaverage_count$;
 
-
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####    14     #### 
@@ -3236,8 +3253,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_hi
 	END;
 $vdm1_stage4_calc_update_customer_category_rec_order_historical$;
 
-
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####    15     #### 
@@ -3274,8 +3290,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_av
 	END;
 $vdm1_stage4_calc_update_customer_category_rec_order_average$;
 
-
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####    16     #### 
@@ -3312,7 +3327,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_ha
 	END;
 $vdm1_stage4_calc_update_customer_category_rec_order_halfaverage$;
 
--- #### #### #### #### #### #### #### ####
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####    17     #### 
@@ -3339,8 +3354,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_cu
 	END;
 $vdm1_stage4_calc_update_customer_category_recommendation_order_user_custom_set_defaults$;
 
- 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####    18     #### 
@@ -3378,8 +3392,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_se
 	END;
 $vdm1_stage4_calc_update_customer_category_recommendation_order_user_set_custom_pref$;
 
- 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####    19     #### 
@@ -3421,10 +3434,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_customer_watch_his
 	END;
 $vdm1_stage4_calc_update_cx_wh_rn$;
 
-
-
-
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####    20     #### 
@@ -3469,7 +3479,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_insert_failed_returns_v2(
 	END;
 $vdm1_stage4_calc_insert_failed_returns$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####    21     #### 
@@ -3498,7 +3508,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_insert_new_releases_v2()
 	END;
 $vdm1_stage4_calc_insert_new_releases$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####    22     #### 
@@ -3535,7 +3545,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_delete_cx_history_from_cx
 	END;
 $vdm1_stage4_calc_delete_customer_film_category$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####    23     #### 
@@ -3591,7 +3601,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_
 	END;
 $vdm1_stage4_calc_insert_customer_reclist_master_nonspecific$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####    24     #### 
@@ -3656,7 +3666,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_
 
 $vdm1_stage4_calc_update_customer_reclist_master_nonspecific_row_number$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####    25     #### 
@@ -3752,7 +3762,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_
 
 $vdm1_stage4_calc_insert_customer_reclist_master_specific_default$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####     26    #### 
@@ -3818,7 +3828,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_
 
 $vdm1_stage4_calc_update_customer_reclist_master_specific_row_number$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####    27     #### 
@@ -3850,7 +3860,6 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_cleanup()
 		ALTER TABLE IF EXISTS staging.vdm1_stage4_films
 			RENAME TO vdm1_stage5_dictkey_film_details;
 
-
         -- #### #### #### #### 
 
 		ALTER TABLE IF EXISTS staging.vdm1_stage4_dictkey_category
@@ -3864,7 +3873,6 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_cleanup()
 
 		ALTER TABLE IF EXISTS staging.vdm1_stage4_dictkey_language
 			RENAME TO vdm1_stage5_dictkey_language;
-			
 
         -- #### #### #### #### #### #### #### #### 
 
@@ -3910,7 +3918,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_cleanup()
 	END;
 $vdm1_stage4_cleanup$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 
 -- #TODO STAGE 4 END
@@ -3921,13 +3929,11 @@ $vdm1_stage4_cleanup$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
--- MASTER CODE BLOCK - STAGE 5a
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### ####    STAGE 5a BEGIN    #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #TODO STAGE 5a BEGIN
-
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
@@ -3988,6 +3994,9 @@ $vdm1_stage4_cleanup$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #TODO STAGE 5a - STORED PROCEDURES
 
+-- #### #### #### ####
+-- ####  5a Main  #### 
+-- #### #### #### #### 
 
 CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_main()
 	LANGUAGE plpgsql
@@ -4214,17 +4223,6 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_main()
 
         -- #### #### #### #### 
 
-
-        -- PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('customer_reclist_master_nonspecific', 'customer_id, film_rec_order');
-
-        -- PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('customer_reclist_master_specific', 'customer_id, cat_rec_order, rental_rec_order');
-
-        -- PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('customer_reclist_summary_nonspecific', 'customer_id, film_rec_order');
-
-        -- PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('customer_reclist_summary_specific', 'customer_id, cat_rec_order, rental_rec_order');
-
-        -- #### #### #### #### 
-
         PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('failed_returns', 'customer_id');
 
         PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('new_releases', 'film_id');
@@ -4335,9 +4333,6 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_main()
         PERFORM vdm1_etl.f_vdm1_stage5_refresh_materialized_view('customer_watch_history_detailed');
 
         -- #### #### #### #### #### #### #### #### 
-
-
-
         -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
     END;
@@ -4345,6 +4340,9 @@ $vdm1_stage5_run_main$;
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
+-- #### #### #### ####
+-- ####  5a RESET #### 
+-- #### #### #### #### 
 
 CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_reset()
 	LANGUAGE plpgsql
@@ -4553,9 +4551,6 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_reset()
 
         -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
-
-
-
         PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('dictkey_customer_details', 'customer_id');
 
         PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('dictkey_store_details', 'store_id');
@@ -4577,17 +4572,6 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_reset()
 
         -- #### #### #### #### 
 
-
-        --PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('customer_reclist_master_nonspecific', 'customer_id, film_rec_order');
-
-        --PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('customer_reclist_master_specific', 'customer_id, cat_rec_order, rental_rec_order');
-
-        --PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('customer_reclist_summary_nonspecific', 'customer_id, film_rec_order');
-
-        --PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('customer_reclist_summary_specific', 'customer_id, cat_rec_order, rental_rec_order');
-        
-        -- #### #### #### #### 
-
         PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('failed_returns', 'customer_id');
 
         PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('new_releases', 'film_id');
@@ -4597,7 +4581,6 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_reset()
         PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('film_category_popularity', 'total_rentals DESC, film_id');
 
         PERFORM vdm1_etl.f_vdm1_stage5_create_materialized_view('category_popularity', 'total_rentals DESC');
-
 
         -- #### #### #### #### #### #### #### #### 
 
@@ -4751,7 +4734,7 @@ $vdm1_stage5_run_reset$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
 -- ####     1     #### 
@@ -4775,7 +4758,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_createtable_cx_reclist_summary
 	END;
 $vdm1_stage5_create_table_customer_reclist_summary_nonspecific$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
 -- ####     2     #### 
@@ -4802,7 +4785,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_createtable_cx_reclist_summary
 	END;
 $vdm1_stage5_create_table_customer_reclist_summary_specific$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
 -- ####     3     #### 
@@ -4853,7 +4836,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_insert_cx_reclist_summary_nons
 	END;
 $vdm1_stage5_insert_customer_reclist_summary_nonspecific$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
 -- ####     4     #### 
@@ -5044,7 +5027,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_insert_cx_reclist_summary_spec
 	END;
 $vdm1_stage5_insert_customer_reclist_summary_specific$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
 -- ####     5     #### 
@@ -5094,7 +5077,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_create_materialized_view(
 	END;
 $vdm1_stage5_create_materialized_view$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
 -- ####     6     #### 
@@ -5118,7 +5101,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_create_table_dictkey()
     END;
 $vdm1_stage5_create_table_dictkey$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
 -- ####     7     #### 
@@ -5149,7 +5132,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_dictkey_insert_category_data()
 	END;
 $vdm1_stage5_dictkey_insert_category_data$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
 -- ####     8     #### 
@@ -5180,7 +5163,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_dictkey_insert_language_data()
 	END;
 $vdm1_stage5_dictkey_insert_language_data$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
 -- ####     9     #### 
@@ -5212,7 +5195,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_dictkey_insert_city_data()
 
 $vdm1_stage5_dictkey_insert_city_data$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
 -- ####    10     #### 
@@ -5243,8 +5226,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_dictkey_insert_country_data()
 	END;
 $vdm1_stage5_dictkey_insert_country_data$;
 
-
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
 -- ####    11     #### 
@@ -5333,7 +5315,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_datestamp()
     END;
 $vdm1_stage5_datestamp$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
 -- ####    12     #### 
@@ -5426,7 +5408,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_table_rename()
 	END;
 $vdm1_stage5_table_rename$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
 -- ####    13     #### 
@@ -5448,7 +5430,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_load_data_marketing(tablename 
 	END;
 $vdm1_stage5_load_data_marketing$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
 -- ####    14     #### 
@@ -5468,7 +5450,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_load_data_vdm1_data(tablename 
 	END;
 $vdm1_stage5_load_data_vdm1_data$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
 -- ####    15     #### 
@@ -5546,7 +5528,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_data_validation_count_check(
 
 $vdm1_stage5_data_validation_source_count_matches_destination_count$;
   
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
 -- ####    16     #### 
@@ -5626,7 +5608,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_table_enabled_logging_vdm1_dat
     END;
 $vdm1_stage5_table_changes_activate_logging_vdm1_data$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
 -- ####    17     #### 
@@ -5639,7 +5621,6 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_create_table_constraints()
     AS $vdm1_stage5_add_table_constraints$
 
     BEGIN
-
 
         ALTER TABLE vdm1_data.customer_category
             ADD PRIMARY KEY (customer_id, category_id),
@@ -5716,7 +5697,7 @@ $vdm1_stage5_add_table_constraints$;
 -- https://popsql.com/learn-sql/postgresql/how-to-alter-sequence-in-postgresql
 
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
 -- ####    18     #### 
@@ -5761,13 +5742,11 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_cleanup()
 	END;
 $vdm1_stage5_cleanup$;
 
-
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
 -- ####    19     #### 
 -- #### #### #### #### 
-
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_destroy_stage()
 	RETURNS VOID
@@ -5782,8 +5761,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_destroy_stage()
 	END;
 $vdm1_stage5_destroy_stage$;
 
-
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
 -- ####    20     #### 
@@ -5813,7 +5791,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_create_mview_inventory_mainten
 	END;
 $vdm1_stage5_create_mview_film_inventory_summary$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
 -- ####    21     #### 
@@ -5871,7 +5849,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_
 	END;
 $vdm1_stage5_create_mview_customer_reclist_master_nonspecific$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
 -- ####    22     #### 
@@ -5930,7 +5908,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_
 	END;
 $vdm1_stage5_create_mview_customer_reclist_master_specific$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
 -- ####    23     #### 
@@ -5987,7 +5965,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_
 	END;
 $vdm1_stage5_create_mview_customer_reclist_summary_nonspecific$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
 -- ####    24     #### 
@@ -6045,7 +6023,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_
 	END;
 $vdm1_stage5_create_mview_customer_reclist_summary_specific$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
 -- ####    25     #### 
@@ -6073,18 +6051,14 @@ $vdm1_stage5_refresh_materialized_view$;
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
-
-
 -- #TODO STAGE 5a END
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### ####     STAGE 5a END    #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
-
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####      
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####      
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####                           
--- STAGE 5 - TRIGGER FUNCTIONS CODE BLOCK
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### ####    STAGE 5b BEGIN    #### #### #### #### #### #### #### #### #### #### #### #### #### ####
@@ -6271,7 +6245,7 @@ $vdm1_stage5_trigger_functions_setup_procedure$;
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
 -- ####     1     #### 
@@ -6672,6 +6646,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incat(
 $vdm1_stage5_trigger_functions_setup_insert_new_category$;
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
 -- #### #### #### ####
 -- ####     3     #### 
 -- #### #### #### #### 
@@ -7765,7 +7740,6 @@ $vdm1_stage5_trigger_functions_setup_update_customer_reclist_summary_nonspecific
 -- ####    12     #### 
 -- #### #### #### #### 
 
-
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_spe()
 	RETURNS VOID
 	LANGUAGE plpgsql
@@ -8308,7 +8282,6 @@ $vdm1_stage5_trigger_functions_setup_update_inventory_maintenance$;
 -- ####    16     #### 
 -- #### #### #### #### 
 
-
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_unewr()
 	RETURNS VOID
 	LANGUAGE plpgsql
@@ -8436,7 +8409,6 @@ $vdm1_stage5_trigger_functions_setup_update_rental_return$;
 -- #### #### #### ####
 -- ####    18     #### 
 -- #### #### #### ####
-
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_non_inf()
 	RETURNS VOID
@@ -8575,10 +8547,10 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
 $vdm1_stage5_trigger_functions_setup_insert_customer_reclist_master_nonspecific_with_new_film$;
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
+
 -- #### #### #### ####
 -- ####    19     #### 
 -- #### #### #### ####
-
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_spe_inf()
 	RETURNS VOID
@@ -8765,10 +8737,10 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
 $vdm1_stage5_trigger_functions_setup_insert_customer_reclist_master_specific_with_new_film$;
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
+
 -- #### #### #### ####
 -- ####    20     #### 
 -- #### #### #### ####
-
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_uinv_comp()
 	RETURNS VOID
@@ -8818,18 +8790,7 @@ $vdm1_stage5_trigger_functions_setup_update_inventory_maintenance_complete$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 
--- #### #### #### ####
--- ####    21     #### 
--- #### #### #### #### 
-
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
-
-
--- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
-
-
--- #### #### #### #### #### #### #### #### 
-
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### ####    TRIGGERS END     #### #### #### #### #### #### #### #### #### #### #### #### #### ####
@@ -8843,8 +8804,6 @@ $vdm1_stage5_trigger_functions_setup_update_inventory_maintenance_complete$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####      
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####      
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####                           
--- STAGE 5 - TRIGGERS CODE BLOCK
-
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### ####    STAGE 5c BEGIN    #### #### #### #### #### #### #### #### #### #### #### #### #### ####
@@ -8858,6 +8817,8 @@ $vdm1_stage5_trigger_functions_setup_update_inventory_maintenance_complete$;
 --       STAGE 5c BEGIN
 --           TRIGGERS
 --     #### #### #### ####
+
+
 --             STORED PROCEDURES
 
 --                  1. vdm1_etl.vdm1_stage5_triggers_setup();
@@ -9438,8 +9399,6 @@ $vdm1_stage5_trigger_setup_insert_customer_reclist_master_nonspecific_with_new_f
 -- ####    19     #### 
 -- #### #### #### #### 
 
-
-
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_spe_inf()
 	RETURNS VOID
 	LANGUAGE plpgsql
@@ -9463,9 +9422,6 @@ $vdm1_stage5_trigger_setup_insert_customer_reclist_master_specific_with_new_film
 -- ####    20     #### 
 -- #### #### #### #### 
 
-
-
-
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_uinvmaint_comp()
 	RETURNS VOID
 	LANGUAGE plpgsql
@@ -9485,20 +9441,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_uinvmaint_comp()
 $vdm1_stage5_trigger_setup_update_inventory_maintenance$;
 
 
--- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
--- #### #### #### ####
--- ####     21    #### 
--- #### #### #### #### 
-
--- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
--- #### #### #### ####
--- ####     22    #### 
--- #### #### #### #### 
-
-
--- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
-
--- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### ####     STAGE 5c END     #### #### #### #### #### #### #### #### #### #### #### #### #### ####
@@ -9929,70 +9872,12 @@ $vdm1_reset_procedure_function_disable_triggers$;
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_drop_triggers()
 	RETURNS VOID
 	LANGUAGE plpgsql
-	
 	AS $vdm1_reset_procedure_function_drop_triggers$
-	
 	
 	BEGIN
 
-        -- #### #### #### #### #### #### #### #### 
+        -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
-            /*
-
-			DROP TRIGGER IF EXISTS vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ifr()
-				ON public.rental CASCADE;
-
-			DROP TRIGGER IF EXISTS vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incat()
-				ON public.category CASCADE;
-
-			DROP TRIGGER IF EXISTS vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incust()
-				ON public.customer CASCADE;
-
-			DROP TRIGGER IF EXISTS vdm1_etl.f_vdm1_stage5_trigger_functions_setup_infilm()
-				ON public.film_category CASCADE;
-
-			DROP TRIGGER IF EXISTS vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ininv()
-				ON public.inventory CASCADE;
-
-			DROP TRIGGER IF EXISTS vdm1_etl.f_vdm1_stage5_trigger_functions_setup_iucrcp()
-				ON vdm1_data.customer_rec_custom_preferences CASCADE;
-
-			DROP TRIGGER IF EXISTS vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucatpop()
-				ON vdm1_data.category_popularity CASCADE;
-
-			DROP TRIGGER IF EXISTS vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucustcat()
-				ON vdm1_data.customer_category CASCADE;
-
-			DROP TRIGGER IF EXISTS vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_non()
-				ON vdm1_data.customer_reclist_master_nonspecific CASCADE;
-
-			DROP TRIGGER IF EXISTS vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_spe()
-				ON vdm1_data.customer_reclist_master_specific CASCADE;
-
-			DROP TRIGGER IF EXISTS vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_non()
-				ON vdm1_data.customer_reclist_summary_nonspecific CASCADE;
-
-			DROP TRIGGER IF EXISTS vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_spe()
-				ON vdm1_data.customer_reclist_summary_specific CASCADE;
-
-			DROP TRIGGER IF EXISTS vdm1_etl.f_vdm1_stage5_trigger_functions_setup_upcxwatchhist()
-				ON vdm1_data.customer_watch_history_detailed CASCADE;
-
-			DROP TRIGGER IF EXISTS vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ufcp()
-				ON vdm1_data.film_category_popularity CASCADE; 
-
-			DROP TRIGGER IF EXISTS vdm1_etl.f_vdm1_stage5_trigger_functions_setup_uinvm()
-				ON vdm1_data.inventory_maintenance CASCADE;
-
-			DROP TRIGGER IF EXISTS vdm1_etl.f_vdm1_stage5_trigger_functions_setup_unewr()
-				ON vdm1_data.film_category_popularity;
-
-			DROP TRIGGER IF EXISTS vdm1_etl.f_vdm1_stage5_trigger_functions_setup_urr()
-				ON public.rental CASCADE;
-
-            */
-
-        -- #### #### #### #### #### #### #### #### 
                     
             DROP TRIGGER IF EXISTS insert_customer_watch_history
                 ON public.rental CASCADE;
@@ -10060,19 +9945,16 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_drop_triggers()
             DROP TRIGGER IF EXISTS update_inventory_maintenance_complete
                 ON vdm1_data.inventory_maintenance CASCADE;     
 
-        -- #### #### #### #### #### #### #### #### 
+        -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 	END;
 $vdm1_reset_procedure_function_drop_triggers$;
-
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
 -- ####     3     #### 
 -- #### #### #### #### 
-
-
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_delete_tables_vdm1_data()
 	RETURNS VOID
@@ -10147,20 +10029,16 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_delete_tables_vdm1_data()
         DROP TABLE IF EXISTS vdm1_data.dictkey_film_details
 			CASCADE;
 
-
-
         -- #### #### #### #### #### #### #### #### 
 
 	END;
 $vdm1_reset_procedure_function_delete_tables_vdm1_data$;
 
-
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
 -- ####     4     #### 
 -- #### #### #### #### 
-
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_create_materialized_view(
       p_tablename VARCHAR
@@ -10206,11 +10084,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_create_materialized_view(
 	END;
 $vdm1_stage5_create_materialized_view$;
 
-
--- #### #### #### #### #### #### #### #### 
-
-
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
 -- ####     5     #### 
@@ -10237,7 +10111,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_drop_materialized_view(
 $vdm1_stage5_drop_materialized_view$;
 
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
 -- ####    6     #### 
@@ -10263,7 +10137,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_refresh_materialized_view(
 	END;
 $vdm1_reset_refresh_materialized_view$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
 -- ####    7     #### 
@@ -10293,7 +10167,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_create_mview_inventory_maintena
 	END;
 $vdm1_reset_create_mview_film_inventory_summary$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
 -- ####     8     #### 
@@ -10350,7 +10224,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_m
 	END;
 $vdm1_reset_create_mview_customer_reclist_master_nonspecific$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
 -- ####     9     #### 
@@ -10408,7 +10282,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_m
 	END;
 $vdm1_reset_create_mview_customer_reclist_master_specific$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
 -- ####    10     #### 
@@ -10464,7 +10338,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_s
 	END;
 $vdm1_reset_create_mview_customer_reclist_summary_nonspecific$;
 
--- #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
 -- ####    11     #### 
@@ -10522,12 +10396,16 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_s
 	END;
 $vdm1_reset_create_mview_customer_reclist_summary_specific$;
 
--- #### #### #### #### #### #### #### #### 
-
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
-
 
 -- #TODO VDM1 RESET STAGE END
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### ####        VDM1 RESET STAGE END        #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####      
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####      
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####                           
+
+
+
