@@ -4214,6 +4214,8 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_main()
         -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
         PERFORM vdm1_etl.f_vdm1_stage5_create_table_constraints();
+
+		PERFORM vdm1_etl.f_vdm1_stage5_table_enabled_logging_vdm1_data();
         
         -- #### #### #### #### 
 
@@ -4563,6 +4565,10 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_reset()
         -- #### #### #### #### #### #### #### #### 
 
         -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+		PERFORM vdm1_etl.f_vdm1_stage5_table_enabled_logging_vdm1_data();
+
+		-- #### #### #### #### #### #### #### #### 
 
         PERFORM vdm1_etl.f_vdm1_stage5_create_table_constraints();
         
@@ -9030,7 +9036,7 @@ $vdm1_stage5_trigger_setup_insert_new_category$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####     4     #### 
+-- ####     4     #### N
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_ininv()
@@ -9863,71 +9869,65 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_drop_triggers()
         -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
                     
-            DROP TRIGGER IF EXISTS insert_customer_watch_history
-                ON public.rental CASCADE;
+		DROP TRIGGER IF EXISTS insert_customer_watch_history
+		ON public.rental CASCADE;
 
-            DROP TRIGGER IF EXISTS insert_new_customer
-                ON public.customer CASCADE;
+		DROP TRIGGER IF EXISTS insert_new_customer
+		ON public.customer CASCADE;
 
-            DROP TRIGGER IF EXISTS insert_new_category
-                ON public.category CASCADE;
+		DROP TRIGGER IF EXISTS insert_new_category
+		ON public.category CASCADE;
 
-            DROP TRIGGER IF EXISTS insert_new_inventory
-                ON public.inventory CASCADE;
+		DROP TRIGGER IF EXISTS insert_new_inventory
+		ON public.inventory CASCADE;
 
-            DROP TRIGGER IF EXISTS update_rental_return
-                ON public.rental CASCADE;
+		DROP TRIGGER IF EXISTS update_rental_return_date_delete_rental_from_fr_table
+		ON public.rental CASCADE;
 
-            DROP TRIGGER IF EXISTS insert_failed_return
-                ON public.rental CASCADE;
+		DROP TRIGGER IF EXISTS insert_null_returned_date_rental_to_fr_table
+		ON public.rental CASCADE;
 
-            DROP TRIGGER IF EXISTS insert_new_film
-                ON public.film_category CASCADE;
+		DROP TRIGGER IF EXISTS insert_new_film
+		ON public.film_category CASCADE;
 
-            DROP TRIGGER IF EXISTS update_customer_category
-                ON vdm1_data.customer_watch_history_detailed CASCADE;
+		DROP TRIGGER IF EXISTS update_customer_category
+		ON vdm1_data.customer_watch_history_detailed CASCADE;
 
-            DROP TRIGGER IF EXISTS new_rental_update_category_popularity
-                ON vdm1_data.customer_watch_history_detailed CASCADE;
+		DROP TRIGGER IF EXISTS new_rental_update_category_popularity
+		ON vdm1_data.customer_watch_history_detailed CASCADE;
 
-            DROP TRIGGER IF EXISTS update_film_category_popularity
-                ON vdm1_data.customer_watch_history_detailed CASCADE;
+		DROP TRIGGER IF EXISTS update_film_category_popularity_new_rental
+		ON vdm1_data.customer_watch_history_detailed CASCADE;
 
-            DROP TRIGGER IF EXISTS update_inventory_maintenance
-                ON vdm1_data.customer_watch_history_detailed CASCADE;
+		DROP TRIGGER IF EXISTS update_inventory_maintenance_count
+		ON vdm1_data.customer_watch_history_detailed CASCADE;
 
-            DROP TRIGGER IF EXISTS update_customer_reclist_master_nonspecific
-                ON vdm1_data.customer_watch_history_detailed CASCADE;
+		DROP TRIGGER IF EXISTS update_customer_reclist_master_nonspecific_new_rental
+		ON vdm1_data.customer_watch_history_detailed CASCADE;
 
-            DROP TRIGGER IF EXISTS update_customer_reclist_master_specific
-                ON vdm1_data.customer_watch_history_detailed CASCADE;
+		DROP TRIGGER IF EXISTS update_customer_reclist_master_specific_new_rental
+		ON vdm1_data.customer_watch_history_detailed CASCADE;
 
-            DROP TRIGGER IF EXISTS insert_update_customer_rec_custom_preferences
-                ON vdm1_data.customer_rec_custom_preferences CASCADE;
+		DROP TRIGGER IF EXISTS insert_update_customer_rec_custom_preferences
+		ON vdm1_data.customer_rec_custom_preferences CASCADE;
 
-            DROP TRIGGER IF EXISTS update_new_release
-                ON vdm1_data.film_category_popularity CASCADE;
+		DROP TRIGGER IF EXISTS update_new_release_status_delete_film_from_nr_table
+		ON vdm1_data.film_category_popularity CASCADE;
 
-            DROP TRIGGER IF EXISTS update_customer_reclist_summary_nonspecific
-                ON vdm1_data.customer_reclist_master_nonspecific CASCADE;
+		DROP TRIGGER IF EXISTS update_customer_reclist_summary_nonspecific
+		ON vdm1_data.customer_reclist_master_nonspecific CASCADE;
 
-            DROP TRIGGER IF EXISTS update_customer_reclist_summary_specific
-                ON vdm1_data.customer_reclist_master_specific CASCADE;
+		DROP TRIGGER IF EXISTS update_customer_reclist_summary_specific
+		ON vdm1_data.customer_reclist_master_specific CASCADE;
 
-            DROP TRIGGER IF EXISTS insert_new_film_release
-                ON vdm1_data.customer_film_category_popularity CASCADE;
+		DROP TRIGGER IF EXISTS insert_customer_reclist_nonspecific_with_new_film
+		ON vdm1_data.film_category_popularity CASCADE;
 
-            DROP TRIGGER IF EXISTS update_film_category_popularity_new_film
-                ON vdm1_data.customer_film_category_popularity CASCADE;
+		DROP TRIGGER IF EXISTS insert_customer_reclist_specific_with_new_film
+		ON vdm1_data.film_category_popularity CASCADE;
 
-            DROP TRIGGER IF EXISTS update_customer_reclist_nonspecific_with_new_film
-                ON vdm1_data.customer_reclist_master_nonspecific CASCADE;
-                   
-            DROP TRIGGER IF EXISTS update_customer_reclist_specific_with_new_film
-                ON vdm1_data.customer_reclist_master_specific CASCADE;
-
-            DROP TRIGGER IF EXISTS update_inventory_maintenance_complete
-                ON vdm1_data.inventory_maintenance CASCADE;     
+		DROP TRIGGER IF EXISTS update_inventory_maintenance_complete
+		ON vdm1_data.inventory_maintenance CASCADE;   
 
         -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
