@@ -9076,11 +9076,11 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_ifr()
     BEGIN 
 
         EXECUTE
-            'CREATE OR REPLACE TRIGGER insert_null_returned_date_rental_to_failed_return_table
+            'CREATE OR REPLACE TRIGGER insert_null_returned_date_rental_to_fr_table
                 AFTER INSERT
                 ON public.rental
                 FOR EACH ROW
-                EXECUTE FUNCTION vdm1_data.t_f_insert_null_returned_date_rental_to_failed_return_table()';
+                EXECUTE FUNCTION vdm1_data.t_f_insert_null_returned_date_rental_to_fr_table()';
 
     END;
 $vdm1_stage5_trigger_setup_insert_failed_return$;
