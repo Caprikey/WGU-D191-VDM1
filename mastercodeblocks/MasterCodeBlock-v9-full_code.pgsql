@@ -481,6 +481,10 @@ CREATE SCHEMA IF NOT EXISTS vdm1_data;
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
+-- #### #### #### ####
+-- ####  ETL MAIN #### 
+-- #### #### #### #### 
+
 CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_etl_main()
 	LANGUAGE plpgsql
 	AS $etl_main_run$
@@ -585,6 +589,9 @@ $etl_main_run$;
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
+-- #### #### #### ####
+-- #### RESET / 0 #### 
+-- #### #### #### #### 
 
 CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_reset_stage0()
     LANGUAGE plpgsql
@@ -598,38 +605,27 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_reset_stage0()
 
         CREATE SCHEMA IF NOT EXISTS marketing;
 
-
         -- #### #### #### #### #### #### #### #### 
-
 
         CREATE SCHEMA IF NOT EXISTS vdm1_etl;
 
-
         -- #### #### #### #### #### #### #### #### #### #### #### ####
-
 
         DROP SCHEMA IF EXISTS staging
             CASCADE;
 
-
         -- #### #### #### #### #### #### #### #### 
-
 
         CREATE SCHEMA IF NOT EXISTS staging;
 
-
         -- #### #### #### #### #### #### #### #### #### #### #### ####
-
 
         DROP SCHEMA IF EXISTS vdm1_data
             CASCADE;
 
-
         -- #### #### #### #### #### #### #### #### 
 
-
         CREATE SCHEMA IF NOT EXISTS vdm1_data;
-
 
         -- #### #### #### #### #### #### #### #### #### #### #### ####
 
@@ -694,6 +690,10 @@ $vdm1_stage0_etl_env_setup$;
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #TODO STAGE 1 - STORED PROCEDURES
+
+-- #### #### #### ####
+-- ####     1     #### 
+-- #### #### #### #### 
 
 CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage1()
 	LANGUAGE plpgsql
@@ -1250,6 +1250,10 @@ $vdm1_data_f_transform_customer_phone_e164_container$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #TODO STAGE 2 - STORED PROCEDURES
 
+-- #### #### #### ####
+-- ####     2     #### 
+-- #### #### #### #### 
+
 CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage2()
 	LANGUAGE plpgsql
 	AS $vdm1_stage2run$
@@ -1801,6 +1805,10 @@ $vdm1_stage2_cleanup$;
 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+-- #### #### #### ####
+-- ####     3     #### 
+-- #### #### #### #### 
 
 CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage3()
 	LANGUAGE plpgsql
@@ -6154,6 +6162,9 @@ $vdm1_stage5_refresh_materialized_view$;
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
+-- #### #### #### ####
+-- ####    5b     #### 
+-- #### #### #### #### 
 
 CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5b_trigger_functions_setup()
     LANGUAGE plpgsql
@@ -8894,6 +8905,10 @@ $vdm1_stage5_trigger_functions_setup_update_inventory_maintenance_complete$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #TODO STAGE 5c - STORED PROCECURES
 
+-- #### #### #### ####
+-- ####    5c     #### 
+-- #### #### #### #### 
+
 CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5c_triggers_setup()
     LANGUAGE plpgsql
     AS $vdm1_stage5_triggers_setup_procedure$
@@ -9505,6 +9520,9 @@ $vdm1_stage5_trigger_setup_update_inventory_maintenance$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #TODO VDM1 RESET - STORED PROCECURES
 
+-- #### #### #### ####
+-- ####   RESET   #### 
+-- #### #### #### #### 
 
 CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_reset()
 	LANGUAGE plpgsql
@@ -9623,6 +9641,9 @@ $vdm1_reset$;
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
+-- #### #### #### ####
+-- #### RESET MVS #### 
+-- #### #### #### #### 
 
 CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_reset_mview_setup()
 	LANGUAGE plpgsql
