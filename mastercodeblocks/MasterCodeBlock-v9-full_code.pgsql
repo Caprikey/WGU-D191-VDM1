@@ -6234,7 +6234,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ifr()
 	BEGIN
 
 		EXECUTE 
-		    'CREATE OR REPLACE FUNCTION vdm1_data.t_f_insert_null_returned_date_rental_to_failed_return_table()
+		    'CREATE OR REPLACE FUNCTION vdm1_data.t_f_insert_null_returned_date_rental_to_fr_table()
                 RETURNS TRIGGER
                 LANGUAGE plpgsql
                 AS $trigger_function_insert_failed_return$
@@ -9053,7 +9053,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_urr()
 
     BEGIN 
         EXECUTE
-            'CREATE OR REPLACE TRIGGER update_rental_return_date_delete_rental_from_failed_return_table
+            'CREATE OR REPLACE TRIGGER update_rental_return_date_delete_rental_from_fr_table
                 AFTER UPDATE
                 ON public.rental
                 FOR EACH ROW
@@ -9282,7 +9282,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_unr()
     BEGIN 
 
         EXECUTE 
-            'CREATE OR REPLACE TRIGGER update_new_release_status_delete_film_from_new_release_table
+            'CREATE OR REPLACE TRIGGER update_new_release_status_delete_film_from_nr_table
                 AFTER UPDATE
                 ON vdm1_data.film_category_popularity
                 FOR EACH ROW
