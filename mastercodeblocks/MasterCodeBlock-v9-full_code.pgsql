@@ -45,7 +45,6 @@
 --         STAGE 1 BEGIN
 --     #### #### #### ####
 
-
 --             STORED PROCEDURES
 
 --                  1. vdm1_etl.vdm1_stage1();
@@ -97,7 +96,6 @@
 
 --                  1. vdm1_etl.vdm1_stage3();
 
-
 --             FUNCTIONS
 
 --                  1. vdm1_etl.f_vdm1_stage3_create_table_new_releases()
@@ -109,7 +107,6 @@
 --                  7. vdm1_etl.f_vdm1_stage3_create_table_customer_rec_custom_preferences()
 --                  8. vdm1_etl.f_vdm1_stage3_table_changes()
 --                  9. vdm1_etl.f_vdm1_stage3_cleanup()
-
 
 --     #### #### #### ####
 --         STAGE 3 END
@@ -167,7 +164,6 @@
 --         STAGE 4 END
 --     #### #### #### ####
 
-
 --     #### #### #### ####
 --        STAGE 5a BEGIN
 --     #### #### #### ####
@@ -205,7 +201,6 @@
 --				   24. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_summary_spec();
 --                 25. vdm1_etl.f_vdm1_stage5_refresh_materialized_view();
 
-
 --     #### #### #### ####
 --        STAGE 5a END
 --     #### #### #### ####
@@ -218,8 +213,6 @@
 --             STORED PROCEDURES
 
 --                  1. vdm1_etl.vdm1_stage5_trigger_functions_setup();
-
-
 
 --             TRIGGER FUNCTIONS
 
@@ -243,7 +236,6 @@
 --                 18. vdm1_data.t_f_insert_customer_reclist_master_nonspecific_new_film();
 --                 19. vdm1_data.t_f_insert_customer_reclist_master_specific_new_film();
 --                 20. vdm1_data.t_f_update_inventory_maintenance_complete()
-
 
 --             FUNCTIONS USED TO CREATED TRIGGER FUNCTIONS
 
@@ -282,8 +274,6 @@
 
 --                  1. vdm1_etl.vdm1_stage5_triggers_setup();
 
-
-
 --             TRIGGER FUNCTIONS
 
 --                  1. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.RENTAL :: insert_customer_watch_history
@@ -307,7 +297,6 @@
 --                 19. CREATE TRIGGER :: AFTER INSERT :: vdm1_data.FILM_CATEGORY_POPULARITY :: insert_customer_reclist_specific_with_new_film
 --                 20. CREATE TRIGGER :: AFTER UPDATE :: vdm1_data.INVENTORY_MAINTENCE :: update_inventory_maintenance_complete
 
-
 --             FUNCTIONS TO CREATED TRIGGERS 
 
 --                  1. vdm1_etl.f_vdm1_stage5_trigger_setup_icwh()
@@ -330,7 +319,6 @@
 --                 18. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_non_inf
 --                 19. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_spec_inf
 --                 20. vdm1_etl.f_vdm1_stage5_trigger_setup_uinvmaint_comp()
-
 
 --     #### #### #### ####
 --        STAGE 5c END
@@ -366,16 +354,6 @@
 --         STAGE END
 --     #### #### #### ####
 
---     #### #### #### ####
---     DISABLED CODE START
---     #### #### #### ####
-
---     #### #### #### ####
---      DISABLED CODE END
---     #### #### #### ####
-
-
-
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####      
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####      
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####                           
@@ -388,7 +366,6 @@
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### ####    STAGE 0 BEGIN    #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #TODO STAGE 0 BEGIN
-
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
