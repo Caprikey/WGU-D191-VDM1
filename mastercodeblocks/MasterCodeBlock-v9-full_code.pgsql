@@ -6282,8 +6282,6 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ifr()
 
                     -- #### #### #### #### #### #### #### #### #### #### #### #### 
 
-                    -- #### #### #### #### #### #### #### #### 
-
                     -- #### #### #### #### 
 
                     RETURN NEW;
@@ -6751,22 +6749,16 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incust
 				INSERT INTO vdm1_data.customer_reclist_master_nonspecific (
 					
 					  customer_id
-					--, film_rank
 					, category_id
 					, film_rec_order
 					, film_id
-					--, film_category_rank
-					--, total_rentals
 				)
 				
 				SELECT
 					customer_id
-					--, film_rank
 					, category_id
 					, film_rank AS film_rec_order
 					, film_id
-					--, film_category_rank
-					--, total_rentals
 					
 				FROM
 					public.customer
@@ -6791,8 +6783,6 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incust
 					, category_id
 					, rental_rec_order
 					, film_id
-					--, film_category_rank
-					--, total_rentals
 				)
 				
 				WITH combined_master_with_cxcat AS (
@@ -6807,8 +6797,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incust
 						, a.category_id			
 						, c.film_category_rank AS rental_rec_order
 						, a.film_id
-						--, a.film_category_rank
-						--, a.total_rentals
+
 					FROM 
 						vdm1_data.customer_reclist_master_nonspecific AS a
 							LEFT JOIN 
@@ -6840,8 +6829,6 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incust
 					, category_id 
 					, rental_rec_order
 					, film_id
-					--, film_category_rank
-					--, total_rentals
 				FROM 
 					combined_master_with_cxcat
 
@@ -7370,7 +7357,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucustc
 				WITH get_customer_custom_rec_preferences AS (
 					
 					SELECT
-						customer_id
+						  customer_id
 						, category_id
 						, customer_rec_custom_order
 						, customer_rec_custom_amount
@@ -7449,15 +7436,24 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
 				
 				-- #### #### #### #### #### #### #### #### 	
 				
-				WITH get_customer_reclist_master_nonspecific_values AS (
+				WITH get_film_category_details AS (
+
+                    SELECT 
+                    	  category_id
+                        , film_id
+						, film_rank
+                    FROM 
+                        vdm1_data.film_category_popularity
+
+                    WHERE 
+                        film_id = NEW.film_id
+				)
+				, get_customer_reclist_master_nonspecific_values AS (
 
 					SELECT
-						customer_id
-						, film_rank
+						  customer_id
 						, category_id
 						, film_id
-						, film_category_rank
-						, total_rentals
 					FROM vdm1_data.customer_reclist_master_nonspecific
 					
 					WHERE
@@ -7466,15 +7462,16 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
 				assign_row_number AS (
 
 					SELECT
-						  customer_id
-						, film_rank
-						, category_id
-						, ROW_NUMBER() OVER (ORDER BY film_rank) as rental_rec_order_rn
-						, film_id
-						, film_category_rank
-						, total_rentals
+						  a.customer_id
+						, a.category_id
+						, ROW_NUMBER() OVER (ORDER BY b.film_rank) as rental_rec_order_rn
+						, a.film_id
 					
-					FROM get_customer_reclist_master_nonspecific_values
+					FROM 
+						get_customer_reclist_master_nonspecific_values AS a
+							LEFT JOIN 
+								get_film_category_details AS b
+									ON a.film_id = b.film_id
 				)
 				
 				UPDATE vdm1_data.customer_reclist_master_nonspecific AS a
@@ -7556,16 +7553,27 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
 				
 				-- #### #### #### #### #### #### #### #### 	
 				
-				WITH get_customer_reclist_master_specific_values AS (
+				WITH get_film_category_details AS (
+
+                    SELECT 
+                    	  category_id
+                        , film_id
+						, film_category_rank
+                    FROM 
+                        vdm1_data.film_category_popularity
+
+                    WHERE 
+                        film_id = NEW.film_id
+				)
+				, get_customer_reclist_master_specific_values AS (
 
 					SELECT
-						customer_id
+						  customer_id
 						, cat_rec_order
 						, category_id
 						, film_id
-						--, film_category_rank
-						--, total_rentals
-					FROM vdm1_data.customer_reclist_master_specific
+					FROM 
+						vdm1_data.customer_reclist_master_specific
 					
 					WHERE
 						customer_id = NEW.customer_id
@@ -7575,15 +7583,16 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
 				assign_row_number AS (
 
 					SELECT
-						customer_id
-						, cat_rec_order
-						, category_id
-						, ROW_NUMBER() OVER (ORDER BY film_category_rank) as rental_rec_order_rn
-						, film_id
-						, film_category_rank
-						, total_rentals
+						  a.customer_id
+						, a.cat_rec_order
+						, a.category_id
+						, ROW_NUMBER() OVER (ORDER BY b.film_category_rank) as rental_rec_order_rn
+						, a.film_id
 					
-					FROM get_customer_reclist_master_specific_values
+					FROM get_customer_reclist_master_specific_values AS a 
+						LEFT JOIN 
+							get_film_category_details AS b
+								ON a.film_id = b.film_id
 				)
 				
 				UPDATE vdm1_data.customer_reclist_master_specific AS a

@@ -397,6 +397,36 @@ RETURNING film_id, category_id, (Select inventory_id FROM insert_film_to_invento
 
 
 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####  
+
+/*
+
+	INSERT INTO public.rental (
+		
+		  rental_date
+		, inventory_id
+		, customer_id
+		, return_date
+		, staff_id
+		
+	) VALUES (
+		 
+
+		  '2007-02-05'
+		, (SELECT floor(random() * (SELECT COUNT(*) FROM public.inventory) + 1)::int)
+		, (SELECT floor(random() * (SELECT COUNT(*) FROM public.customer) + 1)::int)
+		, '2007-02-07'
+		, (SELECT floor(random() * (SELECT COUNT(*) FROM public.staff) + 1)::int)
+	
+	)
+
+
+*/
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####  
+
+
+
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####      
 -- #### #### #### #### #### #### #### #### #### #### #### ####          TEST SCRIPTS END          #### #### #### #### #### #### #### #### #### #### #### #### ####      
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####                           
