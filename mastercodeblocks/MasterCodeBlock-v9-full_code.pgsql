@@ -393,7 +393,6 @@
 --         STAGE 0 END
 --     #### #### #### ####
 
-
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
@@ -636,7 +635,6 @@ $vdm1_stage0_etl_env_setup$;
 --         STAGE 1 BEGIN
 --     #### #### #### ####
 
-
 --             STORED PROCEDURES
 
 --                  1. vdm1_etl.vdm1_stage1();
@@ -649,7 +647,6 @@ $vdm1_stage0_etl_env_setup$;
 --                  4. vdm1_data.f_vdm1_transform_customer_full_name(p_first_name VARCHAR, p_last_name VARCHAR)
 --                  5. vdm1_data.f_vdm1_transform_filmlength_int2vchar(p_length INTEGER)
 --                  6. vdm1_data.f_vdm1_transform_customer_phone_e164(p_phone VARCHAR)
-
 
 --     #### #### #### ####
 --         STAGE 1 END
@@ -2254,7 +2251,6 @@ $vdm1_stage3cleanup$;
 
 -- TABLE OF CONTENTS
 
-
 --     #### #### #### ####
 --         STAGE 4 BEGIN
 --     #### #### #### ####
@@ -2303,11 +2299,9 @@ $vdm1_stage3cleanup$;
 --                 26. vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_specific_rn();
 --                 27. vdm1_etl.f_vdm1_stage4_cleanup()
 
-
 --     #### #### #### ####
 --         STAGE 4 END
 --     #### #### #### ####
-
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
@@ -3961,7 +3955,6 @@ $vdm1_stage4_cleanup$;
 --				   24. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_summary_spec();
 --                 25. vdm1_etl.f_vdm1_stage5_refresh_materialized_view();
 
-
 --     #### #### #### ####
 --        STAGE 5a END
 --     #### #### #### ####
@@ -4713,8 +4706,6 @@ $vdm1_stage5_run_reset$;
 --	   23. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_summary_non();
 --	   24. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_summary_spec();
 --     25. vdm1_etl.f_vdm1_stage5_refresh_materialized_view();
-
-
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
@@ -6052,7 +6043,6 @@ $vdm1_stage5_refresh_materialized_view$;
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
-
 --     #### #### #### ####
 --       STAGE 5b BEGIN
 --      TRIGGER FUNCTIONS
@@ -6061,8 +6051,6 @@ $vdm1_stage5_refresh_materialized_view$;
 --             STORED PROCEDURES
 
 --                  1. vdm1_etl.vdm1_stage5_trigger_functions_setup();
-
-
 
 --             TRIGGER FUNCTIONS
 
@@ -6086,7 +6074,6 @@ $vdm1_stage5_refresh_materialized_view$;
 --                 18. vdm1_data.t_f_insert_customer_reclist_master_nonspecific_new_film();
 --                 19. vdm1_data.t_f_insert_customer_reclist_master_specific_new_film();
 --                 20. vdm1_data.t_f_update_inventory_maintenance_complete()
-
 
 --             FUNCTIONS USED TO CREATED TRIGGER FUNCTIONS
 
@@ -6209,6 +6196,7 @@ $vdm1_stage5_trigger_functions_setup_procedure$;
 -- TABLE OF CONTENTS 
 
 --   TRIGGER FUNCTIONS
+
 --        1. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ifr()
 --        2. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incat()
 --        3. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incust()
@@ -6229,7 +6217,6 @@ $vdm1_stage5_trigger_functions_setup_procedure$;
 --       18. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_non_inf()
 --       19. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_spe_inf()
 --       20. vdm1_etl.f_vdm1_stage5_trigger_setup_uinvmaint()
-
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
@@ -8800,18 +8787,14 @@ $vdm1_stage5_trigger_functions_setup_update_inventory_maintenance_complete$;
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
-
 --     #### #### #### ####
 --       STAGE 5c BEGIN
 --           TRIGGERS
 --     #### #### #### ####
 
-
 --             STORED PROCEDURES
 
 --                  1. vdm1_etl.vdm1_stage5_triggers_setup();
-
-
 
 --             TRIGGER FUNCTIONS
 
@@ -8836,7 +8819,6 @@ $vdm1_stage5_trigger_functions_setup_update_inventory_maintenance_complete$;
 --                 19. CREATE TRIGGER :: AFTER INSERT :: vdm1_data.FILM_CATEGORY_POPULARITY :: insert_customer_reclist_specific_with_new_film
 --                 20. CREATE TRIGGER :: AFTER UPDATE :: vdm1_data.INVENTORY_MAINTENCE :: update_inventory_maintenance_complete
 
-
 --             FUNCTIONS TO CREATED TRIGGERS 
 
 --                  1. vdm1_etl.f_vdm1_stage5_trigger_setup_icwh()
@@ -8860,7 +8842,6 @@ $vdm1_stage5_trigger_functions_setup_update_inventory_maintenance_complete$;
 --                 19. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_spec_inf
 --                 20. vdm1_etl.f_vdm1_stage5_trigger_setup_uinvmaint_comp()
 
-
 --     #### #### #### ####
 --        STAGE 5c END
 --           TRIGGERS
@@ -8871,7 +8852,6 @@ $vdm1_stage5_trigger_functions_setup_update_inventory_maintenance_complete$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
-
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
@@ -8948,7 +8928,6 @@ $vdm1_stage5_triggers_setup_procedure$;
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
-
 
 --        1. vdm1_etl.f_vdm1_stage5_trigger_setup_icwh()
 --        2. vdm1_etl.f_vdm1_stage5_trigger_setup_incust()
@@ -9476,7 +9455,6 @@ $vdm1_stage5_trigger_setup_update_inventory_maintenance$;
 --				   10. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_summary_non()
 --				   11. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_summary_spec()
 
-
 --     #### #### #### ####
 --         VDM1 RESET
 --         STAGE END
@@ -9803,7 +9781,6 @@ $vdm1_reset_materialized_view_recreation$;
 --		9. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_master_spec()
 --     10. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_summary_non()
 --     11. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_summary_spec()
-
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
