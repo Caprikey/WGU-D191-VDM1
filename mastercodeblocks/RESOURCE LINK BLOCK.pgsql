@@ -236,13 +236,16 @@
 
 
 
-
-
-
-
-
-
-
+-- https://wiki.postgresql.org/wiki/Transactional_DDL_in_PostgreSQL:_A_Competitive_Analysis
+-- https://stackoverflow.com/questions/35927365/create-or-replace-trigger-postgres
+-- https://stackoverflow.com/questions/45579643/trigger-error-create-trigger
+-- https://www.postgresql.org/docs/13/sql-createtrigger.html
+-- https://phoenixnap.com/kb/check-postgresql-version#:~:text=Type%20the%20following%20SQL%20statement,information%20for%20the%20PostgreSQL%20server.
+-- https://stackoverflow.com/questions/11299037/postgresql-if-statement
+-- https://www.google.com/search?q=sql+state+42601+postgresql&oq=sql+state+42601+postgresql+&aqs=chrome..69i57j0i22i30l2j0i390l4.12313j0j7&sourceid=chrome&ie=UTF-8
+-- https://www.postgresql.org/docs/8.1/errcodes-appendix.html
+-- https://www.postgresql.org/message-id/9700A92FD044934E8E64B214D8B0F38C1C1B0BDA55@MAILBOX1.nrel.gov
+-- https://stackoverflow.com/questions/16291944/postgresql-sql-state-42601-syntax-error
 
 
 
