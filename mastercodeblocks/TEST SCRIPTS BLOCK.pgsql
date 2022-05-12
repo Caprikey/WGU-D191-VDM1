@@ -188,9 +188,7 @@ WITH insert_category AS (
 				ELSE (SELECT floor(random() * 2 + 1)::int)
 			END
 		)
-		
-		
-		1
+
     )
     
     RETURNING inventory_id, film_id
