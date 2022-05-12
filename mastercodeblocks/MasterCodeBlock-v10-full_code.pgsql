@@ -4046,6 +4046,8 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_main()
 
         -- #### #### #### #### #### #### #### #### 
 
+		PERFORM vdm1_etl.f_vdm1_stage5_datestamp();
+
         PERFORM vdm1_etl.f_vdm1_stage5_table_rename();
     
         -- #### #### #### #### #### #### #### #### 
@@ -4395,6 +4397,7 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_reset()
 
         -- #### #### #### #### #### #### #### #### 
 
+		PERFORM vdm1_etl.f_vdm1_stage5_datestamp();
 
         PERFORM vdm1_etl.f_vdm1_stage5_table_rename();
     
@@ -7694,11 +7697,17 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_
 
 				-- #### #### #### #### #### #### #### #### 
 
-				DELETE FROM vdm1_data.customer_reclist_summary_nonspecific
+				IF (TG_OP = ''DELETE'' OR ''UPDATE'') THEN
+					
+					DELETE FROM vdm1_data.customer_reclist_summary_nonspecific
+					
+					WHERE
+						customer_id = NEW.customer_id;
+					
+					IF NOT FOUND THEN RETURN NULL; 
 				
-				WHERE
-					customer_id = NEW.customer_id;
-			
+				END IF;
+				
 				-- #### #### #### #### #### #### #### #### 	
 
 				INSERT INTO vdm1_data.customer_reclist_summary_nonspecific (
@@ -7784,10 +7793,16 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_
 
 				-- #### #### #### #### #### #### #### #### 
 
-				DELETE FROM vdm1_data.customer_reclist_summary_specific
+				IF (TG_OP = ''DELETE'' OR ''UPDATE'') THEN
+					
+					DELETE FROM vdm1_data.customer_reclist_summary_specific
+					
+					WHERE
+						customer_id = NEW.customer_id;
+					
+					IF NOT FOUND THEN RETURN NULL; 
 				
-				WHERE
-					customer_id = NEW.customer_id;
+				END IF;
 			
 				-- #### #### #### #### #### #### #### #### 	
 
