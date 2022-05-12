@@ -237,6 +237,9 @@
 --                 18. vdm1_data.t_f_insert_customer_reclist_master_nonspecific_new_film();
 --                 19. vdm1_data.t_f_insert_customer_reclist_master_specific_new_film();
 --                 20. vdm1_data.t_f_update_inventory_maintenance_complete()
+--                 21. vdm1_data.t_f_insert_new_city();
+--       		   22. vdm1_data.t_f_insert_new_country();
+--       		   23. vdvdm1_data.t_f_insert_new_language();
 
 --             FUNCTIONS USED TO CREATED TRIGGER FUNCTIONS
 
@@ -260,6 +263,9 @@
 --                 18. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_non_inf();
 --				   19. vmd1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_spe_nf();
 --                 20. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_uinv_comp()
+--		 	       21. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incity()
+--		 	       22. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incountry()
+--		 	       23. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_inlanguage()
 
 --     #### #### #### ####
 --        STAGE 5b END
@@ -297,6 +303,9 @@
 --                 18. CREATE TRIGGER :: AFTER INSERT :: vdm1_data.FILM_CATEGORY_POPULARITY :: insert_customer_reclist_nonspecific_with_new_film
 --                 19. CREATE TRIGGER :: AFTER INSERT :: vdm1_data.FILM_CATEGORY_POPULARITY :: insert_customer_reclist_specific_with_new_film
 --                 20. CREATE TRIGGER :: AFTER UPDATE :: vdm1_data.INVENTORY_MAINTENCE :: update_inventory_maintenance_complete
+--                 21. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.CITY :: insert_new_city
+--                 22. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.COUNTRY :: insert_new_country
+--                 23. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.LANGUAGE :: insert_new_language
 
 --             FUNCTIONS TO CREATED TRIGGERS 
 
@@ -320,6 +329,11 @@
 --                 18. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_non_inf
 --                 19. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_spec_inf
 --                 20. vdm1_etl.f_vdm1_stage5_trigger_setup_uinvmaint_comp()
+--                 21. vdm1_etl.f_vdm1_stage5_trigger_setup_incity()
+--                 22. vdm1_etl.f_vdm1_stage5_trigger_setup_incountry()
+--                 23. vdm1_etl.f_vdm1_stage5_trigger_setup_inlanguage()
+
+
 
 --     #### #### #### ####
 --        STAGE 5c END
@@ -349,6 +363,7 @@
 -- 					9. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_master_spec()
 --				   10. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_summary_non()
 --				   11. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_summary_spec()
+--				   12. vdm1_etl.f_vdm1_reset_enable_triggers()
 
 --     #### #### #### ####
 --         VDM1 RESET
@@ -6117,6 +6132,9 @@ $vdm1_stage5_refresh_materialized_view$;
 --                 18. vdm1_data.t_f_insert_customer_reclist_master_nonspecific_new_film();
 --                 19. vdm1_data.t_f_insert_customer_reclist_master_specific_new_film();
 --                 20. vdm1_data.t_f_update_inventory_maintenance_complete()
+--                 21. vdm1_data.t_f_insert_new_city();
+--       		   22. vdm1_data.t_f_insert_new_country();
+--       		   23. vdvdm1_data.t_f_insert_new_language();
 
 --             FUNCTIONS USED TO CREATED TRIGGER FUNCTIONS
 
@@ -6140,6 +6158,9 @@ $vdm1_stage5_refresh_materialized_view$;
 --                 18. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_non_inf();
 --				   19. vmd1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_spe_nf();
 --                 20. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_uinv_comp()
+--		 	       21. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incity()
+--		 	       22. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incountry()
+--		 	       23. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_inlanguage()
 
 --     #### #### #### ####
 --        STAGE 5b END
@@ -6219,6 +6240,11 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5b_trigger_functions_setup()
 
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_uinv_comp();
 
+		PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incity();
+
+		PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incountry();
+
+		PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_inlanguage();
 
     END;
 $vdm1_stage5_trigger_functions_setup_procedure$;
@@ -6260,6 +6286,9 @@ $vdm1_stage5_trigger_functions_setup_procedure$;
 --       18. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_non_inf()
 --       19. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_spe_inf()
 --       20. vdm1_etl.f_vdm1_stage5_trigger_setup_uinvmaint()
+--       21. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incity()
+--       22. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incountry()
+--       23. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_inlanguage()
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
@@ -8828,6 +8857,239 @@ $vdm1_stage5_trigger_functions_setup_update_inventory_maintenance_complete$;
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
+-- #### #### #### ####
+-- ####    21     #### 
+-- #### #### #### ####
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incity()
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_stage5_trigger_functions_setup_insert_new_city$
+
+	BEGIN
+
+		EXECUTE
+		'
+		CREATE OR REPLACE FUNCTION vdm1_data.t_f_insert_new_city()
+			RETURNS TRIGGER
+			LANGUAGE plpgsql
+			AS $trigger_function_insert_new_city$
+			
+			BEGIN 
+			
+				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+				INSERT INTO vdm1_data.dictkey_city (
+					  city_id
+					, city
+				)
+
+				SELECT
+					  city_id
+					, city
+				FROM public.category
+
+				WHERE 
+					city_id = NEW.city_id;
+				
+
+				-- #### #### #### #### #### #### #### #### #### #### #### #### 
+
+				
+				REFRESH MATERIALIZED VIEW marketing.dictkey_city;
+
+
+				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+				INSERT INTO vdm1_data.dictionary_key (
+					  dictionary
+                    , key_id
+					, key_name
+				)
+
+				SELECT
+                      ''city''
+					, city_id
+					, name
+				FROM public.city
+
+				WHERE 
+					city_id = NEW.city_id;
+				
+
+				-- #### #### #### #### #### #### #### #### #### #### #### #### 
+
+				
+				REFRESH MATERIALIZED VIEW marketing.dictionary_key;
+
+
+				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+			END;
+
+		$trigger_function_insert_new_city$';
+
+	END;
+$vdm1_stage5_trigger_functions_setup_insert_new_city$;
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+-- #### #### #### ####
+-- ####    22     #### 
+-- #### #### #### #### 
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incountry()
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_stage5_trigger_functions_setup_insert_new_country$
+
+	BEGIN
+
+		EXECUTE
+		'
+		CREATE OR REPLACE FUNCTION vdm1_data.t_f_insert_new_country()
+			RETURNS TRIGGER
+			LANGUAGE plpgsql
+			AS $trigger_function_insert_new_country$
+			
+			BEGIN 
+			
+				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+				INSERT INTO vdm1_data.dictkey_country (
+					  country_id
+					, country
+				)
+
+				SELECT
+					  country_id
+					, country
+				FROM public.country
+
+				WHERE 
+					country_id = NEW.country_id;
+				
+
+				-- #### #### #### #### #### #### #### #### #### #### #### #### 
+
+				
+				REFRESH MATERIALIZED VIEW marketing.dictkey_country;
+
+
+				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+				INSERT INTO vdm1_data.dictionary_key (
+					  dictionary
+                    , key_id
+					, key_name
+				)
+
+				SELECT
+                      ''country''
+					, country_id
+					, country
+				FROM public.country
+
+				WHERE 
+					country_id = NEW.country_id;
+				
+
+				-- #### #### #### #### #### #### #### #### #### #### #### #### 
+
+				
+				REFRESH MATERIALIZED VIEW marketing.dictionary_key;
+
+
+				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
+
+			END;
+		
+		$trigger_function_insert_new_country$';
+	
+	END;
+
+$vdm1_stage5_trigger_functions_setup_insert_new_country$;
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+-- #### #### #### ####
+-- ####    23     #### 
+-- #### #### #### #### 
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_inlanguage()
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_stage5_trigger_functions_setup_insert_new_language$
+
+	BEGIN
+
+		EXECUTE
+		'
+		CREATE OR REPLACE FUNCTION vdm1_data.t_f_insert_new_language()
+			RETURNS TRIGGER
+			LANGUAGE plpgsql
+			AS $trigger_function_insert_new_language$
+			
+			BEGIN 
+			
+				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+				INSERT INTO vdm1_data.dictkey_country (
+					  language_id
+					, name
+				)
+
+				SELECT
+					  language_id
+					, name
+				FROM public.language
+
+				WHERE 
+					language_id = NEW.language_id;
+				
+
+				-- #### #### #### #### #### #### #### #### #### #### #### #### 
+
+				
+				REFRESH MATERIALIZED VIEW marketing.dictkey_language;
+
+
+				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+				INSERT INTO vdm1_data.dictionary_key (
+					  dictionary
+                    , key_id
+					, key_name
+				)
+
+				SELECT
+                      ''language''
+					, language_id
+					, name
+				FROM public.language
+
+				WHERE 
+					language_id = NEW.language_id;
+				
+
+				-- #### #### #### #### #### #### #### #### #### #### #### #### 
+
+				
+				REFRESH MATERIALIZED VIEW marketing.dictionary_key;
+
+
+				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
+
+			END;
+		
+		$trigger_function_insert_new_language$';
+	
+	END;
+
+$vdm1_stage5_trigger_functions_setup_insert_new_language$;
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
+
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
@@ -8882,6 +9144,9 @@ $vdm1_stage5_trigger_functions_setup_update_inventory_maintenance_complete$;
 --                 18. CREATE TRIGGER :: AFTER INSERT :: vdm1_data.FILM_CATEGORY_POPULARITY :: insert_customer_reclist_nonspecific_with_new_film
 --                 19. CREATE TRIGGER :: AFTER INSERT :: vdm1_data.FILM_CATEGORY_POPULARITY :: insert_customer_reclist_specific_with_new_film
 --                 20. CREATE TRIGGER :: AFTER UPDATE :: vdm1_data.INVENTORY_MAINTENCE :: update_inventory_maintenance_complete
+--                 21. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.CITY :: insert_new_city
+--                 22. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.COUNTRY :: insert_new_country
+--                 23. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.LANGUAGE :: insert_new_language
 
 --             FUNCTIONS TO CREATED TRIGGERS 
 
@@ -8905,6 +9170,9 @@ $vdm1_stage5_trigger_functions_setup_update_inventory_maintenance_complete$;
 --                 18. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_non_inf
 --                 19. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_spec_inf
 --                 20. vdm1_etl.f_vdm1_stage5_trigger_setup_uinvmaint_comp()
+--                 21. vdm1_etl.f_vdm1_stage5_trigger_setup_incity()
+--                 22. vdm1_etl.f_vdm1_stage5_trigger_setup_incountry()
+--                 23. vdm1_etl.f_vdm1_stage5_trigger_setup_inlanguage()
 
 --     #### #### #### ####
 --        STAGE 5c END
@@ -8975,6 +9243,13 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5c_triggers_setup()
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_spe_inf();
 
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_uinvmaint_comp();
+
+		PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_incity();
+
+		PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_incountry();
+
+		PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_inlanguage();
+
 
     END;
 $vdm1_stage5_triggers_setup_procedure$;
@@ -9768,6 +10043,123 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_uinvmaint_comp()
     END;
 $vdm1_stage5_trigger_setup_update_inventory_maintenance$;
 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+-- #### #### #### ####
+-- ####    21     #### 
+-- #### #### #### #### 
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_incity()
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_stage5_trigger_setup_insert_new_city$
+
+    BEGIN 
+
+		IF (SELECT SUBSTRING((SELECT VERSION()), 12, 2)::INT > 13) THEN 
+			EXECUTE
+				'CREATE OR REPLACE TRIGGER insert_new_city
+					AFTER INSERT
+					ON public.city
+					FOR EACH ROW
+					EXECUTE FUNCTION vdm1_data.t_f_insert_new_city()';
+
+		ELSE
+        	EXECUTE
+            	'DROP TRIGGER IF EXISTS insert_new_city
+					ON public.city;
+			
+				 CREATE TRIGGER insert_new_city
+                	AFTER INSERT
+                	ON public.city
+                	FOR EACH ROW
+                	EXECUTE FUNCTION vdm1_data.t_f_insert_new_city()';
+
+		END IF;
+
+    END;
+$vdm1_stage5_trigger_setup_insert_new_city$;
+
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+-- #### #### #### ####
+-- ####    22     #### 
+-- #### #### #### #### 
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_incountry()
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_stage5_trigger_setup_insert_new_country$
+
+    BEGIN 
+
+		IF (SELECT SUBSTRING((SELECT VERSION()), 12, 2)::INT > 13) THEN 
+			EXECUTE
+				'CREATE OR REPLACE TRIGGER insert_new_country
+					AFTER INSERT
+					ON public.country
+					FOR EACH ROW
+					EXECUTE FUNCTION vdm1_data.t_f_insert_new_country()';
+
+		ELSE
+        	EXECUTE
+            	'DROP TRIGGER IF EXISTS insert_new_country
+					ON public.country;
+			
+				 CREATE TRIGGER insert_new_country
+                	AFTER INSERT
+                	ON public.country
+                	FOR EACH ROW
+                	EXECUTE FUNCTION vdm1_data.t_f_insert_new_country()';
+
+		END IF;
+
+    END;
+$vdm1_stage5_trigger_setup_insert_new_country$;
+
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+
+-- #### #### #### ####
+-- ####    23     #### 
+-- #### #### #### #### 
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_inlanguage()
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_stage5_trigger_setup_insert_new_language$
+
+    BEGIN 
+
+		IF (SELECT SUBSTRING((SELECT VERSION()), 12, 2)::INT > 13) THEN 
+			EXECUTE
+				'CREATE OR REPLACE TRIGGER insert_new_language
+					AFTER INSERT
+					ON public.language
+					FOR EACH ROW
+					EXECUTE FUNCTION vdm1_data.t_f_insert_new_language()';
+
+		ELSE
+        	EXECUTE
+            	'DROP TRIGGER IF EXISTS insert_new_language
+					ON public.language;
+			
+				 CREATE TRIGGER insert_new_language
+                	AFTER INSERT
+                	ON public.language
+                	FOR EACH ROW
+                	EXECUTE FUNCTION vdm1_data.t_f_insert_new_language()';
+
+		END IF;
+
+    END;
+$vdm1_stage5_trigger_setup_insert_new_language$;
+
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
@@ -9811,6 +10203,7 @@ $vdm1_stage5_trigger_setup_update_inventory_maintenance$;
 -- 					9. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_master_spec()
 --				   10. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_summary_non()
 --				   11. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_summary_spec()
+--				   12. vdm1_etl.f_vdm1_reset_enable_triggers()
 
 --     #### #### #### ####
 --         VDM1 RESET
@@ -9947,6 +10340,10 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_reset()
 		-- #### #### #### #### #### #### #### #### 
 
         -- CALL vdm1_etl.vdm1_reset_mview_setup();
+
+		PERFORM vdm1_etl.f_vdm1_reset_enable_triggers()
+
+		-- #### #### #### #### #### #### #### #### 
 		
 	END;
 $vdm1_reset$;
@@ -10139,6 +10536,7 @@ $vdm1_reset_materialized_view_recreation$;
 --		9. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_master_spec()
 --     10. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_summary_non()
 --     11. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_summary_spec()
+--     12. vdm1_etl.f_vdm1_reset_enable_triggers();
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
@@ -10162,6 +10560,15 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_disable_triggers()
 				DISABLE TRIGGER ALL;
 
 			ALTER TABLE IF EXISTS public.category
+				DISABLE TRIGGER ALL;
+
+			ALTER TABLE IF EXISTS public.city
+				DISABLE TRIGGER ALL;
+
+			ALTER TABLE IF EXISTS public.country
+				DISABLE TRIGGER ALL;
+
+			ALTER TABLE IF EXISTS public.language
 				DISABLE TRIGGER ALL;
 
 			ALTER TABLE IF EXISTS public.inventory
@@ -10271,6 +10678,15 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_drop_triggers()
 
 		DROP TRIGGER IF EXISTS update_inventory_maintenance_complete
 		ON vdm1_data.inventory_maintenance CASCADE;   
+
+		DROP TRIGGER IF EXISTS insert_new_city
+		ON public.city CASCADE;
+
+		DROP TRIGGER IF EXISTS insert_new_country
+		ON public.country CASCADE;
+
+		DROP TRIGGER IF EXISTS insert_new_language
+		ON public.language CASCADE;
 
         -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
@@ -10722,6 +11138,69 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_s
 	
 	END;
 $vdm1_reset_create_mview_customer_reclist_summary_specific$;
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
+
+-- #### #### #### ####
+-- ####    12     #### 
+-- #### #### #### #### 
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_enable_triggers()
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_reset_procedure_function_enable_triggers$
+	
+	BEGIN
+
+		-- THIS MAY BE UNNECESSARY SINCE I BELIEVE THE RECREATE ENABLES ALL TRIGGERS 
+		-- AGAIN BUT TO BE ON THE SAFE SIDE I'M REVERSING THE DISABLE FUNCTION FROM ABOVE.
+
+        -- #### #### #### #### #### #### #### #### 
+       
+	   
+			ALTER TABLE IF EXISTS public.customer
+				ENABLE TRIGGER ALL;
+
+			ALTER TABLE IF EXISTS public.category
+				ENABLE TRIGGER ALL;
+
+			ALTER TABLE IF EXISTS public.city
+				ENABLE TRIGGER ALL;
+
+			ALTER TABLE IF EXISTS public.country
+				ENABLE TRIGGER ALL;
+
+			ALTER TABLE IF EXISTS public.language
+				ENABLE TRIGGER ALL;
+
+			ALTER TABLE IF EXISTS public.inventory
+				ENABLE TRIGGER ALL;
+
+			ALTER TABLE IF EXISTS public.rental
+				ENABLE TRIGGER ALL;
+
+			ALTER TABLE IF EXISTS public.film_category
+				ENABLE TRIGGER ALL;
+
+			ALTER TABLE IF EXISTS vdm1_data.customer_watch_history_detailed
+				ENABLE TRIGGER ALL;
+
+			ALTER TABLE IF EXISTS vdm1_data.customer_rec_custom_preferences
+				ENABLE TRIGGER ALL;
+
+			ALTER TABLE IF EXISTS vdm1_data.film_category_popularity
+				ENABLE TRIGGER ALL;
+
+			ALTER TABLE IF EXISTS vdm1_data.customer_reclist_master_nonspecific
+				ENABLE TRIGGER ALL;
+
+			ALTER TABLE IF EXISTS vdm1_data.customer_reclist_master_specific
+				ENABLE TRIGGER ALL;
+
+        -- #### #### #### #### #### #### #### #### 
+
+	END;
+$vdm1_reset_procedure_function_enable_triggers$;
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
