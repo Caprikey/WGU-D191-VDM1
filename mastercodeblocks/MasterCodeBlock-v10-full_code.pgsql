@@ -8978,7 +8978,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_icwh()
 
     BEGIN 
 
-		IF (SELECT SUBSTRING((SELECT VERSION), 12, 2)::INT > 13) THEN 
+		IF (SELECT SUBSTRING((SELECT VERSION()), 12, 2)::INT > 13) THEN 
 			EXECUTE
 				'CREATE OR REPLACE TRIGGER insert_customer_watch_history
 					AFTER INSERT
