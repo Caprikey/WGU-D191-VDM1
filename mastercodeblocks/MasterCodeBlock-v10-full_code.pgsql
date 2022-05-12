@@ -10341,7 +10341,7 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_reset()
 
         -- CALL vdm1_etl.vdm1_reset_mview_setup();
 
-		PERFORM vdm1_etl.f_vdm1_reset_enable_triggers()
+		PERFORM vdm1_etl.f_vdm1_reset_enable_triggers();
 
 		-- #### #### #### #### #### #### #### #### 
 		
