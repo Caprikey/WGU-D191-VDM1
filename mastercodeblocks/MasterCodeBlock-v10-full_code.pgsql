@@ -7726,14 +7726,16 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_
 
 				-- #### #### #### #### #### #### #### #### 
 
-				IF (TG_OP = ''DELETE'' OR ''UPDATE'') THEN
+				IF (TG_OP = ''DELETE'' OR TG_OP = ''UPDATE'') THEN
 					
 					DELETE FROM vdm1_data.customer_reclist_summary_nonspecific
 					
 					WHERE
 						customer_id = NEW.customer_id;
 					
-					IF NOT FOUND THEN RETURN NULL; 
+						IF NOT FOUND THEN 
+							RETURN NULL;
+						END IF;
 				
 				END IF;
 				
@@ -7822,14 +7824,16 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_
 
 				-- #### #### #### #### #### #### #### #### 
 
-				IF (TG_OP = ''DELETE'' OR ''UPDATE'') THEN
+				IF (TG_OP = ''DELETE'' OR TG_OP = ''UPDATE'') THEN
 					
 					DELETE FROM vdm1_data.customer_reclist_summary_specific
 					
 					WHERE
 						customer_id = NEW.customer_id;
 					
-					IF NOT FOUND THEN RETURN NULL; 
+						IF NOT FOUND THEN 
+							RETURN NULL;
+						END IF;
 				
 				END IF;
 			
