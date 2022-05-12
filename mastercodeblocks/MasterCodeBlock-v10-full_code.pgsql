@@ -2,7 +2,7 @@
 -- Student ID: 007003568
 -- Course: Advanced Data Management (D191)
 -- Performance Assessment: VDM1 Task 1: Automating Data Integration
--- May 10, 2022
+-- May 11, 2022
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####      
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####      
@@ -34,8 +34,9 @@
 
 --            STORED PROCEDURES
 
---                  1. vdm1_etl.vdm1_etl_main();
---                  2. vdm1_etl.vdm1_evdm1_reset_stage0();
+--                  1. public.full_reset();
+--                  2. vdm1_etl.vdm1_etl_main();
+--                  3. vdm1_etl.vdm1_evdm1_reset_stage0();
 
 --     #### #### #### ####
 --         STAGE 0 END
@@ -454,6 +455,39 @@ CREATE SCHEMA IF NOT EXISTS vdm1_data;
 --                     #### #### #### #### #### #### #### #### 
 --                     #### ####  STORED PROCEDURES  #### #### 
 --                     #### #### #### #### #### #### #### #### 
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+-- #### #### #### ####
+-- #### FULLRESET #### 
+-- #### #### #### #### 
+
+CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_etl_main()
+	LANGUAGE plpgsql
+	AS $full_reset$
+	
+	BEGIN 
+
+		-- #### #### #### #### #### #### #### #### 
+
+		DROP SCHEMA IF EXISTS marketing
+			CASCADE;
+
+		DROP SCHEMA IF EXISTS staging
+			CASCADE;
+
+		DROP SCHEMA IF EXISTS vdm1_etl
+			CASCADE;
+
+		DROP SCHEMA IF EXISTS vdm1_data
+			CASCADE;		
+
+		-- #### #### #### #### #### #### #### #### 
+
+	END;
+
+$full_reset$;
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
@@ -9258,7 +9292,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_ucxcat()
 				'DROP TRIGGER IF EXISTS update_customer_category
 					ON vdm1_data.customer_watch_history_detailed;
 				
-				 CREATE OR REPLACE TRIGGER update_customer_category
+				 CREATE TRIGGER update_customer_category
 					AFTER INSERT 
 					ON vdm1_data.customer_watch_history_detailed
 					FOR EACH ROW
@@ -9332,7 +9366,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_ufcpop_nr()
 				'DROP TRIGGER IF EXISTS update_film_category_popularity_new_rental
 					ON vdm1_data.customer_watch_history_detailed;
 				
-				 CREATE OR REPLACE TRIGGER update_film_category_popularity_new_rental
+				 CREATE TRIGGER update_film_category_popularity_new_rental
 					AFTER INSERT 
 					ON vdm1_data.customer_watch_history_detailed
 					FOR EACH ROW
@@ -9478,7 +9512,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_ucrcp()
 				'DROP TRIGGER IF EXISTS insert_update_customer_rec_custom_preferences
 					ON vdm1_data.customer_rec_custom_preferences;
 				
-				 CREATE OR REPLACE TRIGGER insert_update_customer_rec_custom_preferences
+				 CREATE TRIGGER insert_update_customer_rec_custom_preferences
 					AFTER INSERT OR UPDATE 
 					ON vdm1_data.customer_rec_custom_preferences
 					FOR EACH ROW
@@ -9979,6 +10013,7 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_reset_mview_setup()
         
 
 		-- #### #### #### #### #### #### #### #### 
+		
         PERFORM vdm1_etl.f_vdm1_reset_drop_materialized_view('customer_reclist_master_nonspecific');
 
         PERFORM vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_master_non();
