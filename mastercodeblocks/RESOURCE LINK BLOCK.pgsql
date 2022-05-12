@@ -4,8 +4,8 @@
 -- #### #### #### #### #### #### #### #### #### #### #### ####        RESOURCE LINKS START        #### #### #### #### #### #### #### #### #### #### #### #### ####      
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####                           
 
-
 -- REFERENCE LINKS
+
 -- https://www.geeksforgeeks.org/postgresql-if-statement/
 -- https://www.postgresql.org/docs/current/plpgsql-errors-and-messages.html
 -- https://www.enterprisedb.com/postgres-tutorials/how-raise-errors-and-report-messages-within-stored-procedures-and-functions
@@ -234,8 +234,6 @@
 
 -- https://codebeautify.org/sqlformatter
 
-
-
 -- https://wiki.postgresql.org/wiki/Transactional_DDL_in_PostgreSQL:_A_Competitive_Analysis
 -- https://stackoverflow.com/questions/35927365/create-or-replace-trigger-postgres
 -- https://stackoverflow.com/questions/45579643/trigger-error-create-trigger
@@ -247,12 +245,8 @@
 -- https://www.postgresql.org/message-id/9700A92FD044934E8E64B214D8B0F38C1C1B0BDA55@MAILBOX1.nrel.gov
 -- https://stackoverflow.com/questions/16291944/postgresql-sql-state-42601-syntax-error
 
-
-
-
-
-
-
+-- https://stackoverflow.com/questions/61886884/postgresql-add-auto-increment-to-empty-id-column
+-- https://www.postgresql.org/docs/current/ddl-alter.html#:~:text=To%20set%20a%20new%20default,default%20for%20future%20INSERT%20commands.
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####      
 -- #### #### #### #### #### #### #### #### #### #### #### ####         RESOURCE LINKS END         #### #### #### #### #### #### #### #### #### #### #### #### ####      
