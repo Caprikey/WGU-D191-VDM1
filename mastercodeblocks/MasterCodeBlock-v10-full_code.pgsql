@@ -2,7 +2,7 @@
 -- Student ID: 007003568
 -- Course: Advanced Data Management (D191)
 -- Performance Assessment: VDM1 Task 1: Automating Data Integration
--- May 11, 2022
+-- May 12, 2022
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####      
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####      
@@ -10013,7 +10013,7 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_reset_mview_setup()
         
 
 		-- #### #### #### #### #### #### #### #### 
-		
+
         PERFORM vdm1_etl.f_vdm1_reset_drop_materialized_view('customer_reclist_master_nonspecific');
 
         PERFORM vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_master_non();
