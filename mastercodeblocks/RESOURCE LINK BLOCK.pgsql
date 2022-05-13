@@ -248,6 +248,43 @@
 -- https://stackoverflow.com/questions/61886884/postgresql-add-auto-increment-to-empty-id-column
 -- https://www.postgresql.org/docs/current/ddl-alter.html#:~:text=To%20set%20a%20new%20default,default%20for%20future%20INSERT%20commands.
 
+-- https://www.2ndquadrant.com/en/blog/postgresql-10-identity-columns/
+-- https://www.postgresql.org/docs/current/sql-altertable.html
+-- https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-primary-key/
+-- https://stackoverflow.com/questions/2944499/how-to-add-an-auto-incrementing-primary-key-to-an-existing-table-in-postgresql
+-- https://www.cybertec-postgresql.com/en/sequences-gains-and-pitfalls/
+-- https://popsql.com/learn-sql/postgresql/how-to-alter-sequence-in-postgresql
+
+
+-- https://stackoverflow.com/questions/61886884/postgresql-add-auto-increment-to-empty-id-column
+-- https://www.postgresql.org/docs/current/ddl-alter.html#:~:text=To%20set%20a%20new%20default,default%20for%20future%20INSERT%20commands.
+
+-- https://stackoverflow.com/questions/55664506/reset-identity-column-with-last-value-of-tables-identity-in-postgres
+-- https://pgpedia.info/p/pg_get_serial_sequence.html
+-- https://www.postgresql.org/docs/8.2/functions-sequence.html
+-- https://stackoverflow.com/questions/55664506/reset-identity-column-with-last-value-of-tables-identity-in-postgres
+-- https://stackoverflow.com/questions/244243/how-to-reset-postgres-primary-key-sequence-when-it-falls-out-of-sync
+-- https://stackoverflow.com/questions/24756035/postgresql-increase-a-tables-sequence-with-one-query
+-- https://stackoverflow.com/questions/68207140/how-can-i-increment-a-sequence-by-more-than-1-in-postgres
+-- https://stackoverflow.com/questions/68668001/is-setval-nextval-increment-on-postgresql-sequence-thread-safe
+
+-- https://www.postgresql.org/docs/current/sql-createtablespace.html
+-- https://www.postgresql.org/docs/current/manage-ag-tablespaces.html
+
+-- https://www.postgresql.org/docs/13/sql-createindex.html
+-- https://docs.oracle.com/cd/B19306_01/server.102/b14220/physical.htm
+-- https://www.cybertec-postgresql.com/en/when-to-use-tablespaces-in-postgresql/#:~:text=What%20is%20a%20tablespace,has%20its%20own%20data%20file.
+-- https://www.cybertec-postgresql.com/en/json-postgresql-how-to-use-it-right/
+-- https://www.cybertec-postgresql.com/en/understanding-lateral-joins-in-postgresql/
+-- https://www.cybertec-postgresql.com/en/entity-attribute-value-eav-design-in-postgresql-dont-do-it/
+-- https://www.cybertec-postgresql.com/en/query-parameter-data-types-performance/
+-- https://www.cybertec-postgresql.com/en/postgresql-creating-checksums-for-tables/
+-- https://www.cybertec-postgresql.com/en/automatic-partition-creation-in-postgresql/
+-- https://www.cybertec-postgresql.com/en/postgresql-the-power-of-a-single-missing-index/
+
+-- https://stackoverflow.com/questions/35184509/make-selected-block-of-text-uppercase
+-- 
+
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####      
 -- #### #### #### #### #### #### #### #### #### #### #### ####         RESOURCE LINKS END         #### #### #### #### #### #### #### #### #### #### #### #### ####      
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####                           

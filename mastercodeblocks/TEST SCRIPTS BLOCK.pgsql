@@ -135,6 +135,7 @@ WITH insert_category AS (
     )
 
     RETURNING category_id
+    
 )
 , insert_film AS (
     INSERT INTO public.film (

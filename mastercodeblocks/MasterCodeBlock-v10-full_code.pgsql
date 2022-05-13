@@ -176,32 +176,33 @@
 
 --             FUNCTIONS
 
---                  1. vdm1_etl.f_vdm1_stage5_createtable_cx_reclist_summary_nonspecific(); 
---                  2. vdm1_etl.f_vdm1_stage5_createtable_cx_reclist_summary_specific();
---                  3. vdm1_etl.f_vdm1_stage5_insert_cx_reclist_summary_nonspecific();
---                  4. vdm1_etl.f_vdm1_stage5_insert_cx_reclist_summary_specific();
---                  5. vdm1_etl.f_vdm1_stage5_create_materialzied_view(); 
---                  6. vdm1_etl.f_vdm1_stage5_create_table_dictkey();
---                  7. vdm1_etl.f_vdm1_stage5_dictkey_insert_category_data();
---                  8. vdm1_etl.f_vdm1_stage5_dictkey_insert_language_data();
---                  9. vdm1_etl.f_vdm1_stage5_dictkey_insert_city_data();
---                 10. vdm1_etl.f_vdm1_stage5_dictkey_insert_country_data();
---                 11. vdm1_etl.f_vdm1_stage5_datestamp();
---                 12. vdm1_etl.f_vdm1_stage5_table_rename();
---                 13. vdm1_etl.f_vdm1_stage5_load_data_marketing();
---                 14. vdm1_etl.f_vdm1_stage5_load_data_vdm1_data();
---                 15. vdm1_etl.f_vdm1_stage5_data_validation_count_check();
---                 16. vdm1_etl.f_vdm1_stage5_table_enabled_logging_vdm1_data()
---                 17. vdm1_etl.f_vdm1_stage5_create_table_constraints();
---				   18. vdm1_etl.f_vdm1_stage5_alter_tables_set_defaults();
---                 19. vdm1_etl.f_vdm1_stage5_cleanup();
---                 20. vdm1_etl.f_vdm1_stage5_delete_stage(); 
---                 21. vdm1_etl.f_vdm1_stage5_create_mview_inventory_summary();
---				   22. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_master_non();
---				   23. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_master_spec();
---				   24. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_summary_non();
---				   25. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_summary_spec();
---                 26. vdm1_etl.f_vdm1_stage5_refresh_materialized_view();
+--			        1. vdm1_etl.f_vdm1_stage5_createtable_cx_reclist_summary_nonspecific(); 
+--			        2. vdm1_etl.f_vdm1_stage5_createtable_cx_reclist_summary_specific();
+--			        3. vdm1_etl.f_vdm1_stage5_insert_cx_reclist_summary_nonspecific();
+--			        4. vdm1_etl.f_vdm1_stage5_insert_cx_reclist_summary_specific();
+--			        5. vdm1_etl.f_vdm1_stage5_create_materialzied_view(); 
+--			        6. vdm1_etl.f_vdm1_stage5_create_table_dictkey();
+--			        7. vdm1_etl.f_vdm1_stage5_dictkey_insert_category_data();
+--			        8. vdm1_etl.f_vdm1_stage5_dictkey_insert_language_data();
+--			        9. vdm1_etl.f_vdm1_stage5_dictkey_insert_city_data();
+--			       10. vdm1_etl.f_vdm1_stage5_dictkey_insert_country_data();
+--			       11. vdm1_etl.f_vdm1_stage5_datestamp();
+--			       12. vdm1_etl.f_vdm1_stage5_table_rename();
+--			       13. vdm1_etl.f_vdm1_stage5_load_data_marketing();
+--			       14. vdm1_etl.f_vdm1_stage5_load_data_vdm1_data();
+--			       15. vdm1_etl.f_vdm1_stage5_data_validation_count_check();
+--			       16. vdm1_etl.f_vdm1_stage5_table_enabled_logging_vdm1_data()
+--			       17. vdm1_etl.f_vdm1_stage5_create_table_constraints();
+--			   	   18. vdm1_etl.f_vdm1_stage5_alter_tables_set_defaults();
+--			       19. vdm1_etl.f_vdm1_stage5_pkey_setval(p_schemaname VARCHAR, p_tablename VARCHAR, p_pkey_column_name VARCHAR);
+--			       20. vdm1_etl.f_vdm1_stage5_cleanup();
+--			       21. vdm1_etl.f_vdm1_stage5_delete_stage(); 
+--			       22. vdm1_etl.f_vdm1_stage5_create_mview_inventory_summary();
+--			  	   23. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_master_non();
+--			  	   24. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_master_spec();
+--			  	   25. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_summary_non();
+--			  	   26. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_summary_spec();
+--			       27. vdm1_etl.f_vdm1_stage5_refresh_materialized_view();
 
 --     #### #### #### ####
 --        STAGE 5a END
@@ -479,7 +480,7 @@ CREATE SCHEMA IF NOT EXISTS vdm1_data;
 -- #### FULLRESET #### 
 -- #### #### #### #### 
 
-CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_etl_main()
+CREATE OR REPLACE PROCEDURE vdm1_etl.fulL_reset()
 	LANGUAGE plpgsql
 	AS $full_reset$
 	
@@ -3981,31 +3982,33 @@ $vdm1_stage4_cleanup$;
 
 --             FUNCTIONS
 
---                  1. vdm1_etl.f_vdm1_stage5_createtable_cx_reclist_summary_nonspecific(); 
---                  2. vdm1_etl.f_vdm1_stage5_createtable_cx_reclist_summary_specific();
---                  3. vdm1_etl.f_vdm1_stage5_insert_cx_reclist_summary_nonspecific();
---                  4. vdm1_etl.f_vdm1_stage5_insert_cx_reclist_summary_specific();
---                  5. vdm1_etl.f_vdm1_stage5_create_materialzied_view(); 
---                  6. vdm1_etl.f_vdm1_stage5_create_table_dictkey();
---                  7. vdm1_etl.f_vdm1_stage5_dictkey_insert_category_data();
---                  8. vdm1_etl.f_vdm1_stage5_dictkey_insert_language_data();
---                  9. vdm1_etl.f_vdm1_stage5_dictkey_insert_city_data();
---                 10. vdm1_etl.f_vdm1_stage5_dictkey_insert_country_data();
---                 11. vdm1_etl.f_vdm1_stage5_datestamp();
---                 12. vdm1_etl.f_vdm1_stage5_table_rename();
---                 13. vdm1_etl.f_vdm1_stage5_load_data_marketing();
---                 14. vdm1_etl.f_vdm1_stage5_load_data_vdm1_data();
---                 15. vdm1_etl.f_vdm1_stage5_data_validation_count_check();
---                 16. vdm1_etl.f_vdm1_stage5_table_enabled_logging_vdm1_data()
---                 17. vdm1_etl.f_vdm1_stage5_create_table_constraints();
---                 18. vdm1_etl.f_vdm1_stage5_cleanup();
---                 19. vdm1_etl.f_vdm1_stage5_delete_stage(); 
---                 20. vdm1_etl.f_vdm1_stage5_create_mview_inventory_summary();
---				   21. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_master_non();
---				   22. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_master_spec();
---				   23. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_summary_non();
---				   24. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_summary_spec();
---                 25. vdm1_etl.f_vdm1_stage5_refresh_materialized_view();
+--			        1. vdm1_etl.f_vdm1_stage5_createtable_cx_reclist_summary_nonspecific(); 
+--			        2. vdm1_etl.f_vdm1_stage5_createtable_cx_reclist_summary_specific();
+--			        3. vdm1_etl.f_vdm1_stage5_insert_cx_reclist_summary_nonspecific();
+--			        4. vdm1_etl.f_vdm1_stage5_insert_cx_reclist_summary_specific();
+--			        5. vdm1_etl.f_vdm1_stage5_create_materialzied_view(); 
+--			        6. vdm1_etl.f_vdm1_stage5_create_table_dictkey();
+--			        7. vdm1_etl.f_vdm1_stage5_dictkey_insert_category_data();
+--			        8. vdm1_etl.f_vdm1_stage5_dictkey_insert_language_data();
+--			        9. vdm1_etl.f_vdm1_stage5_dictkey_insert_city_data();
+--			       10. vdm1_etl.f_vdm1_stage5_dictkey_insert_country_data();
+--			       11. vdm1_etl.f_vdm1_stage5_datestamp();
+--			       12. vdm1_etl.f_vdm1_stage5_table_rename();
+--			       13. vdm1_etl.f_vdm1_stage5_load_data_marketing();
+--			       14. vdm1_etl.f_vdm1_stage5_load_data_vdm1_data();
+--			       15. vdm1_etl.f_vdm1_stage5_data_validation_count_check();
+--			       16. vdm1_etl.f_vdm1_stage5_table_enabled_logging_vdm1_data()
+--			       17. vdm1_etl.f_vdm1_stage5_create_table_constraints();
+--			   	   18. vdm1_etl.f_vdm1_stage5_alter_tables_set_defaults();
+--			       19. vdm1_etl.f_vdm1_stage5_pkey_setval(p_schemaname VARCHAR, p_tablename VARCHAR, p_pkey_column_name VARCHAR);
+--			       20. vdm1_etl.f_vdm1_stage5_cleanup();
+--			       21. vdm1_etl.f_vdm1_stage5_delete_stage(); 
+--			       22. vdm1_etl.f_vdm1_stage5_create_mview_inventory_summary();
+--			  	   23. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_master_non();
+--			  	   24. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_master_spec();
+--			  	   25. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_summary_non();
+--			  	   26. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_summary_spec();
+--			       27. vdm1_etl.f_vdm1_stage5_refresh_materialized_view();
 
 --     #### #### #### ####
 --        STAGE 5a END
@@ -4276,6 +4279,8 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_main()
 		-- #### #### #### #### 
 
 		PERFORM vdm1_etl.f_vdm1_stage5_alter_tables_set_defaults();
+
+		PERFORM vdm1_etl.f_vdm1_stage5_pkey_setval('vdm1_data', 'dictionary_key', 'dictkey_id');
         
         -- #### #### #### #### 
 
@@ -4636,6 +4641,8 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_reset()
         -- #### #### #### #### 
 
 		PERFORM vdm1_etl.f_vdm1_stage5_alter_tables_set_defaults();
+
+		PERFORM vdm1_etl.f_vdm1_stage5_pkey_setval('vdm1_data', 'dictionary_key', 'dictkey_id');
         
         -- #### #### #### #### 
 
@@ -4770,14 +4777,15 @@ $vdm1_stage5_run_reset$;
 --     16. vdm1_etl.f_vdm1_stage5_table_enabled_logging_vdm1_data()
 --     17. vdm1_etl.f_vdm1_stage5_create_table_constraints();
 -- 	   18. vdm1_etl.f_vdm1_stage5_alter_tables_set_defaults();
---     19. vdm1_etl.f_vdm1_stage5_cleanup();
---     20. vdm1_etl.f_vdm1_stage5_delete_stage(); 
---     21. vdm1_etl.f_vdm1_stage5_create_mview_inventory_summary();
---	   22. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_master_non();
---	   23. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_master_spec();
---	   24. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_summary_non();
---	   25. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_summary_spec();
---     26. vdm1_etl.f_vdm1_stage5_refresh_materialized_view();
+--     19. vdm1_etl.f_vdm1_stage5_pkey_setval(p_schemaname VARCHAR, p_tablename VARCHAR, p_pkey_column_name VARCHAR);
+--     20. vdm1_etl.f_vdm1_stage5_cleanup();
+--     21. vdm1_etl.f_vdm1_stage5_delete_stage(); 
+--     22. vdm1_etl.f_vdm1_stage5_create_mview_inventory_summary();
+--	   23. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_master_non();
+--	   24. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_master_spec();
+--	   25. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_summary_non();
+--	   26. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_summary_spec();
+--     27. vdm1_etl.f_vdm1_stage5_refresh_materialized_view();
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
@@ -5140,10 +5148,10 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_create_table_dictkey()
 
 		CREATE TABLE staging.vdm1_stage5_dictionary_key (
 
-                  dictkey_id INTEGER		-- Primary Key for new Dictionary Key table. Will Be Added Later Through ALTER TABLE 
-                , dictionary VARCHAR        -- Table Name is Dictionary
-                , key_id INTEGER            -- Column ID is Key ID
-                , key_name VARCHAR          -- Column Data is Key Name 
+                  dictkey_id INTEGER GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY		-- Primary Key for new Dictionary Key table.
+                , dictionary VARCHAR        												-- Table Name is Dictionary
+                , key_id INTEGER            												-- Column ID is Key ID
+                , key_name VARCHAR          												-- Column Data is Key Name 
             );
     
     END;
@@ -5582,7 +5590,6 @@ $vdm1_stage5_data_validation_source_count_matches_destination_count$;
 -- ####    16     #### 
 -- #### #### #### #### 
 
-
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_table_enabled_logging_vdm1_data()
     RETURNS VOID
     LANGUAGE plpgsql
@@ -5662,7 +5669,6 @@ $vdm1_stage5_table_changes_activate_logging_vdm1_data$;
 -- ####    17     #### 
 -- #### #### #### #### 
 
-
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_create_table_constraints()
     RETURNS VOID
     LANGUAGE plpgsql
@@ -5733,7 +5739,6 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_create_table_constraints()
     END;
 $vdm1_stage5_add_table_constraints$;
 
-
 -- #### #### #### #### #### #### #### #### 
 
 -- LINK:
@@ -5751,7 +5756,6 @@ $vdm1_stage5_add_table_constraints$;
 -- ####    18     #### 
 -- #### #### #### #### 
 
-
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_alter_tables_set_defaults()
     RETURNS VOID
     LANGUAGE plpgsql
@@ -5762,7 +5766,12 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_alter_tables_set_defaults()
 		-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
         ALTER TABLE vdm1_data.dictionary_key
-			ALTER dictkey_id ADD GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY;
+			ALTER dictkey_id ADD GENERATED BY DEFAULT AS IDENTITY, 
+			ADD PRIMARY KEY (dictkey_id);
+
+		SELECT setval(pg_get_serial_sequence('dictionary_key', 'dictkey_id'), 
+                                      (select max(dictkey_id) from vdm1_data.dictionary_key));
+
 
 		-- #### #### #### #### #### #### #### #### 
 
@@ -5848,12 +5857,60 @@ $vdm1_stage5_alter_tables_set_defaults$;
 -- REFERENCE LINKS:
 -- https://stackoverflow.com/questions/61886884/postgresql-add-auto-increment-to-empty-id-column
 -- https://www.postgresql.org/docs/current/ddl-alter.html#:~:text=To%20set%20a%20new%20default,default%20for%20future%20INSERT%20commands.
--- 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
 -- ####    19     #### 
+-- #### #### #### #### 
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_pkey_setval(
+	  p_schemaname VARCHAR
+	, p_tablename VARCHAR
+	, p_pkey_column_name VARCHAR
+
+)
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_stage5_primary_key_setval$
+	
+	DECLARE 
+		p_schemaname VARCHAR;
+		p_tablename VARCHAR;
+		p_pkey_column_name VARCHAR;
+
+		vi_schemaname VARCHAR;
+		vi_tablename VARCHAR;
+		vi_pkey_columnname VARCHAR;
+
+	BEGIN
+		
+    	-- #### #### #### #### #### #### #### #### 
+
+		vi_schemaname := $1;
+		vi_tablename := $2;
+		vi_pkey_columnname := $3;
+
+		EXECUTE
+			'
+				SELECT setval(pg_get_serial_sequence(''' || $1 || '.' || $2 || ''', ''' || $3 || '''), 
+                                      (select max(' || $3 || ') from '|| $1 || '.' || $2 ||'))';
+
+    	-- #### #### #### #### #### #### #### #### 
+
+	END;
+$vdm1_stage5_primary_key_setval$;
+
+-- REFERENCE LINKS
+-- https://stackoverflow.com/questions/55664506/reset-identity-column-with-last-value-of-tables-identity-in-postgres
+-- https://pgpedia.info/p/pg_get_serial_sequence.html
+-- https://www.postgresql.org/docs/8.2/functions-sequence.html
+-- https://stackoverflow.com/questions/55664506/reset-identity-column-with-last-value-of-tables-identity-in-postgres
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
+
+-- #### #### #### ####
+-- ####    20     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_cleanup()
@@ -5898,7 +5955,7 @@ $vdm1_stage5_cleanup$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
--- ####    20     #### 
+-- ####    21     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_destroy_stage()
@@ -5917,7 +5974,7 @@ $vdm1_stage5_destroy_stage$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
--- ####    21     #### 
+-- ####    22     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_create_mview_inventory_maintenance_summary()
@@ -5947,7 +6004,7 @@ $vdm1_stage5_create_mview_film_inventory_summary$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
--- ####    22     #### 
+-- ####    23     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_master_non()
@@ -6005,7 +6062,7 @@ $vdm1_stage5_create_mview_customer_reclist_master_nonspecific$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
--- ####    23     #### 
+-- ####    24     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_master_spec()
@@ -6064,7 +6121,7 @@ $vdm1_stage5_create_mview_customer_reclist_master_specific$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
--- ####    24     #### 
+-- ####    25     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_summary_non()
@@ -6121,7 +6178,7 @@ $vdm1_stage5_create_mview_customer_reclist_summary_nonspecific$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
--- ####    25     #### 
+-- ####    26     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_summary_spec()
@@ -6179,7 +6236,7 @@ $vdm1_stage5_create_mview_customer_reclist_summary_specific$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
--- ####    26     #### 
+-- ####    27     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_refresh_materialized_view(
