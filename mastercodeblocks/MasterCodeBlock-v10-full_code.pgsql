@@ -203,6 +203,7 @@
 --			  	   25. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_summary_non();
 --			  	   26. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_summary_spec();
 --			       27. vdm1_etl.f_vdm1_stage5_refresh_materialized_view();
+-- 				   28. vdm1_etl.f_vdm1_stage5_create_index(p_index_name VARCHAR, p_schema_name VARCHAR, p_table_name VARCHAR, p_column_name VARCHAR)
 
 --     #### #### #### ####
 --        STAGE 5a END
@@ -4009,6 +4010,7 @@ $vdm1_stage4_cleanup$;
 --			  	   25. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_summary_non();
 --			  	   26. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_summary_spec();
 --			       27. vdm1_etl.f_vdm1_stage5_refresh_materialized_view();
+--				   28. vdm1_etl.f_vdm1_stage5_create_index(p_index_name VARCHAR, p_schema_name VARCHAR, p_table_name VARCHAR, p_column_name VARCHAR)
 
 --     #### #### #### ####
 --        STAGE 5a END
@@ -4290,6 +4292,24 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_main()
 
         PERFORM vdm1_etl.f_vdm1_stage5_destroy_stage();
 
+        -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+	
+		PERFORM vdm1_etl.f_vdm1_stage5_create_index('index_customer_reclist_master_nonspecific', 'vdm1_data', 'customer_reclist_master_nonspecific', 'customer_id'); 
+
+		PERFORM vdm1_etl.f_vdm1_stage5_create_index('index_customer_reclist_master_specific', 'vdm1_data', 'customer_reclist_master_specific', 'customer_id'); 
+
+		PERFORM vdm1_etl.f_vdm1_stage5_create_index('index_customer_reclist_summary_nonspecific', 'vdm1_data', 'customer_reclist_summary_nonspecific', 'customer_id'); 
+
+		PERFORM vdm1_etl.f_vdm1_stage5_create_index('index_customer_reclist_summary_specific', 'vdm1_data', 'customer_reclist_summary_specific', 'customer_id'); 
+
+		PERFORM vdm1_etl.f_vdm1_stage5_create_index('index_customer_watch_history', 'vdm1_data', 'customer_watch_history_detailed', 'customer_id'); 
+
+		PERFORM vdm1_etl.f_vdm1_stage5_create_index('index_customer_category', 'vdm1_data', 'customer_category', 'customer_id'); 
+
+		PERFORM vdm1_etl.f_vdm1_stage5_create_index('index_inventory_maintenance', 'vdm1_data', 'inventory_maintenance', 'inventory_id'); 
+
+		PERFORM vdm1_etl.f_vdm1_stage5_create_index('index_film_category_popularity', 'vdm1_data', 'film_category_popularity', 'film_id'); 
+		
         -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
         PERFORM vdm1_etl.f_vdm1_stage5_create_mview_inventory_maintenance_summary();
@@ -4652,8 +4672,27 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5a_reset()
 
         PERFORM vdm1_etl.f_vdm1_stage5_destroy_stage();
 
+        -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+	
+		PERFORM vdm1_etl.f_vdm1_stage5_create_index('index_customer_reclist_master_nonspecific', 'vdm1_data', 'customer_reclist_master_nonspecific', 'customer_id'); 
+
+		PERFORM vdm1_etl.f_vdm1_stage5_create_index('index_customer_reclist_master_specific', 'vdm1_data', 'customer_reclist_master_specific', 'customer_id'); 
+
+		PERFORM vdm1_etl.f_vdm1_stage5_create_index('index_customer_reclist_summary_nonspecific', 'vdm1_data', 'customer_reclist_summary_nonspecific', 'customer_id'); 
+
+		PERFORM vdm1_etl.f_vdm1_stage5_create_index('index_customer_reclist_summary_specific', 'vdm1_data', 'customer_reclist_summary_specific', 'customer_id'); 
+
+		PERFORM vdm1_etl.f_vdm1_stage5_create_index('index_customer_watch_history', 'vdm1_data', 'customer_watch_history_detailed', 'customer_id'); 
+
+		PERFORM vdm1_etl.f_vdm1_stage5_create_index('index_customer_category', 'vdm1_data', 'customer_category', 'customer_id'); 
+
+		PERFORM vdm1_etl.f_vdm1_stage5_create_index('index_inventory_maintenance', 'vdm1_data', 'inventory_maintenance', 'inventory_id'); 
+
+		PERFORM vdm1_etl.f_vdm1_stage5_create_index('index_film_category_popularity', 'vdm1_data', 'film_category_popularity', 'film_id'); 
+
 
         -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
 
         PERFORM vdm1_etl.f_vdm1_stage5_create_mview_inventory_maintenance_summary();
 
@@ -4786,6 +4825,7 @@ $vdm1_stage5_run_reset$;
 --	   25. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_summary_non();
 --	   26. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_summary_spec();
 --     27. vdm1_etl.f_vdm1_stage5_refresh_materialized_view();
+-- 	   28. vdm1_etl.f_vdm1_stage5_create_index(p_index_name VARCHAR, p_schema_name VARCHAR, p_table_name VARCHAR, p_column_name VARCHAR)
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
@@ -5749,7 +5789,6 @@ $vdm1_stage5_add_table_constraints$;
 -- https://www.cybertec-postgresql.com/en/sequences-gains-and-pitfalls/
 -- https://popsql.com/learn-sql/postgresql/how-to-alter-sequence-in-postgresql
 
-
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
@@ -5768,10 +5807,6 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_alter_tables_set_defaults()
         ALTER TABLE vdm1_data.dictionary_key
 			ALTER dictkey_id ADD GENERATED BY DEFAULT AS IDENTITY, 
 			ADD PRIMARY KEY (dictkey_id);
-
-		SELECT setval(pg_get_serial_sequence('dictionary_key', 'dictkey_id'), 
-                                      (select max(dictkey_id) from vdm1_data.dictionary_key));
-
 
 		-- #### #### #### #### #### #### #### #### 
 
@@ -6258,6 +6293,54 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_refresh_materialized_view(
             ' REFRESH MATERIALIZED VIEW marketing.' || table_name;
 	END;
 $vdm1_stage5_refresh_materialized_view$;
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+-- #### #### #### ####
+-- ####    28     #### 
+-- #### #### #### #### 
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_create_index(
+      p_index_name VARCHAR
+	, p_schema_name VARCHAR
+	, p_table_name VARCHAR
+	, p_column_name VARCHAR
+)
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_stage5_create_index$
+
+    DECLARE 
+
+		vi_index_name VARCHAR;
+		vi_schema_name VARCHAR;
+        vi_table_name VARCHAR;
+		vi_column_name VARCHAR;
+
+	BEGIN 
+		
+		vi_index_name := $1;
+		vi_schema_name :=$2;
+        vi_table_name := $3;
+		vi_column_name := $4;
+		
+			EXECUTE 
+            	'CREATE INDEX IF NOT EXISTS ' || vi_index_name || ' ON ' || 
+					COALESCE(vi_schema_name || '.' || vi_table_name, vi_table_name) 
+						|| ' (' || vi_column_name || ')';
+	
+	END;
+$vdm1_stage5_create_index$;
+
+-- REFERENCE LINKS:
+-- https://www.postgresql.org/docs/current/sql-createindex.html
+-- https://www.postgresqltutorial.com/postgresql-indexes/postgresql-create-index/
+-- https://www.tutorialspoint.com/postgresql/postgresql_indexes.htm
+-- https://popsql.com/learn-sql/postgresql/how-to-create-an-index-in-postgresql
+-- https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-coalesce/
+-- https://www.postgresql.org/docs/current/functions-conditional.html
+-- https://www.geeksforgeeks.org/postgresql-coalesce/
+-- https://www.enterprisedb.com/postgres-tutorials/how-use-coalesce-postgresql
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 

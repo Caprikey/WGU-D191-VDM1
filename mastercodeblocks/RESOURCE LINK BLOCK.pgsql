@@ -283,7 +283,18 @@
 -- https://www.cybertec-postgresql.com/en/postgresql-the-power-of-a-single-missing-index/
 
 -- https://stackoverflow.com/questions/35184509/make-selected-block-of-text-uppercase
--- 
+
+
+-- https://www.postgresql.org/docs/current/sql-createindex.html
+-- https://www.postgresqltutorial.com/postgresql-indexes/postgresql-create-index/
+-- https://www.tutorialspoint.com/postgresql/postgresql_indexes.htm
+-- https://popsql.com/learn-sql/postgresql/how-to-create-an-index-in-postgresql
+-- https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-coalesce/
+-- https://www.postgresql.org/docs/current/functions-conditional.html
+-- https://www.geeksforgeeks.org/postgresql-coalesce/
+-- https://www.enterprisedb.com/postgres-tutorials/how-use-coalesce-postgresql
+
+
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####      
 -- #### #### #### #### #### #### #### #### #### #### #### ####         RESOURCE LINKS END         #### #### #### #### #### #### #### #### #### #### #### #### ####      
