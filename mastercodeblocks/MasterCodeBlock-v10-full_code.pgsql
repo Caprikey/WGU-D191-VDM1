@@ -10999,7 +10999,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_drop_index(
 
 	BEGIN 
 		
-		vi_schmea_name := $1;
+		vi_schema_name := $1;
 		vi_index_name := $2;
 		vi_concurrently := $3;
 
