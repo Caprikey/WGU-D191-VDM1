@@ -2,7 +2,7 @@
 -- Student ID: 007003568
 -- Course: Advanced Data Management (D191)
 -- Performance Assessment: VDM1 Task 1: Automating Data Integration
--- May 12, 2022
+-- May 15, 2022
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####      
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####      
@@ -241,7 +241,7 @@
 --                 20. vdm1_data.t_f_update_inventory_maintenance_complete()
 --                 21. vdm1_data.t_f_insert_new_city();
 --       		   22. vdm1_data.t_f_insert_new_country();
---       		   23. vdvdm1_data.t_f_insert_new_language();
+--       		   23. vdm1_data.t_f_insert_new_language();
 
 --             FUNCTIONS USED TO CREATED TRIGGER FUNCTIONS
 
@@ -7253,6 +7253,20 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_infilm
                 -- #### #### #### #### #### #### #### #### #### #### #### #### 
 
                 REFRESH MATERIALIZED VIEW marketing.new_releases;
+
+				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+                
+                UPDATE vdm1_data.inventory_maintenance
+
+				SET
+					new_release = true
+
+				WHERE 
+					film_id = NEW.film_id;
+
+                -- #### #### #### #### #### #### #### #### #### #### #### #### 
+
+                REFRESH MATERIALIZED VIEW marketing.inventory_maintenance;
 
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
                 
