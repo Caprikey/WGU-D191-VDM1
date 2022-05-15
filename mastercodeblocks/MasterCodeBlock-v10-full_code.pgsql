@@ -357,16 +357,17 @@
 
 --                  1. vdm1_etl.f_vdm1_reset_disable_triggers();
 --             	    2. vdm1_etl.f_vdm1_reset_drop_triggers();
---                  3. vdm1_etl.f_vdm1_reset_delete_tables_vdm1_data();
---                  4. vdm1_etl.f_vdm1_reset_create_materialized_view();
---                  5. vdm1_etl.f_vdm1_reset_drop_materialized_view();
--- 					6. vdm1_etl.f_vdm1_reset_refresh_materialized_view()
--- 					7. vdm1_etl.f_vdm1_reset_create_mview_inventory_maintenance_summary
--- 					8. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_master_non()
--- 					9. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_master_spec()
---				   10. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_summary_non()
---				   11. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_summary_spec()
---				   12. vdm1_etl.f_vdm1_reset_enable_triggers()
+--					3. vdm1_etl.f_vdm1_reset_drop_index(p_schema_name VARCHAR, p_index_name VARCHAR, p_concurrently BOOLEAN);
+--                  4. vdm1_etl.f_vdm1_reset_delete_tables_vdm1_data();
+--                  5. vdm1_etl.f_vdm1_reset_create_materialized_view();
+--                  6. vdm1_etl.f_vdm1_reset_drop_materialized_view();
+-- 					7. vdm1_etl.f_vdm1_reset_refresh_materialized_view()
+-- 					8. vdm1_etl.f_vdm1_reset_create_mview_inventory_maintenance_summary
+-- 					9. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_master_non()
+-- 				   10. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_master_spec()
+--				   11. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_summary_non()
+--				   12. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_summary_spec()
+--				   13. vdm1_etl.f_vdm1_reset_enable_triggers()
 
 --     #### #### #### ####
 --         VDM1 RESET
@@ -10457,16 +10458,17 @@ $vdm1_stage5_trigger_setup_insert_new_language$;
 
 --                  1. vdm1_etl.f_vdm1_reset_disable_triggers();
 --             	    2. vdm1_etl.f_vdm1_reset_drop_triggers();
---                  3. vdm1_etl.f_vdm1_reset_delete_tables_vdm1_data();
---                  4. vdm1_etl.f_vdm1_reset_create_materialized_view();
---                  5. vdm1_etl.f_vdm1_reset_drop_materialized_view();
--- 					6. vdm1_etl.f_vdm1_reset_refresh_materialized_view()
--- 					7. vdm1_etl.f_vdm1_reset_create_mview_inventory_maintenance_summary
--- 					8. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_master_non()
--- 					9. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_master_spec()
---				   10. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_summary_non()
---				   11. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_summary_spec()
---				   12. vdm1_etl.f_vdm1_reset_enable_triggers()
+--					3. vdm1_etl.f_vdm1_reset_drop_index(p_schema_name VARCHAR, p_index_name VARCHAR, p_concurrently BOOLEAN);
+--                  4. vdm1_etl.f_vdm1_reset_delete_tables_vdm1_data();
+--                  5. vdm1_etl.f_vdm1_reset_create_materialized_view();
+--                  6. vdm1_etl.f_vdm1_reset_drop_materialized_view();
+-- 					7. vdm1_etl.f_vdm1_reset_refresh_materialized_view()
+-- 					8. vdm1_etl.f_vdm1_reset_create_mview_inventory_maintenance_summary
+-- 					9. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_master_non()
+-- 				   10. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_master_spec()
+--				   11. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_summary_non()
+--				   12. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_summary_spec()
+--				   13. vdm1_etl.f_vdm1_reset_enable_triggers()
 
 --     #### #### #### ####
 --         VDM1 RESET
@@ -10498,18 +10500,35 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_reset()
 	
 	BEGIN 
 
-		-- #### #### #### #### #### #### #### #### 
+		-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 		PERFORM vdm1_etl.f_vdm1_reset_disable_triggers();
 
 		PERFORM vdm1_etl.f_vdm1_reset_drop_triggers();
 
-
 		-- #### #### #### #### #### #### #### #### 
+
+		PERFORM vdm1_etl.f_vdm1_reset_drop_index('vdm1_data', 'index_customer_category', false);
+
+		PERFORM vdm1_etl.f_vdm1_reset_drop_index('vdm1_data', 'index_customer_reclist_master_nonspecific', false);
+
+		PERFORM vdm1_etl.f_vdm1_reset_drop_index('vdm1_data', 'index_customer_reclist_master_specific', false);
+
+		PERFORM vdm1_etl.f_vdm1_reset_drop_index('vdm1_data', 'index_customer_reclist_summary_nonspecific', false);
+
+		PERFORM vdm1_etl.f_vdm1_reset_drop_index('vdm1_data', 'index_customer_reclist_summary_specific', false);
+
+		PERFORM vdm1_etl.f_vdm1_reset_drop_index('vdm1_data', 'index_customer_watch_history_detailed', false);
+
+		PERFORM vdm1_etl.f_vdm1_reset_drop_index('vdm1_data', 'index_film_category_popularity', false);
+		
+		PERFORM vdm1_etl.f_vdm1_reset_drop_index('vdm1_data', 'index_inventory_maintenance', false);
+
+		-- #### #### #### #### #### #### #### #### #### #### #### #### 
 
 		PERFORM vdm1_etl.f_vdm1_reset_delete_tables_vdm1_data();
 
-		-- #### #### #### #### #### #### #### #### 
+		-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 		RAISE NOTICE 'RUNNING VDM1 ETL STAGE 0 / RESET STAGE 0';
         CALL vdm1_etl.vdm1_reset_stage0();
@@ -10721,7 +10740,8 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_reset_mview_setup()
         PERFORM vdm1_etl.f_vdm1_reset_refresh_materialized_view('customer_reclist_summary_specific');
         
  		-- #### #### #### #### #### #### #### #### 
-        PERFORM vdm1_etl.f_vdm1_reset_drop_materialized_view('failed_returns');
+        
+		PERFORM vdm1_etl.f_vdm1_reset_drop_materialized_view('failed_returns');
 
         PERFORM vdm1_etl.f_vdm1_reset_create_materialized_view('failed_returns');
 
@@ -10729,6 +10749,7 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_reset_mview_setup()
         
 
 		-- #### #### #### #### #### #### #### #### 
+
         PERFORM vdm1_etl.f_vdm1_reset_drop_materialized_view('new_releases');
 
         PERFORM vdm1_etl.f_vdm1_reset_create_materialized_view('new_releases');
@@ -10789,17 +10810,18 @@ $vdm1_reset_materialized_view_recreation$;
 -- TABLE OF CONTENTS
 
 --      1. vdm1_etl.f_vdm1_reset_disable_triggers();
--- 	    2. vdm1_etl.f_vdm1_reset_drop_triggers();
---      3. vdm1_etl.f_vdm1_reset_delete_tables_vdm1_data();
---      4. vdm1_etl.f_vdm1_reset_create_materialized_view();
---      5. vdm1_etl.f_vdm1_reset_drop_materialized_view();
---		6. vdm1_etl.f_vdm1_reset_refresh_materialized_view()
---		7. vdm1_etl.f_vdm1_reset_create_mview_inventory_maintenance_summary
---		8. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_master_non()
---		9. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_master_spec()
---     10. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_summary_non()
---     11. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_summary_spec()
---     12. vdm1_etl.f_vdm1_reset_enable_triggers();
+--      2. vdm1_etl.f_vdm1_reset_drop_triggers();
+--      3. vdm1_etl.f_vdm1_reset_drop_index(p_schema_name VARCHAR, p_index_name VARCHAR, p_concurrently BOOLEAN);
+--      4. vdm1_etl.f_vdm1_reset_delete_tables_vdm1_data();
+--      5. vdm1_etl.f_vdm1_reset_create_materialized_view();
+--      6. vdm1_etl.f_vdm1_reset_drop_materialized_view();
+--      7. vdm1_etl.f_vdm1_reset_refresh_materialized_view()
+--      8. vdm1_etl.f_vdm1_reset_create_mview_inventory_maintenance_summary
+--      9. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_master_non()
+--     10. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_master_spec()
+--     11. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_summary_non()
+--     12. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_summary_spec()
+--     13. vdm1_etl.f_vdm1_reset_enable_triggers()
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
@@ -10858,13 +10880,10 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_disable_triggers()
 			ALTER TABLE IF EXISTS vdm1_data.customer_reclist_master_specific
 				DISABLE TRIGGER ALL;
 
-
-
         -- #### #### #### #### #### #### #### #### 
 
 	END;
 $vdm1_reset_procedure_function_disable_triggers$;
-
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
@@ -10880,7 +10899,6 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_drop_triggers()
 	BEGIN
 
         -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
-
                     
 		DROP TRIGGER IF EXISTS insert_customer_watch_history
 		ON public.rental CASCADE;
@@ -10962,12 +10980,65 @@ $vdm1_reset_procedure_function_drop_triggers$;
 -- ####     3     #### 
 -- #### #### #### #### 
 
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_drop_index(
+	  p_schema_name VARCHAR
+	, p_index_name VARCHAR
+	, p_concurrently BOOLEAN
+)
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_stage5_drop_index$
+
+    DECLARE 
+
+		vi_schema_name VARCHAR;
+		vi_index_name VARCHAR;
+		vi_concurrently BOOLEAN;
+
+		vo_concurrently VARCHAR;
+
+	BEGIN 
+		
+		vi_schmea_name := $1;
+		vi_index_name := $2;
+		vi_concurrently := $3;
+
+		vo_concurrently := '';
+
+		IF vi_concurrently = false THEN
+			vo_concurrently := ' ';
+		ELSE
+			vo_concurrently := ' CONCURRENTLY ';
+		END IF;
+		
+			EXECUTE 
+            	'DROP INDEX' || vo_concurrently  || 'IF EXISTS ' 
+					|| vi_schema_name || '.' || vi_index_name || ' CASCADE';
+	
+	END;
+$vdm1_stage5_drop_index$;
+
+-- REFERENCE LINKS:
+-- https://www.postgresql.org/docs/current/sql-dropindex.html
+-- https://www.geeksforgeeks.org/postgresql-drop-index/
+-- https://stackoverflow.com/questions/11299037/postgresql-if-statement
+-- https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-coalesce/
+-- https://www.postgresql.org/docs/current/functions-conditional.html
+-- https://www.geeksforgeeks.org/postgresql-coalesce/
+-- https://www.enterprisedb.com/postgres-tutorials/how-use-coalesce-postgresql
+-- https://www.oracletutorial.com/oracle-index/oracle-drop-index/
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+-- #### #### #### ####
+-- ####     4     #### 
+-- #### #### #### #### 
+
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_delete_tables_vdm1_data()
 	RETURNS VOID
 	LANGUAGE plpgsql
 	
 	AS $vdm1_reset_procedure_function_delete_tables_vdm1_data$
-	
 	
 	BEGIN
 
@@ -11043,7 +11114,7 @@ $vdm1_reset_procedure_function_delete_tables_vdm1_data$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
--- ####     4     #### 
+-- ####     5     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_create_materialized_view(
@@ -11093,7 +11164,7 @@ $vdm1_stage5_create_materialized_view$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
--- ####     5     #### 
+-- ####     6     #### 
 -- #### #### #### #### 
         
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_drop_materialized_view(
@@ -11120,7 +11191,7 @@ $vdm1_stage5_drop_materialized_view$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
--- ####    6     #### 
+-- ####    7     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_refresh_materialized_view(
@@ -11146,7 +11217,7 @@ $vdm1_reset_refresh_materialized_view$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
--- ####    7     #### 
+-- ####     8     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_create_mview_inventory_maintenance_summary()
@@ -11176,7 +11247,7 @@ $vdm1_reset_create_mview_film_inventory_summary$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
--- ####     8     #### 
+-- ####     9     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_master_non()
@@ -11233,7 +11304,7 @@ $vdm1_reset_create_mview_customer_reclist_master_nonspecific$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
--- ####     9     #### 
+-- ####    10     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_master_spec()
@@ -11291,7 +11362,7 @@ $vdm1_reset_create_mview_customer_reclist_master_specific$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
--- ####    10     #### 
+-- ####    11     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_summary_non()
@@ -11347,7 +11418,7 @@ $vdm1_reset_create_mview_customer_reclist_summary_nonspecific$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
--- ####    11     #### 
+-- ####    12     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_summary_spec()
@@ -11405,7 +11476,7 @@ $vdm1_reset_create_mview_customer_reclist_summary_specific$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
--- ####    12     #### 
+-- ####    13     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_enable_triggers()
@@ -11418,8 +11489,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_reset_enable_triggers()
 		-- THIS MAY BE UNNECESSARY SINCE I BELIEVE THE RECREATE ENABLES ALL TRIGGERS 
 		-- AGAIN BUT TO BE ON THE SAFE SIDE I'M REVERSING THE DISABLE FUNCTION FROM ABOVE.
 
-        -- #### #### #### #### #### #### #### #### 
-       
+        -- #### #### #### #### #### #### #### ####    
 	   
 			ALTER TABLE IF EXISTS public.customer
 				ENABLE TRIGGER ALL;

@@ -294,7 +294,9 @@
 -- https://www.geeksforgeeks.org/postgresql-coalesce/
 -- https://www.enterprisedb.com/postgres-tutorials/how-use-coalesce-postgresql
 
-
+-- https://www.postgresql.org/docs/current/sql-dropindex.html
+-- https://www.geeksforgeeks.org/postgresql-drop-index/
+-- https://www.oracletutorial.com/oracle-index/oracle-drop-index/
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####      
 -- #### #### #### #### #### #### #### #### #### #### #### ####         RESOURCE LINKS END         #### #### #### #### #### #### #### #### #### #### #### #### ####      
