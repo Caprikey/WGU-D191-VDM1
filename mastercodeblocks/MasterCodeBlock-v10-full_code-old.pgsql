@@ -1023,7 +1023,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_calc_expected_return_date_container()
 				SELECT 
 					rental_duration INTO vlu_rental_duration
 				FROM 
-					public.film as A
+					staging.vdm1_stage4_films as A
 				WHERE 
 					vi_film_id = a.film_id;
 
@@ -3737,7 +3737,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_
             SELECT 
                 a.customer_id
                 , CASE
-                    WHEN EXISTS (SELECT b.customer_id FROM staging.vdm1_stage4_customer_rec_custom_preferences AS b where b.customer_id = a.customer_id)
+                    WHEN EXISTS (SELECT b.customer_id FROM staging.vdm1_stage4_customer_category b where b.customer_id = a.customer_id)
                         THEN b.recommendation_order_customer_preference
                     ELSE b.recommendation_order_historical
                     -- ELSE b.recommendation_order_average
@@ -6683,7 +6683,41 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incat(
 
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
+				INSERT INTO vdm1_data.customer_rec_custom_preferences (
+					  customer_id
+					, category_id
+					, customer_rec_custom_order
+				)
 
+				WITH get_customers_with_custom_rec_preferences AS (
+
+					SELECT
+						customer_id 
+					FROM 
+						vdm1_data.customer_rec_custom_preferences
+				)
+				, cross_join_customer_to_new_category AS (
+					
+					SELECT
+						DISTINCT (customer_id)
+						, category_id
+					FROM 
+						get_customers_with_custom_rec_preferences
+							CROSS JOIN
+								public.category
+					
+					WHERE
+						category_id = NEW.category_id
+				)
+				, get_total_count_of_categories AS (
+
+					SELECT
+						COUNT(*) AS category_length
+					FROM
+						public.category
+				)
+				, cross_join_cuscat_to_catleng AS (
+					
 					SELECT
 						customer_id
 						, category_id 
@@ -7159,7 +7193,8 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_infilm
 			LANGUAGE plpgsql
 			AS $trigger_function_insert_new_film$
 			
-
+			
+			
 			BEGIN 
 			
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
@@ -7231,7 +7266,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_infilm
 
                 -- #### #### #### #### #### #### #### #### #### #### #### #### 
 
-                REFRESH MATERIALIZED VIEW marketing.inventory_maintenance_summary;
+                REFRESH MATERIALIZED VIEW marketing.inventory_maintenance;
 
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
                 
@@ -7585,9 +7620,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucustc
 				FROM get_customer_category_rec_order_historical AS b
 
 				WHERE
-					a.customer_id = b.customer_id
-						AND
-					a.category_id = b.category_id;
+					b.category_id = a.category_id;
 
 				-- #### #### #### #### #### #### #### #### 
 
@@ -7613,9 +7646,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucustc
 				FROM get_customer_category_rec_order_average AS b
 
 				WHERE
-					a.customer_id = b.customer_id
-						AND
-					a.category_id = b.category_id;
+					b.category_id = a.category_id;
 
 				-- #### #### #### #### #### #### #### #### 
 
@@ -7641,9 +7672,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucustc
 				FROM get_customer_category_rec_order_halfaverage AS b
 
 				WHERE
-					a.customer_id = b.customer_id
-						AND
-					a.category_id = b.category_id;
+					b.category_id = a.category_id;
 				
 			
 				-- #### #### #### #### #### #### #### #### 
@@ -7681,9 +7710,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucustc
 					get_customer_custom_rec_preferences AS b
 					
 				WHERE
-					a.customer_id = b.customer_id
-						AND
-					a.category_id = b.category_id;
+					b.category_id = a.category_id;
 					
 				-- #### #### #### #### #### #### #### #### 
 				
@@ -7719,7 +7746,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
 			LANGUAGE plpgsql
 			AS $trigger_function_update_customer_reclist_master_nonspecific$
 			
-BEGIN 
+			BEGIN 
 			
 				-- #### #### #### #### #### #### #### #### 	
 				
@@ -7751,6 +7778,8 @@ BEGIN
                     FROM 
                         vdm1_data.film_category_popularity
 
+                    WHERE 
+                        film_id = NEW.film_id
 				)
 				, get_customer_reclist_master_nonspecific_values AS (
 
@@ -7787,9 +7816,9 @@ BEGIN
 					assign_row_number AS b
 					
 				WHERE
-					(a.customer_id = b.customer_id
+					(b.customer_id = a.customer_id
 						AND
-					a.film_id = b.film_id);
+					b.film_id = a.film_id);
 				
 				-- #### #### #### #### #### #### #### #### 		
 				
@@ -7834,7 +7863,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
 			
 			BEGIN 
 			
-				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 	
+				-- #### #### #### #### #### #### #### #### 	
 				
 				DELETE FROM vdm1_data.customer_reclist_master_specific
 				
@@ -7848,14 +7877,14 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
 				UPDATE vdm1_data.customer_reclist_master_specific
 				
 				SET
-					  rental_rec_order = null
+					rental_rec_order = null
 								
 				WHERE
 					customer_id = NEW.customer_id
 						AND
 					category_id = NEW.category_id;
 				
-				-- #### #### #### #### #### #### #### #### 		
+				-- #### #### #### #### #### #### #### #### 	
 				
 				WITH get_film_category_details AS (
 
@@ -7866,6 +7895,8 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
                     FROM 
                         vdm1_data.film_category_popularity
 
+                    WHERE 
+                        film_id = NEW.film_id
 				)
 				, get_customer_reclist_master_specific_values AS (
 
@@ -7900,70 +7931,28 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
 				UPDATE vdm1_data.customer_reclist_master_specific AS a
 				
 				SET
-					  rental_rec_order = b.rental_rec_order_rn
+					rental_rec_order = b.rental_rec_order_rn
 					
 				FROM
 					assign_row_number AS b
 					
 				WHERE
-					(a.customer_id = b.customer_id
+					(b.customer_id = a.customer_id
 						AND
-					 a.film_id = b.film_id);
+					b.film_id = a.film_id);
 				
-				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 		
-					
-				UPDATE vdm1_data.customer_reclist_master_specific
-				
-				SET
-					  cat_rec_order = null
-								
-				WHERE
-					customer_id = NEW.customer_id;
-				
-				-- #### #### #### #### #### #### #### #### 	
-				
-				WITH get_customer_category AS (
-				
-					SELECT
-						  a.customer_id
-						, a.category_id
-						, CASE
-		                	WHEN EXISTS (SELECT b.customer_id FROM vdm1_data.customer_rec_custom_preferences AS b WHERE a.customer_id = b.customer_id)
-        	                THEN a.recommendation_order_customer_preference
-                    	  ELSE a.recommendation_order_historical
-                	   -- ELSE b.recommendation_order_average
-                       -- ELSE b.recommendation_order_halfaverage
-                		END AS cat_rec_order 
-					FROM 
-						vdm1_data.customer_category AS a
-
-					WHERE
-						customer_id = NEW.customer_id
-				)
-				
-				UPDATE vdm1_data.customer_reclist_master_specific AS a
-				
-				SET
-					cat_rec_order = b.cat_rec_order
-					
-				FROM 
-					get_customer_category AS b
-					
-				WHERE
-					a.customer_id = b.customer_id
-						AND
-					a.category_id = b.category_id;
+				-- #### #### #### #### #### #### #### #### 		
 				
 						
-				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 	
+				-- #### #### #### #### #### #### #### #### 
 				
 				REFRESH MATERIALIZED VIEW marketing.customer_reclist_master_specific;
 				
-				-- #### #### #### #### #### #### #### #### #### #### #### #### 	
+				-- #### #### #### #### 
 				
 					RETURN NEW;
 				
-				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 			
+				-- #### #### #### #### #### #### #### #### 		
 
 				
 			END;
@@ -7998,34 +7987,34 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_
 
 				-- #### #### #### #### #### #### #### #### 
 
---				IF (TG_OP = ''DELETE'' OR TG_OP = ''UPDATE'') THEN
+				IF (TG_OP = ''DELETE'' OR TG_OP = ''UPDATE'') THEN
 					
 					DELETE FROM vdm1_data.customer_reclist_summary_nonspecific
 					
 					WHERE
 						customer_id = NEW.customer_id;
 					
---						IF NOT FOUND THEN 
---							RETURN NULL;
---						END IF;
+						IF NOT FOUND THEN 
+							RETURN NULL;
+						END IF;
 				
---				END IF;
+				END IF;
 				
 				-- #### #### #### #### #### #### #### #### 	
 
 				INSERT INTO vdm1_data.customer_reclist_summary_nonspecific (
 
-						customer_id
-					, film_rec_order
-					, film_id
-					, category_id
+						  customer_id
+						, film_rec_order
+						, film_id
+						, category_id
 				)
 
 
 				WITH get_customer_reclist_summary_nonspecific AS (
 					
 					SELECT
-						  customer_id
+						customer_id
 						, film_rec_order
 						, film_id
 						, category_id
@@ -8044,7 +8033,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_
 				)
 
 				SELECT
-					  customer_id
+					customer_id
 					, film_rec_order
 					, film_id
 					, category_id
@@ -8084,8 +8073,6 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_
     
     BEGIN
 
-		-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####		
-
 		EXECUTE 
 		'
 		CREATE OR REPLACE FUNCTION vdm1_data.t_f_update_customer_reclist_summary_specific()
@@ -8096,35 +8083,34 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_
 
 			BEGIN 
 
-				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+				-- #### #### #### #### #### #### #### #### 
 
-				--	IF (TG_OP = ''DELETE'' OR TG_OP = ''UPDATE'') THEN
+				IF (TG_OP = ''DELETE'' OR TG_OP = ''UPDATE'') THEN
 					
 					DELETE FROM vdm1_data.customer_reclist_summary_specific
 					
 					WHERE
 						customer_id = NEW.customer_id;
 					
-				--						IF NOT FOUND THEN 
-				--							RETURN NULL;
-				--						END IF;
-
-				--				END IF;
-
-				-- #### #### #### #### #### #### #### #### #### #### #### ####  	
-
+						IF NOT FOUND THEN 
+							RETURN NULL;
+						END IF;
+				
+				END IF;
+			
+				-- #### #### #### #### #### #### #### #### 	
 
 				INSERT INTO vdm1_data.customer_reclist_summary_specific (
 
-					  customer_id
-					, cat_rec_order
-					, rental_rec_order
-					, film_id
-					, category_id
+						  customer_id
+						, cat_rec_order
+						, rental_rec_order
+						, film_id
+						, category_id
 				)
 
 
-				WITH get_customer_reclist_summary_specific_topsix_filmcat AS (
+				WITH get_customer_reclist_summary_specific_topfives_filmcat AS (
 					
 					SELECT
 						customer_id
@@ -8141,54 +8127,39 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_
 							AND 
 						(rental_rec_order <= 5
 							AND
-						cat_rec_order <= 6)
+						cat_rec_order <= 5)
 
 					ORDER BY
 						customer_id, cat_rec_order, rental_rec_order
 
 				)
-				, cat_rec_order_second_pass AS (
-
-					SELECT
-						customer_id
-						, cat_rec_order
-						, DENSE_RANK() OVER (ORDER BY cat_rec_order) AS cat_rec_second_pass_order
-						, rental_rec_order
-						, film_id
-						, category_id
-					FROM 
-						get_customer_reclist_summary_specific_topsix_filmcat
-						
-					ORDER BY
-						customer_id, cat_rec_second_pass_order, rental_rec_order
-				)
 				, get_first_cat_films AS (
 
 					SELECT 
 						customer_id
-						, cat_rec_second_pass_order
+						, cat_rec_order
 						, rental_rec_order
 						, film_id
 						, category_id
 					FROM 
-						cat_rec_order_second_pass
+						get_customer_reclist_summary_specific_topfives_filmcat
 					
 					WHERE
-						cat_rec_second_pass_order = 1
+						cat_rec_order = 1
 				)
 				, get_second_cat_films AS (
 
 					SELECT 
 						customer_id
-						, cat_rec_second_pass_order
+						, cat_rec_order
 						, rental_rec_order
 						, film_id
 						, category_id
 					FROM 
-						cat_rec_order_second_pass
+						get_customer_reclist_summary_specific_topfives_filmcat
 					
 					WHERE
-						cat_rec_second_pass_order = 2
+						cat_rec_order = 2
 							AND
 						rental_rec_order <= 4
 				)
@@ -8196,15 +8167,15 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_
 
 					SELECT 
 						customer_id
-						, cat_rec_second_pass_order
+						, cat_rec_order
 						, rental_rec_order
 						, film_id
 						, category_id
 					FROM 
-						cat_rec_order_second_pass
+						get_customer_reclist_summary_specific_topfives_filmcat
 					
 					WHERE
-						cat_rec_second_pass_order = 3
+						cat_rec_order = 3
 							AND
 						rental_rec_order <= 3
 				)
@@ -8212,15 +8183,15 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_
 
 					SELECT 
 						customer_id
-						, cat_rec_second_pass_order
+						, cat_rec_order
 						, rental_rec_order
 						, film_id
 						, category_id
 					FROM 
-						cat_rec_order_second_pass
+						get_customer_reclist_summary_specific_topfives_filmcat
 					
 					WHERE
-						cat_rec_second_pass_order = 4
+						cat_rec_order = 4
 							AND
 						rental_rec_order <= 2
 				)
@@ -8228,15 +8199,15 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_
 
 					SELECT 
 						customer_id
-						, cat_rec_second_pass_order
+						, cat_rec_order
 						, rental_rec_order
 						, film_id
 						, category_id
 					FROM 
-						cat_rec_order_second_pass
+						get_customer_reclist_summary_specific_topfives_filmcat
 					
 					WHERE
-						cat_rec_second_pass_order = 5
+						cat_rec_order = 5
 							AND 
 						rental_rec_order <= 1
 				)
@@ -8245,7 +8216,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_
 					(
 						SELECT
 							customer_id
-							, cat_rec_second_pass_order
+							, cat_rec_order
 							, rental_rec_order
 							, film_id
 							, category_id
@@ -8256,7 +8227,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_
 					(
 						SELECT
 							customer_id
-							, cat_rec_second_pass_order
+							, cat_rec_order
 							, rental_rec_order
 							, film_id
 							, category_id
@@ -8267,7 +8238,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_
 					(
 						SELECT
 							customer_id
-							, cat_rec_second_pass_order
+							, cat_rec_order
 							, rental_rec_order
 							, film_id
 							, category_id
@@ -8278,7 +8249,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_
 					(
 						SELECT
 							customer_id
-							, cat_rec_second_pass_order
+							, cat_rec_order
 							, rental_rec_order
 							, film_id
 							, category_id
@@ -8289,7 +8260,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_
 					(
 						SELECT
 							customer_id
-							, cat_rec_second_pass_order
+							, cat_rec_order
 							, rental_rec_order
 							, film_id
 							, category_id
@@ -8300,7 +8271,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_
 
 				SELECT
 					customer_id
-					, cat_rec_second_pass_order
+					, cat_rec_order
 					, rental_rec_order
 					, film_id
 					, category_id
@@ -8309,25 +8280,22 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_
 					build_list;
 
 
+				-- #### #### #### #### #### #### #### #### 
 
-
-				-- #### #### #### #### #### #### #### #### #### #### #### #### ####
-
-				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
+				-- #### #### #### #### #### #### #### #### 
 
 				REFRESH MATERIALIZED VIEW marketing.customer_reclist_summary_specific;
 
-				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
+				-- #### #### #### #### 
 
 				RETURN NEW;
 
-				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
+				-- #### #### #### #### #### #### #### #### 
 
-				END;
+			END;
 		$trigger_function_update_customer_reclist_summary_specific$;
 		';
-		
-		-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####		
+
     END;
 $vdm1_stage5_trigger_functions_setup_update_customer_reclist_summary_specific$;
 
@@ -8344,9 +8312,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_upcxwa
 
     
     BEGIN
-		
-		-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####		
-		
+
 		EXECUTE 
 		'
 		CREATE OR REPLACE FUNCTION vdm1_data.t_f_insert_customer_watch_history()
@@ -8357,9 +8323,9 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_upcxwa
 			BEGIN
 			
 			
-				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####		
-
+				-- #### #### #### #### 
 				-- Setting Customer Watch History Order To Null.
+				
 				
 				UPDATE vdm1_data.customer_watch_history_detailed
 				
@@ -8453,16 +8419,14 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_upcxwa
 
 				REFRESH MATERIALIZED VIEW marketing.customer_watch_history_detailed;
 				
-				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####		
+				-- #### #### #### #### 
 				
 				RETURN NEW;
 				
-				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####		
+				-- #### #### #### #### #### #### #### #### 
 			END;
 		$trigger_function_insert_customer_watch_history$;
 		';
-
-		-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####		
     END;
 $vdm1_stage5_trigger_functions_setup_update_customer_watch_history$;
 
@@ -8488,7 +8452,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ufcp_n
 			
 			BEGIN 
 			
-				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####		
+				-- #### #### #### #### #### #### #### #### 
 			
 				UPDATE vdm1_data.film_category_popularity
 				
@@ -8564,11 +8528,12 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ufcp_n
 
 				REFRESH MATERIALIZED VIEW marketing.film_category_popularity;
 				
-				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####		
+				-- #### #### #### #### 
 				
 					RETURN NEW;
 				
-				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####		
+				-- #### #### #### #### #### #### #### #### 		
+
 				
 			END;
 		$trigger_function_update_film_category_popularity_with_new_rental$;
@@ -8635,7 +8600,8 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_uinv_c
 					RETURN NEW;
 				
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 	
-			
+
+				
 			END;
 		$trigger_function_update_inventory_maintenance$;
 		';
@@ -8801,7 +8767,6 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
                       customer_id 
                     , category_id
                     , film_id
-					, film_rec_order
                 )
 
 
@@ -8840,7 +8805,6 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
                       customer_id
                     , category_id
                     , film_id
-					, 0
 
                 FROM 
                     combined_film_category_with_customers;
@@ -8851,7 +8815,6 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
 
 				-- #### #### #### #### #### #### #### #### 	       
 
-	/*
 				UPDATE vdm1_data.customer_reclist_master_nonspecific
 				
 				SET
@@ -8898,7 +8861,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
 					a.film_id = b.film_id);
 
         
-    */
+        
 				-- #### #### #### #### #### #### #### #### 
 						
 				REFRESH MATERIALIZED VIEW marketing.customer_reclist_master_nonspecific;
@@ -8946,7 +8909,6 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
                     , cat_rec_order
                     , category_id
                     , film_id
-					, rental_rec_order
                 )
 
 
@@ -9016,7 +8978,6 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
                     , recommendation_order_historical
                     , category_id
                     , film_id
-					, 0
 
                 FROM 
                     combined_customer_film_category_with_customer_category;
@@ -9024,7 +8985,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
 				
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####			
 				
-	/*	
+				
 				UPDATE vdm1_data.customer_reclist_master_specific
 				
 				SET
@@ -9084,10 +9045,10 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
 					(a.customer_id = b.customer_id
 						AND
 					a.film_id = b.film_id);
-
-	*/		
+				
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
-										
+				
+						
 				-- #### #### #### #### #### #### #### #### 
 				
 				REFRESH MATERIALIZED VIEW marketing.customer_reclist_master_specific;
@@ -9098,7 +9059,9 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
 				RETURN NEW;
 				
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
-	
+
+
+				
 			END;
 		$trigger_function_insert_customer_reclist_master_specific_with_new_film$;
 		';
@@ -9148,6 +9111,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_uinv_c
 				RETURN NEW;
 				
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 	
+
 				
 			END;
 		$trigger_function_update_inventory_maintenance_complete$;
@@ -9188,7 +9152,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incity
 				SELECT
 					  city_id
 					, city
-				FROM public.city
+				FROM public.category
 
 				WHERE 
 					city_id = NEW.city_id;
@@ -9196,7 +9160,9 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incity
 
 				-- #### #### #### #### #### #### #### #### #### #### #### #### 
 
+				
 				REFRESH MATERIALIZED VIEW marketing.dictkey_city;
+
 
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
@@ -9209,7 +9175,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incity
 				SELECT
                       ''city''
 					, city_id
-					, city
+					, name
 				FROM public.city
 
 				WHERE 
@@ -9221,9 +9187,6 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incity
 				
 				REFRESH MATERIALIZED VIEW marketing.dictionary_key;
 
-				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
-
-				RETURN NEW;
 
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
@@ -9273,8 +9236,10 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incoun
 				
 
 				-- #### #### #### #### #### #### #### #### #### #### #### #### 
+
 				
 				REFRESH MATERIALIZED VIEW marketing.dictkey_country;
+
 
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
@@ -9299,9 +9264,6 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incoun
 				
 				REFRESH MATERIALIZED VIEW marketing.dictionary_key;
 
-				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
-
-				RETURN NEW;
 
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
@@ -9352,8 +9314,10 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_inlang
 				
 
 				-- #### #### #### #### #### #### #### #### #### #### #### #### 
+
 				
 				REFRESH MATERIALIZED VIEW marketing.dictkey_language;
+
 
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
@@ -9377,10 +9341,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_inlang
 
 				
 				REFRESH MATERIALIZED VIEW marketing.dictionary_key;
-				
-				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
-				RETURN NEW;
 
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
@@ -10175,7 +10136,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_nonspecifi
 				'CREATE OR REPLACE TRIGGER update_customer_reclist_summary_nonspecific
 					AFTER INSERT OR UPDATE OR DELETE 
 					ON vdm1_data.customer_reclist_master_nonspecific
-					FOR EACH ROW
+					FOR EACH STATEMENT
 					EXECUTE FUNCTION vdm1_data.t_f_update_customer_reclist_summary_nonspecific()';
 
 		ELSE
@@ -10186,7 +10147,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_nonspecifi
 				 CREATE TRIGGER update_customer_reclist_summary_nonspecific
 					AFTER INSERT OR UPDATE OR DELETE 
 					ON vdm1_data.customer_reclist_master_nonspecific
-					FOR EACH ROW
+					FOR EACH STATEMENT
 					EXECUTE FUNCTION vdm1_data.t_f_update_customer_reclist_summary_nonspecific()';
 
 		END IF;
@@ -10213,7 +10174,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_specific()
 				'CREATE OR REPLACE TRIGGER update_customer_reclist_summary_specific
 					AFTER INSERT OR UPDATE OR DELETE 
 					ON vdm1_data.customer_reclist_master_specific
-					FOR EACH ROW
+					FOR EACH STATEMENT
 					EXECUTE FUNCTION vdm1_data.t_f_update_customer_reclist_summary_specific()';
 		
 		ELSE
@@ -10224,7 +10185,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_specific()
 				CREATE TRIGGER update_customer_reclist_summary_specific
 					AFTER INSERT OR UPDATE OR DELETE 
 					ON vdm1_data.customer_reclist_master_specific
-					FOR EACH ROW
+					FOR EACH STATEMENT
 					EXECUTE FUNCTION vdm1_data.t_f_update_customer_reclist_summary_specific()';
 
 		END IF;

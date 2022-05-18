@@ -138,6 +138,7 @@ WITH insert_category AS (
     
 )
 , insert_film AS (
+    
     INSERT INTO public.film (
           title
         , description
@@ -175,22 +176,20 @@ WITH insert_category AS (
           film_id
 		, store_id
     ) VALUES (
-        (
+          (
             SELECT 
                 film_id 
             FROM 
                 insert_film
-        )
-		, 
-		(
+          )
+		, (
 			CASE
 				WHEN ((SELECT store_1_count FROM get_store_inventory_counts) > (SELECT store_2_count FROM get_store_inventory_counts)) THEN 2
 				WHEN ((SELECT store_1_count FROM get_store_inventory_counts) < (SELECT store_2_count FROM get_store_inventory_counts)) THEN 1
 				ELSE (SELECT floor(random() * 2 + 1)::int)
 			END
-		)
-
-    )
+		  )
+        )
     
     RETURNING inventory_id, film_id
 )
@@ -230,7 +229,8 @@ WITH get_country_id_usa AS (
         country LIKE ANY (ARRAY['%United States Of America%','%U.S.A%', '%USA%', '%United State%'])
 )
 , insert_city AS (
-	INSERT INTO public.city (
+	
+    INSERT INTO public.city (
 		  city
 		, country_id
 	) VALUES (
@@ -240,21 +240,22 @@ WITH get_country_id_usa AS (
 	RETURNING city_id
 )
 , insert_address AS (
-	INSERT INTO public.address (
-      address
-    , address2
-    , district
-    , city_id
-    , postal_code 
-    , phone
-) VALUES (
-      '9101 Cedpark Lane'
-    , 'Apt C'
-    , 'Tennessee'
-    , (SELECT city_id FROM insert_city)
-    , 37923
-    , '18653000201'
-)
+	
+    INSERT INTO public.address (
+          address
+        , address2
+        , district
+        , city_id
+        , postal_code 
+        , phone
+    ) VALUES (
+          '9101 Cedpark Lane'
+        , 'Apt C'
+        , 'Tennessee'
+        , (SELECT city_id FROM insert_city)
+        , 37923
+        , '18653000201'
+    )
 	RETURNING address_id
 )
 
@@ -370,25 +371,23 @@ RETURNING film_id, category_id, (Select inventory_id FROM insert_film_to_invento
 
 /*
 
+INSERT INTO public.rental (
+        
+      rental_date
+    , inventory_id
+    , customer_id
+    , return_date
+    , staff_id
+    
+) VALUES (
+        
+      '2007-02-05'
+    , 4603
+    , 600
+    , '2007-02-07'
+    , (SELECT floor(random() * (SELECT COUNT(*) FROM public.staff) + 1)::int)
 
-	INSERT INTO public.rental (
-		
-		  rental_date
-		, inventory_id
-		, customer_id
-		, return_date
-		, staff_id
-		
-	) VALUES (
-		 
-
-		  '2007-02-05'
-		, 4603
-		, 600
-		, '2007-02-07'
-		, (SELECT floor(random() * (SELECT COUNT(*) FROM public.staff) + 1)::int)
-	
-	)
+)
 
 */
 
@@ -425,6 +424,32 @@ RETURNING film_id, category_id, (Select inventory_id FROM insert_film_to_invento
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####  
 
 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####  
+
+/*
+with get_store_inventory_counts AS (
+			SELECT 
+	  			(SELECT COUNT(*) FROM public.inventory WHERE store_id = 1) AS store_1_count
+				, (SELECT COUNT(*) FROM public.inventory WHERE store_id = 2) AS store_2_count
+
+)
+
+INSERT INTO public.inventory (
+	  film_id
+	, store_id
+) VALUES (
+	  1001
+	, (
+		CASE
+			WHEN ((SELECT store_1_count FROM get_store_inventory_counts) > (SELECT store_2_count FROM get_store_inventory_counts)) THEN 2
+			WHEN ((SELECT store_1_count FROM get_store_inventory_counts) < (SELECT store_2_count FROM get_store_inventory_counts)) THEN 1
+			ELSE (SELECT floor(random() * 2 + 1)::int)
+		END
+	  )
+)
+
+*/
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####  
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####      
 -- #### #### #### #### #### #### #### #### #### #### #### ####          TEST SCRIPTS END          #### #### #### #### #### #### #### #### #### #### #### #### ####      

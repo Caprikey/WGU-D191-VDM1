@@ -298,6 +298,68 @@
 -- https://www.geeksforgeeks.org/postgresql-drop-index/
 -- https://www.oracletutorial.com/oracle-index/oracle-drop-index/
 
+-- https://stackoverflow.com/questions/40654766/how-to-increase-max-locks-per-transaction
+
+
+
+-- https://www.crunchydata.com/blog/optimize-postgresql-server-performance
+-- https://stackoverflow.com/questions/67016945/what-is-the-downside-to-increase-shared-buffer-in-postgresql
+-- https://www.cybertec-postgresql.com/en/are-triggers-really-that-slow-in-postgres/
+-- https://www.postgresql.org/docs/current/routine-vacuuming.html
+-- https://www.postgresql.org/files/developer/concurrency.pdf
+-- https://tapoueh.org/blog/2018/07/postgresql-listen-notify/
+-- https://www.citusdata.com/blog/2018/02/22/seven-tips-for-dealing-with-postgres-locks/
+-- https://www.reddit.com/r/PostgreSQL/comments/mgnfn2/at_what_scale_will_postgresql_slow_down/
+-- https://www.reddit.com/r/PostgreSQL/comments/sf0bi8/80_million_records_how_to_handle_it/
+-- https://www.2ndquadrant.com/en/services-old/postgresql-performance-tuning/
+-- https://www.postgresql.org/docs/9.3/using-explain.html#USING-EXPLAIN-ANALYZE
+-- https://wiki.postgresql.org/wiki/Performance_Optimization
+-- https://www.enterprisedb.com/postgres-tutorials/introduction-postgresql-performance-tuning-and-optimization
+-- https://stackify.com/postgresql-performance-tutorial/
+
+-- https://www.citusdata.com/blog/2018/06/12/configuring-work-mem-on-postgres/
+-- https://aws.amazon.com/blogs/database/tune-sorting-operations-in-postgresql-with-work_mem/
+-- https://www.pgmustard.com/blog/work-mem
+-- https://www.enterprisedb.com/postgres-tutorials/how-tune-postgresql-memory
+
+
+-- https://stackoverflow.com/questions/24193567/for-each-statement-trigger-example
+-- https://www.postgresql.org/docs/current/plpgsql-trigger.html
+-- https://www.postgresql.org/docs/current/sql-createtrigger.html
+-- https://www.postgresql.org/docs/current/trigger-definition.html
+-- https://www.enterprisedb.com/postgres-tutorials/can-modified-tuples-be-accessed-using-statement-level-trigger-postgres
+-- https://www.postgres-xl.org/documentation/plpgsql-trigger.html
+-- https://www.ibm.com/docs/en/db2/11.5?topic=dt-referencing-old-new-table-result-sets-using-transition-tables
+-- https://www.geeksforgeeks.org/difference-between-row-level-and-statement-level-triggers/
+-- https://arctype.com/blog/learn-sql-triggers/
+-- https://stackoverflow.com/questions/32210225/postgresql-run-trigger-after-update-for-each-statement-only-if-data-changed
+-- https://stackoverflow.com/questions/57432855/how-can-a-postgres-trigger-after-update-for-each-statement-correlate-its-old
+-- https://stackoverflow.com/questions/61682957/postgresql-trigger-before-insert-for-each-statement
+-- https://dba.stackexchange.com/questions/230500/what-is-a-practical-use-of-for-statement-triggers
+-- https://www.depesz.com/2012/11/14/how-i-learned-to-stop-worrying-and-love-the-triggers/
+-- https://www.postgresql.org/docs/current/plpgsql-trigger.html
+-- https://www.postgresql.org/docs/current/triggers.html
+-- https://www.postgresql.org/docs/current/trigger-datachanges.html
+
+
+
+-- https://www.ibm.com/docs/en/db2/10.5?topic=dt-specifying-what-makes-trigger-fire-triggering-statement-event
+-- https://www.ibm.com/docs/en/db2/10.5?topic=dt-specifying-when-trigger-fires-before-after-instead-clauses
+-- https://www.ibm.com/docs/en/db2/10.5?topic=dt-defining-conditions-when-trigger-action-will-fire-when-clause
+-- https://www.ibm.com/docs/en/db2/10.5?topic=triggers-supported-sql-pl-statements-in
+-- https://www.ibm.com/docs/en/db2/10.5?topic=dt-accessing-old-new-column-values-in-triggers-using-transition-variables
+-- https://www.ibm.com/docs/en/db2/10.5?topic=dt-referencing-old-new-table-result-sets-using-transition-tables
+-- https://www.ibm.com/docs/en/db2/10.5?topic=triggers-examples-trigger-use
+-- 
+-- https://stackoverflow.com/questions/42920998/pl-pgsql-perform-vs-execute
+-- https://www.postgresql.org/docs/current/plpgsql-statements.html
+-- https://stackoverflow.com/questions/67709708/pl-pgsql-perform-vs-call
+-- https://www.postgresql.org/docs/current/plpgsql-statements.html
+-- https://www.w3resource.com/PostgreSQL/pl-pgsql-basic-statements.php
+-- https://www.linuxtopia.org/online_books/database_guides/Practical_PostgreSQL_database/PostgreSQL_x20238_004.htm
+-- https://www.educba.com/postgresql-execute/
+
+
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####      
 -- #### #### #### #### #### #### #### #### #### #### #### ####         RESOURCE LINKS END         #### #### #### #### #### #### #### #### #### #### #### #### ####      
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####                           
