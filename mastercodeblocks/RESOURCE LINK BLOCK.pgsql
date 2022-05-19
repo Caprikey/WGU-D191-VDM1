@@ -359,6 +359,35 @@
 -- https://www.linuxtopia.org/online_books/database_guides/Practical_PostgreSQL_database/PostgreSQL_x20238_004.htm
 -- https://www.educba.com/postgresql-execute/
 
+-- https://www.enterprisedb.com/postgres-tutorials/can-modified-tuples-be-accessed-using-statement-level-trigger-postgres
+-- https://infocenter.sybase.com/help/index.jsp?topic=/com.sybase.help.sqlanywhere.12.0.1/dbreference/create-trigger-statement.html
+-- https://www.careerride.com/Oracle-row-level-and-statement-level-trigger.aspx
+-- https://livesql.oracle.com/apex/livesql/file/content_CTTF4QDB9N3CY6PU1GKN3B444.html
+-- https://www.tutorialspoint.com/plsql/plsql_triggers.htm
+-- https://www.postgresql.org/docs/current/sql-createtrigger.html
+
+
+-- https://wiki.postgresql.org/wiki/Tuning_Your_PostgreSQL_Server
+-- https://www.enterprisedb.com/postgres-tutorials/introduction-postgresql-performance-tuning-and-optimization
+-- https://www.enterprisedb.com/blog/improving-postgresql-performance-without-making-changes-postgresql
+-- https://www.percona.com/blog/2018/08/31/tuning-postgresql-database-parameters-to-optimize-performance/
+-- https://marmelab.com/blog/2019/02/13/how-to-improve-postgres-performances.html
+-- https://wiki.postgresql.org/wiki/Performance_Optimization
+-- https://www.craigkerstiens.com/2012/10/01/understanding-postgres-performance/
+-- https://marmelab.com/blog/2018/04/03/how-to-track-and-fix-memory-leak-with-nodejs.html
+
+
+
+-- https://helperbyte.com/questions/411022/what-is-the-cause-of-the-error-out-of-shared-memory-you-might-need-to-increase-max_locks_per_transaction
+-- https://www.cybertec-postgresql.com/en/postgresql-you-might-need-to-increase-max_locks_per_transaction/
+
+-- https://www.postgresql.org/docs/current/view-pg-locks.html
+-- https://www.postgresql.org/docs/current/explicit-locking.html
+-- https://dba.stackexchange.com/questions/300722/out-of-shared-memory-and-lock-monitoring-in-postgresql
+-- https://dba.stackexchange.com/questions/185880/analyze-memory-usage-of-postgresql-why-is-it-growing-constantly/270183#270183
+-- 
+
+
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####      
 -- #### #### #### #### #### #### #### #### #### #### #### ####         RESOURCE LINKS END         #### #### #### #### #### #### #### #### #### #### #### #### ####      

@@ -2,7 +2,7 @@
 -- Student ID: 007003568
 -- Course: Advanced Data Management (D191)
 -- Performance Assessment: VDM1 Task 1: Automating Data Integration
--- May 15, 2022
+-- May 19, 2022
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####      
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####      
@@ -6595,7 +6595,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ifr()
                     
                     -- #### #### #### #### #### #### #### #### 
 
-					REFRESH MATERIALIZED VIEW marketing.failed_returns;
+					-- REFRESH MATERIALIZED VIEW marketing.failed_returns;
 
                     -- #### #### #### #### #### #### #### #### 				
 
@@ -6654,7 +6654,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incat(
 				-- #### #### #### #### #### #### #### #### #### #### #### #### 
 
 				
-				REFRESH MATERIALIZED VIEW marketing.dictkey_category;
+				-- REFRESH MATERIALIZED VIEW marketing.dictkey_category;
 
 
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
@@ -6678,7 +6678,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incat(
 				-- #### #### #### #### #### #### #### #### #### #### #### #### 
 
 				
-				REFRESH MATERIALIZED VIEW marketing.dictionary_key;
+				-- REFRESH MATERIALIZED VIEW marketing.dictionary_key;
 
 
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
@@ -6758,7 +6758,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incat(
 				-- #### #### #### #### #### #### #### #### #### #### ####      
 
 
-				REFRESH MATERIALIZED VIEW marketing.category_popularity;
+				-- REFRESH MATERIALIZED VIEW marketing.category_popularity;
 
 
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####        
@@ -6999,7 +6999,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incust
 						
 				-- #### #### #### #### #### #### #### #### #### #### #### ####    									
 
-				REFRESH MATERIALIZED VIEW marketing.dictkey_customer_details;
+				-- REFRESH MATERIALIZED VIEW marketing.dictkey_customer_details;
 
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####   
 				
@@ -7091,7 +7091,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incust
 				-- #### #### #### #### #### #### #### #### #### #### ####      
 
 
-				REFRESH MATERIALIZED VIEW marketing.customer_reclist_master_nonspecific;
+				-- REFRESH MATERIALIZED VIEW marketing.customer_reclist_master_nonspecific;
 
 
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####   
@@ -7158,7 +7158,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incust
 				-- #### #### #### #### #### #### #### #### #### #### ####      
 
 
-				REFRESH MATERIALIZED VIEW marketing.customer_reclist_master_specific;
+				-- REFRESH MATERIALIZED VIEW marketing.customer_reclist_master_specific;
 
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####   
 				
@@ -7235,7 +7235,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_infilm
 
 				-- #### #### #### #### #### #### #### #### #### #### #### ####
 
-				REFRESH MATERIALIZED VIEW marketing.dictkey_film_details; 
+				-- REFRESH MATERIALIZED VIEW marketing.dictkey_film_details; 
 
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
                 
@@ -7252,7 +7252,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_infilm
 
                 -- #### #### #### #### #### #### #### #### #### #### #### #### 
 
-                REFRESH MATERIALIZED VIEW marketing.new_releases;
+                -- REFRESH MATERIALIZED VIEW marketing.new_releases;
 
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
                 
@@ -7266,7 +7266,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_infilm
 
                 -- #### #### #### #### #### #### #### #### #### #### #### #### 
 
-                REFRESH MATERIALIZED VIEW marketing.inventory_maintenance_summary;
+                -- REFRESH MATERIALIZED VIEW marketing.inventory_maintenance_summary;
 
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
                 
@@ -7332,7 +7332,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_infilm
 
 				-- #### #### #### #### #### #### #### #### 
 
-				REFRESH MATERIALIZED VIEW marketing.film_category_popularity;
+				-- REFRESH MATERIALIZED VIEW marketing.film_category_popularity;
 
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
   
@@ -7396,7 +7396,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ininv(
 			
                 -- #### #### #### #### #### #### #### #### #### #### #### #### 
 
-                REFRESH MATERIALIZED VIEW marketing.inventory_maintenance_summary;
+                -- REFRESH MATERIALIZED VIEW marketing.inventory_maintenance_summary;
 
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 				
@@ -7528,7 +7528,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucatpo
 				-- #### #### #### #### #### #### #### #### 
 
 				
-				REFRESH MATERIALIZED VIEW marketing.category_popularity;
+				-- REFRESH MATERIALIZED VIEW marketing.category_popularity;
 
 				
 				-- #### #### #### #### 
@@ -7829,7 +7829,7 @@ BEGIN
 						
 				-- #### #### #### #### #### #### #### #### 
 						
-				REFRESH MATERIALIZED VIEW marketing.customer_reclist_master_nonspecific;
+				-- REFRESH MATERIALIZED VIEW marketing.customer_reclist_master_nonspecific;
 
 
 				-- #### #### #### #### 
@@ -7990,7 +7990,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
 						
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 	
 				
-				REFRESH MATERIALIZED VIEW marketing.customer_reclist_master_specific;
+				-- REFRESH MATERIALIZED VIEW marketing.customer_reclist_master_specific;
 				
 				-- #### #### #### #### #### #### #### #### #### #### #### #### 	
 				
@@ -8088,7 +8088,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_
 
 				-- #### #### #### #### #### #### #### #### 
 
-				REFRESH MATERIALIZED VIEW marketing.customer_reclist_summary_nonspecific;
+				-- REFRESH MATERIALIZED VIEW marketing.customer_reclist_summary_nonspecific;
 
 				-- #### #### #### #### 
 
@@ -8348,7 +8348,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_
 
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
-				REFRESH MATERIALIZED VIEW marketing.customer_reclist_summary_specific;
+				-- REFRESH MATERIALIZED VIEW marketing.customer_reclist_summary_specific;
 
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
@@ -8484,7 +8484,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_upcxwa
 				
 				-- #### #### #### #### #### #### #### #### 
 
-				REFRESH MATERIALIZED VIEW marketing.customer_watch_history_detailed;
+				-- REFRESH MATERIALIZED VIEW marketing.customer_watch_history_detailed;
 				
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####		
 				
@@ -8595,7 +8595,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ufcp_n
 					
 				-- #### #### #### #### #### #### #### #### 
 
-				REFRESH MATERIALIZED VIEW marketing.film_category_popularity;
+				-- REFRESH MATERIALIZED VIEW marketing.film_category_popularity;
 				
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####		
 				
@@ -8661,7 +8661,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_uinv_c
 				-- #### #### #### #### #### #### #### #### #### #### #### #### 
 
 				
-                REFRESH MATERIALIZED VIEW marketing.inventory_maintenance_summary;
+                -- REFRESH MATERIALIZED VIEW marketing.inventory_maintenance_summary;
 
 				-- #### #### #### #### 
 				
@@ -8719,11 +8719,11 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_unewr(
 
                 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
-                REFRESH MATERIALIZED VIEW marketing.new_releases;
+                -- REFRESH MATERIALIZED VIEW marketing.new_releases;
                 
                 -- #### #### #### #### 
 
-                REFRESH MATERIALIZED VIEW marketing.film_category_popularity;
+                -- REFRESH MATERIALIZED VIEW marketing.film_category_popularity;
 
                 -- #### #### #### #### #### #### #### ####  
 
@@ -8785,11 +8785,11 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_urr()
 			-- IF RETURN DATE IS STILL GOING TO BE CALCULATED OFF THE WATCH HISTORY LIST THEN WATCH HISTORY MATERIALIZED VIEW NEEDS TO BE UPDATED
 			-- IF RETURN DATE IS REMOVED FROM WATCH HISTORY THEN REMOVE REFRESH CUSTOMER WATCH HISTORY MATERIALIZED VIEW 
 
-			REFRESH MATERIALIZED VIEW marketing.customer_watch_history_detailed;
+			-- REFRESH MATERIALIZED VIEW marketing.customer_watch_history_detailed;
 
 			-- #### #### #### #### 
 
-			REFRESH MATERIALIZED VIEW marketing.failed_returns;
+			-- REFRESH MATERIALIZED VIEW marketing.failed_returns;
 
 			-- #### #### #### #### 
 
@@ -8884,7 +8884,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
 
 				-- #### #### #### #### #### #### #### #### 	       
 
-	/*
+
 				UPDATE vdm1_data.customer_reclist_master_nonspecific
 				
 				SET
@@ -8930,11 +8930,10 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
 						AND
 					a.film_id = b.film_id);
 
-        
-    */
+
 				-- #### #### #### #### #### #### #### #### 
 						
-				REFRESH MATERIALIZED VIEW marketing.customer_reclist_master_nonspecific;
+				-- REFRESH MATERIALIZED VIEW marketing.customer_reclist_master_nonspecific;
                 
                 -- #### #### #### #### #### #### #### #### #### #### #### #### 
                 
@@ -9057,7 +9056,6 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
 				
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####			
 				
-	/*	
 				UPDATE vdm1_data.customer_reclist_master_specific
 				
 				SET
@@ -9117,13 +9115,12 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
 					(a.customer_id = b.customer_id
 						AND
 					a.film_id = b.film_id);
-
-	*/		
+		
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 										
 				-- #### #### #### #### #### #### #### #### 
 				
-				REFRESH MATERIALIZED VIEW marketing.customer_reclist_master_specific;
+				-- REFRESH MATERIALIZED VIEW marketing.customer_reclist_master_specific;
 				
 				
 				-- #### #### #### #### 
@@ -9174,7 +9171,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_uinv_c
 				-- #### #### #### #### #### #### #### #### #### #### #### #### 
 
 				
-                REFRESH MATERIALIZED VIEW marketing.inventory_maintenance_summary;
+                -- REFRESH MATERIALIZED VIEW marketing.inventory_maintenance_summary;
 
 				-- #### #### #### #### 
 				
@@ -9229,7 +9226,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incity
 
 				-- #### #### #### #### #### #### #### #### #### #### #### #### 
 
-				REFRESH MATERIALIZED VIEW marketing.dictkey_city;
+				-- REFRESH MATERIALIZED VIEW marketing.dictkey_city;
 
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
@@ -9252,7 +9249,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incity
 				-- #### #### #### #### #### #### #### #### #### #### #### #### 
 
 				
-				REFRESH MATERIALIZED VIEW marketing.dictionary_key;
+				-- REFRESH MATERIALIZED VIEW marketing.dictionary_key;
 
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
@@ -9307,7 +9304,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incoun
 
 				-- #### #### #### #### #### #### #### #### #### #### #### #### 
 				
-				REFRESH MATERIALIZED VIEW marketing.dictkey_country;
+				-- REFRESH MATERIALIZED VIEW marketing.dictkey_country;
 
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
@@ -9330,7 +9327,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incoun
 				-- #### #### #### #### #### #### #### #### #### #### #### #### 
 
 				
-				REFRESH MATERIALIZED VIEW marketing.dictionary_key;
+				-- REFRESH MATERIALIZED VIEW marketing.dictionary_key;
 
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
@@ -9386,7 +9383,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_inlang
 
 				-- #### #### #### #### #### #### #### #### #### #### #### #### 
 				
-				REFRESH MATERIALIZED VIEW marketing.dictkey_language;
+				-- REFRESH MATERIALIZED VIEW marketing.dictkey_language;
 
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
@@ -9409,7 +9406,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_inlang
 				-- #### #### #### #### #### #### #### #### #### #### #### #### 
 
 				
-				REFRESH MATERIALIZED VIEW marketing.dictionary_key;
+				-- REFRESH MATERIALIZED VIEW marketing.dictionary_key;
 				
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
