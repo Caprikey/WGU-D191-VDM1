@@ -6684,6 +6684,41 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incat(
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 
+				INSERT INTO vdm1_data.customer_rec_custom_preferences (
+					  customer_id
+					, category_id
+					, customer_rec_custom_order
+				)
+
+				WITH get_customers_with_custom_rec_preferences AS (
+
+					SELECT
+						customer_id 
+					FROM 
+						vdm1_data.customer_rec_custom_preferences
+				)
+				, cross_join_customer_to_new_category AS (
+					
+					SELECT
+						DISTINCT (customer_id)
+						, category_id
+					FROM 
+						get_customers_with_custom_rec_preferences
+							CROSS JOIN
+								public.category
+					
+					WHERE
+						category_id = NEW.category_id
+				)
+				, get_total_count_of_categories AS (
+
+					SELECT
+						COUNT(1) AS category_length
+					FROM
+						public.category
+				)
+				, cross_join_cuscat_to_catleng AS (
+					
 					SELECT
 						customer_id
 						, category_id 
@@ -7359,11 +7394,11 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ininv(
 				); 
 			
 			
-				-- #### #### #### #### #### #### #### #### 
-						
-				-- #### #### #### #### #### #### #### #### 
-				
-				-- #### #### #### #### 
+                -- #### #### #### #### #### #### #### #### #### #### #### #### 
+
+                REFRESH MATERIALIZED VIEW marketing.inventory_maintenance_summary;
+
+				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 				
 				RETURN NEW;
 				
@@ -7371,8 +7406,6 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ininv(
 			END;
 		$trigger_function_insert_new_inventory$;
 		';	
-
-
 
     END;
 $vdm1_stage5_trigger_functions_setup_insert_new_inventory$;
@@ -8015,7 +8048,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_
 
 				INSERT INTO vdm1_data.customer_reclist_summary_nonspecific (
 
-						customer_id
+					  customer_id
 					, film_rec_order
 					, film_id
 					, category_id
