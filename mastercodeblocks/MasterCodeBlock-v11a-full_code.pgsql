@@ -6826,7 +6826,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incat(
 						UPDATE vdm1_data.customer_category
 						
 						SET
-							historical_rental_count = 0
+							  historical_rental_count = 0
 							, average_rental_count = 0
 							, halfaverage_rental_count = 0
 							
@@ -6842,7 +6842,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incat(
 						UPDATE vdm1_data.customer_category 
 
 						SET 
-							recommendation_order_historical = null
+							  recommendation_order_historical = null
 							, recommendation_order_average = null
 							, recommendation_order_halfaverage = null
 							, recommendation_order_customer_preference = null;
@@ -6856,7 +6856,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incat(
 						WITH get_customer_category_rec_order_historical AS (
 							
 							SELECT 
-								a.customer_id
+								  a.customer_id
 								, a.category_id
 								, ROW_NUMBER() OVER (PARTITION BY a.customer_id ORDER BY a.historical_rental_count DESC, b.total_rentals DESC) as recommendation_order_historical
 
@@ -6885,7 +6885,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incat(
 
 						WITH get_customer_category_rec_order_average AS (
 							SELECT 
-								a.customer_id
+								  a.customer_id
 								, a.category_id
 								, ROW_NUMBER() OVER (PARTITION BY a.customer_id ORDER BY a.average_rental_count DESC, b.total_rentals DESC) as recommendation_order_average
 
@@ -6914,7 +6914,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incat(
 
 						WITH get_customer_category_rec_order_halfaverage AS (
 							SELECT 
-								a.customer_id
+								  a.customer_id
 								, a.category_id
 								, ROW_NUMBER() OVER (PARTITION BY a.customer_id ORDER BY a.halfaverage_rental_count DESC, b.total_rentals DESC ) as recommendation_order_halfaverage
 
@@ -7154,7 +7154,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incust
 
 						INSERT INTO vdm1_data.customer_reclist_master_nonspecific (
 							
-							customer_id
+							  customer_id
 							, category_id
 							, film_rec_order
 							, film_id
@@ -7204,9 +7204,9 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incust
 						WITH combined_master_with_cxcat AS (
 
 							SELECT 
-								a.customer_id
+								  a.customer_id
 								, CASE
-									WHEN EXISTS (SELECT b.customer_id FROM vdm1_data.customer_category b where b.customer_id = a.customer_id)
+									WHEN EXISTS (SELECT b.customer_id FROM vdm1_data.customer_rec_custom_preferences b where b.customer_id = a.customer_id)
 										THEN b.recommendation_order_customer_preference
 									ELSE b.recommendation_order_historical
 								END as cat_rec_order 
@@ -9214,7 +9214,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
 
 						INSERT INTO vdm1_data.customer_reclist_master_nonspecific (
 
-							customer_id 
+							  customer_id 
 							, category_id
 							, film_id
 							, film_rec_order
@@ -9264,6 +9264,8 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
 					END;
                 
                 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####   
+
+    /*
 
 					BEGIN 
 
@@ -9317,6 +9319,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
 
 					END;
 
+    */
                 -- #### #### #### #### #### #### #### #### #### #### #### #### 
 						
 				/*
@@ -9370,18 +9373,17 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
 
 						INSERT INTO vdm1_data.customer_reclist_master_specific (
 
-							customer_id
+							  customer_id
 							, cat_rec_order
 							, category_id
 							, film_id
 							, rental_rec_order
 						)
 
-
 						WITH get_film_category_details AS (
 
 							SELECT 
-								category_id
+								  category_id
 								, film_id
 							FROM 
 								vdm1_data.film_category_popularity
@@ -9399,7 +9401,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
 						, combined_customer_list_to_film_category_details AS (
 							
 							SELECT 
-								customer_id 
+								  customer_id 
 								, category_id 
 								, film_id
 							FROM 
@@ -9411,7 +9413,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
 						, get_customer_category_historical_details AS (
 						
 							SELECT 
-								customer_id 
+								  customer_id 
 								, category_id
 								, recommendation_order_historical
 								
@@ -9421,7 +9423,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
 						, combined_customer_film_category_with_customer_category AS (
 						
 							SELECT
-								a.customer_id
+								  a.customer_id
 								, b.recommendation_order_historical
 								, a.category_id 
 								, a.film_id
@@ -9440,7 +9442,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
 						)
 
 						SELECT 
-							customer_id
+							  customer_id
 							, recommendation_order_historical
 							, category_id
 							, film_id
@@ -9452,7 +9454,9 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
 					END;
 				
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####			
-				
+
+    /*
+
 					BEGIN 
 
 						UPDATE vdm1_data.customer_reclist_master_specific
@@ -9501,10 +9505,10 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
 							
 							FROM 
 								get_customer_reclist_master_specific_values AS a 
-								LEFT JOIN 
-									vdm1_data.film_category_popularity AS b
-										ON a.film_id = b.film_id 
-						)
+                                    LEFT JOIN 
+                                        vdm1_data.film_category_popularity AS b
+                                            ON a.film_id = b.film_id 
+                            )
 						
 						UPDATE vdm1_data.customer_reclist_master_specific AS a
 						
@@ -9521,6 +9525,8 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
 
 					END;
 		
+    */
+
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 				
 				/*
@@ -9532,7 +9538,6 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_
 					END;
 				
 				*/
-				
 				
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 				
@@ -9734,7 +9739,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incoun
 					BEGIN 
 
 						INSERT INTO vdm1_data.dictkey_country (
-							country_id
+							  country_id
 							, country
 						)
 
@@ -9834,12 +9839,12 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_inlang
 					BEGIN
 
 						INSERT INTO vdm1_data.dictkey_country (
-							language_id
+							  language_id
 							, name
 						)
 
 						SELECT
-							language_id
+							  language_id
 							, name
 						FROM public.language
 
@@ -9865,13 +9870,13 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_inlang
 					BEGIN
 
 						INSERT INTO vdm1_data.dictionary_key (
-							dictionary
+							  dictionary
 							, key_id
 							, key_name
 						)
 
 						SELECT
-							''language''
+							  ''language''
 							, language_id
 							, name
 						FROM public.language
