@@ -385,7 +385,9 @@
 -- https://www.postgresql.org/docs/current/explicit-locking.html
 -- https://dba.stackexchange.com/questions/300722/out-of-shared-memory-and-lock-monitoring-in-postgresql
 -- https://dba.stackexchange.com/questions/185880/analyze-memory-usage-of-postgresql-why-is-it-growing-constantly/270183#270183
--- 
+
+-- https://stackoverflow.com/questions/6898453/how-to-display-the-function-procedure-triggers-source-code-in-postgresql
+-- https://stackoverflow.com/questions/12611596/getting-name-of-the-current-function-inside-of-the-function-with-plpgsql
 
 
 

@@ -151,7 +151,7 @@ WITH insert_category AS (
         , rating
         , special_features
     ) VALUES (
-          'The Silience Of The Lambs'
+          'The Silence Of The Lambs'
         , 'A young F.B.I. cadet must receive the help of an incarcerated and manipulative cannibal killer to help catch another serial killer, a madman who skins his victims.'
         , 1991
         , (SELECT language_id FROM public.language WHERE name = 'English')
@@ -410,10 +410,10 @@ INSERT INTO public.rental (
 	) VALUES (
 		 
 
-		  '2007-02-05'
+		  '2007-01-01'
 		, (SELECT floor(random() * (SELECT COUNT(*) FROM public.inventory) + 1)::int)
 		, (SELECT floor(random() * (SELECT COUNT(*) FROM public.customer) + 1)::int)
-		, '2007-02-07'
+		, '2007-01-01'
 		, (SELECT floor(random() * (SELECT COUNT(*) FROM public.staff) + 1)::int)
 	
 	)
@@ -462,6 +462,14 @@ SELECT * FROM pg_locks pl LEFT JOIN pg_stat_activity psa
 */
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####  
 
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####  
+
+/*
+
+select tgrelid::regclass, tgname from pg_trigger
+
+*/
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####  
 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####      
