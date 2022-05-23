@@ -7571,7 +7571,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_iucrcp
 								vdm1_data.customer_category
 
 							WHERE 
-								customer_id = OLD.customer_id
+								customer_id = NEW.customer_id
 						)
 
 						UPDATE vdm1_data.customer_reclist_master_specific AS a 
@@ -7583,12 +7583,20 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_iucrcp
 							get_customer_reclist_custom_preferences AS b 
 
 						WHERE
-							b.customer_id = a.customer_id
+							a.customer_id = b.customer_id
 								AND 
-							b.category_id = a.category_id;
+							a.category_id = b.category_id;
 
 					END;
 
+				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+                    BEGIN
+
+                        TRUNCATE TABLE vdm1_data.customer_reclist_summary_specific;
+
+                    END;
+				
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 				RETURN NEW;
@@ -7641,18 +7649,6 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucatpo
 					END;
 					
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
-
-				/*
-
-					BEGIN
-
-						REFRESH MATERIALIZED VIEW marketing.category_popularity;
-
-					END;
-
-				*/
-
-				-- #### #### #### #### #### #### #### #### #### #### #### ######## #### #### ####
 				
 					RETURN NEW;
 				
