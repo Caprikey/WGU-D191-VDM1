@@ -225,28 +225,29 @@
 --                   4. vdm1_data.t_f_insert_new_film();
 --                   5. vdm1_data.t_f_insert_new_inventory();
 --                   6. vdm1_data.t_f_insert_update_customer_rec_custom_preferences();
---                   7. vdm1_data.t_f_update_category_popularity();
---                   8. vdm1_data.t_f_update_customer_category();
---                   9. vdm1_data.t_f_update_customer_reclist_master_nonspecific_new_rental();
---                  10. vdm1_data.t_f_update_customer_reclist_master_nonspecific_ru();
---                  11. vdm1_data.t_f_update_customer_reclist_master_specific_new_rental()
---                  12. vdm1_data.t_f_update_customer_reclist_master_specific_new_rental_ru()
---                  13. vdm1_data.t_f_update_customer_reclist_summary_nonspecific();
---                  14. vdm1_data.t_f_update_customer_reclist_summary_nonspecific_ru();
---                  15. vdm1_data.t_f_update_customer_reclist_summary_specific();
---                  16. vdm1_data.t_f_update_customer_reclist_summary_specific_ru();
---                  17. vdm1_data.t_f_insert_customer_watch_history();
---                  18. vdm1_data.t_f_update_film_category_popularity_new_rental()
---                  19. vdm1_data.t_f_update_inventory_maintenance_count();
---                  20. vdm1_data.t_f_update_new_release();
---                  21. vdm1_data.t_f_update_rental_return();
---                  22. vdm1_data.t_f_insert_customer_reclist_master_nonspecific_new_film();
---                  23. vdm1_data.t_f_insert_customer_reclist_master_specific_new_film();
---                  24. vdm1_data.t_f_update_inventory_maintenance_complete()
---                  25. vdm1_data.t_f_insert_new_city();
---                  26. vdm1_data.t_f_insert_new_country();
---                  27. vdm1_data.t_f_insert_new_language();
---                  28. vdm1_data.t_f_refresh_materialized_views();
+--                   6. vdm1_data.t_f_delete_reset_customer_rec_custom_preferences();
+--                   8. vdm1_data.t_f_update_category_popularity();
+--                   9. vdm1_data.t_f_update_customer_category();
+--                  10. vdm1_data.t_f_update_customer_reclist_master_nonspecific_new_rental();
+--                  11. vdm1_data.t_f_update_customer_reclist_master_nonspecific_ru();
+--                  12. vdm1_data.t_f_update_customer_reclist_master_specific_new_rental()
+--                  13. vdm1_data.t_f_update_customer_reclist_master_specific_new_rental_ru()
+--                  14. vdm1_data.t_f_update_customer_reclist_summary_nonspecific();
+--                  15. vdm1_data.t_f_update_customer_reclist_summary_nonspecific_ru();
+--                  16. vdm1_data.t_f_update_customer_reclist_summary_specific();
+--                  17. vdm1_data.t_f_update_customer_reclist_summary_specific_ru();
+--                  18. vdm1_data.t_f_insert_customer_watch_history();
+--                  19. vdm1_data.t_f_update_film_category_popularity_new_rental()
+--                  20. vdm1_data.t_f_update_inventory_maintenance_count();
+--                  21. vdm1_data.t_f_update_new_release();
+--                  22. vdm1_data.t_f_update_rental_return();
+--                  23. vdm1_data.t_f_insert_customer_reclist_master_nonspecific_new_film();
+--                  24. vdm1_data.t_f_insert_customer_reclist_master_specific_new_film();
+--                  25. vdm1_data.t_f_update_inventory_maintenance_complete()
+--                  26. vdm1_data.t_f_insert_new_city();
+--                  27. vdm1_data.t_f_insert_new_country();
+--                  28. vdm1_data.t_f_insert_new_language();
+--                  29. vdm1_data.t_f_refresh_materialized_views();
 
 --             FUNCTIONS USED TO CREATED TRIGGER FUNCTIONS
 
@@ -256,28 +257,29 @@
 --                   4. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_infilm()
 --                   5. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ininv()
 --                   6. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_iucrcp()
---                   7. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucatpop()
---                   8. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucustcat()
---                   9. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_non()
---                  10. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_non_nr()
---                  11. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_spe()
---                  12. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_spe_ru()
---                  13. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_non()
---                  14. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_non_ru()
---                  15. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_spe()
---                  16. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_spe_ru()
---                  17. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_upcxwatchhist()
---                  18. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ufcp()
---                  19. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_uinv_count()
---                  20. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_unewr()
---                  21. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_urr()
---                  22. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_non_inf()
---                  23. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_spe_inf()
---                  24. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_uinv_comp()
---                  25. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incity()
---                  26. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incountry()
---                  27. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_inlanguage()
---                  28. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_refreshmviews();
+--                   7. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_drcrcp()
+--                   8. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucatpop()
+--                   9. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucustcat()
+--                  10. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_non()
+--                  11. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_non_nr()
+--                  12. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_spe()
+--                  13. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_spe_ru()
+--                  14. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_non()
+--                  15. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_non_ru()
+--                  16. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_spe()
+--                  17. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_spe_ru()
+--                  18. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_upcxwatchhist()
+--                  19. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ufcp()
+--                  20. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_uinv_count()
+--                  21. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_unewr()
+--                  22. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_urr()
+--                  23. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_non_inf()
+--                  24. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_spe_inf()
+--                  25. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_uinv_comp()
+--                  26. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incity()
+--                  27. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incountry()
+--                  28. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_inlanguage()
+--                  29. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_refreshmviews();
 
 --     #### #### #### ####
 --        STAGE 5b END
@@ -300,41 +302,41 @@
 --                   2. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.CUSTOMER :: insert_new_customer
 --                   3. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.CATEGORY :: insert_new_category
 --                   4. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.INVENTORY :: insert_new_inventory
---                   5. CREATE TRIGGER :: AFTER UPDATE :: PUBLIC.RENTAL :: update_rental_return 
---                   6. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.RENTAL :: insert_failed_return
+--                   5. CREATE TRIGGER :: AFTER UPDATE :: PUBLIC.RENTAL :: update_rental_return_date_delete_rental_from_fr_table 
+--                   6. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.RENTAL :: insert_null_returned_date_rental_to_fr_table
 --                   7. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.FILM_CATEGORY :: insert_new_film
 --                   8. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.CUSTOMER_WATCH_HISTORY_DETAILED :: update_a_customer_category
 --                   9. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.CUSTOMER_WATCH_HISTORY_DETAILED :: update_b_category_popularity_new_rental
 --                  10. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.CUSTOMER_WATCH_HISTORY_DETAILED :: update_c_film_category_popularity_new_rental
 --                  11. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.CUSTOMER_WATCH_HISTORY_DETAILED :: update_d_inventory_maintenance_count
---                  12. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.CUSTOMER_WATCH_HISTORY_DETAILED :: update_e_customer_reclist_master_nonspecific
+--                  12. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.CUSTOMER_WATCH_HISTORY_DETAILED :: update_e_customer_reclist_master_nonspecific_new_rental
 --                  13. CREATE TRIGGER :: AFTER DELETE :: VDM1_DATA.CUSTOMER_RECLIST_MASTER_NONSPECIFIC :: update_a_customer_reclist_master_nonspecific_updaterental
 --                  14. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.CUSTOMER_WATCH_HISTORY_DETAILED :: update_f_customer_reclist_master_specific_new_rental
 --                  15. CREATE TRIGGER :: AFTER DELETE :: VVDM1_DATA.CUSTOMER_RECLIST_MASTER_SPECIFIC :: update_a_customer_reclist_master_specific_updaterental
 --                  16. CREATE TRIGGER :: AFTER INSERT OR UPDATE :: VDM1_DATA.CUSTOMER_REC_CUSTOM_PREFERNCES :: insert_update_customer_rec_custom_preferences
---                  17. CREATE TRIGGER :: AFTER UPDATE :: VDM1_DATA.FILM_CATEGORY_POPULARITY :: update_new_release_status_delete_film_from_nr_table
---                  18. CREATE TRIGGER :: AFTER DELETE :: VDM1_DATA.CUSTOMER_RECLIST_MASTER_NONSPECIFIC :: update_b_customer_reclist_summary_nonspecific
---                  19. CREATE TRIGGER :: AFTER TRUNCATE :: VDM1_DATA.CUSTOMER_RECLIST_SUMMARY_NONSPECIFIC :: update_customer_reclist_summary_nonspecific_ru
---                  20. CREATE TRIGGER :: AFTER INSERT OR UPDATE OR DELETE :: VDM1_DATA.CUSTOMER_RECLIST_MASTER_NONSPECIFIC :: update_customer_reclist_master_nonspecific_summary
---                  20. CREATE TRIGGER :: AFTER DELETE :: VDM1_DATA.CUSTOMER_RECLIST_MASTER_SPECIFIC :: update_b_customer_reclist_summary_specific
---                  21  CREATE TRIGGER :: AFTER TRUNCATE :: VDM1_DATA.CUSTOMER_RECLIST_SUMMARY_SPECIFIC :: update_customer_reclist_summary_specific_rental_update
---                  22. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.FILM_CATEGORY_POPULARITY :: insert_customer_reclist_nonspecific_with_new_film
---                  23. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.FILM_CATEGORY_POPULARITY :: insert_customer_reclist_specific_with_new_film
---                  24. CREATE TRIGGER :: AFTER UPDATE :: VDM1_DATA.INVENTORY_MAINTENCE :: update_inventory_maintenance_complete
---                  25. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.CITY :: insert_new_city
---                  26. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.COUNTRY :: insert_new_country
---                  27. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.LANGUAGE :: insert_new_language
---                  28. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.CUSTOMER_RECLIST_SUMMARY_NONSPECIFIC :: refresh_materialized_views_non
---                  29. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.CUSTOMER_RECLIST_SUMMARY_SPECIFIC :: refresh_materialized_views_spe
---                  30. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.DICTIONARY_KEY :: refresh_materialized_views_dictionary_key
---                  31. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.DICTKEY_CATEGORY :: refresh_materialized_views_dictkey_category
---                  32. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.DICTKEY_CITY :: refresh_materialized_views_dictkey_city
---                  33. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.DICTKEY_COUNTRY :: refresh_materialized_views_dictkey_country
---                  34. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.DICTKEY_LANGUAGE :: refresh_materialized_views_dictkey_language
---                  35. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.DICTKEY_STORE_DETAILS :: refresh_materialized_views_dictkey_store_details
---                  36. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.FAILED_RETURNS :: refresh_materialized_views_failed_returns
---                  37. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.NEW_RELEASES :: refresh_materialized_views_new_releases
---                  38. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.INVENTORY_MAINTENANCE_SUMMARY :: refresh_materialized_views_inventory_maintenance_summary
+--                  17. CREATE TRIGGER :: AFTER DELETE :: VDM1_DATA.CUSTOMER_REC_CUSTOM_PREFERNCES :: delete_reset_customer_rec_custom_preferences
+--                  18. CREATE TRIGGER :: AFTER UPDATE :: VDM1_DATA.FILM_CATEGORY_POPULARITY :: update_new_release_status_delete_film_from_nr_table
+--                  19. CREATE TRIGGER :: AFTER DELETE :: VDM1_DATA.CUSTOMER_RECLIST_MASTER_NONSPECIFIC :: update_b_customer_reclist_summary_nonspecific
+--                  20. CREATE TRIGGER :: AFTER TRUNCATE :: VDM1_DATA.CUSTOMER_RECLIST_SUMMARY_NONSPECIFIC :: update_customer_reclist_summary_nonspecific_ru
+--                  21. CREATE TRIGGER :: AFTER DELETE :: VDM1_DATA.CUSTOMER_RECLIST_MASTER_SPECIFIC :: update_b_customer_reclist_summary_specific
+--                  22. CREATE TRIGGER :: AFTER TRUNCATE :: VDM1_DATA.CUSTOMER_RECLIST_SUMMARY_SPECIFIC :: update_customer_reclist_summary_specific_rental_update
+--                  23. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.FILM_CATEGORY_POPULARITY :: insert_customer_reclist_nonspecific_with_new_film
+--                  24. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.FILM_CATEGORY_POPULARITY :: insert_customer_reclist_specific_with_new_film
+--                  25. CREATE TRIGGER :: AFTER UPDATE :: VDM1_DATA.INVENTORY_MAINTENCE :: update_inventory_maintenance_complete
+--                  26. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.CITY :: insert_new_city
+--                  27. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.COUNTRY :: insert_new_country
+--                  28. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.LANGUAGE :: insert_new_language
+--                  29. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.CUSTOMER_RECLIST_SUMMARY_NONSPECIFIC :: refresh_materialized_views_non
+--                  30. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.CUSTOMER_RECLIST_SUMMARY_SPECIFIC :: refresh_materialized_views_spe
+--                  31. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.DICTIONARY_KEY :: refresh_materialized_views_dictionary_key
+--                  32. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.DICTKEY_CATEGORY :: refresh_materialized_views_dictkey_category
+--                  33. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.DICTKEY_CITY :: refresh_materialized_views_dictkey_city
+--                  34. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.DICTKEY_COUNTRY :: refresh_materialized_views_dictkey_country
+--                  35. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.DICTKEY_LANGUAGE :: refresh_materialized_views_dictkey_language
+--                  36. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.DICTKEY_STORE_DETAILS :: refresh_materialized_views_dictkey_store_details
+--                  37. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.FAILED_RETURNS :: refresh_materialized_views_failed_returns
+--                  38. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.NEW_RELEASES :: refresh_materialized_views_new_releases
+--                  39. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.INVENTORY_MAINTENANCE_SUMMARY :: refresh_materialized_views_inventory_maintenance_summary
 
 
 --             FUNCTIONS TO CREATED TRIGGERS 
@@ -355,28 +357,29 @@
 --                  14. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_specific()
 --                  15. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_specific_ur();
 --                  16. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrcp()
---                  17. vdm1_etl.f_vdm1_stage5_trigger_setup_unr()
---                  18. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_nonspecific()
---                  19. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_nonspecific_ru()
---                  20. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_specific()
---                  21. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_specific_ru()
---                  22. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_non_inf();
---                  23. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_spe_inf();
---                  24. vdm1_etl.f_vdm1_stage5_trigger_setup_uinvmaint_comp()
---                  25. vdm1_etl.f_vdm1_stage5_trigger_setup_incity()
---                  26. vdm1_etl.f_vdm1_stage5_trigger_setup_incountry()
---                  27. vdm1_etl.f_vdm1_stage5_trigger_setup_inlanguage()
---                  28. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_non();
---                  29. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_spe();
---                  30. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dictkey();
---                  31. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_cat();
---                  32. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_ci();
---                  33. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_co();
---                  34. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_l();
---                  35. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_sd();
---                  36. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_fr();
---                  37. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_nr();
---                  38. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_ims();
+--                  17. vdm1_etl.f_vdm1_stage5_trigger_setup_dcrcp()
+--                  18. vdm1_etl.f_vdm1_stage5_trigger_setup_unr()
+--                  19. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_nonspecific()
+--                  20. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_nonspecific_ru()
+--                  21. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_specific()
+--                  22. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_specific_ru()
+--                  23. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_non_inf();
+--                  24. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_spe_inf();
+--                  25. vdm1_etl.f_vdm1_stage5_trigger_setup_uinvmaint_comp()
+--                  26. vdm1_etl.f_vdm1_stage5_trigger_setup_incity()
+--                  27. vdm1_etl.f_vdm1_stage5_trigger_setup_incountry()
+--                  28. vdm1_etl.f_vdm1_stage5_trigger_setup_inlanguage()
+--                  29. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_non();
+--                  30. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_spe();
+--                  31. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dictkey();
+--                  32. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_cat();
+--                  33. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_ci();
+--                  34. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_co();
+--                  35. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_l();
+--                  36. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_sd();
+--                  37. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_fr();
+--                  38. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_nr();
+--                  39. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_ims();
 
 
 --     #### #### #### ####
@@ -6407,28 +6410,29 @@ $vdm1_stage5_create_index$;
 --                   4. vdm1_data.t_f_insert_new_film();
 --                   5. vdm1_data.t_f_insert_new_inventory();
 --                   6. vdm1_data.t_f_insert_update_customer_rec_custom_preferences();
---                   7. vdm1_data.t_f_update_category_popularity();
---                   8. vdm1_data.t_f_update_customer_category();
---                   9. vdm1_data.t_f_update_customer_reclist_master_nonspecific_new_rental();
---                  10. vdm1_data.t_f_update_customer_reclist_master_nonspecific_ru();
---                  11. vdm1_data.t_f_update_customer_reclist_master_specific_new_rental()
---                  12. vdm1_data.t_f_update_customer_reclist_master_specific_new_rental_ru()
---                  13. vdm1_data.t_f_update_customer_reclist_summary_nonspecific();
---                  14. vdm1_data.t_f_update_customer_reclist_summary_nonspecific_ru();
---                  15. vdm1_data.t_f_update_customer_reclist_summary_specific();
---                  16. vdm1_data.t_f_update_customer_reclist_summary_specific_ru();
---                  17. vdm1_data.t_f_insert_customer_watch_history();
---                  18. vdm1_data.t_f_update_film_category_popularity_new_rental()
---                  19. vdm1_data.t_f_update_inventory_maintenance_count();
---                  20. vdm1_data.t_f_update_new_release();
---                  21. vdm1_data.t_f_update_rental_return();
---                  22. vdm1_data.t_f_insert_customer_reclist_master_nonspecific_new_film();
---                  23. vdm1_data.t_f_insert_customer_reclist_master_specific_new_film();
---                  24. vdm1_data.t_f_update_inventory_maintenance_complete()
---                  25. vdm1_data.t_f_insert_new_city();
---                  26. vdm1_data.t_f_insert_new_country();
---                  27. vdm1_data.t_f_insert_new_language();
---                  28. vdm1_data.t_f_refresh_materialized_views();
+--                   6. vdm1_data.t_f_delete_reset_customer_rec_custom_preferences();
+--                   8. vdm1_data.t_f_update_category_popularity();
+--                   9. vdm1_data.t_f_update_customer_category();
+--                  10. vdm1_data.t_f_update_customer_reclist_master_nonspecific_new_rental();
+--                  11. vdm1_data.t_f_update_customer_reclist_master_nonspecific_ru();
+--                  12. vdm1_data.t_f_update_customer_reclist_master_specific_new_rental()
+--                  13. vdm1_data.t_f_update_customer_reclist_master_specific_new_rental_ru()
+--                  14. vdm1_data.t_f_update_customer_reclist_summary_nonspecific();
+--                  15. vdm1_data.t_f_update_customer_reclist_summary_nonspecific_ru();
+--                  16. vdm1_data.t_f_update_customer_reclist_summary_specific();
+--                  17. vdm1_data.t_f_update_customer_reclist_summary_specific_ru();
+--                  18. vdm1_data.t_f_insert_customer_watch_history();
+--                  19. vdm1_data.t_f_update_film_category_popularity_new_rental()
+--                  20. vdm1_data.t_f_update_inventory_maintenance_count();
+--                  21. vdm1_data.t_f_update_new_release();
+--                  22. vdm1_data.t_f_update_rental_return();
+--                  23. vdm1_data.t_f_insert_customer_reclist_master_nonspecific_new_film();
+--                  24. vdm1_data.t_f_insert_customer_reclist_master_specific_new_film();
+--                  25. vdm1_data.t_f_update_inventory_maintenance_complete()
+--                  26. vdm1_data.t_f_insert_new_city();
+--                  27. vdm1_data.t_f_insert_new_country();
+--                  28. vdm1_data.t_f_insert_new_language();
+--                  29. vdm1_data.t_f_refresh_materialized_views();
 
 --             FUNCTIONS USED TO CREATED TRIGGER FUNCTIONS
 
@@ -6438,28 +6442,29 @@ $vdm1_stage5_create_index$;
 --                   4. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_infilm()
 --                   5. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ininv()
 --                   6. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_iucrcp()
---                   7. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucatpop()
---                   8. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucustcat()
---                   9. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_non()
---                  10. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_non_nr()
---                  11. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_spe()
---                  12. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_spe_ru()
---                  13. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_non()
---                  14. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_non_ru()
---                  15. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_spe()
---                  16. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_spe_ru()
---                  17. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_upcxwatchhist()
---                  18. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ufcp()
---                  19. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_uinv_count()
---                  20. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_unewr()
---                  21. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_urr()
---                  22. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_non_inf()
---                  23. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_spe_inf()
---                  24. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_uinv_comp()
---                  25. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incity()
---                  26. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incountry()
---                  27. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_inlanguage()
---                  28. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_refreshmviews();
+--                   7. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_drcrcp()
+--                   8. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucatpop()
+--                   9. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucustcat()
+--                  10. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_non()
+--                  11. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_non_nr()
+--                  12. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_spe()
+--                  13. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_spe_ru()
+--                  14. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_non()
+--                  15. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_non_ru()
+--                  16. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_spe()
+--                  17. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_spe_ru()
+--                  18. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_upcxwatchhist()
+--                  19. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ufcp()
+--                  20. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_uinv_count()
+--                  21. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_unewr()
+--                  22. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_urr()
+--                  23. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_non_inf()
+--                  24. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_spe_inf()
+--                  25. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_uinv_comp()
+--                  26. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incity()
+--                  27. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incountry()
+--                  28. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_inlanguage()
+--                  29. vdm1_etl.f_vdm1_stage5_trigger_functions_setup_refreshmviews();
 
 --     #### #### #### ####
 --        STAGE 5b END
@@ -6518,70 +6523,74 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5b_trigger_functions_setup()
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_iucrcp();
 
         -- 07
-        PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucatpop();
+        PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_drcrcp();
 
         -- 08
-        PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucustcat();
+        PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucatpop();
 
         -- 09
-        PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_non();
+        PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucustcat();
 
         -- 10
-        PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_non_nr();
+        PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_non();
 
         -- 11
-        PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_spe();
+        PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_non_nr();
 
         -- 12
+        PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_spe();
+
+        -- 13
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_spe_ru();
         
-        -- 13
+        -- 14
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_non();
 
-        -- 14
+        -- 15
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_non_ru();
 
-        -- 15
+        -- 16
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_spe();
 
-        -- 16
+        -- 17
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_spe_ru();
 
-        -- 17
+        -- 18
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_upcxwatchhist();
 
-        -- 18
+        -- 19
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ufcp_nr();
 
-        -- 19
+        -- 20
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_uinv_count();
 
-        -- 20
+        -- 21
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_unewr();
 
-        -- 21
+        -- 22
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_urr();
 
-        -- 22
+        -- 23
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_non_inf();
 
-        -- 23
+        -- 24
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_spe_inf();
 
-        -- 24
+        -- 25
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_uinv_comp();
 
-        -- 25
+        -- 26
 		PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incity();
 
-        -- 26
+        -- 27
 		PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incountry();
 
-        -- 27
+        -- 28
 		PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_inlanguage();
 
-        -- 28
+        -- 29
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_functions_setup_refreshmviews();
+
 
     END;
 $vdm1_stage5_trigger_functions_setup_procedure$;
@@ -7545,6 +7554,54 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_iucrcp
 
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
+				-- FOR INSERT OR UPDATE TO CUSTOMER REC CUSTOM PREFERENCE
+
+					BEGIN 
+
+						UPDATE vdm1_data.customer_category
+
+						SET 
+							recommendation_order_customer_preference = null
+
+						WHERE
+							customer_id = NEW.customer_id;
+
+					END;
+		
+				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+		
+					BEGIN 
+
+						WITH get_customer_rec_custom_preferences AS (
+
+							SELECT
+									customer_id
+								, category_id 
+								, customer_rec_custom_order
+							FROM
+								vdm1_data.customer_rec_custom_preferences
+
+							WHERE 
+								customer_id = NEW.customer_id
+						)
+
+						UPDATE vdm1_data.customer_category AS a 
+
+						SET 
+							recommendation_order_customer_preference = b.customer_rec_custom_order
+						
+						FROM 
+							get_customer_rec_custom_preferences AS b 
+
+						WHERE
+							a.customer_id = b.customer_id
+								AND 
+							a.category_id = b.category_id;
+
+					END;
+
+				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
+		
 					BEGIN 
 
 						UPDATE vdm1_data.customer_reclist_master_specific
@@ -7558,13 +7615,13 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_iucrcp
 					END;
 				
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
-				
+		
 					BEGIN 
 
-						WITH get_customer_reclist_custom_preferences AS (
+						WITH get_customer_category_details AS (
 
 							SELECT
-								customer_id
+									customer_id
 								, category_id 
 								, recommendation_order_customer_preference as cat_rec_order
 							FROM
@@ -7580,7 +7637,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_iucrcp
 							cat_rec_order = b.cat_rec_order
 						
 						FROM 
-							get_customer_reclist_custom_preferences AS b 
+							get_customer_category_details AS b 
 
 						WHERE
 							a.customer_id = b.customer_id
@@ -7599,15 +7656,13 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_iucrcp
 				
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
-				RETURN NEW;
+					RETURN NEW;
 
 				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####  
-
 
 			END;
 		$trigger_function_insert_update_customer_rec_custom_preferences$;
 		';
-
 
     END;
 $vdm1_stage5_trigger_functions_setup_insert_update_customer_rec_custom_preferences$; 
@@ -7616,6 +7671,143 @@ $vdm1_stage5_trigger_functions_setup_insert_update_customer_rec_custom_preferenc
 
 -- #### #### #### ####
 -- ####     7     #### 
+-- #### #### #### #### 
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_drcrcp()
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_stage5_trigger_functions_setup_delete_reset_customer_rec_custom_preferences$
+
+	BEGIN
+
+		EXECUTE 
+		'
+		CREATE OR REPLACE FUNCTION vdm1_data.t_f_delete_reset_customer_rec_custom_preferences()
+			RETURNS TRIGGER
+			LANGUAGE plpgsql
+			AS $trigger_function_delete_reset_customer_rec_custom_preferences$
+
+			BEGIN
+
+				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+					BEGIN
+
+						UPDATE vdm1_data.customer_category
+
+						SET 
+							recommendation_order_customer_preference = null
+
+						WHERE
+							customer_id = NEW.customer_id;
+
+					END;
+
+				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+					BEGIN 
+
+						WITH get_customer_category_details AS (
+
+							SELECT
+									customer_id
+								, category_id 
+								, recommendation_order_historical
+							FROM
+								vdm1_data.customer_category
+
+							WHERE
+								customer_id = NEW.customer_id
+
+						)
+
+						UPDATE vdm1_data.customer_category AS a 
+
+						SET 
+							recommendation_order_customer_preference = b.recommendation_order_historical
+
+						FROM
+							get_customer_category_details AS b
+
+						WHERE
+							a.customer_id = b.customer_id
+								AND 
+							a.category_id = b.category_id;
+
+					END;
+
+				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
+
+					BEGIN 
+
+						UPDATE vdm1_data.customer_reclist_master_specific
+
+						SET 
+							cat_rec_order = null
+
+						WHERE
+							customer_id = NEW.customer_id;
+
+					END;
+		
+				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+					BEGIN 
+
+						WITH get_customer_category_details AS (
+
+							SELECT
+									customer_id
+								, category_id 
+								, recommendation_order_historical as cat_rec_order
+							FROM
+								vdm1_data.customer_category
+
+							WHERE 
+								customer_id = NEW.customer_id
+						)
+
+						UPDATE vdm1_data.customer_reclist_master_specific AS a 
+
+						SET 
+							cat_rec_order = b.cat_rec_order
+						
+						FROM 
+							get_customer_category_details AS b 
+
+						WHERE
+							a.customer_id = b.customer_id
+								AND 
+							a.category_id = b.category_id;
+
+					END;
+
+				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+                    BEGIN
+
+                        TRUNCATE TABLE vdm1_data.customer_reclist_summary_specific;
+
+                    END;
+				
+				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+					RETURN NEW;
+
+				-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####  
+
+			END;
+		$trigger_function_delete_reset_customer_rec_custom_preferences$;
+		';
+
+
+    END;
+$vdm1_stage5_trigger_functions_setup_delete_reset_customer_rec_custom_preferences$; 
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+-- #### #### #### ####
+-- ####     8     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucatpop()
@@ -7665,7 +7857,7 @@ $vdm1_stage5_trigger_functions_setup_update_category_popularity$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####     8     #### 
+-- ####     9     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucustcat()
@@ -7879,7 +8071,7 @@ $vdm1_stage5_trigger_functions_setup_update_customer_category$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####     9     #### 
+-- ####    10     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_non()
@@ -7926,7 +8118,7 @@ $vdm1_stage5_trigger_functions_setup_update_customer_reclist_master_nonspecific$
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    10     #### 
+-- ####    11     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_non_nr()
@@ -8036,7 +8228,7 @@ $vdm1_stage5_trigger_functions_setup_update_customer_reclist_master_nonspecific$
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    11     #### 
+-- ####    12     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_spe()
@@ -8084,7 +8276,7 @@ $vdm1_stage5_trigger_functions_setup_update_customer_reclist_master_specific$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    12     #### 
+-- ####    13     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_spe_ru()
@@ -8229,7 +8421,7 @@ $vdm1_stage5_trigger_functions_setup_update_customer_reclist_master_specific$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    13     #### 
+-- ####    14     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_non()
@@ -8273,7 +8465,7 @@ $vdm1_stage5_trigger_functions_setup_update_customer_reclist_summary_nonspecific
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    14     #### 
+-- ####    15     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_non_ru()
@@ -8351,7 +8543,7 @@ $vdm1_stage5_trigger_functions_setup_update_customer_reclist_summary_nonspecific
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    15     #### 
+-- ####    16     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_spe()
@@ -8400,7 +8592,7 @@ $vdm1_stage5_trigger_functions_setup_update_customer_reclist_summary_specific$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    16     #### 
+-- ####    17     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrls_spe_ru()
@@ -8640,7 +8832,7 @@ $vdm1_stage5_trigger_functions_setup_update_customer_reclist_summary_specific$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    17     #### 
+-- ####    18     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_upcxwatchhist()
@@ -8780,7 +8972,7 @@ $vdm1_stage5_trigger_functions_setup_update_customer_watch_history$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    18     #### 
+-- ####    19     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ufcp_nr()
@@ -8907,7 +9099,7 @@ $vdm1_stage5_trigger_functions_setup_update_film_category_popularity_with_new_re
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    19     #### 
+-- ####    20     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_uinv_count()
@@ -8976,7 +9168,7 @@ $vdm1_stage5_trigger_functions_setup_update_inventory_maintenance$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    20     #### 
+-- ####    21     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_unewr()
@@ -9036,7 +9228,7 @@ $vdm1_stage5_trigger_functions_setup_update_new_release$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    21     #### 
+-- ####    22     #### 
 -- #### #### #### ####
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_urr()
@@ -9097,7 +9289,7 @@ $vdm1_stage5_trigger_functions_setup_update_rental_return$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    22     #### 
+-- ####    23     #### 
 -- #### #### #### ####
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_non_inf()
@@ -9187,7 +9379,7 @@ $vdm1_stage5_trigger_functions_setup_insert_customer_reclist_master_nonspecific_
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
--- ####    23     #### 
+-- ####    24     #### 
 -- #### #### #### ####
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_ucrlm_spe_inf()
@@ -9317,7 +9509,7 @@ $vdm1_stage5_trigger_functions_setup_insert_customer_reclist_master_specific_wit
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
 -- #### #### #### ####
--- ####    24     #### 
+-- ####    25     #### 
 -- #### #### #### ####
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_uinv_comp()
@@ -9366,7 +9558,7 @@ $vdm1_stage5_trigger_functions_setup_update_inventory_maintenance_complete$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    25     #### 
+-- ####    26     #### 
 -- #### #### #### ####
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incity()
@@ -9441,7 +9633,7 @@ $vdm1_stage5_trigger_functions_setup_insert_new_city$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    26     #### 
+-- ####    27     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_incountry()
@@ -9517,7 +9709,7 @@ $vdm1_stage5_trigger_functions_setup_insert_new_country$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    27     #### 
+-- ####    28     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_inlanguage()
@@ -9593,7 +9785,7 @@ $vdm1_stage5_trigger_functions_setup_insert_new_language$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    28     #### 
+-- ####    29     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_refreshmviews()
@@ -9811,41 +10003,41 @@ $vdm1_stage5_trigger_functions_setup_refresh_materialized_views$;
 --                   2. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.CUSTOMER :: insert_new_customer
 --                   3. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.CATEGORY :: insert_new_category
 --                   4. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.INVENTORY :: insert_new_inventory
---                   5. CREATE TRIGGER :: AFTER UPDATE :: PUBLIC.RENTAL :: update_rental_return 
---                   6. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.RENTAL :: insert_failed_return
+--                   5. CREATE TRIGGER :: AFTER UPDATE :: PUBLIC.RENTAL :: update_rental_return_date_delete_rental_from_fr_table 
+--                   6. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.RENTAL :: insert_null_returned_date_rental_to_fr_table
 --                   7. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.FILM_CATEGORY :: insert_new_film
 --                   8. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.CUSTOMER_WATCH_HISTORY_DETAILED :: update_a_customer_category
 --                   9. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.CUSTOMER_WATCH_HISTORY_DETAILED :: update_b_category_popularity_new_rental
 --                  10. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.CUSTOMER_WATCH_HISTORY_DETAILED :: update_c_film_category_popularity_new_rental
 --                  11. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.CUSTOMER_WATCH_HISTORY_DETAILED :: update_d_inventory_maintenance_count
---                  12. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.CUSTOMER_WATCH_HISTORY_DETAILED :: update_e_customer_reclist_master_nonspecific
+--                  12. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.CUSTOMER_WATCH_HISTORY_DETAILED :: update_e_customer_reclist_master_nonspecific_new_rental
 --                  13. CREATE TRIGGER :: AFTER DELETE :: VDM1_DATA.CUSTOMER_RECLIST_MASTER_NONSPECIFIC :: update_a_customer_reclist_master_nonspecific_updaterental
 --                  14. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.CUSTOMER_WATCH_HISTORY_DETAILED :: update_f_customer_reclist_master_specific_new_rental
 --                  15. CREATE TRIGGER :: AFTER DELETE :: VVDM1_DATA.CUSTOMER_RECLIST_MASTER_SPECIFIC :: update_a_customer_reclist_master_specific_updaterental
 --                  16. CREATE TRIGGER :: AFTER INSERT OR UPDATE :: VDM1_DATA.CUSTOMER_REC_CUSTOM_PREFERNCES :: insert_update_customer_rec_custom_preferences
---                  17. CREATE TRIGGER :: AFTER UPDATE :: VDM1_DATA.FILM_CATEGORY_POPULARITY :: update_new_release_status_delete_film_from_nr_table
---                  18. CREATE TRIGGER :: AFTER DELETE :: VDM1_DATA.CUSTOMER_RECLIST_MASTER_NONSPECIFIC :: update_b_customer_reclist_summary_nonspecific
---                  19. CREATE TRIGGER :: AFTER TRUNCATE :: VDM1_DATA.CUSTOMER_RECLIST_SUMMARY_NONSPECIFIC :: update_customer_reclist_summary_nonspecific_ru
---                  20. CREATE TRIGGER :: AFTER INSERT OR UPDATE OR DELETE :: VDM1_DATA.CUSTOMER_RECLIST_MASTER_NONSPECIFIC :: update_customer_reclist_master_nonspecific_summary
---                  20. CREATE TRIGGER :: AFTER DELETE :: VDM1_DATA.CUSTOMER_RECLIST_MASTER_SPECIFIC :: update_b_customer_reclist_summary_specific
---                  21  CREATE TRIGGER :: AFTER TRUNCATE :: VDM1_DATA.CUSTOMER_RECLIST_SUMMARY_SPECIFIC :: update_customer_reclist_summary_specific_rental_update
---                  22. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.FILM_CATEGORY_POPULARITY :: insert_customer_reclist_nonspecific_with_new_film
---                  23. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.FILM_CATEGORY_POPULARITY :: insert_customer_reclist_specific_with_new_film
---                  24. CREATE TRIGGER :: AFTER UPDATE :: VDM1_DATA.INVENTORY_MAINTENCE :: update_inventory_maintenance_complete
---                  25. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.CITY :: insert_new_city
---                  26. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.COUNTRY :: insert_new_country
---                  27. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.LANGUAGE :: insert_new_language
---                  28. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.CUSTOMER_RECLIST_SUMMARY_NONSPECIFIC :: refresh_materialized_views_non
---                  29. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.CUSTOMER_RECLIST_SUMMARY_SPECIFIC :: refresh_materialized_views_spe
---                  30. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.DICTIONARY_KEY :: refresh_materialized_views_dictionary_key
---                  31. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.DICTKEY_CATEGORY :: refresh_materialized_views_dictkey_category
---                  32. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.DICTKEY_CITY :: refresh_materialized_views_dictkey_city
---                  33. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.DICTKEY_COUNTRY :: refresh_materialized_views_dictkey_country
---                  34. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.DICTKEY_LANGUAGE :: refresh_materialized_views_dictkey_language
---                  35. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.DICTKEY_STORE_DETAILS :: refresh_materialized_views_dictkey_store_details
---                  36. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.FAILED_RETURNS :: refresh_materialized_views_failed_returns
---                  37. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.NEW_RELEASES :: refresh_materialized_views_new_releases
---                  38. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.INVENTORY_MAINTENANCE_SUMMARY :: refresh_materialized_views_inventory_maintenance_summary
+--                  17. CREATE TRIGGER :: AFTER DELETE :: VDM1_DATA.CUSTOMER_REC_CUSTOM_PREFERNCES :: delete_reset_customer_rec_custom_preferences
+--                  18. CREATE TRIGGER :: AFTER UPDATE :: VDM1_DATA.FILM_CATEGORY_POPULARITY :: update_new_release_status_delete_film_from_nr_table
+--                  19. CREATE TRIGGER :: AFTER DELETE :: VDM1_DATA.CUSTOMER_RECLIST_MASTER_NONSPECIFIC :: update_b_customer_reclist_summary_nonspecific
+--                  20. CREATE TRIGGER :: AFTER TRUNCATE :: VDM1_DATA.CUSTOMER_RECLIST_SUMMARY_NONSPECIFIC :: update_customer_reclist_summary_nonspecific_ru
+--                  21. CREATE TRIGGER :: AFTER DELETE :: VDM1_DATA.CUSTOMER_RECLIST_MASTER_SPECIFIC :: update_b_customer_reclist_summary_specific
+--                  22. CREATE TRIGGER :: AFTER TRUNCATE :: VDM1_DATA.CUSTOMER_RECLIST_SUMMARY_SPECIFIC :: update_customer_reclist_summary_specific_rental_update
+--                  23. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.FILM_CATEGORY_POPULARITY :: insert_customer_reclist_nonspecific_with_new_film
+--                  24. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.FILM_CATEGORY_POPULARITY :: insert_customer_reclist_specific_with_new_film
+--                  25. CREATE TRIGGER :: AFTER UPDATE :: VDM1_DATA.INVENTORY_MAINTENCE :: update_inventory_maintenance_complete
+--                  26. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.CITY :: insert_new_city
+--                  27. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.COUNTRY :: insert_new_country
+--                  28. CREATE TRIGGER :: AFTER INSERT :: PUBLIC.LANGUAGE :: insert_new_language
+--                  29. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.CUSTOMER_RECLIST_SUMMARY_NONSPECIFIC :: refresh_materialized_views_non
+--                  30. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.CUSTOMER_RECLIST_SUMMARY_SPECIFIC :: refresh_materialized_views_spe
+--                  31. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.DICTIONARY_KEY :: refresh_materialized_views_dictionary_key
+--                  32. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.DICTKEY_CATEGORY :: refresh_materialized_views_dictkey_category
+--                  33. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.DICTKEY_CITY :: refresh_materialized_views_dictkey_city
+--                  34. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.DICTKEY_COUNTRY :: refresh_materialized_views_dictkey_country
+--                  35. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.DICTKEY_LANGUAGE :: refresh_materialized_views_dictkey_language
+--                  36. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.DICTKEY_STORE_DETAILS :: refresh_materialized_views_dictkey_store_details
+--                  37. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.FAILED_RETURNS :: refresh_materialized_views_failed_returns
+--                  38. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.NEW_RELEASES :: refresh_materialized_views_new_releases
+--                  39. CREATE TRIGGER :: AFTER INSERT :: VDM1_DATA.INVENTORY_MAINTENANCE_SUMMARY :: refresh_materialized_views_inventory_maintenance_summary
 
 
 --             FUNCTIONS TO CREATED TRIGGERS 
@@ -9866,28 +10058,29 @@ $vdm1_stage5_trigger_functions_setup_refresh_materialized_views$;
 --                  14. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_specific()
 --                  15. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_specific_ur();
 --                  16. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrcp()
---                  17. vdm1_etl.f_vdm1_stage5_trigger_setup_unr()
---                  18. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_nonspecific()
---                  19. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_nonspecific_ru()
---                  20. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_specific()
---                  21. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_specific_ru()
---                  22. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_non_inf();
---                  23. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_spe_inf();
---                  24. vdm1_etl.f_vdm1_stage5_trigger_setup_uinvmaint_comp()
---                  25. vdm1_etl.f_vdm1_stage5_trigger_setup_incity()
---                  26. vdm1_etl.f_vdm1_stage5_trigger_setup_incountry()
---                  27. vdm1_etl.f_vdm1_stage5_trigger_setup_inlanguage()
---                  28. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_non();
---                  29. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_spe();
---                  30. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dictkey();
---                  31. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_cat();
---                  32. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_ci();
---                  33. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_co();
---                  34. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_l();
---                  35. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_sd();
---                  36. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_fr();
---                  37. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_nr();
---                  38. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_ims();
+--                  17. vdm1_etl.f_vdm1_stage5_trigger_setup_dcrcp()
+--                  18. vdm1_etl.f_vdm1_stage5_trigger_setup_unr()
+--                  19. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_nonspecific()
+--                  20. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_nonspecific_ru()
+--                  21. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_specific()
+--                  22. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_specific_ru()
+--                  23. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_non_inf();
+--                  24. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_spe_inf();
+--                  25. vdm1_etl.f_vdm1_stage5_trigger_setup_uinvmaint_comp()
+--                  26. vdm1_etl.f_vdm1_stage5_trigger_setup_incity()
+--                  27. vdm1_etl.f_vdm1_stage5_trigger_setup_incountry()
+--                  28. vdm1_etl.f_vdm1_stage5_trigger_setup_inlanguage()
+--                  29. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_non();
+--                  30. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_spe();
+--                  31. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dictkey();
+--                  32. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_cat();
+--                  33. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_ci();
+--                  34. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_co();
+--                  35. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_l();
+--                  36. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_sd();
+--                  37. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_fr();
+--                  38. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_nr();
+--                  39. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_ims();
 
 --     #### #### #### ####
 --        STAGE 5c END
@@ -9966,71 +10159,74 @@ CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage5c_triggers_setup()
         
         -- 16
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_ucrcp();
-        
-        -- 17
+    	
+		-- 17
+        PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_dcrcp();
+          
+        -- 18
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_unr();
         
-        -- 18
+        -- 19
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_nonspecific();
 
-        -- 19
+        -- 20
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_nonspecific_ru();
         
-        -- 20
+        -- 21
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_specific();
 
-        -- 21
+        -- 22
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_specific_ru();
 
-        -- 22
+        -- 23
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_non_inf();
 
-        -- 23
+        -- 24
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_spe_inf();
 
-        -- 24
+        -- 25
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_uinvmaint_comp();
 
-        -- 25
+        -- 26
 		PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_incity();
 
-        -- 26
+        -- 27
 		PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_incountry();
 
-        -- 27
+        -- 28
 		PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_inlanguage();
 
-        -- 28 
+        -- 29 
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_non();
         
-        -- 29 
+        -- 30 
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_spe();
 
-        -- 30
+        -- 31
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dictkey();
 
-        -- 31
+        -- 32
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_cat();
 
-        -- 32
+        -- 33
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_ci();
 
-        -- 33
+        -- 34
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_co();
 
-        -- 34
+        -- 35
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_l();
 
-        -- 35
+        -- 36
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_sd();
 
-        -- 36
+        -- 37
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_fr();
 
-        -- 37
+        -- 38
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_nr();
 
-        -- 38
+        -- 39
         PERFORM vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_ims();
 
 
@@ -10067,28 +10263,29 @@ $vdm1_stage5_triggers_setup_procedure$;
 --          14. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_specific()
 --          15. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_specific_ur();
 --          16. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrcp()
---          17. vdm1_etl.f_vdm1_stage5_trigger_setup_unr()
---          18. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_nonspecific()
---          19. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_nonspecific_ru()
---          20. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_specific()
---          21. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_specific_ru()
---          22. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_non_inf();
---          23. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_spe_inf();
---          24. vdm1_etl.f_vdm1_stage5_trigger_setup_uinvmaint_comp()
---          25. vdm1_etl.f_vdm1_stage5_trigger_setup_incity()
---          26. vdm1_etl.f_vdm1_stage5_trigger_setup_incountry()
---          27. vdm1_etl.f_vdm1_stage5_trigger_setup_inlanguage()
---          28. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_non();
---          29. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_spe();
---          30. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dictkey();
---          31. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_cat();
---          32. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_ci();
---          33. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_co();
---          34. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_l();
---          35. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_sd();
---          36. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_fr();
---          37. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_nr();
---          38. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_ims();
+--          17. vdm1_etl.f_vdm1_stage5_trigger_setup_dcrcp()
+--          18. vdm1_etl.f_vdm1_stage5_trigger_setup_unr()
+--          19. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_nonspecific()
+--          20. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_nonspecific_ru()
+--          21. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_specific()
+--          22. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_specific_ru()
+--          23. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_non_inf();
+--          24. vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_spe_inf();
+--          25. vdm1_etl.f_vdm1_stage5_trigger_setup_uinvmaint_comp()
+--          26. vdm1_etl.f_vdm1_stage5_trigger_setup_incity()
+--          27. vdm1_etl.f_vdm1_stage5_trigger_setup_incountry()
+--          28. vdm1_etl.f_vdm1_stage5_trigger_setup_inlanguage()
+--          29. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_non();
+--          30. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_spe();
+--          31. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dictkey();
+--          32. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_cat();
+--          33. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_ci();
+--          34. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_co();
+--          35. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_l();
+--          36. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_sd();
+--          37. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_fr();
+--          38. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_nr();
+--          39. vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_ims();
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
@@ -10668,7 +10865,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_ucrcp()
 		IF (SELECT SUBSTRING((SELECT VERSION()), 12, 2)::INT > 13) THEN 
 			EXECUTE
 				'CREATE OR REPLACE TRIGGER insert_update_customer_rec_custom_preferences
-					AFTER INSERT OR UPDATE OR DELETE
+					AFTER INSERT OR UPDATE
 					ON vdm1_data.customer_rec_custom_preferences
 					FOR EACH ROW
 					EXECUTE FUNCTION vdm1_data.t_f_insert_update_customer_rec_custom_preferences()';
@@ -10678,7 +10875,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_ucrcp()
 					ON vdm1_data.customer_rec_custom_preferences;
 				
 				 CREATE TRIGGER insert_update_customer_rec_custom_preferences
-					AFTER INSERT OR UPDATE OR DELETE
+					AFTER INSERT OR UPDATE
 					ON vdm1_data.customer_rec_custom_preferences
 					FOR EACH ROW
 					EXECUTE FUNCTION vdm1_data.t_f_insert_update_customer_rec_custom_preferences()';
@@ -10692,6 +10889,42 @@ $vdm1_stage5_trigger_setup_update_customer_rec_custom_preferences$;
 
 -- #### #### #### ####
 -- ####    17     #### 
+-- #### #### #### #### 
+
+CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_dcrcp()
+	RETURNS VOID
+	LANGUAGE plpgsql
+	AS $vdm1_stage5_trigger_setup_update_customer_rec_custom_preferences$
+
+    BEGIN 
+
+		IF (SELECT SUBSTRING((SELECT VERSION()), 12, 2)::INT > 13) THEN 
+			EXECUTE
+				'CREATE OR REPLACE TRIGGER delete_reset_customer_rec_custom_preferences
+					AFTER DELETE
+					ON vdm1_data.customer_rec_custom_preferences
+					FOR EACH STATEMENT
+					EXECUTE FUNCTION vdm1_data.t_f_delete_reset_customer_rec_custom_preferences()';
+		ELSE
+			EXECUTE
+				'DROP TRIGGER IF EXISTS delete_reset_customer_rec_custom_preferences
+					ON vdm1_data.customer_rec_custom_preferences;
+				
+				 CREATE TRIGGER delete_reset_customer_rec_custom_preferences
+					AFTER dELETE
+					ON vdm1_data.customer_rec_custom_preferences
+					FOR EACH STATEMENT
+					EXECUTE FUNCTION vdm1_data.t_f_insert_update_customer_rec_custom_preferences()';
+
+		END IF;
+
+    END;
+$vdm1_stage5_trigger_setup_update_customer_rec_custom_preferences$;
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+-- #### #### #### ####
+-- ####    18     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_unr()
@@ -10731,7 +10964,7 @@ $vdm1_stage5_trigger_setup_update_new_release$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    18     #### 
+-- ####    19     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_nonspecific()
@@ -10769,7 +11002,7 @@ $vdm1_stage5_trigger_setup_update_customer_reclist_summary_nonspecific$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    19     #### 
+-- ####    20     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_nonspecific_ru()
@@ -10807,7 +11040,7 @@ $vdm1_stage5_trigger_setup_update_customer_reclist_summary_nonspecific$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    20     #### 
+-- ####    21     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_specific()
@@ -10845,7 +11078,7 @@ $vdm1_stage5_trigger_setup_update_customer_reclist_summary_specific$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    21     #### 
+-- ####    22     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_ucrls_specific_ru()
@@ -10883,7 +11116,7 @@ $vdm1_stage5_trigger_setup_update_customer_reclist_summary_specific$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    22     #### 
+-- ####    23     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_non_inf()
@@ -10921,7 +11154,7 @@ $vdm1_stage5_trigger_setup_insert_customer_reclist_master_nonspecific_with_new_f
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    23     #### 
+-- ####    24     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_ucrlm_spe_inf()
@@ -10958,7 +11191,7 @@ $vdm1_stage5_trigger_setup_insert_customer_reclist_master_specific_with_new_film
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    24     #### 
+-- ####    25     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_uinvmaint_comp()
@@ -10997,7 +11230,7 @@ $vdm1_stage5_trigger_setup_update_inventory_maintenance$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    25     #### 
+-- ####    26     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_incity()
@@ -11035,7 +11268,7 @@ $vdm1_stage5_trigger_setup_insert_new_city$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    26     #### 
+-- ####    27     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_incountry()
@@ -11072,7 +11305,7 @@ $vdm1_stage5_trigger_setup_insert_new_country$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    27     #### 
+-- ####    28     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_inlanguage()
@@ -11110,7 +11343,7 @@ $vdm1_stage5_trigger_setup_insert_new_language$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    28     #### 
+-- ####    29     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_non()
@@ -11147,7 +11380,7 @@ $vdm1_stage5_trigger_setup_refresh_mview$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    29     #### 
+-- ####    30     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_spe()
@@ -11185,7 +11418,7 @@ $vdm1_stage5_trigger_setup_refresh_mview$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    30     #### 
+-- ####    31     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dictkey()
@@ -11223,7 +11456,7 @@ $vdm1_stage5_trigger_setup_refresh_mview$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    31     #### 
+-- ####    32     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_cat()
@@ -11261,7 +11494,7 @@ $vdm1_stage5_trigger_setup_refresh_mview$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    32     #### 
+-- ####    33     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_ci()
@@ -11299,7 +11532,7 @@ $vdm1_stage5_trigger_setup_refresh_mview$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    33     #### 
+-- ####    34     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_co()
@@ -11337,7 +11570,7 @@ $vdm1_stage5_trigger_setup_refresh_mview$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    34     #### 
+-- ####    35     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_l()
@@ -11375,7 +11608,7 @@ $vdm1_stage5_trigger_setup_refresh_mview$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    35     #### 
+-- ####    36     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_dk_sd()
@@ -11413,7 +11646,7 @@ $vdm1_stage5_trigger_setup_refresh_mview$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    36     #### 
+-- ####    37     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_fr()
@@ -11451,7 +11684,7 @@ $vdm1_stage5_trigger_setup_refresh_mview$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    37     #### 
+-- ####    38     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_nr()
@@ -11489,7 +11722,7 @@ $vdm1_stage5_trigger_setup_refresh_mview$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####    38     #### 
+-- ####    39     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_refresh_mview_ims()
