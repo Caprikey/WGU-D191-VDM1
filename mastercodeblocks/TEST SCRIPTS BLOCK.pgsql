@@ -369,6 +369,45 @@ RETURNING film_id, category_id, (Select inventory_id FROM insert_film_to_invento
 */
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
+
+/*
+
+INSERT INTO public.film (
+	  title
+	, description
+	, release_year
+	, language_id
+	, rental_duration
+	, rental_rate
+	, length
+	, replacement_cost
+	, rating
+	, special_features
+)
+VALUES (
+	  'Dune'
+	, 'A noble family becomes embroiled in a war for control over the galaxys most valuable asset while its heir becomes troubled by visions of a dark future.'
+	, 2021
+	, 1
+	, 5
+	, 4.99
+	, 155
+	, 19.99
+	, 'PG-13'
+	, '{Trailers,Commentaries,"Deleted Scenes","Behind the Scenes"}'
+)
+
+*/
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
+
+
+
+
+
+
 /*
 
 INSERT INTO public.rental (
@@ -470,6 +509,330 @@ select tgrelid::regclass, tgname from pg_trigger
 
 */
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####  
+
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####  
+
+
+    /*
+
+    WITH existential_table_check AS (
+        SELECT EXISTS (
+            SELECT 
+                table_name 
+            FROM 
+                information_schema.tables 
+            WHERE
+                table_schema = 'vdm1_data'
+                    AND
+                table_name = 'dictkey_film_details'
+            ) AS existence
+        )
+                
+    SELECT existence from existential_table_check
+
+    */
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####  
+
+
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####  
+
+    /*
+
+		SELECT 
+			CASE WHEN (SELECT EXISTS (SELECT table_name FROM information_schema.tables WHERE table_schema = 'vdm1_data' AND table_name = 'dictkey_film_details') AS existence ) = false then 'life'
+			ELSE 'death'
+			END
+			
+    */
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####  
+
+
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####  
+
+    /*
+
+    WITH check_existence AS (
+            SELECT EXISTS (
+                SELECT 
+                    table_name 
+                FROM 
+                    information_schema.tables 
+                WHERE 
+                    table_schema = 'vdm1_data' 
+                        AND 
+                    table_name = 'dictkey_film_details' 
+                ) AS existence
+            ), existence_state AS (
+                SELECT 
+                    existence
+                INTO 
+                    v_existence
+                FROM 
+                    check_existence
+            )
+            
+            SELECT 
+                CASE 
+                    WHEN (SELECT EXISTS (SELECT table_name FROM information_schema.tables WHERE table_schema = 'vdm1_data' AND table_name = 'dictkey_film_details') AS existence) = true) 
+                        THEN v_existence := 'vdm1_data.dictkey_film_details'
+                    ELSE v_existence := 'public.film'
+                END
+
+    */
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####  
+
+
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####  
+
+    /*
+
+SELECT
+	COUNT (DISTINCT customer_id)=COUNT(*) AS equal_ids
+FROM
+	vdm1_data.customer_details;
+	
+SELECT
+	COUNT (DISTINCT rental_id)=COUNT(*) AS equal_ids
+FROM
+	vdm1_data.customer_watch_history_detailed;
+
+
+    */
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####  
+
+
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####  
+
+    /*
+
+SELECT
+	CASE
+		WHEN 
+			(
+				COUNT(
+					DISTINCT
+						(customer_id, rental_id, film_id)
+				)=COUNT(*)
+			) is true THEN 'passed'
+			ELSE 'failed'
+		END as unique_check
+FROM
+	vdm1_data.customer_watch_history_detailed;
+
+
+SELECT
+	COUNT (DISTINCT customer_id)=COUNT(*) AS equal_ids
+FROM
+	vdm1_data.customer_details;
+	
+SELECT
+	COUNT (DISTINCT rental_id)=COUNT(*) AS equal_ids
+FROM
+	vdm1_data.customer_watch_history_detailed;
+
+
+-- #### #### #### #### #### #### #### #### 
+
+SELECT
+    SUM(
+        CASE
+            WHEN customer_id IS NULL -- OR customer_id IN ('')
+                THEN 1
+            ELSE 0
+        END
+    )::FLOAT/COUNT(*) AS missing_watch_history
+	
+FROM
+    vdm1_data.customer_watch_history_detailed;
+
+SELECT
+    SUM(
+        CASE
+            WHEN email IS NULL OR email IN ('')
+                THEN 1
+            ELSE 0
+        END
+    )::FLOAT/COUNT(*) AS missing_customer_email
+	
+FROM
+    vdm1_data.customer_details;
+
+
+-- #### 
+
+SELECT 
+    table_name
+FROM 
+    information_schema.tables
+WHERE 
+    table_type='BASE TABLE'
+        AND 
+    table_schema='staging'
+        AND 
+    table_name LIKE '%dictkey%';
+
+
+SELECT 
+   table_name, 
+   column_name, 
+   data_type 
+FROM 
+   information_schema.columns
+WHERE 
+   table_name = 'city';
+
+
+
+-- #### #### #### #### #### #### #### #### 
+
+WITH get_table_names_full AS (
+	SELECT 
+	  DISTINCT table_name
+   -- , column_name
+   -- , data_type 
+FROM 
+   information_schema.columns
+WHERE 
+--    table_type = 'BASE TABLE'
+--        AND 
+    table_schema='staging9'
+        AND 
+    (
+		table_name LIKE '%dictkey%'
+			AND
+	 	table_name NOT LIKE '%details%'
+	 )
+-- 	 	AND
+-- 	column_name LIKE '%id%'
+ORDER BY
+	table_name
+)
+, extract_table_name_identifier AS (
+	
+	SELECT
+		SUBSTRING(table_name, (POSITION('dictkey_' IN table_name)+8), LENGTH(table_name)) AS table_name
+	FROM
+		get_table_names_full
+)
+, build_tables AS (
+	SELECT
+		*
+	FROM 
+		extract_table_name_identifier
+)
+SELECT * FROM build_tables
+
+
+
+-- #### #### #### #### #### #### #### #### 
+
+
+
+WITH get_public_count_customer AS (
+	
+	SELECT
+		COUNT(*) AS source_count_customer
+	FROM
+		public.customer
+
+)
+, get_staging9_count_customer_details AS (
+
+	SELECT
+		COUNT(*) AS staging_count_customer
+	FROM
+		staging9.vdm1_stage5_dictkey_customer_details
+), combined AS (
+	(SELECT 'public', source_count_customer from get_public_count_customer)
+		UNION ALL
+	(SELECT 'staging9', staging_count_customer FROM get_staging9_count_customer_details)
+)
+SELECT 
+	CASE
+		WHEN (source_count_customer != 0)
+			THEN 'ERROR NOT EQUAL'
+		ELSE
+			'EQUAL'
+	END
+FROM combined 
+
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+
+
+WITH get_table_names_full AS (
+	SELECT 
+	  DISTINCT table_name :: text
+   -- , column_name
+   -- , data_type 
+FROM 
+   information_schema.columns
+WHERE 
+    table_type = 'BASE TABLE'
+        AND 
+    table_schema='public'
+ORDER BY
+	table_name
+)
+, generate_schema_table_string AS (
+
+	SELECT
+		CONCAT('public.' || table_name) AS schema_table
+	FROM 
+		get_table_names_full
+)
+
+-- SELECT * FROM get_table_names_full
+SELECT 
+    COUNT(*)
+FROM (
+    SELECT 
+        schema_table
+    FROM
+        generate_schema_table_string
+    )
+
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
+
+
+    create function mean(arr variadic numeric[])
+  returns numeric
+  immutable
+  language plpgsql
+as $body$
+declare
+  n int not null := 0;
+  tot numeric := 0;
+  v numeric;
+begin
+  foreach v in array arr loop
+    continue when v is null;
+    tot := tot + v;
+    n := n + 1;
+  end loop;
+  return
+    case n
+      when 0 then null
+      else        tot/n::numeric
+    end;
+end;
+$body$;
+
+    */
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####  
+
 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####      
