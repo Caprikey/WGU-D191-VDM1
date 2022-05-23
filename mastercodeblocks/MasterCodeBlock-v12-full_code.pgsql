@@ -73,17 +73,17 @@
 
 --             FUNCTIONS
 
---                  1. vdm1_etl.f_vdm1_stage2_customer_status_amend();
---                  2. vdm1_etl.f_vdm1_stage2_films()
---                  3. vdm1_etl.f_vdm1_stage2_film_inventory()
---                  4. vdm1_etl.f_vdm1_stage2_rentals()
---                  5. vdm1_etl.f_vdm1_stage2_locationdetails()
---                  6. vdm1_etl.f_vdm1_stage2_stores()
---                  7. vdm1_etl.f_vdm1_stage2_customers()
---                  8. vdm1_etl.f_vdm1_stage2_customer_category()
---                  9. vdm1_etl.f_vdm1_stage2_film_category()
---                 10. vdm1_etl.f_vdm1_stage2_customer_film_category();
---                 11. vdm1_etl.f_vdm1_stage2_cleanup()
+--                   1. vdm1_etl.f_vdm1_stage2_customer_status_amend();
+--                   2. vdm1_etl.f_vdm1_stage2_films()
+--                   3. vdm1_etl.f_vdm1_stage2_film_inventory()
+--                   4. vdm1_etl.f_vdm1_stage2_rentals()
+--                   5. vdm1_etl.f_vdm1_stage2_locationdetails()
+--                   6. vdm1_etl.f_vdm1_stage2_stores()
+--                   7. vdm1_etl.f_vdm1_stage2_customers()
+--                   8. vdm1_etl.f_vdm1_stage2_customer_category()
+--                   9. vdm1_etl.f_vdm1_stage2_film_category()
+--                  10. vdm1_etl.f_vdm1_stage2_customer_film_category();
+--                  11. vdm1_etl.f_vdm1_stage2_cleanup()
 
 --     #### #### #### ####
 --         STAGE 2 END
@@ -119,47 +119,47 @@
 
 --             STORED PROCEDURES
 
---                  1. vdm1_etl.vdm1_stage4();
---                  2. vdm1_etl.vdm1_stage4a();
---                  3. vdm1_etl.vdm1_stage4b();
---                  4. vdm1_etl.vdm1_stage4c();
---                  5. vdm1_etl.vdm1_stage4c1();
---                  6. vdm1_etl.vdm1_stage4c1a();
---                  7. vdm1_etl.vdm1_stage4c1b();
---                  8. vdm1_etl.vdm1_stage4c2();
---                  9. vdm1_etl.vdm1_stage4c2a();
---                 10. vdm1_etl.vdm1_stage4c2b();
---                 11. vdm1_etl.vdm1_stage4c3();
+--                   1. vdm1_etl.vdm1_stage4();
+--                   2. vdm1_etl.vdm1_stage4a();
+--                   3. vdm1_etl.vdm1_stage4b();
+--                   4. vdm1_etl.vdm1_stage4c();
+--                   5. vdm1_etl.vdm1_stage4c1();
+--                   6. vdm1_etl.vdm1_stage4c1a();
+--                   7. vdm1_etl.vdm1_stage4c1b();
+--                   8. vdm1_etl.vdm1_stage4c2();
+--                   9. vdm1_etl.vdm1_stage4c2a();
+--                  10. vdm1_etl.vdm1_stage4c2b();
+--                  11. vdm1_etl.vdm1_stage4c3();
 
 --             FUNCTIONS
 
---                  1. vdm1_etl.f_vdm1_stage4_transform_customer_full_name();
---                  2. vdm1_etl.f_vdm1_stage4_transform_customer_phone_number();
---                  3. vdm1_etl.f_vdm1_stage4_transform_film_length();
---                  4. vdm1_etl.f_vdm1_stage4_calc_update_category_popularity_count()
---                  5. vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_count()
---                  6. vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_row_number()
---                  7. vdm1_etl.f_vdm1_stage4_calc_update_film_category_popularity_row_number()
---                  8. vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_count()
---                  9. vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_flag_inspection()
---                 10. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_count_null_corrections()
---                 11. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_historical_count()
---                 12. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_average_count()
---                 13. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_halfaverage_count()
---                 14. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_historical()
---                 15. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_average()
---                 16. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_halfaverage()
---                 17. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_custom_set_default()
---                 18. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_set_custom_order()
---                 19. vdm1_etl.f_vdm1_stage4_calc_update_customer_watch_history_row_number()
---                 20. vdm1_etl.f_vdm1_stage4_calc_insert_failed_returns_v2()
---                 21. vdm1_etl.f_vdm1_stage4_calc_insert_new_releases_v2()
---                 22. vdm1_etl.f_vdm1_stage4_calc_delete_cx_history_from_cx_filmcat
---                 23. vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_nonspecific()
---                 24. vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_nonspecific_rn()
---                 25. vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_specific_default();
---                 26. vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_specific_rn();
---                 27. vdm1_etl.f_vdm1_stage4_cleanup()
+--                   1. vdm1_etl.f_vdm1_stage4_transform_customer_full_name();
+--                   2. vdm1_etl.f_vdm1_stage4_transform_customer_phone_number();
+--                   3. vdm1_etl.f_vdm1_stage4_transform_film_length();
+--                   4. vdm1_etl.f_vdm1_stage4_calc_update_category_popularity_count()
+--                   5. vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_count()
+--                   6. vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_row_number()
+--                   7. vdm1_etl.f_vdm1_stage4_calc_update_film_category_popularity_row_number()
+--                   8. vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_count()
+--                   9. vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_flag_inspection()
+--                  10. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_count_null_corrections()
+--                  11. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_historical_count()
+--                  12. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_average_count()
+--                  13. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_halfaverage_count()
+--                  14. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_historical()
+--                  15. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_average()
+--                  16. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_halfaverage()
+--                  17. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_custom_set_default()
+--                  18. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_set_custom_order()
+--                  19. vdm1_etl.f_vdm1_stage4_calc_update_customer_watch_history_row_number()
+--                  20. vdm1_etl.f_vdm1_stage4_calc_insert_failed_returns_v2()
+--                  21. vdm1_etl.f_vdm1_stage4_calc_insert_new_releases_v2()
+--                  22. vdm1_etl.f_vdm1_stage4_calc_delete_cx_history_from_cx_filmcat
+--                  23. vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_nonspecific()
+--                  24. vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_nonspecific_rn()
+--                  25. vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_specific_default();
+--                  26. vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_specific_rn();
+--                  27. vdm1_etl.f_vdm1_stage4_cleanup()
 
 --     #### #### #### ####
 --         STAGE 4 END
@@ -176,33 +176,33 @@
 
 --             FUNCTIONS
 
---			        1. vdm1_etl.f_vdm1_stage5_createtable_cx_reclist_summary_nonspecific(); 
---			        2. vdm1_etl.f_vdm1_stage5_createtable_cx_reclist_summary_specific();
---			        3. vdm1_etl.f_vdm1_stage5_insert_cx_reclist_summary_nonspecific();
---			        4. vdm1_etl.f_vdm1_stage5_insert_cx_reclist_summary_specific();
---			        5. vdm1_etl.f_vdm1_stage5_create_materialzied_view(); 
---			        6. vdm1_etl.f_vdm1_stage5_create_table_dictkey();
---			        7. vdm1_etl.f_vdm1_stage5_dictkey_insert_category_data();
---			        8. vdm1_etl.f_vdm1_stage5_dictkey_insert_language_data();
---			        9. vdm1_etl.f_vdm1_stage5_dictkey_insert_city_data();
---			       10. vdm1_etl.f_vdm1_stage5_dictkey_insert_country_data();
---			       11. vdm1_etl.f_vdm1_stage5_datestamp();
---			       12. vdm1_etl.f_vdm1_stage5_table_rename();
---			       13. vdm1_etl.f_vdm1_stage5_load_data_from_staging(p_schema_name VARCHAR, p_table_name VARCHAR);
---			       14. vdm1_etl.f_vdm1_stage5_data_validation_count_check();
---			       15. vdm1_etl.f_vdm1_stage5_table_enabled_logging_vdm1_data()
---			       16. vdm1_etl.f_vdm1_stage5_create_table_constraints();
---			   	   17. vdm1_etl.f_vdm1_stage5_alter_tables_set_defaults();
---			       18. vdm1_etl.f_vdm1_stage5_pkey_setval(p_schemaname VARCHAR, p_tablename VARCHAR, p_pkey_column_name VARCHAR);
---			       19. vdm1_etl.f_vdm1_stage5_cleanup();
---			       20. vdm1_etl.f_vdm1_stage5_delete_stage(); 
---			       21. vdm1_etl.f_vdm1_stage5_create_mview_inventory_summary();
---			  	   22. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_master_non();
---			  	   23. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_master_spec();
---			  	   24. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_summary_non();
---			  	   25. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_summary_spec();
---			       26. vdm1_etl.f_vdm1_stage5_refresh_materialized_view();
--- 				   27. vdm1_etl.f_vdm1_stage5_create_index(p_index_name VARCHAR, p_schema_name VARCHAR, p_table_name VARCHAR, p_column_name VARCHAR)
+--                   1. vdm1_etl.f_vdm1_stage5_createtable_cx_reclist_summary_nonspecific(); 
+--                   2. vdm1_etl.f_vdm1_stage5_createtable_cx_reclist_summary_specific();
+--                   3. vdm1_etl.f_vdm1_stage5_insert_cx_reclist_summary_nonspecific();
+--                   4. vdm1_etl.f_vdm1_stage5_insert_cx_reclist_summary_specific();
+--                   5. vdm1_etl.f_vdm1_stage5_create_materialzied_view(); 
+--                   6. vdm1_etl.f_vdm1_stage5_create_table_dictkey();
+--                   7. vdm1_etl.f_vdm1_stage5_dictkey_insert_category_data();
+--                   8. vdm1_etl.f_vdm1_stage5_dictkey_insert_language_data();
+--                   9. vdm1_etl.f_vdm1_stage5_dictkey_insert_city_data();
+--                  10. vdm1_etl.f_vdm1_stage5_dictkey_insert_country_data();
+--                  11. vdm1_etl.f_vdm1_stage5_datestamp();
+--                  12. vdm1_etl.f_vdm1_stage5_table_rename();
+--                  13. vdm1_etl.f_vdm1_stage5_load_data_from_staging(p_schema_name VARCHAR, p_table_name VARCHAR);
+--                  14. vdm1_etl.f_vdm1_stage5_data_validation_count_check();
+--                  15. vdm1_etl.f_vdm1_stage5_table_enabled_logging_vdm1_data()
+--                  16. vdm1_etl.f_vdm1_stage5_create_table_constraints();
+--                  17. vdm1_etl.f_vdm1_stage5_alter_tables_set_defaults();
+--                  18. vdm1_etl.f_vdm1_stage5_pkey_setval(p_schemaname VARCHAR, p_tablename VARCHAR, p_pkey_column_name VARCHAR);
+--                  19. vdm1_etl.f_vdm1_stage5_cleanup();
+--                  20. vdm1_etl.f_vdm1_stage5_delete_stage(); 
+--                  21. vdm1_etl.f_vdm1_stage5_create_mview_inventory_summary();
+--                  22. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_master_non();
+--                  23. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_master_spec();
+--                  24. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_summary_non();
+--                  25. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_summary_spec();
+--                  26. vdm1_etl.f_vdm1_stage5_refresh_materialized_view();
+--                  27. vdm1_etl.f_vdm1_stage5_create_index(p_index_name VARCHAR, p_schema_name VARCHAR, p_table_name VARCHAR, p_column_name VARCHAR)
 
 --     #### #### #### ####
 --        STAGE 5a END
@@ -391,24 +391,24 @@
 
 --             STORED PROCEDURES
 
---                  1. vdm1_etl.vdm1_reset();
---                  2. vdm1_etl.vdm1_reset_mview_setup();
+--                   1. vdm1_etl.vdm1_reset();
+--                   2. vdm1_etl.vdm1_reset_mview_setup();
 
 --              FUNCTIONS
 
---                  1. vdm1_etl.f_vdm1_reset_disable_triggers();
---             	    2. vdm1_etl.f_vdm1_reset_drop_triggers();
---					3. vdm1_etl.f_vdm1_reset_drop_index(p_schema_name VARCHAR, p_index_name VARCHAR, p_concurrently BOOLEAN);
---                  4. vdm1_etl.f_vdm1_reset_delete_tables_vdm1_data();
---                  5. vdm1_etl.f_vdm1_reset_create_materialized_view();
---                  6. vdm1_etl.f_vdm1_reset_drop_materialized_view();
--- 					7. vdm1_etl.f_vdm1_reset_refresh_materialized_view()
--- 					8. vdm1_etl.f_vdm1_reset_create_mview_inventory_maintenance_summary
--- 					9. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_master_non()
--- 				   10. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_master_spec()
---				   11. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_summary_non()
---				   12. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_summary_spec()
---				   13. vdm1_etl.f_vdm1_reset_enable_triggers()
+--                   1. vdm1_etl.f_vdm1_reset_disable_triggers();
+--                   2. vdm1_etl.f_vdm1_reset_drop_triggers();
+--                   3. vdm1_etl.f_vdm1_reset_drop_index(p_schema_name VARCHAR, p_index_name VARCHAR, p_concurrently BOOLEAN);
+--                   4. vdm1_etl.f_vdm1_reset_delete_tables_vdm1_data();
+--                   5. vdm1_etl.f_vdm1_reset_create_materialized_view();
+--                   6. vdm1_etl.f_vdm1_reset_drop_materialized_view();
+--                   7. vdm1_etl.f_vdm1_reset_refresh_materialized_view()
+--                   8. vdm1_etl.f_vdm1_reset_create_mview_inventory_maintenance_summary
+--                   9. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_master_non()
+--                  10. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_master_spec()
+--                  11. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_summary_non()
+--                  12. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_summary_spec()
+--                  13. vdm1_etl.f_vdm1_reset_enable_triggers()
 
 --     #### #### #### ####
 --         VDM1 RESET
@@ -438,17 +438,17 @@
 
 --             SCHEMA CREATION
 
---                  1. CREATE SCHEMA :: MARKETING
---                  2. CREATE SCHEMA :: VDM1_ETL
---                  3. DROP SCHEMA :: STAGING - CASCADE
---                  4. CREATE SCHEMA :: STAGING
---                  5. DROP SCHEMA :: VDM1_DATA - CASCADE
---					6. CREATE SCHEMA :: VDM1_DATA
+--                   1. CREATE SCHEMA :: MARKETING
+--                   2. CREATE SCHEMA :: VDM1_ETL
+--                   3. DROP SCHEMA :: STAGING - CASCADE
+--                   4. CREATE SCHEMA :: STAGING
+--                   5. DROP SCHEMA :: VDM1_DATA - CASCADE
+--                   6. CREATE SCHEMA :: VDM1_DATA
 
 --            STORED PROCEDURES
 
---                  1. vdm1_etl.vdm1_etl_main();
---                  2. vdm1_etl.vdm1_evdm1_reset_stage0();
+--                   1. vdm1_etl.vdm1_etl_main();
+--                   2. vdm1_etl.vdm1_evdm1_reset_stage0();
 
 --     #### #### #### ####
 --         STAGE 0 END
@@ -731,16 +731,16 @@ $vdm1_stage0_etl_env_setup$;
 
 --             STORED PROCEDURES
 
---                  1. vdm1_etl.vdm1_stage1();
+--                   1. vdm1_etl.vdm1_stage1();
 
 --             FUNCTIONS
 
---                  1. vdm1_etl.f_vdm1_stage1_extractimport(tablename VARCHAR(30));
---                  2. vdm1_etl.f_vdm1_stage1_data_validation_count_check(p_schema_one varchar, p_table_one varchar, p_schmea_two varchar, p_table_two varchar);
---                  3. vdm1_data.f_vdm1_calc_expected_return_date(p_film_id INT, p_rental_date DATE)
---                  4. vdm1_data.f_vdm1_transform_customer_full_name(p_first_name VARCHAR, p_last_name VARCHAR)
---                  5. vdm1_data.f_vdm1_transform_filmlength_int2vchar(p_length INTEGER)
---                  6. vdm1_data.f_vdm1_transform_customer_phone_e164(p_phone VARCHAR)
+--                   1. vdm1_etl.f_vdm1_stage1_extractimport(tablename VARCHAR(30));
+--                   2. vdm1_etl.f_vdm1_stage1_data_validation_count_check(p_schema_one varchar, p_table_one varchar, p_schmea_two varchar, p_table_two varchar);
+--                   3. vdm1_data.f_vdm1_calc_expected_return_date(p_film_id INT, p_rental_date DATE)
+--                   4. vdm1_data.f_vdm1_transform_customer_full_name(p_first_name VARCHAR, p_last_name VARCHAR)
+--                   5. vdm1_data.f_vdm1_transform_filmlength_int2vchar(p_length INTEGER)
+--                   6. vdm1_data.f_vdm1_transform_customer_phone_e164(p_phone VARCHAR)
 
 --     #### #### #### ####
 --         STAGE 1 END
@@ -905,12 +905,12 @@ $vdm1_stage1_run$;
 
 -- TABLE OF CONTENTS
 
---      1. vdm1_etl.f_vdm1_stage1_extractimport(tablename VARCHAR(30));
---      2. vdm1_etl.f_vdm1_stage1_data_validation_count_check(p_schema_one varchar, p_table_one varchar, p_schmea_two varchar, p_table_two varchar);
---      3. vdm1_data.f_vdm1_calc_expected_return_date(p_film_id INT, p_rental_date DATE)
---      4. vdm1_data.f_vdm1_transform_customer_full_name(p_first_name VARCHAR, p_last_name VARCHAR)
---      5. vdm1_data.f_vdm1_transform_filmlength_int2vchar(p_length INTEGER)
---      6. vdm1_data.f_vdm1_transform_customer_phone_e164(p_phone VARCHAR)
+--           1. vdm1_etl.f_vdm1_stage1_extractimport(tablename VARCHAR(30));
+--           2. vdm1_etl.f_vdm1_stage1_data_validation_count_check(p_schema_one varchar, p_table_one varchar, p_schmea_two varchar, p_table_two varchar);
+--           3. vdm1_data.f_vdm1_calc_expected_return_date(p_film_id INT, p_rental_date DATE)
+--           4. vdm1_data.f_vdm1_transform_customer_full_name(p_first_name VARCHAR, p_last_name VARCHAR)
+--           5. vdm1_data.f_vdm1_transform_filmlength_int2vchar(p_length INTEGER)
+--           6. vdm1_data.f_vdm1_transform_customer_phone_e164(p_phone VARCHAR)
 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ###
@@ -1287,21 +1287,21 @@ $vdm1_data_f_transform_customer_phone_e164_container$;
 
 --             STORED PROCEDURES
 
---                  1. vdm1_etl.vdm1_stage2();
+--                   1. vdm1_etl.vdm1_stage2();
 
 --             FUNCTIONS
 
---                  1. vdm1_etl.f_vdm1_stage2_customer_status_amend();
---                  2. vdm1_etl.f_vdm1_stage2_films()
---                  3. vdm1_etl.f_vdm1_stage2_film_inventory()
---                  4. vdm1_etl.f_vdm1_stage2_rentals()
---                  5. vdm1_etl.f_vdm1_stage2_locationdetails()
---                  6. vdm1_etl.f_vdm1_stage2_stores()
---                  7. vdm1_etl.f_vdm1_stage2_customers()
---                  8. vdm1_etl.f_vdm1_stage2_customer_category()
---                  9. vdm1_etl.f_vdm1_stage2_film_category()
---                 10. vdm1_etl.f_vdm1_stage2_customer_film_category();
---                 11. vdm1_etl.f_vdm1_stage2_cleanup()
+--                   1. vdm1_etl.f_vdm1_stage2_customer_status_amend();
+--                   2. vdm1_etl.f_vdm1_stage2_films()
+--                   3. vdm1_etl.f_vdm1_stage2_film_inventory()
+--                   4. vdm1_etl.f_vdm1_stage2_rentals()
+--                   5. vdm1_etl.f_vdm1_stage2_locationdetails()
+--                   6. vdm1_etl.f_vdm1_stage2_stores()
+--                   7. vdm1_etl.f_vdm1_stage2_customers()
+--                   8. vdm1_etl.f_vdm1_stage2_customer_category()
+--                   9. vdm1_etl.f_vdm1_stage2_film_category()
+--                  10. vdm1_etl.f_vdm1_stage2_customer_film_category();
+--                  11. vdm1_etl.f_vdm1_stage2_cleanup()
 
 --     #### #### #### ####
 --         STAGE 2 END
@@ -1390,17 +1390,17 @@ $vdm1_stage2run$;
 
 -- TABLE OF CONTENTS
 
---      1. vdm1_etl.f_vdm1_stage2_customer_status_amend()
---      2. vdm1_etl.f_vdm1_stage2_films()
---      3. vdm1_etl.f_vdm1_stage2_film_inventory()
---      4. vdm1_etl.f_vdm1_stage2_rentals()
---      5. vdm1_etl.f_vdm1_stage2_locationdetails()
---      6. vdm1_etl.f_vdm1_stage2_stores()
---      7. vdm1_etl.f_vdm1_stage2_customers()
---      8. vdm1_etl.f_vdm1_stage2_customer_category()
---      9. vdm1_etl.f_vdm1_stage2_film_category()
---     10. vdm1_etl.f_vdm1_stage2_customer_film_category()
---     11. vdm1_etl.f_vdm1_stage2_cleanup()
+--           1. vdm1_etl.f_vdm1_stage2_customer_status_amend()
+--           2. vdm1_etl.f_vdm1_stage2_films()
+--           3. vdm1_etl.f_vdm1_stage2_film_inventory()
+--           4. vdm1_etl.f_vdm1_stage2_rentals()
+--           5. vdm1_etl.f_vdm1_stage2_locationdetails()
+--           6. vdm1_etl.f_vdm1_stage2_stores()
+--           7. vdm1_etl.f_vdm1_stage2_customers()
+--           8. vdm1_etl.f_vdm1_stage2_customer_category()
+--           9. vdm1_etl.f_vdm1_stage2_film_category()
+--          10. vdm1_etl.f_vdm1_stage2_customer_film_category()
+--          11. vdm1_etl.f_vdm1_stage2_cleanup()
 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
@@ -1839,20 +1839,20 @@ $vdm1_stage2_cleanup$;
 
 --             STORED PROCEDURES
 
---                  1. vdm1_etl.vdm1_stage3();
+--                   1. vdm1_etl.vdm1_stage3();
 
 
 --             FUNCTIONS
 
---                  1. vdm1_etl.f_vdm1_stage3_create_table_new_releases()
---                  2. vdm1_etl.f_vdm1_stage3_create_table_failed_returns()
---                  3. vdm1_etl.f_vdm1_stage3_create_table_category_count_init()
---                  4. vdm1_etl.f_vdm1_stage3_create_table_customer_watch_history_details()
---                  5. vdm1_etl.f_vdm1_stage3_create_table_cx_reclist_master_nonspecific()
---                  6. vdm1_etl.f_vdm1_stage3_create_table_cx_reclist_master_specific()
---                  7. vdm1_etl.f_vdm1_stage3_create_table_customer_rec_custom_preferences()
---                  8. vdm1_etl.f_vdm1_stage3_table_changes()
---                  9. vdm1_etl.f_vdm1_stage3_cleanup()
+--                   1. vdm1_etl.f_vdm1_stage3_create_table_new_releases()
+--                   2. vdm1_etl.f_vdm1_stage3_create_table_failed_returns()
+--                   3. vdm1_etl.f_vdm1_stage3_create_table_category_count_init()
+--                   4. vdm1_etl.f_vdm1_stage3_create_table_customer_watch_history_details()
+--                   5. vdm1_etl.f_vdm1_stage3_create_table_cx_reclist_master_nonspecific()
+--                   6. vdm1_etl.f_vdm1_stage3_create_table_cx_reclist_master_specific()
+--                   7. vdm1_etl.f_vdm1_stage3_create_table_customer_rec_custom_preferences()
+--                   8. vdm1_etl.f_vdm1_stage3_table_changes()
+--                   9. vdm1_etl.f_vdm1_stage3_cleanup()
 
 
 --     #### #### #### ####
@@ -1877,7 +1877,7 @@ $vdm1_stage2_cleanup$;
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### 
 
 -- #### #### #### ####
--- ####     3     #### 
+-- ####     1     #### 
 -- #### #### #### #### 
 
 CREATE OR REPLACE PROCEDURE vdm1_etl.vdm1_stage3()
@@ -1928,15 +1928,15 @@ $vdm1_stage3_run$;
 
 -- TABLE OF CONTENTS
 
---      1. vdm1_etl.f_vdm1_stage3_create_table_new_releases()
---      2. vdm1_etl.f_vdm1_stage3_create_table_failed_returns()
---      3. vdm1_etl.f_vdm1_stage3_create_table_category_count_init()
---      4. vdm1_etl.f_vdm1_stage3_create_table_customer_watch_history_details()
---      5. vdm1_etl.f_vdm1_stage3_create_table_cx_reclist_master_nonspecific()
---      6. vdm1_etl.f_vdm1_stage3_create_table_cx_reclist_master_specific()
---      7. vdm1_etl.f_vdm1_stage3_create_table_customer_rec_custom_preferences()
---      8. vdm1_etl.f_vdm1_stage3_table_changes()
---      9. vdm1_etl.f_vdm1_stage3_cleanup()
+--           1. vdm1_etl.f_vdm1_stage3_create_table_new_releases()
+--           2. vdm1_etl.f_vdm1_stage3_create_table_failed_returns()
+--           3. vdm1_etl.f_vdm1_stage3_create_table_category_count_init()
+--           4. vdm1_etl.f_vdm1_stage3_create_table_customer_watch_history_details()
+--           5. vdm1_etl.f_vdm1_stage3_create_table_cx_reclist_master_nonspecific()
+--           6. vdm1_etl.f_vdm1_stage3_create_table_cx_reclist_master_specific()
+--           7. vdm1_etl.f_vdm1_stage3_create_table_customer_rec_custom_preferences()
+--           8. vdm1_etl.f_vdm1_stage3_table_changes()
+--           9. vdm1_etl.f_vdm1_stage3_cleanup()
 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
@@ -2353,47 +2353,47 @@ $vdm1_stage3cleanup$;
 
 --             STORED PROCEDURES
 
---                  1. vdm1_etl.vdm1_stage4();
---                  2. vdm1_etl.vdm1_stage4a();
---                  3. vdm1_etl.vdm1_stage4b();
---                  4. vdm1_etl.vdm1_stage4c();
---                  5. vdm1_etl.vdm1_stage4c1();
---                  6. vdm1_etl.vdm1_stage4c1a();
---                  7. vdm1_etl.vdm1_stage4c1b();
---                  8. vdm1_etl.vdm1_stage4c2();
---                  9. vdm1_etl.vdm1_stage4c2a();
---                 10. vdm1_etl.vdm1_stage4c2b();
---                 11. vdm1_etl.vdm1_stage4c3();
+--                   1. vdm1_etl.vdm1_stage4();
+--                   2. vdm1_etl.vdm1_stage4a();
+--                   3. vdm1_etl.vdm1_stage4b();
+--                   4. vdm1_etl.vdm1_stage4c();
+--                   5. vdm1_etl.vdm1_stage4c1();
+--                   6. vdm1_etl.vdm1_stage4c1a();
+--                   7. vdm1_etl.vdm1_stage4c1b();
+--                   8. vdm1_etl.vdm1_stage4c2();
+--                   9. vdm1_etl.vdm1_stage4c2a();
+--                  10. vdm1_etl.vdm1_stage4c2b();
+--                  11. vdm1_etl.vdm1_stage4c3();
 
 --             FUNCTIONS
 
---                  1. vdm1_etl.f_vdm1_stage4_transform_customer_full_name();
---                  2. vdm1_etl.f_vdm1_stage4_transform_customer_phone_number();
---                  3. vdm1_etl.f_vdm1_stage4_transform_film_length();
---                  4. vdm1_etl.f_vdm1_stage4_calc_update_category_popularity_count()
---                  5. vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_count()
---                  6. vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_row_number()
---                  7. vdm1_etl.f_vdm1_stage4_calc_update_film_category_popularity_row_number()
---                  8. vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_count()
---                  9. vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_flag_inspection()
---                 10. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_count_null_corrections()
---                 11. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_historical_count()
---                 12. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_average_count()
---                 13. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_halfaverage_count()
---                 14. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_historical()
---                 15. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_average()
---                 16. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_halfaverage()
---                 17. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_custom_set_default()
---                 18. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_set_custom_order()
---                 19. vdm1_etl.f_vdm1_stage4_calc_update_customer_watch_history_row_number()
---                 20. vdm1_etl.f_vdm1_stage4_calc_insert_failed_returns_v2()
---                 21. vdm1_etl.f_vdm1_stage4_calc_insert_new_releases_v2()
---                 22. vdm1_etl.f_vdm1_stage4_calc_delete_cx_history_from_cx_filmcat
---                 23. vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_nonspecific()
---                 24. vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_nonspecific_rn()
---                 25. vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_specific_default();
---                 26. vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_specific_rn();
---                 27. vdm1_etl.f_vdm1_stage4_cleanup()
+--                   1. vdm1_etl.f_vdm1_stage4_transform_customer_full_name();
+--                   2. vdm1_etl.f_vdm1_stage4_transform_customer_phone_number();
+--                   3. vdm1_etl.f_vdm1_stage4_transform_film_length();
+--                   4. vdm1_etl.f_vdm1_stage4_calc_update_category_popularity_count()
+--                   5. vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_count()
+--                   6. vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_row_number()
+--                   7. vdm1_etl.f_vdm1_stage4_calc_update_film_category_popularity_row_number()
+--                   8. vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_count()
+--                   9. vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_flag_inspection()
+--                  10. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_count_null_corrections()
+--                  11. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_historical_count()
+--                  12. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_average_count()
+--                  13. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_halfaverage_count()
+--                  14. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_historical()
+--                  15. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_average()
+--                  16. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_halfaverage()
+--                  17. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_custom_set_default()
+--                  18. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_set_custom_order()
+--                  19. vdm1_etl.f_vdm1_stage4_calc_update_customer_watch_history_row_number()
+--                  20. vdm1_etl.f_vdm1_stage4_calc_insert_failed_returns_v2()
+--                  21. vdm1_etl.f_vdm1_stage4_calc_insert_new_releases_v2()
+--                  22. vdm1_etl.f_vdm1_stage4_calc_delete_cx_history_from_cx_filmcat
+--                  23. vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_nonspecific()
+--                  24. vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_nonspecific_rn()
+--                  25. vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_specific_default();
+--                  26. vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_specific_rn();
+--                  27. vdm1_etl.f_vdm1_stage4_cleanup()
 
 --     #### #### #### ####
 --         STAGE 4 END
@@ -2805,33 +2805,33 @@ $vdm1_stage4c3_run$;
 
 -- TABLE OF CONTENTS
 
---      1. vdm1_etl.f_vdm1_stage4_transform_customer_full_name();
---      2. vdm1_etl.f_vdm1_stage4_transform_customer_phone_number();
---      3. vdm1_etl.f_vdm1_stage4_transform_film_length();
---      4. vdm1_etl.f_vdm1_stage4_calc_update_category_popularity_count()
---      5. vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_count()
---      6. vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_row_number()
---      7. vdm1_etl.f_vdm1_stage4_calc_update_film_category_popularity_row_number()
---      8. vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_count()
---      9. vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_flag_inspection()
---     10. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_count_null_corrections()
---     11. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_historical_count()
---     12. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_average_count()
---     13. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_halfaverage_count()
---     14. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_historical()
---     15. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_average()
---     16. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_halfaverage()
---     17. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_custom_set_default()
---     18. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_set_custom_order()
---     19. vdm1_etl.f_vdm1_stage4_calc_update_customer_watch_history_row_number()
---     20. vdm1_etl.f_vdm1_stage4_calc_insert_failed_returns_v2()
---     21. vdm1_etl.f_vdm1_stage4_calc_insert_new_releases_v2()
---     22. vdm1_etl.f_vdm1_stage4_calc_delete_cx_history_from_cx_filmcat
---     23. vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_nonspecific()
---     24. vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_nonspecific_rn()
---     25. vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_specific_default();
---     26. vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_specific_rn();
---     27. vdm1_etl.f_vdm1_stage4_cleanup()
+--           1. vdm1_etl.f_vdm1_stage4_transform_customer_full_name();
+--           2. vdm1_etl.f_vdm1_stage4_transform_customer_phone_number();
+--           3. vdm1_etl.f_vdm1_stage4_transform_film_length();
+--           4. vdm1_etl.f_vdm1_stage4_calc_update_category_popularity_count()
+--           5. vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_count()
+--           6. vdm1_etl.f_vdm1_stage4_calc_update_film_popularity_row_number()
+--           7. vdm1_etl.f_vdm1_stage4_calc_update_film_category_popularity_row_number()
+--           8. vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_count()
+--           9. vdm1_etl.f_vdm1_stage4_calc_update_film_inventory_flag_inspection()
+--          10. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_count_null_corrections()
+--          11. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_historical_count()
+--          12. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_average_count()
+--          13. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_halfaverage_count()
+--          14. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_historical()
+--          15. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_average()
+--          16. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_halfaverage()
+--          17. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_custom_set_default()
+--          18. vdm1_etl.f_vdm1_stage4_calc_update_cuscat_recorder_set_custom_order()
+--          19. vdm1_etl.f_vdm1_stage4_calc_update_customer_watch_history_row_number()
+--          20. vdm1_etl.f_vdm1_stage4_calc_insert_failed_returns_v2()
+--          21. vdm1_etl.f_vdm1_stage4_calc_insert_new_releases_v2()
+--          22. vdm1_etl.f_vdm1_stage4_calc_delete_cx_history_from_cx_filmcat
+--          23. vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_nonspecific()
+--          24. vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_nonspecific_rn()
+--          25. vdm1_etl.f_vdm1_stage4_calc_insert_cx_reclist_master_specific_default();
+--          26. vdm1_etl.f_vdm1_stage4_calc_update_cx_reclist_master_specific_rn();
+--          27. vdm1_etl.f_vdm1_stage4_cleanup()
 
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
@@ -4839,33 +4839,33 @@ $vdm1_stage5_run_reset$;
 
 -- TABLE OF CONTENTS
 
---      1. vdm1_etl.f_vdm1_stage5_createtable_cx_reclist_summary_nonspecific(); 
---      2. vdm1_etl.f_vdm1_stage5_createtable_cx_reclist_summary_specific();
---      3. vdm1_etl.f_vdm1_stage5_insert_cx_reclist_summary_nonspecific();
---      4. vdm1_etl.f_vdm1_stage5_insert_cx_reclist_summary_specific();
---      5. vdm1_etl.f_vdm1_stage5_create_materialzied_view(); 
---      6. vdm1_etl.f_vdm1_stage5_create_table_dictkey();
---      7. vdm1_etl.f_vdm1_stage5_dictkey_insert_category_data();
---      8. vdm1_etl.f_vdm1_stage5_dictkey_insert_language_data();
---      9. vdm1_etl.f_vdm1_stage5_dictkey_insert_city_data();
---     10. vdm1_etl.f_vdm1_stage5_dictkey_insert_country_data();
---     11. vdm1_etl.f_vdm1_stage5_datestamp();
---     12. vdm1_etl.f_vdm1_stage5_table_rename();
---     13. vdm1_etl.f_vdm1_stage5_load_data_from_staging();
---     14. vdm1_etl.f_vdm1_stage5_data_validation_count_check();
---     15. vdm1_etl.f_vdm1_stage5_table_enabled_logging_vdm1_data()
---     16. vdm1_etl.f_vdm1_stage5_create_table_constraints();
--- 	   17. vdm1_etl.f_vdm1_stage5_alter_tables_set_defaults();
---     18. vdm1_etl.f_vdm1_stage5_pkey_setval(p_schemaname VARCHAR, p_tablename VARCHAR, p_pkey_column_name VARCHAR);
---     19. vdm1_etl.f_vdm1_stage5_cleanup();
---     20. vdm1_etl.f_vdm1_stage5_delete_stage(); 
---     21. vdm1_etl.f_vdm1_stage5_create_mview_inventory_summary();
---	   22. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_master_non();
---	   23. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_master_spec();
---	   24. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_summary_non();
---	   25. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_summary_spec();
---     26. vdm1_etl.f_vdm1_stage5_refresh_materialized_view();
--- 	   27. vdm1_etl.f_vdm1_stage5_create_index(p_index_name VARCHAR, p_schema_name VARCHAR, p_table_name VARCHAR, p_column_name VARCHAR)
+--           1. vdm1_etl.f_vdm1_stage5_createtable_cx_reclist_summary_nonspecific(); 
+--           2. vdm1_etl.f_vdm1_stage5_createtable_cx_reclist_summary_specific();
+--           3. vdm1_etl.f_vdm1_stage5_insert_cx_reclist_summary_nonspecific();
+--           4. vdm1_etl.f_vdm1_stage5_insert_cx_reclist_summary_specific();
+--           5. vdm1_etl.f_vdm1_stage5_create_materialzied_view(); 
+--           6. vdm1_etl.f_vdm1_stage5_create_table_dictkey();
+--           7. vdm1_etl.f_vdm1_stage5_dictkey_insert_category_data();
+--           8. vdm1_etl.f_vdm1_stage5_dictkey_insert_language_data();
+--           9. vdm1_etl.f_vdm1_stage5_dictkey_insert_city_data();
+--          10. vdm1_etl.f_vdm1_stage5_dictkey_insert_country_data();
+--          11. vdm1_etl.f_vdm1_stage5_datestamp();
+--          12. vdm1_etl.f_vdm1_stage5_table_rename();
+--          13. vdm1_etl.f_vdm1_stage5_load_data_from_staging();
+--          14. vdm1_etl.f_vdm1_stage5_data_validation_count_check();
+--          15. vdm1_etl.f_vdm1_stage5_table_enabled_logging_vdm1_data()
+--          16. vdm1_etl.f_vdm1_stage5_create_table_constraints();
+--          17. vdm1_etl.f_vdm1_stage5_alter_tables_set_defaults();
+--          18. vdm1_etl.f_vdm1_stage5_pkey_setval(p_schemaname VARCHAR, p_tablename VARCHAR, p_pkey_column_name VARCHAR);
+--          19. vdm1_etl.f_vdm1_stage5_cleanup();
+--          20. vdm1_etl.f_vdm1_stage5_delete_stage(); 
+--          21. vdm1_etl.f_vdm1_stage5_create_mview_inventory_summary();
+--          22. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_master_non();
+--          23. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_master_spec();
+--          24. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_summary_non();
+--          25. vdm1_etl.f_vdm1_stage5_create_mview_customer_reclist_summary_spec();
+--          26. vdm1_etl.f_vdm1_stage5_refresh_materialized_view();
+--          27. vdm1_etl.f_vdm1_stage5_create_index(p_index_name VARCHAR, p_schema_name VARCHAR, p_table_name VARCHAR, p_column_name VARCHAR)
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
@@ -11556,24 +11556,24 @@ $vdm1_stage5_trigger_setup_refresh_mview$;
 
 --             STORED PROCEDURES
 
---                  1. vdm1_etl.vdm1_reset();
---                  2. vdm1_etl.vdm1_reset_mview_setup();
+--                   1. vdm1_etl.vdm1_reset();
+--                   2. vdm1_etl.vdm1_reset_mview_setup();
 
 --              FUNCTIONS
 
---                  1. vdm1_etl.f_vdm1_reset_disable_triggers();
---             	    2. vdm1_etl.f_vdm1_reset_drop_triggers();
---					3. vdm1_etl.f_vdm1_reset_drop_index(p_schema_name VARCHAR, p_index_name VARCHAR, p_concurrently BOOLEAN);
---                  4. vdm1_etl.f_vdm1_reset_delete_tables_vdm1_data();
---                  5. vdm1_etl.f_vdm1_reset_create_materialized_view();
---                  6. vdm1_etl.f_vdm1_reset_drop_materialized_view();
--- 					7. vdm1_etl.f_vdm1_reset_refresh_materialized_view()
--- 					8. vdm1_etl.f_vdm1_reset_create_mview_inventory_maintenance_summary
--- 					9. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_master_non()
--- 				   10. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_master_spec()
---				   11. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_summary_non()
---				   12. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_summary_spec()
---				   13. vdm1_etl.f_vdm1_reset_enable_triggers()
+--                   1. vdm1_etl.f_vdm1_reset_disable_triggers();
+--                   2. vdm1_etl.f_vdm1_reset_drop_triggers();
+--                   3. vdm1_etl.f_vdm1_reset_drop_index(p_schema_name VARCHAR, p_index_name VARCHAR, p_concurrently BOOLEAN);
+--                   4. vdm1_etl.f_vdm1_reset_delete_tables_vdm1_data();
+--                   5. vdm1_etl.f_vdm1_reset_create_materialized_view();
+--                   6. vdm1_etl.f_vdm1_reset_drop_materialized_view();
+--                   7. vdm1_etl.f_vdm1_reset_refresh_materialized_view()
+--                   8. vdm1_etl.f_vdm1_reset_create_mview_inventory_maintenance_summary
+--                   9. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_master_non()
+--                  10. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_master_spec()
+--                  11. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_summary_non()
+--                  12. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_summary_spec()
+--                  13. vdm1_etl.f_vdm1_reset_enable_triggers()
 
 --     #### #### #### ####
 --         VDM1 RESET
@@ -11914,19 +11914,19 @@ $vdm1_reset_materialized_view_recreation$;
 
 -- TABLE OF CONTENTS
 
---      1. vdm1_etl.f_vdm1_reset_disable_triggers();
---      2. vdm1_etl.f_vdm1_reset_drop_triggers();
---      3. vdm1_etl.f_vdm1_reset_drop_index(p_schema_name VARCHAR, p_index_name VARCHAR, p_concurrently BOOLEAN);
---      4. vdm1_etl.f_vdm1_reset_delete_tables_vdm1_data();
---      5. vdm1_etl.f_vdm1_reset_create_materialized_view();
---      6. vdm1_etl.f_vdm1_reset_drop_materialized_view();
---      7. vdm1_etl.f_vdm1_reset_refresh_materialized_view()
---      8. vdm1_etl.f_vdm1_reset_create_mview_inventory_maintenance_summary
---      9. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_master_non()
---     10. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_master_spec()
---     11. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_summary_non()
---     12. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_summary_spec()
---     13. vdm1_etl.f_vdm1_reset_enable_triggers()
+--           1. vdm1_etl.f_vdm1_reset_disable_triggers();
+--           2. vdm1_etl.f_vdm1_reset_drop_triggers();
+--           3. vdm1_etl.f_vdm1_reset_drop_index(p_schema_name VARCHAR, p_index_name VARCHAR, p_concurrently BOOLEAN);
+--           4. vdm1_etl.f_vdm1_reset_delete_tables_vdm1_data();
+--           5. vdm1_etl.f_vdm1_reset_create_materialized_view();
+--           6. vdm1_etl.f_vdm1_reset_drop_materialized_view();
+--           7. vdm1_etl.f_vdm1_reset_refresh_materialized_view()
+--           8. vdm1_etl.f_vdm1_reset_create_mview_inventory_maintenance_summary
+--           9. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_master_non()
+--          10. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_master_spec()
+--          11. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_summary_non()
+--          12. vdm1_etl.f_vdm1_reset_create_mview_customer_reclist_summary_spec()
+--          13. vdm1_etl.f_vdm1_reset_enable_triggers()
 
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 -- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
