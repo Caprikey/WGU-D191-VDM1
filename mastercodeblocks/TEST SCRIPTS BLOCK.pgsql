@@ -593,6 +593,54 @@ select tgrelid::regclass, tgname from pg_trigger
 
     /*
 
+
+
+INSERT INTO vdm1_data.customer_rec_custom_preferences(
+	  customer_id
+	, category_id
+	, customer_rec_custom_order
+) VALUES
+	  (599, 1, 9)
+	, (599, 2, 13)
+	, (599, 3, 6)
+	, (599, 4, 2)
+	, (599, 5, 16)
+	, (599, 6, 8)
+	, (599, 7, 3)
+	, (599, 8, 1)
+	, (599, 9, 11)
+	, (599, 10, 4)
+	, (599, 11, 15)
+	, (599, 12, 5)
+	, (599, 13, 12)
+	, (599, 14, 7)
+	, (599, 15, 10)
+	, (599, 16, 14)
+
+    */
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####  
+
+
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####  
+
+    /*
+
+DELETE FROM vdm1_data.customer_rec_custom_preferences
+	WHERE customer_id = 599
+
+    
+    */
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####  
+
+
+
+-- #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####  
+
+    /*
+
 SELECT
 	COUNT (DISTINCT customer_id)=COUNT(*) AS equal_ids
 FROM
