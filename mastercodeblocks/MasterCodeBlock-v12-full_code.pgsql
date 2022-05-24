@@ -7699,7 +7699,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_drcrcp
 							recommendation_order_customer_preference = null
 
 						WHERE
-							customer_id = NEW.customer_id;
+							customer_id = OLD.customer_id;
 
 					END;
 
@@ -7717,7 +7717,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_drcrcp
 								vdm1_data.customer_category
 
 							WHERE
-								customer_id = NEW.customer_id
+								customer_id = OLD.customer_id
 
 						)
 
@@ -7746,7 +7746,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_drcrcp
 							cat_rec_order = null
 
 						WHERE
-							customer_id = NEW.customer_id;
+							customer_id = OLD.customer_id;
 
 					END;
 		
@@ -7764,7 +7764,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_functions_setup_drcrcp
 								vdm1_data.customer_category
 
 							WHERE 
-								customer_id = NEW.customer_id
+								customer_id = OLD.customer_id
 						)
 
 						UPDATE vdm1_data.customer_reclist_master_specific AS a 
@@ -10903,7 +10903,7 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_dcrcp()
 				'CREATE OR REPLACE TRIGGER delete_reset_customer_rec_custom_preferences
 					AFTER DELETE
 					ON vdm1_data.customer_rec_custom_preferences
-					FOR EACH STATEMENT
+					FOR EACH ROW
 					EXECUTE FUNCTION vdm1_data.t_f_delete_reset_customer_rec_custom_preferences()';
 		ELSE
 			EXECUTE
@@ -10911,10 +10911,10 @@ CREATE OR REPLACE FUNCTION vdm1_etl.f_vdm1_stage5_trigger_setup_dcrcp()
 					ON vdm1_data.customer_rec_custom_preferences;
 				
 				 CREATE TRIGGER delete_reset_customer_rec_custom_preferences
-					AFTER dELETE
+					AFTER DELETE
 					ON vdm1_data.customer_rec_custom_preferences
-					FOR EACH STATEMENT
-					EXECUTE FUNCTION vdm1_data.t_f_insert_update_customer_rec_custom_preferences()';
+					FOR EACH ROW
+					EXECUTE FUNCTION vdm1_data.t_f_delete_reset_customer_rec_custom_preferences()';
 
 		END IF;
 
